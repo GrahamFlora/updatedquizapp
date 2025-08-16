@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously, signOut, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, setDoc, onSnapshot, collection, query, writeBatch, getDocs, deleteDoc } from 'firebase/firestore';
+// MODIFIED: Import the services from your new firebase.js file
+import { auth, db, appId } from './firebase'; 
+import { signInAnonymously, signOut, onAuthStateChanged } from 'firebase/auth';
+import { doc, setDoc, onSnapshot, collection, query, writeBatch, getDocs, deleteDoc } from 'firebase/firestore';
+
 
 // =================================================================================
 // === DATA & CONFIGURATION ========================================================
@@ -535,20 +537,16 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
 // === MAIN APP COMPONENT ==========================================================
 // =================================================================================
 const App = () => {
-    const appId = process.env.REACT_APP_APP_ID || 'default-app-id';
-
+    // MODIFIED: We no longer need to define appId here, it's imported from firebase.js
+    
     // Firebase state
-    const [db, setDb] = useState(null);
-    const [auth, setAuth] = useState(null);
+    // MODIFIED: We no longer need to store db and auth in state, we import them directly.
     const [user, setUser] = useState(null);
 
     // App state
     const [appState, setAppState] = useState('loading'); // loading, dashboard, quiz, review
     const [allExams, setAllExams] = useState([]);
     const [theme, setTheme] = useState('light');
-    
-    // MODIFIED: Added a new state to hold debugging information.
-    const [debugInfo, setDebugInfo] = useState(null);
     
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
@@ -651,7 +649,7 @@ const App = () => {
                 console.error("Failed to save score to Firestore:", error);
             }
         }
-    }, [activeExam, userAnswers, currentQuizQuestions, db, user, appId]);
+    }, [activeExam, userAnswers, currentQuizQuestions, user]);
 
     const handleAnswerOptionClick = (answerIndex) => {
         const question = currentQuizQuestions[currentQuestionIndex];
@@ -744,43 +742,14 @@ const App = () => {
 
     // --- HOOKS ---
     useEffect(() => {
-        // MODIFIED: This logic now includes robust checks and sets a debug state on failure.
-        const rawConfig = process.env.REACT_APP_FIREBASE_CONFIG;
-        
-        if (!rawConfig) {
-            setDebugInfo("The REACT_APP_FIREBASE_CONFIG variable was not found.");
-            setAppState('debug_error');
-            return;
-        }
-
-        let firebaseConfig = null;
-        try {
-            firebaseConfig = JSON.parse(rawConfig);
-        } catch (error) {
-            setDebugInfo(`Failed to parse the Firebase config. Check for typos or formatting errors. Raw value received: ${rawConfig}`);
-            setAppState('debug_error');
-            return;
-        }
-        
-        if (!firebaseConfig || !firebaseConfig.apiKey) {
-            setDebugInfo(`The Firebase config is missing required fields like 'apiKey'. Raw value received: ${rawConfig}`);
-            setAppState('debug_error');
-            return;
-        }
-
-        const app = initializeApp(firebaseConfig);
-        const authInstance = getAuth(app);
-        const dbInstance = getFirestore(app);
-        setAuth(authInstance);
-        setDb(dbInstance);
-
-        const unsubscribe = onAuthStateChanged(authInstance, async (user) => {
+        // MODIFIED: All initialization logic is gone. We just set up the auth listener.
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 setUser(user);
                 setAppState('dashboard');
             } else {
                  try {
-                    await signInAnonymously(authInstance);
+                    await signInAnonymously(auth);
                  } catch (error) {
                      console.error("Anonymous Authentication failed:", error);
                      setAppState('error');
@@ -792,7 +761,7 @@ const App = () => {
     }, []);
     
     useEffect(() => {
-        if (!db || !user) return;
+        if (!user) return; // Don't run if user isn't logged in yet
         
         const examsRef = collection(db, `/artifacts/${appId}/public/data/exams`);
 
@@ -842,7 +811,7 @@ const App = () => {
         });
 
         return () => unsubscribeHistory();
-    }, [db, user, appId]);
+    }, [user]);
     
     useEffect(() => {
         if (!isQuizActive) return;
@@ -870,6 +839,21 @@ const App = () => {
 
     // --- RENDER LOGIC ---
     const renderContent = () => {
+        // MODIFIED: Added a check for a config error.
+        if (appState === 'config_error') {
+             return (
+                    <div className="text-center p-10 bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col justify-center items-center">
+                        <h1 className="text-2xl font-bold text-red-600">Configuration Error</h1>
+                        <p className="mt-4 text-gray-700 dark:text-gray-300 max-w-md">
+                            Could not connect to the database. Please ensure all `REACT_APP_FIREBASE_*` environment variables are set correctly in your Netlify deployment settings.
+                        </p>
+                    </div>
+                );
+        }
+        if (appState === 'loading' || !user) {
+             return <div className="text-center p-10 bg-gray-50 dark:bg-gray-900 min-h-screen">Loading...</div>;
+        }
+
         const filteredExams = allExams.filter(exam => {
             const categoryMatch = selectedCategory === 'All' || exam.category === selectedCategory;
             const searchTermMatch = searchTerm === '' || 
@@ -879,21 +863,6 @@ const App = () => {
         });
 
         switch (appState) {
-            case 'loading':
-                return <div className="text-center p-10 bg-gray-50 dark:bg-gray-900 min-h-screen">Loading...</div>;
-            // MODIFIED: Added a new case to display the debug information.
-            case 'debug_error':
-                return (
-                    <div className="text-left p-10 bg-gray-50 dark:bg-gray-900 min-h-screen">
-                        <h1 className="text-2xl font-bold text-red-600">Configuration Error</h1>
-                        <p className="mt-4 text-gray-700 dark:text-gray-300">
-                            Could not connect to the database. Here is the debug information:
-                        </p>
-                        <pre className="mt-4 p-4 bg-gray-200 dark:bg-gray-800 rounded text-gray-800 dark:text-gray-200 whitespace-pre-wrap break-all">
-                            {debugInfo}
-                        </pre>
-                    </div>
-                );
             case 'dashboard':
                 return (
                     <div className="relative bg-gray-50 dark:bg-gray-900 flex flex-col min-h-screen">
