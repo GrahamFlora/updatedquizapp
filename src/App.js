@@ -535,6 +535,10 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
 // === MAIN APP COMPONENT ==========================================================
 // =================================================================================
 const App = () => {
+    // MODIFIED: appId is now defined once at the top level of the component.
+    // This makes it available everywhere and prioritizes Netlify's environment variable.
+    const appId = process.env.REACT_APP_APP_ID || (typeof __app_id !== 'undefined' ? __app_id : 'default-app-id');
+
     // Firebase state
     const [db, setDb] = useState(null);
     const [auth, setAuth] = useState(null);
@@ -570,7 +574,6 @@ const App = () => {
     const [isStartConfirmVisible, setIsStartConfirmVisible] = useState(false);
     const [examToStart, setExamToStart] = useState(null);
     
-    // ADDED: State for single entry deletion modal
     const [entryToDelete, setEntryToDelete] = useState(null);
 
     // --- HANDLERS ---
@@ -641,14 +644,13 @@ const App = () => {
             try {
                 const dataToSave = { ...scoreEntry, userAnswers: JSON.stringify(scoreEntry.userAnswers) };
                 delete dataToSave.exam;
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                 const historyDocRef = doc(collection(db, `/artifacts/${appId}/users/${user.uid}/history`));
                 await setDoc(historyDocRef, dataToSave);
             } catch (error) {
                 console.error("Failed to save score to Firestore:", error);
             }
         }
-    }, [activeExam, userAnswers, currentQuizQuestions, db, user]);
+    }, [activeExam, userAnswers, currentQuizQuestions, db, user, appId]);
 
     const handleAnswerOptionClick = (answerIndex) => {
         const question = currentQuizQuestions[currentQuestionIndex];
@@ -694,7 +696,6 @@ const App = () => {
 
     const clearHistory = async () => {
         if (!db || !user || scoreHistory.length === 0) return;
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const historyCollectionRef = collection(db, `/artifacts/${appId}/users/${user.uid}/history`);
         try {
             const batch = writeBatch(db);
@@ -708,22 +709,19 @@ const App = () => {
         }
     };
 
-    // ADDED: Handler to prompt for single entry deletion
     const handlePromptDelete = (entryId) => {
         setEntryToDelete(entryId);
     };
 
-    // ADDED: Handler to confirm and delete a single entry
     const handleConfirmDelete = async () => {
         if (!db || !user || !entryToDelete) return;
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const docRef = doc(db, `/artifacts/${appId}/users/${user.uid}/history`, entryToDelete);
         try {
             await deleteDoc(docRef);
         } catch (error) {
             console.error("Error deleting history entry:", error);
         }
-        setEntryToDelete(null); // Close modal after deletion
+        setEntryToDelete(null);
     };
     
     const handleGoToDashboard = () => {
@@ -745,9 +743,11 @@ const App = () => {
 
     // --- HOOKS ---
     useEffect(() => {
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        // MODIFIED: This now uses the environment variable from Netlify.
+        const firebaseConfig = process.env.REACT_APP_FIREBASE_CONFIG ? JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG) : null;
+        
         if (!firebaseConfig) {
-            console.error("Firebase config not found.");
+            console.error("Firebase config not found. Make sure you have set REACT_APP_FIREBASE_CONFIG in your environment variables.");
             setAppState('error');
             return;
         }
@@ -781,7 +781,7 @@ const App = () => {
     
     useEffect(() => {
         if (!db || !user) return;
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        
         const examsRef = collection(db, `/artifacts/${appId}/public/data/exams`);
 
         const seedAndFetchExams = async () => {
@@ -830,7 +830,7 @@ const App = () => {
         });
 
         return () => unsubscribeHistory();
-    }, [db, user]);
+    }, [db, user, appId]);
     
     useEffect(() => {
         if (!isQuizActive) return;
@@ -987,7 +987,6 @@ const App = () => {
                         <p>Are you sure you want to start the <strong>{examToStart.title}</strong> exam?</p>
                     )}
                 </Modal>
-                {/* ADDED: Modal for confirming single entry deletion */}
                 <Modal
                     isOpen={!!entryToDelete}
                     onClose={() => setEntryToDelete(null)}
