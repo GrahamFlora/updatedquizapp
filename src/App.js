@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously, signInWithCustomToken, signOut, onAuthStateChanged } from 'firebase/auth';
+// MODIFIED: Removed unused 'signInWithCustomToken' import to fix build error.
+import { getAuth, signInAnonymously, signOut, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, setDoc, onSnapshot, collection, query, writeBatch, getDocs, deleteDoc } from 'firebase/firestore';
 
 // =================================================================================
@@ -535,7 +536,6 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
 // === MAIN APP COMPONENT ==========================================================
 // =================================================================================
 const App = () => {
-    // MODIFIED: Simplified appId to only use the environment variable, removing the undefined '__app_id'.
     const appId = process.env.REACT_APP_APP_ID || 'default-app-id';
 
     // Firebase state
@@ -762,7 +762,6 @@ const App = () => {
                 setAppState('dashboard');
             } else {
                  try {
-                    // MODIFIED: Simplified to always sign in anonymously, removing the undefined '__initial_auth_token'.
                     await signInAnonymously(authInstance);
                  } catch (error) {
                      console.error("Anonymous Authentication failed:", error);
