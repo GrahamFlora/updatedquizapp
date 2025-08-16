@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
-// MODIFIED: Removed unused 'signInWithCustomToken' import to fix build error.
 import { getAuth, signInAnonymously, signOut, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, setDoc, onSnapshot, collection, query, writeBatch, getDocs, deleteDoc } from 'firebase/firestore';
 
@@ -742,11 +741,21 @@ const App = () => {
 
     // --- HOOKS ---
     useEffect(() => {
-        const firebaseConfig = process.env.REACT_APP_FIREBASE_CONFIG ? JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG) : null;
+        // MODIFIED: Added a try-catch block for robust parsing of Firebase config.
+        let firebaseConfig = null;
+        try {
+            firebaseConfig = process.env.REACT_APP_FIREBASE_CONFIG 
+                ? JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG) 
+                : null;
+        } catch (error) {
+            console.error("Failed to parse Firebase config:", error);
+            setAppState('config_error'); 
+            return;
+        }
         
         if (!firebaseConfig) {
             console.error("Firebase config not found. Make sure you have set REACT_APP_FIREBASE_CONFIG in your environment variables.");
-            setAppState('error');
+            setAppState('config_error');
             return;
         }
 
@@ -863,6 +872,16 @@ const App = () => {
         switch (appState) {
             case 'loading':
                 return <div className="text-center p-10 bg-gray-50 dark:bg-gray-900 min-h-screen">Loading...</div>;
+            // MODIFIED: Added a new case to handle configuration errors gracefully.
+            case 'config_error':
+                return (
+                    <div className="text-center p-10 bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col justify-center items-center">
+                        <h1 className="text-2xl font-bold text-red-600">Configuration Error</h1>
+                        <p className="mt-4 text-gray-700 dark:text-gray-300 max-w-md">
+                            Could not connect to the database. Please double-check that the `REACT_APP_FIREBASE_CONFIG` environment variable is set correctly in your Netlify deployment settings.
+                        </p>
+                    </div>
+                );
             case 'dashboard':
                 return (
                     <div className="relative bg-gray-50 dark:bg-gray-900 flex flex-col min-h-screen">
