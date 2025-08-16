@@ -5,12 +5,12 @@ import { getFirestore } from 'firebase/firestore';
 // This configuration now builds itself from the individual environment variables.
 // This is a more robust method than parsing a single JSON string.
 const firebaseConfig = {
-  apiKey: "AIzaSyAcuxbsdNsbKz6ztpzlLZOHIocvvhL9_UA",
-  authDomain: "my-quiz-app-15c60.firebaseapp.com",
-  projectId: "my-quiz-app-15c60",
-  storageBucket: "my-quiz-app-15c60.firebasestorage.app",
-  messagingSenderId: "418915708281",
-  appId: "1:418915708281:web:81958e2b369b949d3ad3a8"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID 
 };
 
 // Initialize Firebase
