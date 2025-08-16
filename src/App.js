@@ -535,9 +535,8 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
 // === MAIN APP COMPONENT ==========================================================
 // =================================================================================
 const App = () => {
-    // MODIFIED: appId is now defined once at the top level of the component.
-    // This makes it available everywhere and prioritizes Netlify's environment variable.
-    const appId = process.env.REACT_APP_APP_ID || (typeof __app_id !== 'undefined' ? __app_id : 'default-app-id');
+    // MODIFIED: Simplified appId to only use the environment variable, removing the undefined '__app_id'.
+    const appId = process.env.REACT_APP_APP_ID || 'default-app-id';
 
     // Firebase state
     const [db, setDb] = useState(null);
@@ -743,7 +742,6 @@ const App = () => {
 
     // --- HOOKS ---
     useEffect(() => {
-        // MODIFIED: This now uses the environment variable from Netlify.
         const firebaseConfig = process.env.REACT_APP_FIREBASE_CONFIG ? JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG) : null;
         
         if (!firebaseConfig) {
@@ -764,11 +762,8 @@ const App = () => {
                 setAppState('dashboard');
             } else {
                  try {
-                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                          await signInWithCustomToken(authInstance, __initial_auth_token);
-                     } else {
-                          await signInAnonymously(authInstance);
-                     }
+                    // MODIFIED: Simplified to always sign in anonymously, removing the undefined '__initial_auth_token'.
+                    await signInAnonymously(authInstance);
                  } catch (error) {
                      console.error("Anonymous Authentication failed:", error);
                      setAppState('error');
