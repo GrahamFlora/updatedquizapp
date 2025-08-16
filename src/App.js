@@ -547,6 +547,9 @@ const App = () => {
     const [allExams, setAllExams] = useState([]);
     const [theme, setTheme] = useState('light');
     
+    // MODIFIED: Added a new state to hold debugging information.
+    const [debugInfo, setDebugInfo] = useState(null);
+    
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
     
@@ -741,21 +744,27 @@ const App = () => {
 
     // --- HOOKS ---
     useEffect(() => {
-        // MODIFIED: Added a try-catch block for robust parsing of Firebase config.
+        // MODIFIED: This logic now includes robust checks and sets a debug state on failure.
+        const rawConfig = process.env.REACT_APP_FIREBASE_CONFIG;
+        
+        if (!rawConfig) {
+            setDebugInfo("The REACT_APP_FIREBASE_CONFIG variable was not found.");
+            setAppState('debug_error');
+            return;
+        }
+
         let firebaseConfig = null;
         try {
-            firebaseConfig = process.env.REACT_APP_FIREBASE_CONFIG 
-                ? JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG) 
-                : null;
+            firebaseConfig = JSON.parse(rawConfig);
         } catch (error) {
-            console.error("Failed to parse Firebase config:", error);
-            setAppState('config_error'); 
+            setDebugInfo(`Failed to parse the Firebase config. Check for typos or formatting errors. Raw value received: ${rawConfig}`);
+            setAppState('debug_error');
             return;
         }
         
-        if (!firebaseConfig) {
-            console.error("Firebase config not found. Make sure you have set REACT_APP_FIREBASE_CONFIG in your environment variables.");
-            setAppState('config_error');
+        if (!firebaseConfig || !firebaseConfig.apiKey) {
+            setDebugInfo(`The Firebase config is missing required fields like 'apiKey'. Raw value received: ${rawConfig}`);
+            setAppState('debug_error');
             return;
         }
 
@@ -872,14 +881,17 @@ const App = () => {
         switch (appState) {
             case 'loading':
                 return <div className="text-center p-10 bg-gray-50 dark:bg-gray-900 min-h-screen">Loading...</div>;
-            // MODIFIED: Added a new case to handle configuration errors gracefully.
-            case 'config_error':
+            // MODIFIED: Added a new case to display the debug information.
+            case 'debug_error':
                 return (
-                    <div className="text-center p-10 bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col justify-center items-center">
+                    <div className="text-left p-10 bg-gray-50 dark:bg-gray-900 min-h-screen">
                         <h1 className="text-2xl font-bold text-red-600">Configuration Error</h1>
-                        <p className="mt-4 text-gray-700 dark:text-gray-300 max-w-md">
-                            Could not connect to the database. Please double-check that the `REACT_APP_FIREBASE_CONFIG` environment variable is set correctly in your Netlify deployment settings.
+                        <p className="mt-4 text-gray-700 dark:text-gray-300">
+                            Could not connect to the database. Here is the debug information:
                         </p>
+                        <pre className="mt-4 p-4 bg-gray-200 dark:bg-gray-800 rounded text-gray-800 dark:text-gray-200 whitespace-pre-wrap break-all">
+                            {debugInfo}
+                        </pre>
                     </div>
                 );
             case 'dashboard':
