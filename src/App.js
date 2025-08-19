@@ -330,11 +330,9 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion }) => {
 };
 
 
-// MODIFIED: The ScoreScreen has been redesigned for a more professional and minimalist look.
 const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, onBackToHistory, isFromHistory }) => {
     const { score, rawScore, totalQuestions, questions, userAnswers, exam } = scoreData;
     const { message, color } = getScoreMessage(score, exam.passingScore);
-    const percentage = totalQuestions > 0 ? (rawScore / totalQuestions) * 100 : 0;
     
     const [reviewFilter, setReviewFilter] = useState('all');
     const [explanationVisibility, setExplanationVisibility] = useState({});
