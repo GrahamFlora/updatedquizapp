@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import html2canvas from 'html2canvas';
-// NOTE: jsPDF and html2canvas are now loaded dynamically via a script.
-// You still need to run 'npm install jspdf html2canvas' for local development.
+// FIXED: Removed CDN imports to prevent dynamic require errors.
+// The libraries html2canvas and jspdf are expected to be globally available on the window object.
+
 
 // =================================================================================
 // === DATA & CONFIGURATION ========================================================
@@ -345,37 +345,53 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
 
     const handleDownloadPdf = () => {
         const reviewContent = document.getElementById('review-content');
-        if (!reviewContent || !window.html2canvas || !window.jspdf) {
-            alert('PDF generation library is not loaded yet. Please try again in a moment.');
+        if (!reviewContent) {
+            console.error("Review content element not found.");
+            return;
+        }
+        // Check if libraries are loaded on the window object
+        if (typeof window.html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+            console.error("PDF generation libraries (jsPDF, html2canvas) are not loaded.");
+            // You could show a user-friendly error message here
             return;
         }
 
         setIsDownloading(true);
-        const { jsPDF } = window.jspdf;
+        const { jsPDF } = window.jspdf; // Destructure the constructor
+        const html2canvas = window.html2canvas; // Access from window
 
-        html2canvas(reviewContent, { scale: 2 }).then(canvas => {
+        html2canvas(reviewContent, { 
+            scale: 2,
+            useCORS: true,
+            logging: false
+        }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-            const canvasWidth = canvas.width;
-            const canvasHeight = canvas.height;
-            const ratio = canvasWidth / canvasHeight;
-            const height = pdfWidth / ratio;
-            
-            let position = 0;
-            let remainingHeight = canvasHeight;
+            const pdfWidth = 210; 
+            const pdfHeight = 297; 
+            const imgHeight = canvas.height * pdfWidth / canvas.width;
+            let heightLeft = imgHeight;
 
-            while (remainingHeight > 0) {
-                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, height);
-                remainingHeight -= canvasHeight;
-                if (remainingHeight > 0) {
-                    pdf.addPage();
-                    position = -pdfHeight; 
-                }
+            const pdf = new jsPDF('p', 'mm', 'a4'); // Use the constructor
+            let position = 0;
+
+            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+            heightLeft -= pdfHeight;
+
+            while (heightLeft >= 0) {
+              position = heightLeft - imgHeight;
+              pdf.addPage();
+              pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+              heightLeft -= pdfHeight;
             }
 
-            pdf.save(`Quiz-Review-${exam.title.replace(/\s/g, '-')}.pdf`);
+            const date = new Date().toLocaleDateString('en-CA');
+            const safeTitle = exam.title.replace(/[^a-zA-Z0-9]/g, '_');
+            const fileName = `${safeTitle}_Review_${date}.pdf`;
+            
+            pdf.save(fileName);
+            setIsDownloading(false);
+        }).catch(error => {
+            console.error("Error generating PDF:", error);
             setIsDownloading(false);
         });
     };
