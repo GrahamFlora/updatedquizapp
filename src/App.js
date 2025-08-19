@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-// FIXED: Removed CDN imports to prevent dynamic require errors.
-// The libraries html2canvas and jspdf are expected to be globally available on the window object.
+// FIXED: Removed imports. Scripts will be loaded dynamically in the App component.
 
 
 // =================================================================================
@@ -333,7 +332,7 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion }) => {
 };
 
 
-const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, onBackToHistory, isFromHistory }) => {
+const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, onBackToHistory, isFromHistory, scriptsLoaded }) => {
     const { score, rawScore, totalQuestions, questions, userAnswers, exam } = scoreData;
     const { message, color } = getScoreMessage(score, exam.passingScore);
     
@@ -349,16 +348,14 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
             console.error("Review content element not found.");
             return;
         }
-        // Check if libraries are loaded on the window object
-        if (typeof window.html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+        if (!scriptsLoaded || typeof window.html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
             console.error("PDF generation libraries (jsPDF, html2canvas) are not loaded.");
-            // You could show a user-friendly error message here
             return;
         }
 
         setIsDownloading(true);
-        const { jsPDF } = window.jspdf; // Destructure the constructor
-        const html2canvas = window.html2canvas; // Access from window
+        const { jsPDF } = window.jspdf;
+        const html2canvas = window.html2canvas;
 
         html2canvas(reviewContent, { 
             scale: 2,
@@ -371,7 +368,7 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
             const imgHeight = canvas.height * pdfWidth / canvas.width;
             let heightLeft = imgHeight;
 
-            const pdf = new jsPDF('p', 'mm', 'a4'); // Use the constructor
+            const pdf = new jsPDF('p', 'mm', 'a4');
             let position = 0;
 
             pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
@@ -462,7 +459,7 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
                                 <button onClick={() => handleFilterClick('all')} className={`px-4 py-2 rounded-lg font-semibold ${reviewFilter === 'all' && isReviewVisible ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`}>All</button>
                                 <button onClick={() => handleFilterClick('incorrect')} className={`px-4 py-2 rounded-lg font-semibold ${reviewFilter === 'incorrect' && isReviewVisible ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`}>Incorrect</button>
                                 {isReviewVisible && (
-                                    <button onClick={handleDownloadPdf} disabled={isDownloading} className="px-4 py-2 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 disabled:bg-green-300">
+                                    <button onClick={handleDownloadPdf} disabled={isDownloading || !scriptsLoaded} className="px-4 py-2 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 disabled:bg-green-300 disabled:cursor-not-allowed">
                                         {isDownloading ? 'Downloading...' : 'Download PDF'}
                                     </button>
                                 )}
@@ -745,6 +742,7 @@ const App = () => {
     const [isStartConfirmVisible, setIsStartConfirmVisible] = useState(false);
     const [examToStart, setExamToStart] = useState(null);
     const [entryToDelete, setEntryToDelete] = useState(null);
+    const [scriptsLoaded, setScriptsLoaded] = useState(false);
 
     // --- HANDLERS ---
     const handleSelectExam = (exam) => {
@@ -897,6 +895,26 @@ const App = () => {
 
     // --- HOOKS ---
     useEffect(() => {
+        // Dynamically load scripts for PDF generation
+        const loadScript = (src) => {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+        };
+
+        Promise.all([
+            loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"),
+            loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js")
+        ]).then(() => {
+            setScriptsLoaded(true);
+        }).catch(error => {
+            console.error("Failed to load PDF generation scripts:", error);
+        });
+        
         // Load exams from local library
         setAllExams(examLibrary);
         
@@ -1011,6 +1029,7 @@ const App = () => {
                                         onShowHistory={() => setIsHistoryVisible(true)}
                                         isFromHistory={!!reviewingHistoryEntry}
                                         onBackToHistory={() => { setReviewingHistoryEntry(null); setIsHistoryVisible(true); }}
+                                        scriptsLoaded={scriptsLoaded}
                                     />
                                 ) : <div>Loading review...</div>
                            )}
