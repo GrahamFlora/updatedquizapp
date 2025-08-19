@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 // NOTE: jsPDF and html2canvas are now loaded dynamically via a script.
 // You still need to run 'npm install jspdf html2canvas' for local development.
 
