@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
+// NOTE: jsPDF and html2canvas will be loaded from a CDN via a script tag.
+// You still need to run 'npm install jspdf html2canvas' for local development.
+
 // =================================================================================
 // === DATA & CONFIGURATION ========================================================
 // =================================================================================
@@ -338,6 +341,44 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
     const [explanationVisibility, setExplanationVisibility] = useState({});
     const [isReviewVisible, setIsReviewVisible] = useState(false);
     const [filteredQuestions, setFilteredQuestions] = useState([]);
+    const [isDownloading, setIsDownloading] = useState(false);
+
+    const handleDownloadPdf = () => {
+        const reviewContent = document.getElementById('review-content');
+        if (!reviewContent || !window.html2canvas || !window.jspdf) {
+            alert('PDF generation library is not loaded yet. Please try again in a moment.');
+            return;
+        }
+
+        setIsDownloading(true);
+        const { jsPDF } = window.jspdf;
+
+        html2canvas(reviewContent, { scale: 2 }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+            const ratio = canvasWidth / canvasHeight;
+            const height = pdfWidth / ratio;
+            
+            let position = 0;
+            let remainingHeight = canvasHeight;
+
+            while (remainingHeight > 0) {
+                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, height);
+                remainingHeight -= canvasHeight;
+                if (remainingHeight > 0) {
+                    pdf.addPage();
+                    position = -pdfHeight; 
+                }
+            }
+
+            pdf.save(`Quiz-Review-${exam.title.replace(/\s/g, '-')}.pdf`);
+            setIsDownloading(false);
+        });
+    };
 
     useEffect(() => {
         let questionsToDisplay = [...questions];
@@ -401,16 +442,21 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
                     <div className="p-4 rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                         <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
                             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Review Your Answers</h3>
-                            <div className="flex gap-2">
+                            <div className="flex items-center gap-2">
                                 <button onClick={() => handleFilterClick('all')} className={`px-4 py-2 rounded-lg font-semibold ${reviewFilter === 'all' && isReviewVisible ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`}>All</button>
                                 <button onClick={() => handleFilterClick('incorrect')} className={`px-4 py-2 rounded-lg font-semibold ${reviewFilter === 'incorrect' && isReviewVisible ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`}>Incorrect</button>
+                                {isReviewVisible && (
+                                    <button onClick={handleDownloadPdf} disabled={isDownloading} className="px-4 py-2 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 disabled:bg-green-300">
+                                        {isDownloading ? 'Downloading...' : 'Download PDF'}
+                                    </button>
+                                )}
                             </div>
                         </div>
                         {isReviewVisible && <ReviewQuestionGrid questions={questions} userAnswers={userAnswers} onGoToQuestion={handleGoToQuestion} />}
                     </div>
 
                     {isReviewVisible && (
-                        <div className="mt-6">
+                        <div id="review-content" className="mt-6">
                             {filteredQuestions.map((question, index) => {
                                 const originalQuestionIndex = questions.findIndex(q => q.id === question.id);
                                 return (
