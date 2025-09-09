@@ -67,7 +67,7 @@ const examLibrary = [
         durationSeconds: 120 * 60, // 2 hours
         passingScore: 700, // Adjusted to reflect 70-80% range
         icon: <GoogleCloudIcon />,
-[
+        questions: [
     {
         "id": "gcp-q1",
         "questionText": "Your company has decided to make a major revision of their API in order to create better experiences for their developers. They need to keep the old version of the API available and deployable, while allowing new customers and testers to try out the new API. They want to keep the same SSL and DNS records in place to serve both APIs.What should they do?",
