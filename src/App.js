@@ -64,8 +64,8 @@ const examLibrary = [
         title: 'Professional Cloud Architect',
         description: 'Prepare for the Google Cloud Professional Cloud Architect certification.',
         questionsPerQuiz: 50,
-        durationSeconds: 120 * 60,
-        passingScore: 800,
+        durationSeconds: 120 * 60, // 2 hours
+        passingScore: 700, // Adjusted to reflect 70-80% range
         icon: <GoogleCloudIcon />,
         questions: [
              { id: 'gcp-q1', questionText: 'Which Google Cloud service is best for running a managed relational database?', answerOptions: [{ answerText: 'Cloud Spanner', isCorrect: false }, { answerText: 'Cloud SQL', isCorrect: true }], explanation: 'Cloud SQL is Google Cloud\'s fully managed relational database service for MySQL, PostgreSQL, and SQL Server.' },
