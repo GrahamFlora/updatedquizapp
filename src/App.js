@@ -6927,7 +6927,7 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion }) => {
     };
 
     return (
-        <div className="flex overflow-x-auto space-x-2 pb-4">
+        <div className="flex flex-wrap justify-center gap-2 pb-4">
             {questions.map((q, i) => {
                 const userAnswer = userAnswers[i];
                 const answeredCorrectly = isCorrect(q, userAnswer);
@@ -7151,7 +7151,7 @@ const QuestionGrid = ({ totalQuestions, userAnswers, flaggedQuestions, currentQu
     return (
         <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-4">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Question Navigator</h3>
-            <div className="flex overflow-x-auto space-x-2 pb-4">
+            <div className="flex flex-wrap justify-center gap-2 pb-4">
                 {Array.from({ length: totalQuestions }, (_, i) => {
                     const isAnswered = userAnswers[i] && userAnswers[i].length > 0;
                     const isCurrent = i === currentQuestionIndex;
