@@ -101,7 +101,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Load data into Google BigQuery",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Insert data into Google Cloud SQL",
@@ -124,7 +124,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Port the application code to run on Google App Engine",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Integrate Cloud Dataflow into the application to capture real-time metrics",
@@ -132,7 +132,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Instrument the application with a monitoring tool like Stackdriver Debugger",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Select an automation framework to reliably provision the cloud infrastructure",
@@ -140,7 +140,7 @@ const examLibrary = [
             },
             {
                 "answerText": "E. Deploy a continuous integration tool with automated testing in a staging environment",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "F. Migrate from MySQL to a managed NoSQL database like Google Cloud Datastore or Bigtable",
@@ -155,7 +155,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. The session variable is local to just a single instance",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. The session variable is being overwritten in Cloud Datastore",
@@ -178,7 +178,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Direct them to download and install the Google StackDriver logging agent",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Send them a list of online resources about logging best practices",
@@ -201,7 +201,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Introduce a green-blue deployment model",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Replace the QA environment with canary releases",
@@ -209,7 +209,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Fragment the monolithic platform into microservices",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Reduce the platform's dependency on relational database systems",
@@ -228,7 +228,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use the - -no-auto-delete flag on all persistent disks and stop the VM",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use the - -auto-delete flag on all persistent disks and terminate the VM",
@@ -240,7 +240,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Use Google BigQuery billing export and labels to associate cost to groups",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "E. Store all state into local SSD, snapshot the persistent disks, and terminate the VM",
@@ -263,7 +263,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. NoSQL",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Relational",
@@ -290,7 +290,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Ensure that a firewall rule exists to allow load balancer health checks to reach the instances in the instance group.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a tag on each instance with the name of the load balancer. Configure a firewall rule with the name of the load balancer as the source and the instance tag as the destination.",
@@ -309,7 +309,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Run your script on a new virtual machine with the BigQuery access scope enabled",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Create a new service account with BigQuery access and execute your script with that user",
@@ -332,7 +332,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Federate authentication via SAML 2.0 to the existing Identity Provider",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Provision users in Google using the Google Cloud Directory Sync tool",
@@ -355,7 +355,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Google Cloud Dataflow",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Google Container Engine with Bigtable",
@@ -397,7 +397,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. In the Cloud Platform Console, increase the size of the persistent disk and use the resize2fs command in Linux.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Shut down the virtual machine, use the Cloud Platform Console to increase the persistent disk size, then restart the virtual machine",
@@ -424,7 +424,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Create a tokenizer service and store only tokenized data",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Create separate projects that only process credit card data",
@@ -455,7 +455,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Google Cloud Bigtable",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Google Cloud Storage",
@@ -478,7 +478,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Write a lifecycle management rule in JSON and push it to the bucket with gsutil",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Schedule a cron script using gsutil ls \u05d2\u20ac\"lr gs://backups/** to find and remove items older than 90 days",
@@ -501,7 +501,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Google Cloud Dataproc",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Google Compute Engine",
@@ -528,7 +528,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Dynamically resize the SSD persistent disk to 500 GB",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Migrate their performance metrics warehouse to BigQuery",
@@ -555,7 +555,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Google Cloud Bigtable",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Google Cloud Storage",
@@ -574,7 +574,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Create synthetic random user input, replay synthetic load until autoscale logic is triggered on at least one layer, and introduce \u05d2\u20acchaos\u05d2\u20ac to the system by terminating random resources on both zones",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Expose the new system to a larger group of users, and increase group size each day until autoscale logic is triggered on all layers. At the same time, terminate random resources on both zones",
