@@ -601,7 +601,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Use a slimmed-down base image like Alpine Linux",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Use larger machine types for your Google Container Engine node pools",
@@ -609,7 +609,7 @@ const examLibrary = [
             },
             {
                 "answerText": "E. Copy the source after he package dependencies (Python and pip) are installed",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "C & E:\nC: Smaller the base image with minimum dependency faster the container will start\nE:  Docker image build uses caching. Docker Instructions sequence matter because \napplication\u2019s dependencies change less frequently than the Python code which will help to reuse the cached layer of dependency and only add new layer for code change for Python Source code."
@@ -632,7 +632,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Deploy changes to a small subset of users before rolling out to production",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Question Statement: You want to adjust your test and deployment procedures to avoid this problem in the future\n\nSo based on this, I think the option \"C\" is correct, since it is the only one talking about doing changes in the test environment."
@@ -655,7 +655,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Instrument your application with Stackdriver Trace in order to break down the request latencies at each microservice",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "D is correct !"
@@ -678,7 +678,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Implement routinely scheduled failovers of your databases",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Answer is D"
@@ -701,7 +701,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Configure Stackdriver Monitoring for all Projects, and export to Google Cloud Storage",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "D is correct and best practice for long term log storage"
@@ -712,7 +712,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Google Cloud Dedicated Interconnect",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Google Cloud VPN connected to the data center network",
@@ -739,7 +739,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Enable Logging export to Google BigQuery and use ACLs and views to scope the data shared with the auditor",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use cloud functions to transfer log entries to Google Cloud SQL and use ACLs and views to limit an auditor's view",
@@ -766,7 +766,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. In a secret management system",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. In a config file that has restricted access through ACLs",
@@ -789,7 +789,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Cloud Deployment Manager is unfamiliar to the company's engineers",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Cloud Deployment Manager requires a Google APIs service account to run",
@@ -801,7 +801,7 @@ const examLibrary = [
             },
             {
                 "answerText": "F. Cloud Deployment Manager only supports automation of Google Cloud resources",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "E. Cloud Deployment Manager can be used to permanently delete cloud resources",
@@ -816,7 +816,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Google Kubernetes Engine, Jenkins, and Helm",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Google Kubernetes Engine and Cloud Load Balancing",
@@ -847,7 +847,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create a shutdown script and use it as the value for a new metadata entry with the key shutdown-script in the Cloud Platform Console when you create the new virtual machine instance",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a shutdown script, registered as a xinetd service in Linux, and use the gcloud compute instances add-metadata command to specify the service URL as the value for a new metadata entry with the key shutdown-script-url",
@@ -874,7 +874,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Add tags to each tier and set up firewall rules to allow the desired traffic flow",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "D. refer to target filtering. https://cloud.google.com/solutions/best-practices-vpc-design"
@@ -885,7 +885,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use Stackdriver Logging to search for the module log entries",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Read the debug GCE Activity log using the API or Cloud Console",
@@ -893,7 +893,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Use gcloud or Cloud Console to connect to the serial console and observe the logs",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Identify whether a live migration event of the failed server occurred, using in the activity log",
@@ -901,7 +901,7 @@ const examLibrary = [
             },
             {
                 "answerText": "E. Adjust the Google Stackdriver timeline to match the failure time, and observe the batch server metrics",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "F. Export a debug VM into an image, and run the image on a local server where kernel log messages will be displayed on the native screen",
@@ -924,7 +924,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Load logs into Google BigQuery",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Load logs into Google Cloud SQL",
@@ -940,7 +940,7 @@ const examLibrary = [
             },
             {
                 "answerText": "E. Upload log files into Google Cloud Storage",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Answer is A as they want to load logs for analytics and E for storing data in buckets for long term."
@@ -955,7 +955,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Revert the source code change, and rerun the deployment pipeline",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Log into the servers with the bad code change, and swap in the previous code",
@@ -994,7 +994,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. A single Organization with Folders for each department",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. A single Organization with multiple projects, each with a central owner",
@@ -1013,7 +1013,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Digitally sign all of your JAR files and redeploy your application",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Recompile the CLoakedServlet class using and MD5 hash instead of SHA1",
@@ -1036,7 +1036,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Use public key infrastructure (PKI) to encrypt the message client side using the originating user's private key.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Use a trusted certificate authority to enable SSL connectivity between the client application and the server.",
@@ -1055,7 +1055,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Configure a Google Cloud Dedicated Interconnect.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Restore their database daily using Google Cloud SQL.",
@@ -1101,7 +1101,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. ~/bin",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Cloud Storage",
@@ -1124,7 +1124,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Create a VPC and connect it to your on-premises data center using Dedicated Interconnect.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Create a VPC and connect it to your on-premises data center using a single Cloud VPN.",
@@ -1151,7 +1151,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Utilize free tier and sustained use discounts. Provide training to the team about service cost management.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Utilize free tier and committed use discounts. Provision a staff position for service cost management.",
@@ -1182,7 +1182,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Use Jenkins to monitor tags in the repository. Deploy staging tags to a staging environment for testing. After testing, tag the repository for production and deploy that to the production environment.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "I believe the best answer is D, because the tagging is a best practice that is recommended on Jenkins/Spinnaker to deploy the right code and prevent accidentally (or intentionally) push of wrong code to production environments. See https://stackify.com/continuous-delivery-git-jenkins/"
@@ -1201,7 +1201,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Disable the health check for the instance group. Add his SSH key to the project-wide SSH Keys",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Disable autoscaling for the instance group. Add his SSH key to the project-wide SSH Keys",
@@ -1224,7 +1224,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. GKE and GCP provide the tools you need to build a PCI DSS-compliant environment.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. All Google Cloud services are usable because Google Cloud Platform is certified PCI-compliant.",
@@ -1243,7 +1243,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Upload your files into Cloud Storage. Use Cloud Dataprep to explore and clean your data.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Connect Cloud Datalab to your on-premises systems. Use Cloud Datalab to explore and clean your data.",
@@ -1270,7 +1270,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. The effective policy is the union of the policy set at the node and policies inherited from its ancestors",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. The effective policy is the intersection of the policy set at the node and policies inherited from its ancestors",
@@ -1293,7 +1293,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Use an IP range on Google Cloud that does not overlap with the range you use on-premises",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Use an IP range on Google Cloud that does not overlap with the range you use on-premises for your primary IP range and use a secondary range with the same IP range as you use on-premises",
@@ -1308,7 +1308,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Point gcloud datastore create-indexes to your configuration file",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Upload the configuration file to App Engine's default Cloud Storage bucket, and have App Engine detect the new indexes",
@@ -1339,7 +1339,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Deploy the application on two Compute Engine instance groups, each in the same project but in a different region. Use the first instance group to serve traffic, and use the HTTP load balancing service to fail over to the standby instance group in case of a disaster.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Deploy the application on two Compute Engine instance groups, each in a separate project and a different region. Use the first instance group to serve traffic,  and use the HTTP load balancing service to fail over to the standby instance group in case of a disaster.",
@@ -1366,7 +1366,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Deploy your application on App Engine flexible environment and use Cloud VPN to limit access to the on-premises database.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Agree with D   - \"When to choose the flexible environment\"    \"Accesses the resources or services of your Google Cloud project that reside in the Compute Engine network.\"\nhttps://cloud.google.com/appengine/docs/the-appengine-environments"
@@ -1377,7 +1377,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Upload the required installation files to Cloud Storage. Configure the VM on a subnet with a Private Google Access subnet. Assign only an internal IP address to the VM. Download the installation files to the VM using gsutil.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Upload the required installation files to Cloud Storage and use firewall rules to block all traffic except the IP address range for Cloud Storage. Download the files to the VM using gsutil.",
@@ -1400,7 +1400,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Move your data onto a Transfer Appliance. Use a Transfer Appliance Rehydrator to decrypt the data into Cloud Storage.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Move your data onto a Transfer Appliance. Use Cloud Dataprep to decrypt the data into Cloud Storage.",
@@ -1423,7 +1423,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use kubectl set image deployment/echo-deployment <new-image>",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use the rolling update functionality of the Instance Group behind the Kubernetes cluster",
@@ -1454,7 +1454,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Add all users to a group. Grant the group the roles of BigQuery jobUser on the billing project and BigQuery dataViewer on the projects that contain the data.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Add all users to a group. Grant the group the roles of BigQuery dataViewer on the billing project and BigQuery jobUser on the projects that contain the data.",
@@ -1473,7 +1473,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Have users upload the images to Cloud Storage using a signed URL that expires after 24 hours.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Create an App Engine web application where users can upload images. Configure App Engine to disable the application after 24 hours. Authenticate users via Cloud Identity.",
@@ -1504,19 +1504,15 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Define a design for the security of data in your web application that meets GDPR requirements.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Agree D"
     },
     {
         "id": "gcp-q60",
-        "questionText": "You need to set up Microsoft SQL Server on GCP. Management requires that there's no downtime in case of a data center outage in any of the zones within aGCP region. What should you do?",
+        "questionText": "You need to set up Microsoft SQL Server on GCP. Management requires that there's no downtime in case of a data center outage in any of the zones within a GCP region. What should you do?",
         "answerOptions": [
-            {
-                "answerText": "P. Management requires that there's no downtime in case of a data center outage in any of the zones within aGCP region. What should you do?",
-                "isCorrect": false
-            },
             {
                 "answerText": "A. Configure a Cloud SQL instance with high availability enabled.",
                 "isCorrect": false
@@ -1531,7 +1527,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Set up SQL Server Always On Availability Groups using Windows Failover Clustering. Place nodes in different zones.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "A seems correct.\n\"...  high availability (HA) configuration for Cloud SQL instances... A Cloud SQL instance configured for HA is also called a regional instance and is located in a primary and secondary zone within the configured region.\nIn the event of an instance or zone failure, this configuration reduces downtime, and your data continues to be available to client applications.\""
@@ -1546,7 +1542,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Use gcloud to create a Kubernetes cluster. Use kubectl to create the deployment.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use kubectl to create a Kubernetes cluster. Use Deployment Manager to create the deployment.",
@@ -1569,7 +1565,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Allocate budget for team training. Create a roadmap for your team to achieve Google Cloud certification based on job role.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Allocate budget to hire skilled external consultants. Set a deadline for the new GCP project.",
@@ -1584,11 +1580,11 @@ const examLibrary = [
     },
     {
         "id": "gcp-q63",
-        "questionText": "You are designing an application for use only during business hours. For the minimum viable product release, you'd like to use a managed product that automatically `scales to zero` so you don't incur costs when there is no activity.Which primary compute resource should you choose?",
+        "questionText": "You are designing an application for use only during business hours. For the minimum viable product release, you'd like to use a managed product that automatically `scales to zero` so you don't incur costs when there is no activity. Which primary compute resource should you choose?",
         "answerOptions": [
             {
                 "answerText": "A. Cloud Functions",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Compute Engine",
@@ -1601,18 +1597,6 @@ const examLibrary = [
             {
                 "answerText": "D. AppEngine flexible environment",
                 "isCorrect": false
-            },
-            {
-                "answerText": "A. Cloud Functions - managed service scales down to 0",
-                "isCorrect": false
-            },
-            {
-                "answerText": "B. Compute Engine - not a managed service",
-                "isCorrect": false
-            },
-            {
-                "answerText": "C. Google Kubernetes Engine - not a managed service and wont scale down to 0",
-                "isCorrect": false
             }
         ],
         "explanation": "A. Cloud Functions - managed service scales down to 0\nB. Compute Engine - not a managed service\nC. Google Kubernetes Engine - not a managed service and wont scale down to 0\nD. AppEngine flexible environment - managed service but wont scale down to 0"
@@ -1623,7 +1607,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Create the Key object for each Entity and run a batch get operation",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Create the Key object for each Entity and run multiple get operations, one operation for each entity",
@@ -1646,7 +1630,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Supply the encryption key in a .boto configuration file. Use gsutil to upload the files.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Supply the encryption key using gcloud config. Use gsutil to upload the files to that bucket.",
@@ -1673,7 +1657,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Output custom metrics to Stackdriver from the game servers, and create a Dashboard in Stackdriver Monitoring Console to view them.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Schedule BigQuery load jobs to ingest analytics files uploaded to Cloud Storage every ten minutes, and visualize the results in Google Data Studio.",
@@ -1700,7 +1684,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Perform the following: 1. Create a Google Kubernetes Engine (GKE) cluster with n1-standard-1 type machines. 2. Build a Docker image from the production branch with all of the dependencies, and tag it with the version number. 3. Create a Kubernetes Deployment with the imagePullPolicy set to 'IfNotPresent' in the staging namespace, and then promote it to the production namespace after testing.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Perform the following: 1. Create a GKE cluster with n1-standard-4 type machines. 2. Build a Docker image from the master branch with all of the dependencies, and tag it with 'latest'. 3. Create a Kubernetes Deployment in the default namespace with the imagePullPolicy set to 'Always'. Restart the pods to automatically deploy new production releases.",
@@ -1719,7 +1703,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Use Google Cloud Directory Sync to synchronize Active Directory usernames with cloud identities and configure SAML SSO.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use Cloud Identity-Aware Proxy configured to use the on-premises Active Directory domain controller as an identity provider.",
@@ -1742,7 +1726,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Review the Stackdriver logs for the specific GKE  container that is serving the unresponsive part of the application.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Connect to the cluster using gcloud credentials and connect to a container in one of the pods to read the logs.",
@@ -1773,7 +1757,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Create a failover replica instance in the same region, but in a different zone",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Agree D"
