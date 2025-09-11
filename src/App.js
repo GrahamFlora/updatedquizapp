@@ -1776,7 +1776,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create a custom image from the existing disk. Create an instance template from the custom image. Create an autoscaled managed instance group from the instance template.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create an instance template from the existing disk. Create a custom image from the instance template. Create an autoscaled managed instance group from the custom image.",
@@ -1790,16 +1790,12 @@ const examLibrary = [
         "questionText": "Your web application has several VM instances running within a VPC. You want to restrict communications between instances to only the paths and ports you authorize, but you don't want to rely on static IP addresses or subnets because the app can autoscale. How should you restrict communications?",
         "answerOptions": [
             {
-                "answerText": "C. You want to restrict communications between instances to only the paths and ports you authorize, but you don't want to rely on static IP addresses or subnets because the app can autoscale. How should you restrict communications?",
-                "isCorrect": false
-            },
-            {
                 "answerText": "A. Use separate VPCs to restrict traffic",
                 "isCorrect": false
             },
             {
                 "answerText": "B. Use firewall rules based on network tags attached to the compute instances",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use Cloud DNS and only allow connections from authorized hostnames",
@@ -1818,7 +1814,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. 1. Enable automatic storage increase for the instance. 2. Create a Stackdriver alert when CPU usage exceeds 75%, and change the instance type to reduce CPU usage. 3. Create a Stackdriver alert for replication lag, and shard the database to reduce replication time.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. 1. Enable automatic storage increase for the instance. 2. Change the instance type to a 32-core machine type to keep CPU usage below 75%. 3. Create a Stackdriver alert for replication lag, and deploy memcache to reduce load on the master.",
@@ -1853,7 +1849,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. BigQuery, because it is designed for large-scale processing of tabular data",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Agree D"
@@ -1872,7 +1868,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. In the GCP Console, navigate to Stackdriver Logging. Consult logs for (GKE) and Cloud SQL.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. In the GCP Console, navigate to Cloud SQL. Restore the latest backup. Use kubectl to restart all pods.",
@@ -1887,7 +1883,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Ensure that VM service accounts are granted the appropriate Cloud Pub/Sub IAM roles.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Ensure that VM service accounts do not have access to Cloud Pub/Sub, and use VM access scopes to grant the appropriate Cloud Pub/Sub IAM roles.",
@@ -1922,7 +1918,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Deploy Cloud VPN Gateway in each region. Ensure that each region has at least one VPN tunnel to the on-premises peer gateway.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "It can't be -A - VPC Network Peering only allows private RFC 1918 connectivity across two Virtual Private Cloud (VPC) networks. In this example is one VPC with on-premise network\nhttps://cloud.google.com/vpc/docs/vpc-peering\n\nIt is not definitely - B - Can't be\n\nIt is not C - Because Cloud VPN gateways and tunnels are regional objects, not global\n\nSo, it the answer is D - \nhttps://cloud.google.com/vpn/docs/how-to/creating-static-vpns"
@@ -1937,7 +1933,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Make the tables time-partitioned, and configure the partition expiration at 45 days",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Rely on BigQuery's default behavior to prune application logs older than 45 days",
@@ -1956,7 +1952,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Configure a HorizontalPodAutoscaler with a target CPU usage. Enable the Cluster Autoscaler from the GCP Console.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Configure a HorizontalPodAutoscaler with a target CPU usage. Enable autoscaling on the managed instance group for the cluster using the gcloud command.",
@@ -1978,16 +1974,12 @@ const examLibrary = [
         "questionText": "You need to develop procedures to verify resilience of disaster recovery for remote recovery using GCP. Your production environment is hosted on-premises. You need to establish a secure, redundant connection between your on-premises network and the GCP network.What should you do?",
         "answerOptions": [
             {
-                "answerText": "P. Your production environment is hosted on-premises. You need to establish a secure, redundant connection between your on-premises network and the GCP network.What should you do?",
-                "isCorrect": false
-            },
-            {
                 "answerText": "A. Verify that Dedicated Interconnect can replicate files to GCP. Verify that direct peering can establish a secure connection between your networks if Dedicated Interconnect fails.",
                 "isCorrect": false
             },
             {
                 "answerText": "B. Verify that Dedicated Interconnect can replicate files to GCP. Verify that Cloud VPN can establish a secure connection between your networks if Dedicated Interconnect fails.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Verify that the Transfer Appliance can replicate files to GCP. Verify that direct peering can establish a secure connection between your networks if the Transfer Appliance fails.",
@@ -2010,7 +2002,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Provision preemptible VMs to reduce cost. Disable and then discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Provision standard VMs in the same region to reduce cost. Discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
@@ -2037,7 +2029,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Schedule a disaster simulation exercise during which you can shut off all VMs in a zone to see how your application behaves.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Configure a read replica for your Cloud SQL instance in a different zone than the master, and then manually trigger a failover while monitoring KPIs for our REST API.",
@@ -2064,7 +2056,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Use Cloud Audit Logging to view Cloud Audit Logs, and create a filter on the query operation to get the required information.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "D- reasons:\n1.-Cloud Audit Logs maintains audit logs for admin activity, data access and system events. BIGQUERY is automatically send to cloud audit log functionality.\n2.- In the filter you can filter relevant BigQuery Audit messages, you can express filters as part of the export\n\nhttps://cloud.google.com/logging/docs/audit\nhttps://cloud.google.com/bigquery/docs/reference/auditlogs#ids\nhttps://cloud.google.com/bigquery/docs/reference/auditlogs#auditdata_examples"
@@ -2079,7 +2071,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Create a custom VM image with all OS package dependencies. Use Deployment Manager to create the managed instance group with the VM image.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use Puppet to create the managed instance group and install the OS package dependencies.",
@@ -2098,7 +2090,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery jobUser. Share the appropriate dataset with view access with each respective analyst country-group.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery jobUser. Share the appropriate tables with view access with each respective analyst country-group.",
@@ -2117,19 +2109,15 @@ const examLibrary = [
     },
     {
         "id": "gcp-q86",
-        "questionText": "You have been engaged by your client to lead the migration of their application infrastructure to GCP. One of their current problems is that the on-premises high performance SAN is requiring frequent and expensive upgrades to keep up with the variety of workloads that are identified as follows: 20 TB of log archives retained for legal reasons; 500 GB of VM boot/data volumes and templates; 500 GB of image thumbnails; 200 GB of customer session state data that allows customers to restart sessions even if off-line for several days.Which of the following best reflects your recommendations for a cost-effective storage allocation?",
+        "questionText": "You have been engaged by your client to lead the migration of their application infrastructure to GCP. One of their current problems is that the on-premises high performance SAN is requiring frequent and expensive upgrades to keep up with the variety of workloads that are identified as follows: 20 TB of log archives retained for legal reasons; 500 GB of VM boot/data volumes and templates; 500 GB of image thumbnails; 200 GB of customer session state data that allows customers to restart sessions even if off-line for several days. Which of the following best reflects your recommendations for a cost-effective storage allocation?",
         "answerOptions": [
-            {
-                "answerText": "P. One of their current problems is that the on-premises high performance SAN is requiring frequent and expensive upgrades to keep up with the variety of workloads that are identified as follows: 20 TB of log archives retained for legal reasons; 500 GB of VM boot/data volumes and templates; 500 GB of image thumbnails; 200 GB of customer session state data that allows customers to restart sessions even if off-line for several days.Which of the following best reflects your recommendations for a cost-effective storage allocation?",
-                "isCorrect": false
-            },
             {
                 "answerText": "A. Local SSD for customer session state data. Lifecycle-managed Cloud Storage for log archives, thumbnails, and VM boot/data volumes.",
                 "isCorrect": false
             },
             {
                 "answerText": "B. Memcache backed by Cloud Datastore for the customer session state data. Lifecycle-managed Cloud Storage for log archives, thumbnails, and VM boot/data volumes.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Memcache backed by Cloud SQL for customer session state data. Assorted local SSD-backed instances for VM boot/data volumes. Cloud Storage for log archives and thumbnails.",
@@ -2148,7 +2136,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. StatefulSets",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Role-based access control",
@@ -2171,7 +2159,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Customize the cache keys to omit the protocol from the key.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Shorten the expiration time of the cached objects.",
@@ -2198,7 +2186,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Stackdriver automatically collects admin activity logs for most services. The Stackdriver Logging agent must be installed on each instance to collect system logs.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Launch a custom syslogd compute instance and configure your GCP project and VMs to forward all logs to it.",
@@ -2221,7 +2209,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Deploy the update as a new version in the App Engine application, and split traffic between the new and current versions.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Deploy the update in a new VPC, and use Google's global HTTP load balancing to split traffic between the update and current applications.",
@@ -2236,11 +2224,11 @@ const examLibrary = [
     },
     {
         "id": "gcp-q91",
-        "questionText": "All Compute Engine instances in your VPC should be able to connect to an Active Directory server on specific ports. Any other traffic emerging from your instances is not allowed. You want to enforce this using VPC firewall rules.How should you configure the firewall rules?",
+        "questionText": "All Compute Engine instances in your VPC should be able to connect to an Active Directory server on specific ports. Any other traffic emerging from your instances is not allowed. You want to enforce this using VPC firewall rules. How should you configure the firewall rules?",
         "answerOptions": [
             {
                 "answerText": "A. Create an egress rule with priority 1000 to deny all traffic for all instances. Create another egress rule with priority 100 to allow the Active Directory traffic for all instances.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Create an egress rule with priority 100 to deny all traffic for all instances. Create another egress rule with priority 1000 to allow the Active Directory traffic for all instances.",
@@ -2275,7 +2263,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Save a history of recommendations and results of the recommendations in BigQuery, to be used as training data.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Model performance is generally based on the volume of its training data input. The more the data, the better the model."
@@ -2286,7 +2274,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use the Horizontal Pod Autoscaler and enable cluster autoscaling. Use an Ingress resource to load-balance the HTTPS traffic.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use the Horizontal Pod Autoscaler and enable cluster autoscaling on the Kubernetes cluster. Use a Service resource of type LoadBalancer to load-balance the HTTPS traffic.",
@@ -2313,7 +2301,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Create an HTTPS load balancer with URL Maps.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Create appropriate instance groups and instances. Configure SSL proxy load balancing.",
@@ -2336,7 +2324,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Implement retry logic using a truncated exponential backoff strategy.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Make sure the Cloud Storage bucket is multi-regional for geo-redundancy.",
@@ -2359,7 +2347,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Use Deployment Manager to automate service  provisioning. Use Stackdriver to monitor and debug your tests.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use gcloud scripts to automate service provisioning. Use Activity Logs to monitor and debug your tests.",
@@ -2378,7 +2366,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Save the files in a Multi-Regional Cloud Storage bucket.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Save the files in a Regional Cloud Storage bucket, one bucket per zone of the region.",
@@ -2409,7 +2397,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Store the data in Cloud Storage and use lifecycle management to delete files when they expire.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Store the data in Cloud Storage and run a nightly batch script that deletes all expired data.",
@@ -2424,7 +2412,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Set the memcache service level to dedicated. Create a key from the hash of the query, and return database values from memcache before issuing a query to Cloud SQL.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Set the memcache service level to dedicated. Create a cron task that runs every minute to populate the cache with keys containing query results.",
@@ -2451,7 +2439,7 @@ const examLibrary = [
             },
             {
                 "answerText": "A. Using the Cron service provided by App Engine, publish messages directly to a message-processing utility service running on Compute Engine instances.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Using the Cron service provided by App Engine, publish messages to a Cloud Pub/Sub topic. Subscribe to that topic using a message-processing utility service running on Compute Engine instances.",
@@ -2470,19 +2458,15 @@ const examLibrary = [
     },
     {
         "id": "gcp-q101",
-        "questionText": "Your company is building a new architecture to support its data-centric business focus. You are responsible for setting up the network. Your company's mobile and web-facing applications will be deployed on-premises, and all data analysis will be conducted in GCP. The plan is to process and load 7 years of archived .csv files totaling 900 TB of data and then continue loading 10 TB of data daily. You currently have an existing 100-MB internet connection.What actions will meet your company's needs?",
+        "questionText": "Your company is building a new architecture to support its data-centric business focus. You are responsible for setting up the network. Your company's mobile and web-facing applications will be deployed on-premises, and all data analysis will be conducted in GCP. The plan is to process and load 7 years of archived .csv files totaling 900 TB of data and then continue loading 10 TB of data daily. You currently have an existing 100-MB internet connection. What actions will meet your company's needs?",
         "answerOptions": [
-            {
-                "answerText": "P. The plan is to process and load 7 years of archived .csv files totaling 900 TB of data and then continue loading 10 TB of data daily. You currently have an existing 100-MB internet connection.What actions will meet your company's needs?",
-                "isCorrect": false
-            },
             {
                 "answerText": "A. Compress and upload both archived  files and files uploaded daily using the gsutil \u05d2\u20ac\"m option.",
                 "isCorrect": false
             },
             {
                 "answerText": "B. Lease a Transfer Appliance, upload archived files to it, and send it to Google to transfer archived data to Cloud Storage. Establish a connection with Google using a Dedicated Interconnect or Direct Peering connection and use it to upload files daily.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Lease a Transfer Appliance, upload archived files to it, and send it to Google to transfer archived data to Cloud Storage. Establish one Cloud VPN Tunnel to VPC networks over the public internet, and compress and upload files daily using the gsutil \u05d2\u20ac\"m option.",
@@ -2497,19 +2481,15 @@ const examLibrary = [
     },
     {
         "id": "gcp-q102",
-        "questionText": "You are developing a globally scaled frontend for a legacy streaming backend data API. This API expects events in strict chronological order with no repeat data for proper processing.Which products should you deploy to ensure guaranteed-once FIFO (first-in, first-out) delivery of data?",
+        "questionText": "You are developing a globally scaled frontend for a legacy streaming backend data API. This API expects events in strict chronological order with no repeat data for proper processing. Which products should you deploy to ensure guaranteed-once FIFO (first-in, first-out) delivery of data?",
         "answerOptions": [
-            {
-                "answerText": "I. This API expects events in strict chronological order with no repeat data for proper processing.Which products should you deploy to ensure guaranteed-once FIFO (first-in, first-out) delivery of data?",
-                "isCorrect": false
-            },
             {
                 "answerText": "A. Cloud Pub/Sub alone",
                 "isCorrect": false
             },
             {
                 "answerText": "B. Cloud Pub/Sub to Cloud Dataflow",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Cloud Pub/Sub to Stackdriver",
@@ -2536,7 +2516,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. 1. Perform an assessment of virtual machines running in the current VMware environment. 2. Define a migration plan, prepare a Migrate for Compute Engine migration RunBook, and execute the migration.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. 1. Perform an assessment of virtual machines running in the current VMware environment. 2. Install a third-party agent on all selected virtual machines. 3. Migrate all virtual machines into Compute Engine.",
@@ -2563,7 +2543,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Use an unmanaged instance group with an active and standby instance in different zones, use a regional persistent disk, and use a network load balancer in front of the instances.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Correct Ans : D \nSince the Traffic is TCP, Ans A & C gets eliminated as HTTPS load balance is not supported.\nB - File storage system is Cloud Firestore which do not give full control, hence eliminated.\nD - Unmanaged instance group with network load balance with regional persistent disk for storage gives full control which is required for the migration."
@@ -2586,7 +2566,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Configure a Cloud Dedicated Interconnect connection between the on-premises environment and Google Cloud.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Ans ) D , Reason : high throughput via internal IPs"
@@ -2597,7 +2577,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Deploy a new revision to Cloud Run with the new version. Configure traffic percentage between revisions.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Deploy a new service to Cloud Run with the new version. Add a Cloud Load Balancing instance in front of both services.",
@@ -2620,7 +2600,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Navigate the predefined dashboards in the Cloud Monitoring workspace, and then add metrics and create alert policies.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Navigate the predefined dashboards in the Cloud Monitoring workspace, create custom metrics, and install alerting software on a Compute Engine instance.",
@@ -2651,11 +2631,11 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Binary logging",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Automated backups",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "E. Semisynchronous replication",
@@ -2670,7 +2650,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use a unique identifier for each individual. Upon a deletion request, delete all rows from BigQuery with this identifier.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. When ingesting new data in BigQuery, run the data through the Data Loss Prevention (DLP) API to identify any personal information. As part of the DLP scan, save the result to Data Catalog. Upon a deletion request, query Data Catalog to find the column with personal information.",
@@ -2693,7 +2673,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. App Engine",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. GKE On-Prem",
@@ -2738,10 +2718,6 @@ const examLibrary = [
         "questionText": "You are moving an application that uses MySQL from on-premises to Google Cloud. The application will run on Compute Engine and will use Cloud SQL. You want to cut over to the Compute Engine deployment of the application with minimal downtime and no data loss to your customers. You want to migrate the application with minimal modification. You also need to determine the cutover strategy. What should you do?",
         "answerOptions": [
             {
-                "answerText": "L. You want to cut over to the Compute Engine deployment of the application with minimal downtime and no data loss to your customers. You want to migrate the application with minimal modification. You also need to determine the cutover strategy. What should you do?",
-                "isCorrect": false
-            },
-            {
                 "answerText": "A. 1. Set up Cloud VPN to provide private network connectivity between the Compute Engine application and the on-premises MySQL server. 2. Stop the on-premises application. 3. Create a mysqldump of the on-premises MySQL server. 4. Upload the dump to a Cloud Storage bucket. 5. Import the dump into Cloud SQL. 6. Modify the source code of the application to write queries to both databases and read from its local database. 7. Start the Compute Engine application. 8. Stop the on-premises application.",
                 "isCorrect": false
             },
@@ -2751,7 +2727,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. 1. Set up Cloud VPN to provide private network connectivity between the Compute Engine application and the on-premises MySQL server. 2. Stop the on-premises application. 3. Start the Compute Engine application, configured to read and write to the on-premises MySQL server. 4. Create the replication configuration in Cloud SQL. 5. Configure the source database server to accept connections from the Cloud SQL replica. 6. Finalize the Cloud SQL replica configuration. 7. When replication has been completed, stop the Compute Engine application. 8. Promote the Cloud SQL replica to a standalone instance. 9. Restart the Compute Engine application, configured to read and write to the Cloud SQL standalone instance.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. 1. Stop the on-premises application. 2. Create a mysqldump of the on-premises MySQL server. 3. Upload the dump to a Cloud Storage bucket. 4. Import the dump into Cloud SQL. 5. Start the application on Compute Engine.",
@@ -2778,7 +2754,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Set an Organization Policy with a constraint on constraints/compute.vmExternalIpAccess. List the approved instances in the allowedValues list.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "D. Set an Organization Policy with a constraint on constraints/compute.vmExternalIpAccess. List the approved instances in the allowedValues list."
@@ -2793,7 +2769,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Enable Firewall Rules Logging for the firewall rules you want to monitor.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Verify that your user account is assigned the compute.networkAdmin Identity and Access Management (IAM) role.",
@@ -2812,7 +2788,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. 1. Create a VPC Service Controls perimeter that includes the projects with the buckets. 2. Create an access level with the CIDR of the office network.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. 1. Create a firewall rule for all instances in the Virtual Private Cloud (VPC) network for source range. 2. Use the Classless Inter-domain Routing (CIDR) of the office network.",
@@ -2847,7 +2823,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Start a new rolling update. Select the Opportunistic update mode.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "IMHO the correct answer is d) opportunistic mode, not c) proactive mode.\n\nThe requirement is not to update any running instances. \n\nsee: https://cloud.google.com/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups\nFor automated rolling updates, you must set the mode to proactive.\n\nAlternatively, if an automated update is potentially too disruptive, you can choose to perform an opportunistic update. The MIG applies an opportunistic update only when you manually initiate the update on selected instances or when new instances are created. New instances can be created when you or another service, such as an autoscaler, resizes the MIG."
@@ -2862,7 +2838,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Configure the Compute Engine instances with an instance template for the application, and use a regional persistent disk for the application data. Whenever a zonal outage occurs, use the instance template to spin up the application in another zone in the same region. Use the regional persistent disk for the application data.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Create a snapshot schedule for the disk containing the application data. Whenever a zonal outage occurs, use the latest snapshot to restore the disk in another zone within the same region.",
@@ -2885,7 +2861,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Create a Cloud VPN connection from the new VPC to the data center, and create a Cloud NAT instance to perform NAT on the overlapping IP space.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Create a Cloud VPN connection from the new VPC to the data center, create a Cloud Router, and apply a custom route advertisement to block the overlapping IP space.",
@@ -2908,7 +2884,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Create a Dataproc cluster using preemptible worker instances.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Manually deploy a Hadoop cluster on Compute Engine using standard instances.",
@@ -2926,16 +2902,12 @@ const examLibrary = [
         "questionText": "Your company has a project in Google Cloud with three Virtual Private Clouds (VPCs). There is a Compute Engine instance on each VPC. Network subnets do not overlap and must remain separated. The network configuration is shown below.Instance #1 is an exception and must communicate directly with both Instance #2 and Instance #3 via internal IPs. How should you accomplish this?",
         "answerOptions": [
             {
-                "answerText": "C. Network subnets do not overlap and must remain separated. The network configuration is shown below.Instance #1 is an exception and must communicate directly with both Instance #2 and Instance #3 via internal IPs. How should you accomplish this?",
-                "isCorrect": false
-            },
-            {
                 "answerText": "A. Create a cloud router to advertise subnet #2 and subnet #3 to subnet #1.",
                 "isCorrect": false
             },
             {
                 "answerText": "B. Add two additional NICs to Instance #1 with the following configuration: \u05d2\u20ac\u00a2 NIC1 \u05d2\u2014\u2039 VPC: VPC #2 \u05d2\u2014\u2039 SUBNETWORK: subnet #2 \u05d2\u20ac\u00a2 NIC2 \u05d2\u2014\u2039 VPC: VPC #3 \u05d2\u2014\u2039 SUBNETWORK: subnet #3 Update firewall rules to enable traffic between instances.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Create two VPN tunnels via CloudVPN: \u05d2\u20ac\u00a2 1 between VPC #1 and VPC #2. \u05d2\u20ac\u00a2 1 between VPC #2 and VPC #3. Update firewall rules to enable traffic between the instances.",
