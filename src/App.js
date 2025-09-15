@@ -2930,7 +2930,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Create a Debian-based Compute Engine instance, install and configure the application, and use OS patch management to install available updates.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Create an instance with the latest available Debian image. Connect to the instance via SSH, and install and configure the application on the instance. Repeat this process whenever a new Google-managed Debian image becomes available.",
@@ -2949,7 +2949,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. 1. Update your GKE cluster to use Cloud Operations for GKE. 2. Use the GKE Monitoring dashboard to investigate logs from affected Pods.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. 1. Create a new GKE cluster with Cloud Operations for GKE enabled. 2. Migrate the affected Pods to the new cluster, and redirect traffic for those Pods to the new cluster. 3. Use the GKE Monitoring dashboard to investigate logs from affected Pods.",
@@ -2980,7 +2980,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create a Cloud Filestore instance and mount it in each instance.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a Cloud Storage bucket and mount it in each instance using gcsfuse.",
@@ -2995,7 +2995,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use the Service Mesh visualization in the Cloud Console to inspect the telemetry between the microservices.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use Anthos Config Management to create a ClusterSelector selecting the relevant cluster. On the Google Cloud Console page for Google Kubernetes Engine, view the Workloads and filter on the cluster. Inspect the configurations of the filtered workloads.",
@@ -3018,7 +3018,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Create a retention policy on the bucket for the duration of 5 years. Create a lock on the retention policy.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Create the bucket with uniform bucket-level access, and grant a service account the role of Object Writer. Use the service account to upload new files.",
@@ -3049,7 +3049,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create a Cloud Build trigger based on the development branch that tests the code, builds the container, and stores it in Container Registry. Create a deployment pipeline that watches for new images and deploys the new image on the development cluster. Ensure only the deployment tool has access to deploy new versions.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a Cloud Build trigger based on the development branch to build a new container image and store it in Container Registry. Rely on Vulnerability Scanning to ensure the code tests succeed. As the final step of the Cloud Build process, deploy the new container image on the development cluster. Ensure only Cloud Build has access to deploy new versions.",
@@ -3076,7 +3076,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Increase the maximum number of instances in the autoscaling group.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Answer should be D.\nI doubt it is intended to provide wrong answer."
@@ -3091,7 +3091,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Cloud Run and Cloud Bigtable",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. A Compute Engine autoscaling managed instance group and BigQuery",
@@ -3110,7 +3110,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Deploy each microservice as a Deployment. Expose the Deployment in the cluster using a Service, and use the Service DNS name to address it from other microservices within the cluster.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Deploy each microservice as a Deployment. Expose the Deployment in the cluster using an Ingress, and use the Ingress IP address to address the Deployment from other microservices within the cluster.",
@@ -3141,7 +3141,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. 1. Create a project with a Shared VPC and assign the Network Admin role to the networking team. 2. Create a second project without a VPC, configure it as a Shared VPC service project, and assign the Compute Admin role to the development team.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. 1. Create a project with a standalone VPC and assign the Network Admin role to the networking team. 2. Create a second project with a standalone VPC and assign the Compute Admin role to the development team. 3. Use VPC Peering to join the two VPCs.",
@@ -3168,7 +3168,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Store static content such as HTML and images in a Cloud Storage bucket. Use Cloud Functions to host the APIs and save the user data in Firestore.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Answer should be D,\nhttps://cloud.google.com/load-balancing/docs/https/setting-up-https-serverless#gcloud:-cloud-functions\nhttps://cloud.google.com/blog/products/networking/better-load-balancing-for-app-engine-cloud-run-and-functions"
@@ -3187,7 +3187,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Export logs to a Pub/Sub topic, and trigger Cloud Function with the relevant log events.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Export logs to a Cloud Storage bucket, and trigger Cloud Run with the relevant log events.",
@@ -3210,7 +3210,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Configure Identity-Aware Proxy (IAP) for the instance and ensure that you have the role of IAP-secured Tunnel User. Use the gcloud command line tool to ssh into the instance.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a bastion host in the network to SSH into the bastion host from your office location. From the bastion host, SSH into the desired instance.",
@@ -3233,7 +3233,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Assign the development team group the Project Owner role on the Shopping folder, and remove the development team group Project Owner role from the Organization.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Assign the development team group only the Project Owner role on the Shopping folder.",
@@ -3252,7 +3252,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Use Istio's fault injection on the particular microservice whose faulty behavior you want to simulate.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Destroy one of the nodes of the Kubernetes cluster to observe the behavior.",
@@ -3271,7 +3271,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. App Engine",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Cloud Endpoints",
@@ -3302,7 +3302,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Use a versioning strategy for the APIs that increases the version number on every backward-incompatible change.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Use a versioning strategy for the APIs that adds the suffix \u05d2\u20acDEPRECATED\u05d2\u20ac to the current API version number on every backward-incompatible change. Use the current version number for the new API.",
@@ -3325,7 +3325,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. The new approach will make it easier to decouple infrastructure from application, develop and release new features, manage the underlying infrastructure, manage CI/CD pipelines and perform A/B testing, and scale the solution if necessary.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. The process can be automated with Migrate for Compute Engine.",
@@ -3340,7 +3340,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use a load testing tool to simulate the expected number of concurrent users and total requests to your application, and inspect the results.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Enable autoscaling on the GKE cluster and enable horizontal pod autoscaling on your application deployments. Send curl requests to your application, and validate if the auto scaling works.",
@@ -3375,7 +3375,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Configure a Kubernetes autoscaling deployment based on the subscription/num_undelivered_messages metric.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Answer is D.  num_undelivered_messages metric can indicate if subscribers are keeping up with message submissions. \n https://cloud.google.com/pubsub/docs/monitoring#monitoring_the_backlog"
@@ -3394,7 +3394,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Make the container tag match the source code commit hash.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Make sure the developer is tagging the commits with latest.",
@@ -3413,7 +3413,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Develop the application for App Engine standard environment.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use a Managed Instance Group when deploying to Compute Engine.",
@@ -3444,7 +3444,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Store the data in a Cloud Storage bucket. Design the processing pipelines to retrieve the data from the bucket.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "D is ok\nThe data needs to be stored as it is retrieved. This would mean that any processing should be done after it is stored."
@@ -3459,7 +3459,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Create a Google Group per department and add all department members to their respective groups. Create a folder per department and grant the respective group the required IAM permissions at the folder level. Add the projects under the respective folders.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Create a folder per department and grant the respective members of the department the required IAM permissions at the folder level. Structure all projects for each department under the respective folders.",
@@ -3486,7 +3486,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Configure binary authorization policies for the development, staging, and production clusters. Create attestations as part of the continuous integration pipeline.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a Kubernetes admissions controller to prevent the container from starting if it is not approved for usage in the given environment.",
@@ -3505,7 +3505,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Use the Data Transfer appliance to perform an offline migration.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use a commercial partner ETL solution to extract the data from the on-premises database and upload it into Cloud Storage.",
@@ -3532,7 +3532,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. 1. Attach a regional SSD persistent disk to the first instance. 2. In case of a zone outage, force-attach the disk to the other instance.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. 1. Attach a local SSD to the first instance disk. 2. Execute an rsync command every hour where the target is a persistent SSD disk attached to the second instance. 3. In case of a zone outage, use the second instance.",
@@ -3559,7 +3559,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Import a key in Cloud KMS. Create a dataset in BigQuery using the customer-supplied key option and select the created key.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "The answer is easy. It says keys must be left outside of Google Cloud.\nThis automatically eliminates A / B.\nNow the C option says decrypts before storing it in BigQuery which the point is to encrypt the data while been in BigQuery, D is the only possible answer."
@@ -3574,7 +3574,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Create a key with Cloud Key Management Service (KMS). Set the encryption key on the bucket to the Cloud KMS key.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Generate a GPG key pair. Encrypt the data using the GPG key. Upload the encrypted data to the bucket.",
@@ -3593,7 +3593,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Configure the GKE cluster as a private cluster, and configure Cloud NAT Gateway for the cluster subnet.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Configure the GKE cluster as a private cluster. Configure Private Google Access on the Virtual Private Cloud (VPC).",
