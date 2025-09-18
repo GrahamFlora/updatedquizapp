@@ -4790,7 +4790,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create a single G Suite account to manage users with each stage of each application in its own project",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a single G Suite account to manage users with one project for the development/test/staging environment and one project for the production environment",
@@ -4813,11 +4813,11 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Take a snapshot of the disk and connect to a new machine to investigate",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Check inbound firewall rules for the network the machine is connected to",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "E. Connect the machine to another network with very simple firewall rules and investigate",
@@ -4825,7 +4825,7 @@ const examLibrary = [
             },
             {
                 "answerText": "F. Print the Serial Console output for the instance for troubleshooting, activate the interactive console, and investigate",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Assumption:- VM in production environment, cannot be taken down.\n\nbased on above, A/B are out. E causes downtime to remove the VM from the old network and connect it to a new network for testing.\n\nOnly leaves CDF\n\nC - Snapshotting is fine, it will reduce the performance for a short duration, but the database will still be up\nD - Obvious place to check for firewall rules (if ssh ports are open or not)\nF - Easy to see server messages on console (without downtime)"
@@ -4844,7 +4844,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Provision service account keys for the on-premises infrastructure and use Google Cloud Platform (GCP) managed keys for the VMs",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Deploy a custom authentication service on GCE/Google Kubernetes Engine (GKE) for the on-premises infrastructure and use GCP managed keys for the VMs",
@@ -4867,7 +4867,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Total visits, error rates, and latency from Asia",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Total visits and average latency for users from Asia",
@@ -4886,7 +4886,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. A single VPN tunnel, which limits throughput",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. A tier of Google Cloud Storage that is not suited for this task",
@@ -4894,7 +4894,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. A copy command that is not suited to operate over long distances",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Fewer virtual machines (VMs) in GCP than on-premises machines",
@@ -4906,7 +4906,7 @@ const examLibrary = [
             },
             {
                 "answerText": "F. Complicated internet connectivity between the on-premises infrastructure and GCP",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Where are you Tartor?"
@@ -4929,7 +4929,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Google Cloud Datastore",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "answer is D. Google Cloud Datastorage\nGoogle Cloud Datastorage use:\n  * User profile\n  * game state\n  * product catalogs"
@@ -4944,7 +4944,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Encrypt the card data with a deterministic algorithm stored in Firestore using Datastore mode.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Encrypt the card data with a deterministic algorithm and shard it across multiple Memorystore instances.",
@@ -4959,11 +4959,23 @@ const examLibrary = [
     },
     {
         "id": "gcp-q208",
-        "questionText": "",
+        "questionText": "For this question, refer to the Helicopter Racing League (HRL) case study. Recently HRL started a new regional racing league in Cape Town, South Africa. In an effort to give customers in Cape Town a better user experience, HRL has partnered with the Content Delivery Network provider, Fastly. HRL needs to allow traffic coming from all of the Fastly IP address ranges into their Virtual Private Cloud network (VPC network). You are a member of the HRL security team and you need to configure the update that will allow only the Fastly IP address ranges through the External HTTP(S) load balancer. Which command should you use?",
         "answerOptions": [
             {
-                "answerText": "D. ",
+                "answerText": "A. ",
                 "isCorrect": false
+            },
+            {
+                "answerText": "B. ",
+                "isCorrect": false
+            },
+            {
+                "answerText": "C. ",
+                "isCorrect": false
+            },
+            {
+                "answerText": "D. ",
+                "isCorrect": true
             }
         ],
         "explanation": "Got this question in my exam, answered D"
@@ -4982,7 +4994,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Configure the deployment job to notify a Pub/Sub queue that triggers a Cloud Function.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Set up Identity and Access Management (IAM) and Confidential Computing to trigger a Cloud Function.",
@@ -4997,7 +5009,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use Explainable AI.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use Vision AI.",
