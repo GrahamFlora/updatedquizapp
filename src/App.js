@@ -5724,7 +5724,7 @@ const examLibrary = [
             {
                 "answerText": "C. ",
                 "isCorrect": false
-            }
+            },
             {
                 "answerText": "D. ",
                 "isCorrect": false
