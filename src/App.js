@@ -5031,10 +5031,6 @@ const examLibrary = [
         "questionText": "For this question, refer to the Helicopter Racing League (HRL) case study. HRL is looking for a cost-effective approach for storing their race data such as telemetry. They want to keep all historical records, train models using only the previous season's data, and plan for data growth in terms of volume and information collected. You need to propose a data solution. Considering HRL business requirements and the goals expressed by CEO S. Hawke, what should you do?",
         "answerOptions": [
             {
-                "answerText": "S. Hawke, what should you do?",
-                "isCorrect": false
-            },
-            {
                 "answerText": "A. Use Firestore for its scalable and flexible document-based database. Use collections to aggregate race data by season and event.",
                 "isCorrect": false
             },
@@ -5044,7 +5040,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Use BigQuery for its scalability and ability to add columns to a schema. Partition race data based on season.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Use Cloud SQL for its ability to automatically manage storage increases and compatibility with MySQL. Use separate database instances for each season.",
@@ -5067,7 +5063,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Use the gcloud recommender command to list the idle virtual machine instances.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. From the Google Console, identify which Compute Engine instances in the managed instance groups are no longer responding to health check probes.",
@@ -5082,11 +5078,11 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Verify EHR's product usage against the list of compliant products on the Google Cloud compliance page.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Advise EHR to execute a Business Associate Agreement (BAA) with Google Cloud.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use Firebase Authentication for EHR's user facing applications.",
@@ -5109,7 +5105,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Enable Binary Authorization on GKE, and sign containers as part of a CI/CD pipeline.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Configure Jenkins to utilize Kritis to cryptographically sign a container as part of a CI/CD pipeline.",
@@ -5117,7 +5113,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Configure Container Registry to only allow trusted service accounts to create and deploy containers from the registry.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Configure Container Registry to use vulnerability scanning to confirm that there are no vulnerabilities before deploying the workload.",
@@ -5132,7 +5128,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Add a new Dedicated Interconnect connection.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Upgrade the bandwidth on the Dedicated Interconnect connection to 100 G.",
@@ -5167,7 +5163,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Configure two Dedicated Interconnect connections in one metro (City) and two connections in another metro, and make sure the Interconnect connections are placed in different metro zones.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Answer : D (based on the requirement of secure and high-performance connection between on-premises systems to Google Cloud)\n\nBetween A and D, picked D as with Direct Connect EHR can get the bandwidth of 10 GBS to 100GBS  (VPN ruled out as traffic is over internet and due to bandwidth. Direct Peering is more for Workspace rather than Google Cloud)"
@@ -5186,7 +5182,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Turn off Pub/Sub message batching.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a backup Pub/Sub message queue.",
@@ -5201,7 +5197,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Create an Organizational Policy with a constraint to allow external IP addresses only on the frontend Compute Engine instances.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Revoke the compute.networkAdmin role from all users in the project with front end instances.",
@@ -5224,7 +5220,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use a private cluster with a private endpoint with master authorized networks configured.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use a public cluster with firewall rules and Virtual Private Cloud (VPC) routes.",
@@ -5247,7 +5243,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Tests should scale well beyond the prior approaches",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Unit tests are no longer required, only end-to-end tests",
@@ -5270,7 +5266,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Create a scalable environment in GCP for simulating production load",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use the existing infrastructure to test the GCP-based backend at scale",
@@ -5301,7 +5297,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Google Kubernetes Registry, Google Container Engine, Google HTTP(S) Load Balancer",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Google Cloud Functions, Google Cloud Pub/Sub, Google Cloud Deployment Manager",
@@ -5320,7 +5316,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Verify that the project quota hasn't been exceeded",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Verify that the new feature code did not introduce any performance bugs",
@@ -5351,7 +5347,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Create one project for development, a second for staging and a third for production",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Correct Answer is D. \nhttps://cloud.google.com/appengine/docs/standard/php/creating-separate-dev-environments"
@@ -5366,7 +5362,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Cloud Dataflow, Cloud Storage, Cloud Pub/Sub, and BigQuery",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Cloud SQL, Cloud Storage, Cloud Pub/Sub, and Cloud Dataflow",
@@ -5389,11 +5385,11 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Evaluate the impact of migrating their current batch ETL code to Cloud Dataflow.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Write a schema migration plan to denormalize data for better performance in BigQuery.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Draw an architecture diagram that shows how to move from a single MySQL database to a MySQL cluster.",
@@ -5428,7 +5424,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Create a global load balancer with managed instance groups and autoscaling policies. Use non-preemptible Compute Engine instances.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "D) => KPI game stability = Use non-preemptible"
@@ -5439,11 +5435,11 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Store as much analytics and game activity data as financially feasible today so it can be used to train machine learning models to predict user behavior in the future.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Begin packaging their game backend artifacts in container images and running them on Google  Kubernetes Engine to improve the ability to scale up or down based on game activity.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Set up a CI/CD pipeline using Jenkins and Spinnaker to automate canary deployments and improve development velocity.",
@@ -5466,7 +5462,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Deploy failure injection software to the game analytics platform that can inject additional latency to mobile client analytics traffic.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Build a test client that can be run from a mobile phone emulator on a Compute Engine virtual machine, and run multiple copies in Google Cloud Platform regions all over the world to generate realistic traffic.",
@@ -5501,7 +5497,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Use Cloud Bigtable for time series data, use Cloud Spanner for transactional data, and use BigQuery for historical data queries.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "For the people who say it's C in Linux Academy, did you see the Technical requirements there? The old Technical Requirements have the line \"Connect to a managed NoSQL database service\" but in the Technical Requirements in Google official site and in this question the line is replaced if the following 2 lines \"Connect to a transactional database service to manage user profiles and game state\nStore game activity in a timeseries database service for future analysis\". And for them definitely D is the answer!"
@@ -5512,7 +5508,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Cloud Bigtable",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Cloud Spanner",
@@ -5543,7 +5539,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create an instance template for the backend. For every region, deploy it on a multi-zone managed instance group. Use an L7 load balancer.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create an instance template for the backend. For every region, deploy it on a single-zone managed instance group. Use an L7 load balancer.",
@@ -5562,7 +5558,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Use gsutil to batch copy the files in parallel.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Use gsutil to extract the files as the first part of ETL.",
@@ -5589,7 +5585,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create a service account (SA) in the legacy game's Google Cloud project, add this SA in the new game's IAM page, and then give it the Firebase Admin role in both projects.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a service account (SA) in the legacy game's Google Cloud project, give it the Firebase Admin role, and then migrate the new game to the legacy game's project.",
@@ -5604,7 +5600,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Configure an organizational policy which constrains where resources can be deployed.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Configure IAM conditions to limit what resources can be configured.",
@@ -5639,10 +5635,10 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Configure Ingress for Anthos with a global load balancer and Google Kubernetes Engine.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
-        "explanation": "IMHO d) is the correct answer, not a)\nThe game fulfills the business requirements as well as the technical requirements - so it is build upon an architecture that is multi regional. \nhttps://cloud.google.com/kubernetes-engine/docs/concepts/multi-cluster-ingress"
+        "explanation": "Ingress for Anthos was replaced with Multi Cluster Ingress in the actual test. IMHO d) is the correct answer, not a)\nThe game fulfills the business requirements as well as the technical requirements - so it is build upon an architecture that is multi regional. \nhttps://cloud.google.com/kubernetes-engine/docs/concepts/multi-cluster-ingress"
     },
     {
         "id": "gcp-q237",
@@ -5658,7 +5654,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create Request Latency and Error Rate as service level indicators.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create Server Uptime and Error Rate as service level indicators.",
@@ -5673,7 +5669,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Configure Workload Identity and service accounts to be used by the application platform.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use Kubernetes Secrets, which are obfuscated by default. Configure these Secrets to be used by the application platform.",
@@ -5696,7 +5692,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Upload your mobile app to the Firebase Test Lab, and test the mobile app on Android and iOS devices.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Create Android and iOS VMs on Google Cloud, install the mobile app on the VMs, and test the mobile app.",
@@ -5715,8 +5711,20 @@ const examLibrary = [
     },
     {
         "id": "gcp-q240",
-        "questionText": "",
+        "questionText": "TerramEarth's CTO wants to use the raw data from connected vehicles to help identify approximately when a vehicle in the field will have a catastrophic failure. You want to allow analysts to centrally query the vehicle data. Which architecture should you recommend?",
         "answerOptions": [
+            {
+                "answerText": "A. ",
+                "isCorrect": true
+            },
+            {
+                "answerText": "B. ",
+                "isCorrect": false
+            },           
+            {
+                "answerText": "C. ",
+                "isCorrect": false
+            }
             {
                 "answerText": "D. ",
                 "isCorrect": false
@@ -5730,7 +5738,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use Google App Engine with Google Cloud Endpoints. Focus on an API for dealers and partners",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use Google App Engine with a JAX-RS Jersey Java-based framework. Focus on an API for the public",
@@ -5757,7 +5765,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Build or leverage an OAuth-compatible access control system",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Build SAML 2.0 SSO compatibility into your authentication system",
@@ -5784,7 +5792,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Vehicles write data directly to Google Cloud Pub/Sub",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Vehicles stream data directly to Google BigQuery",
@@ -5807,7 +5815,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Migrate from FTP to streaming transport, migrate from CSV to binary format, and develop machine learning analysis of metrics",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Increase fleet cellular connectivity to 80%, migrate from FTP to streaming transport, and develop machine learning analysis of metrics",
@@ -5830,7 +5838,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Capacity planning, TCO calculations, opex/capex allocation",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Capacity planning, utilization measurement, data center expansion",
@@ -5861,7 +5869,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Directly transfer the files to a different Google Cloud Regional Storage bucket location in US, EU, and Asia using Google APIs over HTTP(S). Run the ETL process to retrieve the data from each Regional bucket",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "c)\nMulti-Region Name\tMulti-Region Description\nasia\tData centers in Asia\neu\tData centers in the European Union1\nus\tData centers in the United States\n\n multi-region is a large geographic area, such as the United States, that contains two or more geographic places."
@@ -5884,7 +5892,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Launch a cluster in each region to preprocess and compress the raw data, then move the data into a region bucket and use a Cloud Dataproc cluster to finish the job",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "I will look at it from a different perspective;\nA, B says \"move all data\" but analysis will try to reveal breaking down after 100K miles so there is no point of transferring data of the vehicles with less than 100K milage.\nTherefore, transferring all data is just waste of time and money.\n\nThere is one thing for sure here. If we move/copy data between continents it will cost us money therefore compressing the data before copying to another region/continent makes sense.\nPreprocessing also makes sense because we probably want to process smaller chunks of data first (remember 100K milage).\nSo now type of target bucket; multi-region or standard? multi-region is good for high-availability and low latency with a little more cost however question doesn't require any of these features.\nTherefore I think standard storage option is good to go given lower costs are always better.\n\nSo my answer would be D"
@@ -5907,7 +5915,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Have the vehicle's computer compress the data in hourly snapshots, and store it in a GCS Coldline bucket",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "D is most cost effective as don't want to use until 'next year'"
@@ -5918,7 +5926,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Treat every micro service call between modules on the vehicle as untrusted.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Require IPv6 for connectivity to ensure a secure address space.",
@@ -5926,7 +5934,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Use a trusted platform module (TPM) and verify firmware and binaries on boot.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Use a functional programming language to isolate code execution cycles.",
@@ -5953,7 +5961,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Capture all operating data, train machine learning models that identify ideal operations, and run locally to make operational adjustments automatically",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Implement a Google Cloud Dataflow streaming job with a sliding window, and use Google Cloud Messaging (GCM) to make operational adjustments automatically",
