@@ -5951,7 +5951,7 @@ const examLibrary = [
         ],
         "explanation": "AC is correct"
     },
-    {
+     {
         "id": "gcp-q250",
         "questionText": "Operational parameters such as oil pressure are adjustable on each of TerramEarth's vehicles to increase their efficiency, depending on their environmental conditions. Your primary goal is to increase the operating efficiency of all 20 million cellular and unconnected vehicles in the field.How can you accomplish this goal?",
         "answerOptions": [
@@ -5988,7 +5988,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create a BigQuery time-partitioned table for the European data, and set the partition expiration period to 36 months. For Cloud Storage, use gsutil to enable lifecycle management using a DELETE action with an Age condition of 36 months.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a BigQuery time-partitioned table for the European data, and set the partition expiration  period to 36 months. For Cloud Storage, use gsutil to create a SetStorageClass to NONE action with an Age condition of 36 months.",
@@ -6003,7 +6003,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac30\u05d2\u20ac, Storage Class: \u05d2\u20acStandard\u05d2\u20ac, and Action: \u05d2\u20acSet to Coldline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac365\u05d2\u20ac, Storage Class: \u05d2\u20acColdline\u05d2\u20ac, and Action: \u05d2\u20acDelete\u05d2\u20ac.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac30\u05d2\u20ac, Storage Class: \u05d2\u20acColdline\u05d2\u20ac, and Action: \u05d2\u20acSet to Nearline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac91\u05d2\u20ac, Storage Class: \u05d2\u20acColdline\u05d2\u20ac, and Action: \u05d2\u20acSet to Nearline\u05d2\u20ac.",
@@ -6026,7 +6026,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Replace the existing data warehouse with BigQuery. Use table partitioning.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Replace the existing data warehouse with a Compute Engine instance with 96 CPUs.",
@@ -6061,7 +6061,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Use Cloud Dataprep and configure the BigQuery tables as the source. Schedule a daily job to clean the data.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Option D, as data needs to be cleaned ..\nDataprep has the capabilities to clean dirty data"
@@ -6072,7 +6072,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use BigQuery as the data warehouse. Connect all vehicles to the network and stream data into BigQuery using Cloud Pub/Sub and Cloud Dataflow. Use Google Data Studio for analysis and reporting.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use BigQuery as the data warehouse. Connect all vehicles to the network and upload gzip files to a Multi-Regional Cloud Storage bucket using gcloud. Use Google Data Studio for analysis and reporting.",
@@ -6099,7 +6099,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Cloud IoT Core with public/private key pairs",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Compute Engine with project-wide SSH keys",
@@ -6122,7 +6122,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Make func_query 'Require authentication.' Create a unique service account and associate it to func_display. Grant the service account invoker role for func_query. Create an id token in func_display and include the token to the request when invoking func_query.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Make func_query 'Require authentication' and only accept internal traffic. Create those two functions in the same VPC. Create an ingress firewall rule for func_query to only allow traffic from func_display.",
@@ -6145,7 +6145,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Deploy Cloud Run services to multiple regions. Create serverless network endpoint groups pointing to the services. Add the serverless NEGs to a backend service that is used by a global HTTP(S) Load Balancing instance.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Deploy Cloud Run services to multiple regions. In Cloud DNS, create a latency-based DNS name that points to the services.",
@@ -6164,7 +6164,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Open a support case regarding the CVE and chat with the support engineer.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Read the CVEs from the Google Cloud Status Dashboard to understand the impact.",
@@ -6172,7 +6172,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Read the CVEs from the Google Cloud Platform Security Bulletins to understand the impact.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Post a question regarding the CVE in Stack Overflow to get an explanation.",
@@ -6199,7 +6199,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create a Cloud Monitoring uptime check to validate the application URL. If it fails, put a message in a Pub/Sub queue that triggers a Cloud Function to switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Use Cloud Error Reporting to check the application URL. If the application is down, switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
@@ -6214,7 +6214,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Configure a trigger in Cloud Build for new source changes. Invoke Cloud Build to build container images for each microservice, and tag them using the code commit hash. Push the images to the Container Registry.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Configure a trigger in Cloud Build for new source changes. The trigger invokes build jobs and build container images for the microservices. Tag the images with a version number, and push them to Cloud Storage.",
@@ -6237,7 +6237,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Request Transfer Appliances from Google Cloud, export the data to appliances, and return the appliances to Google Cloud.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Configure the Storage Transfer service from Google Cloud to send the data from your data center to Cloud Storage.",
@@ -6260,7 +6260,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Grant the operations engineer access to use Google Cloud Shell.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Configure a VPN connection to GCP to allow SSH access to the cloud VMs.",
@@ -6291,7 +6291,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Create a Cloud Storage Transfer Service Job to copy the files to a Coldline Storage bucket.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Create a Cloud Storage Transfer Service job to copy the files to a Regional Storage bucket.",
@@ -6318,7 +6318,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Identify the number of virtual cores and RAM associated with the application server virtual machines align them to a custom machine type in the cloud, monitor performance, and scale the machine types up until the desired performance is reached.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "A - not correct. as its talking about Physical server size\nB - not correct. as we its talking about Max spec\nC - not correct. as its talking about the Smallest spec\nD - is CORRECT. as its recommending to map with on premises app VM Size"
@@ -6337,7 +6337,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Monitoring, Logging, Alerts, Error Reporting",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Monitoring, Logging, Debug, Error Report",
@@ -6352,7 +6352,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Identify self-contained applications with external dependencies as a first move to the cloud.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Identify enterprise applications with internal dependencies and recommend these as a first move to the cloud.",
@@ -6379,7 +6379,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. Setup a MySQL replica server/slave in the cloud environment, and configure it for asynchronous replication from the MySQL master server on-premises until cutover.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. Create a new MySQL cluster in the cloud, configure applications to begin writing to both on premises and cloud MySQL masters, and destroy the original cluster at cutover.",
@@ -6410,7 +6410,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Configure their legacy web servers to allow requests that contain user-Agent HTTP header when the value matches GoogleStackdriverMonitoring- UptimeChecks (https://cloud.google.com/monitoring)",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "It's B. B must be done. For a health check on http (port 80) you don't need to configure nothing in the server (it makes a get o something similar)."
@@ -6421,7 +6421,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Store image files in a Google Cloud Storage bucket. Use Google Cloud Datastore to maintain metadata that maps each customer's ID and their image files.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Store image files in a Google Cloud Storage bucket. Add custom metadata to the uploaded images in Cloud Storage that contains the customer's unique ID.",
@@ -6448,7 +6448,7 @@ const examLibrary = [
             },
             {
                 "answerText": "B. They should add additional unit tests and production scale load tests on their cloud staging environment.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "C. They should run the end-to-end tests in the cloud staging environment to determine if the code is working as intended.",
@@ -6467,7 +6467,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Google Cloud Storage Coldline to store the data, and gsutil to access the data.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Google Cloud Storage Nearline to store the data, and gsutil to access the data.",
@@ -6490,7 +6490,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Use regional managed instance groups and a global load balancer to increase performance because the regional managed instance group can grow instances in each region separately based on traffic.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Use a global load balancer with a set of virtual machines that forward the requests to a closer group of virtual machines managed by your operations team.",
@@ -6525,7 +6525,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Implement managed instance groups for the Tomcat and Nginx. Migrate MySQL to Cloud SQL, RabbitMQ to Cloud Pub/Sub, Hadoop to Cloud Dataproc, and NAS to Cloud Storage.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Why do we need to put NAS data on persistant disk and not on GCS ?  I would go with D!"
@@ -6536,7 +6536,7 @@ const examLibrary = [
         "answerOptions": [
             {
                 "answerText": "A. Deploy Nginx and Tomcat using Cloud Deployment Manager to Compute Engine. Deploy a Cloud SQL server to replace MySQL. Deploy Jenkins using Cloud Deployment Manager.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "B. Deploy Nginx and Tomcat using Cloud Launcher. Deploy a MySQL server using Cloud Launcher. Deploy Jenkins to Compute Engine using Cloud Deployment Manager scripts.",
@@ -6567,7 +6567,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Hadoop/Spark deployed using Cloud Dataproc Regional in High Availability mode",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Jenkins, monitoring, bastion hosts, security scanners services deployed on custom machine types",
@@ -6594,7 +6594,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Use the Activity page in the GCP Console and Stackdriver Logging to provide the required insight.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "D is the correct answer !\nhttps://cloud.google.com/logging/docs/audit/"
@@ -6613,7 +6613,7 @@ const examLibrary = [
             },
             {
                 "answerText": "C. Assign predefined IAM roles to the Google Groups you created in order to enforce security requirements. Utilize Google's default encryption at rest when storing files in Cloud Storage.",
-                "isCorrect": false
+                "isCorrect": true
             },
             {
                 "answerText": "D. Assign predefined IAM roles to the Google Groups you created in order to enforce security requirements. Ensure that the default Cloud KMS key is set before storing files in Cloud Storage.",
@@ -6640,7 +6640,7 @@ const examLibrary = [
             },
             {
                 "answerText": "D. Containerize the micro-services and host them in Google Kubernetes Engine.",
-                "isCorrect": false
+                "isCorrect": true
             }
         ],
         "explanation": "Be careful, because in the case study that you can find in google website MySQL version is 5.7 https://cloud.google.com/certification/guides/cloud-architect/casestudy-dress4win-rev2"
