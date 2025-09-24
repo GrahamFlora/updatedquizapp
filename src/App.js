@@ -7283,24 +7283,6 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
 // === MAIN APP COMPONENT ==========================================================
 // =================================================================================
 const App = () => {
-
-    // Place the useEffect hook for the title here
-    useEffect(() => {
-        let newTitle = "Exam App"; // Default title
-
-        if (appState === 'dashboard') {
-            newTitle = "Dashboard - Exam App";
-        } else if (appState === 'quiz' && activeExam) {
-            newTitle = `${activeExam.title} - Quiz`;
-        } else if (appState === 'review' && completedQuizData) {
-            newTitle = `Results for ${completedQuizData.examTitle}`;
-        } else if (appState === 'review' && reviewingHistoryEntry) {
-            newTitle = `Reviewing ${reviewingHistoryEntry.examTitle}`;
-        }
-        
-        document.title = newTitle;
-    }, [appState, activeExam, completedQuizData, reviewingHistoryEntry]);
-
     const [appState, setAppState] = useState('loading');
     const [allExams, setAllExams] = useState([]);
     const [theme, setTheme] = useState('light');
@@ -7324,6 +7306,23 @@ const App = () => {
     const [examToStart, setExamToStart] = useState(null);
     const [entryToDelete, setEntryToDelete] = useState(null);
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
+
+    // ✅ Place the useEffect hook for the title here
+    useEffect(() => {
+        let newTitle = "Exam App"; // Default title
+
+        if (appState === 'dashboard') {
+            newTitle = "Dashboard - Exam App";
+        } else if (appState === 'quiz' && activeExam) {
+            newTitle = `${activeExam.title} - Quiz`;
+        } else if (appState === 'review' && completedQuizData) {
+            newTitle = `Results for ${completedQuizData.examTitle}`;
+        } else if (appState === 'review' && reviewingHistoryEntry) {
+            newTitle = `Reviewing ${reviewingHistoryEntry.examTitle}`;
+        }
+        
+        document.title = newTitle;
+    }, [appState, activeExam, completedQuizData, reviewingHistoryEntry]);
 
     // --- HANDLERS ---
     const handleSelectExam = (exam) => {
