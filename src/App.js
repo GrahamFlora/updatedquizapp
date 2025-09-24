@@ -2434,10 +2434,6 @@ const examLibrary = [
         "questionText": "You need to ensure reliability for your application and operations by supporting reliable task scheduling for compute on GCP. Leveraging Google best practices, what should you do?",
         "answerOptions": [
             {
-                "answerText": "P. Leveraging Google best practices, what should you do?",
-                "isCorrect": false
-            },
-            {
                 "answerText": "A. Using the Cron service provided by App Engine, publish messages directly to a message-processing utility service running on Compute Engine instances.",
                 "isCorrect": true
             },
