@@ -73,23 +73,19 @@ const examLibrary = [
         "questionText": "Your company has decided to make a major revision of their API in order to create better experiences for their developers. They need to keep the old version of the API available and deployable, while allowing new customers and testers to try out the new API. They want to keep the same SSL and DNS records in place to serve both APIs.What should they do?",
         "answerOptions": [
             {
-                "answerText": "I. They want to keep the same SSL and DNS records in place to serve both APIs.What should they do?",
+                "answerText": "Configure a new load balancer for the new version of the API",
                 "isCorrect": false
             },
             {
-                "answerText": "A. Configure a new load balancer for the new version of the API",
+                "answerText": "Reconfigure old clients to use a new endpoint for the new API",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Reconfigure old clients to use a new endpoint for the new API",
+                "answerText": "Have the old API forward traffic to the new API based on the path",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Have the old API forward traffic to the new API based on the path",
-                "isCorrect": false
-            },
-            {
-                "answerText": "D. Use separate backend pools for each API path behind the load balancer",
+                "answerText": "Use separate backend pools for each API path behind the load balancer",
                 "isCorrect": true
             }
         ],
@@ -100,19 +96,19 @@ const examLibrary = [
         "questionText": "Your company plans to migrate a multi-petabyte data set to the cloud. The data set must be available 24hrs a day. Your business analysts have experience only with using a SQL interface.How should you store the data to optimize it for ease of analysis?",
         "answerOptions": [
             {
-                "answerText": "A. Load data into Google BigQuery",
+                "answerText": "Load data into Google BigQuery",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Insert data into Google Cloud SQL",
+                "answerText": "Insert data into Google Cloud SQL",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Put flat files into Google Cloud Storage",
+                "answerText": "Put flat files into Google Cloud Storage",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Stream data into Google Cloud Datastore",
+                "answerText": "Stream data into Google Cloud Datastore",
                 "isCorrect": false
             }
         ],
@@ -123,27 +119,27 @@ const examLibrary = [
         "questionText": "The operations manager asks you for a list of recommended practices that she should consider when migrating a J2EE application to the cloud.Which three practices should you recommend? (Choose three.)",
         "answerOptions": [
             {
-                "answerText": "A. Port the application code to run on Google App Engine",
+                "answerText": "Port the application code to run on Google App Engine",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Integrate Cloud Dataflow into the application to capture real-time metrics",
+                "answerText": "Integrate Cloud Dataflow into the application to capture real-time metrics",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Instrument the application with a monitoring tool like Stackdriver Debugger",
+                "answerText": "Instrument the application with a monitoring tool like Stackdriver Debugger",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Select an automation framework to reliably provision the cloud infrastructure",
+                "answerText": "Select an automation framework to reliably provision the cloud infrastructure",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Deploy a continuous integration tool with automated testing in a staging environment",
+                "answerText": "Deploy a continuous integration tool with automated testing in a staging environment",
                 "isCorrect": true
             },
             {
-                "answerText": "F. Migrate from MySQL to a managed NoSQL database like Google Cloud Datastore or Bigtable",
+                "answerText": "Migrate from MySQL to a managed NoSQL database like Google Cloud Datastore or Bigtable",
                 "isCorrect": false
             }
         ],
@@ -154,19 +150,19 @@ const examLibrary = [
         "questionText": "A news feed web service has the following code running on Google App Engine. During peak load, users report that they can see news articles they already viewed.What is the most likely cause of this problem?",
         "answerOptions": [
             {
-                "answerText": "A. The session variable is local to just a single instance",
+                "answerText": "The session variable is local to just a single instance",
                 "isCorrect": true
             },
             {
-                "answerText": "B. The session variable is being overwritten in Cloud Datastore",
+                "answerText": "The session variable is being overwritten in Cloud Datastore",
                 "isCorrect": false
             },
             {
-                "answerText": "C. The URL of the API needs to be modified to prevent caching",
+                "answerText": "The URL of the API needs to be modified to prevent caching",
                 "isCorrect": false
             },
             {
-                "answerText": "D. The HTTP Expires header needs to be set to -1 stop caching",
+                "answerText": "The HTTP Expires header needs to be set to -1 stop caching",
                 "isCorrect": false
             }
         ],
@@ -177,19 +173,19 @@ const examLibrary = [
         "questionText": "An application development team believes their current logging tool will not meet their needs for their new cloud-based product. They want a better tool to capture errors and help them analyze their historical log data. You want to help them find a solution that meets their needs.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Direct them to download and install the Google StackDriver logging agent",
+                "answerText": "Direct them to download and install the Google StackDriver logging agent",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Send them a list of online resources about logging best practices",
+                "answerText": "Send them a list of online resources about logging best practices",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Help them define their requirements and assess viable logging tools",
+                "answerText": "Help them define their requirements and assess viable logging tools",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Help them upgrade their current tool to take advantage of any new features",
+                "answerText": "Help them upgrade their current tool to take advantage of any new features",
                 "isCorrect": false
             }
         ],
@@ -200,23 +196,23 @@ const examLibrary = [
         "questionText": "You need to reduce the number of unplanned rollbacks of erroneous production deployments in your company's web hosting platform. Improvement to the QA/Test processes accomplished an 80% reduction.Which additional two approaches can you take to further reduce the rollbacks? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Introduce a green-blue deployment model",
+                "answerText": "Introduce a green-blue deployment model",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Replace the QA environment with canary releases",
+                "answerText": "Replace the QA environment with canary releases",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Fragment the monolithic platform into microservices",
+                "answerText": "Fragment the monolithic platform into microservices",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Reduce the platform's dependency on relational database systems",
+                "answerText": "Reduce the platform's dependency on relational database systems",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Replace the platform's relational database systems with a NoSQL database",
+                "answerText": "Replace the platform's relational database systems with a NoSQL database",
                 "isCorrect": false
             }
         ],
@@ -227,27 +223,27 @@ const examLibrary = [
         "questionText": "To reduce costs, the Director of Engineering has required all developers to move their development infrastructure resources from on-premises virtual machines(VMs) to Google Cloud Platform. These resources go through multiple start/stop events during the day and require state to persist. You have been asked to design the process of running a development environment in Google Cloud while providing cost visibility to the finance department.Which two steps should you take? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Use the - -no-auto-delete flag on all persistent disks and stop the VM",
+                "answerText": "Use the - -no-auto-delete flag on all persistent disks and stop the VM",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use the - -auto-delete flag on all persistent disks and terminate the VM",
+                "answerText": "Use the - -auto-delete flag on all persistent disks and terminate the VM",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Apply VM CPU utilization label and include it in the BigQuery billing export",
+                "answerText": "Apply VM CPU utilization label and include it in the BigQuery billing export",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Google BigQuery billing export and labels to associate cost to groups",
+                "answerText": "Use Google BigQuery billing export and labels to associate cost to groups",
                 "isCorrect": true
             },
             {
-                "answerText": "E. Store all state into local SSD, snapshot the persistent disks, and terminate the VM",
+                "answerText": "Store all state into local SSD, snapshot the persistent disks, and terminate the VM",
                 "isCorrect": false
             },
             {
-                "answerText": "F. Store all state in Google Cloud Storage, snapshot the persistent disks, and terminate the VM",
+                "answerText": "Store all state in Google Cloud Storage, snapshot the persistent disks, and terminate the VM",
                 "isCorrect": false
             }
         ],
@@ -258,19 +254,19 @@ const examLibrary = [
         "questionText": "Your company wants to track whether someone is present in a meeting room reserved for a scheduled meeting. There are 1000 meeting rooms across 5 offices on 3 continents. Each room is equipped with a motion sensor that reports its status every second. The data from the motion detector includes only a sensor ID and several different discrete items of information. Analysts will use this data, together with information about account owners and office locations.Which database type should you use?",
         "answerOptions": [
             {
-                "answerText": "A. Flat file",
+                "answerText": "Flat file",
                 "isCorrect": false
             },
             {
-                "answerText": "B. NoSQL",
+                "answerText": "NoSQL",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Relational",
+                "answerText": "Relational",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Blobstore",
+                "answerText": "Blobstore",
                 "isCorrect": false
             }
         ],
@@ -281,19 +277,19 @@ const examLibrary = [
         "questionText": "You set up an autoscaling instance group to serve web traffic for an upcoming launch. After configuring the instance group as a backend service to an HTTP(S) load balancer, you notice that virtual machine (VM) instances are being terminated and re-launched every minute. The instances do not have a public IP address.You have verified the appropriate web response is coming from each instance using the curl command. You want to ensure the backend is configured correctly.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Ensure that a firewall rules exists to allow source traffic on HTTP/HTTPS to reach the load balancer.",
+                "answerText": "Ensure that a firewall rules exists to allow source traffic on HTTP/HTTPS to reach the load balancer.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Assign a public IP to each instance and configure a firewall rule to allow the load balancer to reach the instance public IP.",
+                "answerText": "Assign a public IP to each instance and configure a firewall rule to allow the load balancer to reach the instance public IP.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Ensure that a firewall rule exists to allow load balancer health checks to reach the instances in the instance group.",
+                "answerText": "Ensure that a firewall rule exists to allow load balancer health checks to reach the instances in the instance group.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a tag on each instance with the name of the load balancer. Configure a firewall rule with the name of the load balancer as the source and the instance tag as the destination.",
+                "answerText": "Create a tag on each instance with the name of the load balancer. Configure a firewall rule with the name of the load balancer as the source and the instance tag as the destination.",
                 "isCorrect": false
             }
         ],
@@ -304,19 +300,19 @@ const examLibrary = [
         "questionText": "You write a Python script to connect to Google BigQuery from a Google Compute Engine virtual machine. The script is printing errors that it cannot connect toBigQuery.What should you do to fix the script?",
         "answerOptions": [
             {
-                "answerText": "A. Install the latest BigQuery API client library for Python",
+                "answerText": "Install the latest BigQuery API client library for Python",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Run your script on a new virtual machine with the BigQuery access scope enabled",
+                "answerText": "Run your script on a new virtual machine with the BigQuery access scope enabled",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create a new service account with BigQuery access and execute your script with that user",
+                "answerText": "Create a new service account with BigQuery access and execute your script with that user",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Install the bq component for gcloud with the command gcloud components install bq.",
+                "answerText": "Install the bq component for gcloud with the command gcloud components install bq.",
                 "isCorrect": false
             }
         ],
@@ -327,19 +323,19 @@ const examLibrary = [
         "questionText": "Your customer is moving an existing corporate application to Google Cloud Platform from an on-premises data center. The business owners require minimal user disruption. There are strict security team requirements for storing passwords.What authentication strategy should they use?",
         "answerOptions": [
             {
-                "answerText": "A. Use G Suite Password Sync to replicate passwords into Google",
+                "answerText": "Use G Suite Password Sync to replicate passwords into Google",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Federate authentication via SAML 2.0 to the existing Identity Provider",
+                "answerText": "Federate authentication via SAML 2.0 to the existing Identity Provider",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Provision users in Google using the Google Cloud Directory Sync tool",
+                "answerText": "Provision users in Google using the Google Cloud Directory Sync tool",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Ask users to set their Google password to match their corporate password",
+                "answerText": "Ask users to set their Google password to match their corporate password",
                 "isCorrect": false
             }
         ],
@@ -350,19 +346,19 @@ const examLibrary = [
         "questionText": "Your company has successfully migrated to the cloud and wants to analyze their data stream to optimize operations. They do not have any existing code for this analysis, so they are exploring all their options. These options include a mix of batch and stream processing, as they are running some hourly jobs and live- processing some data as it comes in.Which technology should they use for this?",
         "answerOptions": [
             {
-                "answerText": "A. Google Cloud Dataproc",
+                "answerText": "Google Cloud Dataproc",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Google Cloud Dataflow",
+                "answerText": "Google Cloud Dataflow",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Google Container Engine with Bigtable",
+                "answerText": "Google Container Engine with Bigtable",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Google Compute Engine with Google BigQuery",
+                "answerText": "Google Compute Engine with Google BigQuery",
                 "isCorrect": false
             }
         ],
@@ -373,19 +369,19 @@ const examLibrary = [
         "questionText": "Your customer is receiving reports that their recently updated Google App Engine application is taking approximately 30 seconds to load for some of their users.This behavior was not reported before the update.What strategy should you take?",
         "answerOptions": [
             {
-                "answerText": "A. Work with your ISP to diagnose the problem",
+                "answerText": "Work with your ISP to diagnose the problem",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Open a support ticket to ask for network capture and flow data to diagnose the problem, then roll back your application",
+                "answerText": "Open a support ticket to ask for network capture and flow data to diagnose the problem, then roll back your application",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Roll back to an earlier known good release initially, then use Stackdriver Trace and Logging to diagnose the problem in a development/test/staging environment",
+                "answerText": "Roll back to an earlier known good release initially, then use Stackdriver Trace and Logging to diagnose the problem in a development/test/staging environment",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Roll back to an earlier known good release, then push the release again at a quieter period to investigate. Then use Stackdriver Trace and Logging to diagnose the problem",
+                "answerText": "Roll back to an earlier known good release, then push the release again at a quieter period to investigate. Then use Stackdriver Trace and Logging to diagnose the problem",
                 "isCorrect": false
             }
         ],
@@ -396,23 +392,23 @@ const examLibrary = [
         "questionText": "A production database virtual machine on Google Compute Engine has an ext4-formatted persistent disk for data files. The database is about to run out of storage space.How can you remediate the problem with the least amount of downtime?",
         "answerOptions": [
             {
-                "answerText": "A. In the Cloud Platform Console, increase the size of the persistent disk and use the resize2fs command in Linux.",
+                "answerText": "In the Cloud Platform Console, increase the size of the persistent disk and use the resize2fs command in Linux.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Shut down the virtual machine, use the Cloud Platform Console to increase the persistent disk size, then restart the virtual machine",
+                "answerText": "Shut down the virtual machine, use the Cloud Platform Console to increase the persistent disk size, then restart the virtual machine",
                 "isCorrect": false
             },
             {
-                "answerText": "C. In the Cloud Platform Console, increase the size of the persistent disk and verify the new space is ready to use with the fdisk command in Linux",
+                "answerText": "In the Cloud Platform Console, increase the size of the persistent disk and verify the new space is ready to use with the fdisk command in Linux",
                 "isCorrect": false
             },
             {
-                "answerText": "D. In the Cloud Platform Console, create a new persistent disk attached to the virtual machine, format and mount it, and configure the database service to move the files to the new disk",
+                "answerText": "In the Cloud Platform Console, create a new persistent disk attached to the virtual machine, format and mount it, and configure the database service to move the files to the new disk",
                 "isCorrect": false
             },
             {
-                "answerText": "E. In the Cloud Platform Console, create a snapshot of the persistent disk restore the snapshot to a new larger disk, unmount the old disk, mount the new disk and restart the database service",
+                "answerText": "In the Cloud Platform Console, create a snapshot of the persistent disk restore the snapshot to a new larger disk, unmount the old disk, mount the new disk and restart the database service",
                 "isCorrect": false
             }
         ],
@@ -423,23 +419,23 @@ const examLibrary = [
         "questionText": "Your application needs to process credit card transactions. You want the smallest scope of Payment Card Industry (PCI) compliance without compromising the ability to analyze transactional data and trends relating to which payment methods are used.How should you design your architecture?",
         "answerOptions": [
             {
-                "answerText": "A. Create a tokenizer service and store only tokenized data",
+                "answerText": "Create a tokenizer service and store only tokenized data",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create separate projects that only process credit card data",
+                "answerText": "Create separate projects that only process credit card data",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create separate subnetworks and isolate the components that process credit card data",
+                "answerText": "Create separate subnetworks and isolate the components that process credit card data",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Streamline the audit discovery phase by labeling all of the virtual machines (VMs) that process PCI data",
+                "answerText": "Streamline the audit discovery phase by labeling all of the virtual machines (VMs) that process PCI data",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Enable Logging export to Google BigQuery and use ACLs and views to scope the data shared with the auditor",
+                "answerText": "Enable Logging export to Google BigQuery and use ACLs and views to scope the data shared with the auditor",
                 "isCorrect": false
             }
         ],
@@ -450,19 +446,19 @@ const examLibrary = [
         "questionText": "You have been asked to select the storage system for the click-data of your company's large portfolio of websites. This data is streamed in from a custom website analytics package at a typical rate of 6,000 clicks per minute. With bursts of up to 8,500 clicks per second. It must have been stored for future analysis by your data science and user experience teams.Which storage infrastructure should you choose?",
         "answerOptions": [
             {
-                "answerText": "A. Google Cloud SQL",
+                "answerText": "Google Cloud SQL",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Google Cloud Bigtable",
+                "answerText": "Google Cloud Bigtable",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Google Cloud Storage",
+                "answerText": "Google Cloud Storage",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Google Cloud Datastore",
+                "answerText": "Google Cloud Datastore",
                 "isCorrect": false
             }
         ],
@@ -473,19 +469,19 @@ const examLibrary = [
         "questionText": "You are creating a solution to remove backup files older than 90 days from your backup Cloud Storage bucket. You want to optimize ongoing Cloud Storage spend.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Write a lifecycle management rule in XML and push it to the bucket with gsutil",
+                "answerText": "Write a lifecycle management rule in XML and push it to the bucket with gsutil",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Write a lifecycle management rule in JSON and push it to the bucket with gsutil",
+                "answerText": "Write a lifecycle management rule in JSON and push it to the bucket with gsutil",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Schedule a cron script using gsutil ls \u05d2\u20ac\"lr gs://backups/** to find and remove items older than 90 days",
+                "answerText": "Schedule a cron script using gsutil ls \u05d2\u20ac\"lr gs://backups/** to find and remove items older than 90 days",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Schedule a cron script using gsutil ls \u05d2\u20ac\"l gs://backups/** to find and remove items older than 90 days and schedule it with cron",
+                "answerText": "Schedule a cron script using gsutil ls \u05d2\u20ac\"l gs://backups/** to find and remove items older than 90 days and schedule it with cron",
                 "isCorrect": false
             }
         ],
@@ -496,19 +492,19 @@ const examLibrary = [
         "questionText": "Your company is forecasting a sharp increase in the number and size of Apache Spark and Hadoop jobs being run on your local datacenter. You want to utilize the cloud to help you scale this upcoming demand with the least amount of operations work and code change.Which product should you use?",
         "answerOptions": [
             {
-                "answerText": "A. Google Cloud Dataflow",
+                "answerText": "Google Cloud Dataflow",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Google Cloud Dataproc",
+                "answerText": "Google Cloud Dataproc",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Google Compute Engine",
+                "answerText": "Google Compute Engine",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Google Kubernetes Engine",
+                "answerText": "Google Kubernetes Engine",
                 "isCorrect": false
             }
         ],
@@ -519,23 +515,23 @@ const examLibrary = [
         "questionText": "The database administration team has asked you to help them improve the performance of their new database server running on Google Compute Engine. The database is for importing and normalizing their performance statistics and is built with MySQL running on Debian Linux. They have an n1-standard-8 virtual machine with 80 GB of SSD persistent disk.What should they change to get better performance from this system?",
         "answerOptions": [
             {
-                "answerText": "A. Increase the virtual machine's memory to 64 GB",
+                "answerText": "Increase the virtual machine's memory to 64 GB",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a new virtual machine running PostgreSQL",
+                "answerText": "Create a new virtual machine running PostgreSQL",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Dynamically resize the SSD persistent disk to 500 GB",
+                "answerText": "Dynamically resize the SSD persistent disk to 500 GB",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Migrate their performance metrics warehouse to BigQuery",
+                "answerText": "Migrate their performance metrics warehouse to BigQuery",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Modify all of their batch jobs to use bulk inserts into the database",
+                "answerText": "Modify all of their batch jobs to use bulk inserts into the database",
                 "isCorrect": false
             }
         ],
@@ -546,19 +542,19 @@ const examLibrary = [
         "questionText": "You want to optimize the performance of an accurate, real-time, weather-charting application. The data comes from 50,000 sensors sending 10 readings a second, in the format of a timestamp and sensor reading.Where should you store the data?",
         "answerOptions": [
             {
-                "answerText": "A. Google BigQuery",
+                "answerText": "Google BigQuery",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Google Cloud SQL",
+                "answerText": "Google Cloud SQL",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Google Cloud Bigtable",
+                "answerText": "Google Cloud Bigtable",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Google Cloud Storage",
+                "answerText": "Google Cloud Storage",
                 "isCorrect": false
             }
         ],
@@ -569,19 +565,19 @@ const examLibrary = [
         "questionText": "Your company's user-feedback portal comprises a standard LAMP stack replicated across two zones. It is deployed in the us-central1 region and uses autoscaled managed instance groups on all layers, except the database. Currently, only a small group of select customers have access to the portal. The portal meets a99,99% availability SLA under these conditions. However next quarter, your company will be making the portal available to all users, including unauthenticated users. You need to develop a resiliency testing strategy to ensure the system maintains the SLA once they introduce additional user load.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Capture existing users input, and replay captured user load until autoscale is triggered on all layers. At the same time, terminate all resources in one of the zones",
+                "answerText": "Capture existing users input, and replay captured user load until autoscale is triggered on all layers. At the same time, terminate all resources in one of the zones",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create synthetic random user input, replay synthetic load until autoscale logic is triggered on at least one layer, and introduce \u05d2\u20acchaos\u05d2\u20ac to the system by terminating random resources on both zones",
+                "answerText": "Create synthetic random user input, replay synthetic load until autoscale logic is triggered on at least one layer, and introduce \u05d2\u20acchaos\u05d2\u20ac to the system by terminating random resources on both zones",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Expose the new system to a larger group of users, and increase group size each day until autoscale logic is triggered on all layers. At the same time, terminate random resources on both zones",
+                "answerText": "Expose the new system to a larger group of users, and increase group size each day until autoscale logic is triggered on all layers. At the same time, terminate random resources on both zones",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Capture existing users input, and replay captured user load until resource utilization crosses 80%. Also, derive estimated number of users based on existing user's usage of the app, and deploy enough resources to handle 200% of expected load",
+                "answerText": "Capture existing users input, and replay captured user load until resource utilization crosses 80%. Also, derive estimated number of users based on existing user's usage of the app, and deploy enough resources to handle 200% of expected load",
                 "isCorrect": false
             }
         ],
@@ -592,23 +588,23 @@ const examLibrary = [
         "questionText": "One of the developers on your team deployed their application in Google Container Engine with the Dockerfile below. They report that their application deployments are taking too long.You want to optimize this Dockerfile for faster deployment times without adversely affecting the app's functionality.Which two actions should you take? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Remove Python after running pip",
+                "answerText": "Remove Python after running pip",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Remove dependencies from requirements.txt",
+                "answerText": "Remove dependencies from requirements.txt",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use a slimmed-down base image like Alpine Linux",
+                "answerText": "Use a slimmed-down base image like Alpine Linux",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Use larger machine types for your Google Container Engine node pools",
+                "answerText": "Use larger machine types for your Google Container Engine node pools",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Copy the source after he package dependencies (Python and pip) are installed",
+                "answerText": "Copy the source after he package dependencies (Python and pip) are installed",
                 "isCorrect": true
             }
         ],
@@ -619,19 +615,19 @@ const examLibrary = [
         "questionText": "Your solution is producing performance bugs in production that you did not see in staging and test environments. You want to adjust your test and deployment procedures to avoid this problem in the future.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Deploy fewer changes to production",
+                "answerText": "Deploy fewer changes to production",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Deploy smaller changes to production",
+                "answerText": "Deploy smaller changes to production",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Increase the load on your test and staging environments",
+                "answerText": "Increase the load on your test and staging environments",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Deploy changes to a small subset of users before rolling out to production",
+                "answerText": "Deploy changes to a small subset of users before rolling out to production",
                 "isCorrect": true
             }
         ],
@@ -642,19 +638,19 @@ const examLibrary = [
         "questionText": "A small number of API requests to your microservices-based application take a very long time. You know that each request to the API can traverse many services.You want to know which service takes the longest in those cases.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Set timeouts on your application so that you can fail requests faster",
+                "answerText": "Set timeouts on your application so that you can fail requests faster",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Send custom metrics for each of your requests to Stackdriver Monitoring",
+                "answerText": "Send custom metrics for each of your requests to Stackdriver Monitoring",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use Stackdriver Monitoring to look for insights that show when your API latencies are high",
+                "answerText": "Use Stackdriver Monitoring to look for insights that show when your API latencies are high",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Instrument your application with Stackdriver Trace in order to break down the request latencies at each microservice",
+                "answerText": "Instrument your application with Stackdriver Trace in order to break down the request latencies at each microservice",
                 "isCorrect": true
             }
         ],
@@ -665,19 +661,19 @@ const examLibrary = [
         "questionText": "During a high traffic portion of the day, one of your relational databases crashes, but the replica is never promoted to a master. You want to avoid this in the future.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use a different database",
+                "answerText": "Use a different database",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Choose larger instances for your database",
+                "answerText": "Choose larger instances for your database",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create snapshots of your database more regularly",
+                "answerText": "Create snapshots of your database more regularly",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Implement routinely scheduled failovers of your databases",
+                "answerText": "Implement routinely scheduled failovers of your databases",
                 "isCorrect": true
             }
         ],
@@ -688,19 +684,19 @@ const examLibrary = [
         "questionText": "Your organization requires that metrics from all applications be retained for 5 years for future analysis in possible legal proceedings.Which approach should you use?",
         "answerOptions": [
             {
-                "answerText": "A. Grant the security team access to the logs in each Project",
+                "answerText": "Grant the security team access to the logs in each Project",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure Stackdriver Monitoring for all Projects, and export to BigQuery",
+                "answerText": "Configure Stackdriver Monitoring for all Projects, and export to BigQuery",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure Stackdriver Monitoring for all Projects with the default retention policies",
+                "answerText": "Configure Stackdriver Monitoring for all Projects with the default retention policies",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure Stackdriver Monitoring for all Projects, and export to Google Cloud Storage",
+                "answerText": "Configure Stackdriver Monitoring for all Projects, and export to Google Cloud Storage",
                 "isCorrect": true
             }
         ],
@@ -711,19 +707,19 @@ const examLibrary = [
         "questionText": "Your company has decided to build a backup replica of their on-premises user authentication PostgreSQL database on Google Cloud Platform. The database is 4TB, and large updates are frequent. Replication requires private address space communication.Which networking approach should you use?",
         "answerOptions": [
             {
-                "answerText": "A. Google Cloud Dedicated Interconnect",
+                "answerText": "Google Cloud Dedicated Interconnect",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Google Cloud VPN connected to the data center network",
+                "answerText": "Google Cloud VPN connected to the data center network",
                 "isCorrect": false
             },
             {
-                "answerText": "C. A NAT and TLS translation gateway installed on-premises",
+                "answerText": "A NAT and TLS translation gateway installed on-premises",
                 "isCorrect": false
             },
             {
-                "answerText": "D. A Google Compute Engine instance with a VPN server installed connected to the data center network",
+                "answerText": "A Google Compute Engine instance with a VPN server installed connected to the data center network",
                 "isCorrect": false
             }
         ],
@@ -734,19 +730,19 @@ const examLibrary = [
         "questionText": "Auditors visit your teams every 12 months and ask to review all the Google Cloud Identity and Access Management (Cloud IAM) policy changes in the previous 12 months. You want to streamline and expedite the analysis and audit process.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create custom Google Stackdriver alerts and send them to the auditor",
+                "answerText": "Create custom Google Stackdriver alerts and send them to the auditor",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Enable Logging export to Google BigQuery and use ACLs and views to scope the data shared with the auditor",
+                "answerText": "Enable Logging export to Google BigQuery and use ACLs and views to scope the data shared with the auditor",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use cloud functions to transfer log entries to Google Cloud SQL and use ACLs and views to limit an auditor's view",
+                "answerText": "Use cloud functions to transfer log entries to Google Cloud SQL and use ACLs and views to limit an auditor's view",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Enable Google Cloud Storage (GCS) log export to audit logs into a GCS bucket and delegate access to the bucket",
+                "answerText": "Enable Google Cloud Storage (GCS) log export to audit logs into a GCS bucket and delegate access to the bucket",
                 "isCorrect": false
             }
         ],
@@ -757,19 +753,19 @@ const examLibrary = [
         "questionText": "You are designing a large distributed application with 30 microservices. Each of your distributed microservices needs to connect to a database back-end. You want to store the credentials securely.Where should you store the credentials?",
         "answerOptions": [
             {
-                "answerText": "A. In the source code",
+                "answerText": "In the source code",
                 "isCorrect": false
             },
             {
-                "answerText": "B. In an environment variable",
+                "answerText": "In an environment variable",
                 "isCorrect": false
             },
             {
-                "answerText": "C. In a secret management system",
+                "answerText": "In a secret management system",
                 "isCorrect": true
             },
             {
-                "answerText": "D. In a config file that has restricted access through ACLs",
+                "answerText": "In a config file that has restricted access through ACLs",
                 "isCorrect": false
             }
         ],
@@ -780,31 +776,31 @@ const examLibrary = [
         "questionText": "A lead engineer wrote a custom tool that deploys virtual machines in the legacy data center. He wants to migrate the custom tool to the new cloud environment.You want to advocate for the adoption of Google Cloud Deployment Manager.What are two business risks of migrating to Cloud Deployment Manager? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Cloud Deployment Manager uses Python",
+                "answerText": "Cloud Deployment Manager uses Python",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Cloud Deployment Manager APIs could be deprecated in the future",
+                "answerText": "Cloud Deployment Manager APIs could be deprecated in the future",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Cloud Deployment Manager is unfamiliar to the company's engineers",
+                "answerText": "Cloud Deployment Manager is unfamiliar to the company's engineers",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Cloud Deployment Manager requires a Google APIs service account to run",
+                "answerText": "Cloud Deployment Manager requires a Google APIs service account to run",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Cloud Deployment Manager can be used to permanently delete cloud resources",
+                "answerText": "Cloud Deployment Manager can be used to permanently delete cloud resources",
                 "isCorrect": false
             },
             {
-                "answerText": "F. Cloud Deployment Manager only supports automation of Google Cloud resources",
+                "answerText": "Cloud Deployment Manager only supports automation of Google Cloud resources",
                 "isCorrect": true
             },
             {
-                "answerText": "E. Cloud Deployment Manager can be used to permanently delete cloud resources",
+                "answerText": "Cloud Deployment Manager can be used to permanently delete cloud resources",
                 "isCorrect": false
             }
         ],
@@ -815,19 +811,19 @@ const examLibrary = [
         "questionText": "A development manager is building a new application. He asks you to review his requirements and identify what cloud technologies he can use to meet them. The application must:1. Be based on open-source technology for cloud portability2. Dynamically scale compute capacity based on demand3. Support continuous software delivery4. Run multiple segregated copies of the same application stack5. Deploy application bundles using dynamic templates6. Route network traffic to specific services based on URLWhich combination of technologies will meet all of his requirements?",
         "answerOptions": [
             {
-                "answerText": "A. Google Kubernetes Engine, Jenkins, and Helm",
+                "answerText": "Google Kubernetes Engine, Jenkins, and Helm",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Google Kubernetes Engine and Cloud Load Balancing",
+                "answerText": "Google Kubernetes Engine and Cloud Load Balancing",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Google Kubernetes Engine and Cloud Deployment Manager",
+                "answerText": "Google Kubernetes Engine and Cloud Deployment Manager",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Google Kubernetes Engine, Jenkins, and Cloud Load Balancing",
+                "answerText": "Google Kubernetes Engine, Jenkins, and Cloud Load Balancing",
                 "isCorrect": false
             }
         ],
@@ -838,19 +834,19 @@ const examLibrary = [
         "questionText": "You have created several pre-emptible Linux virtual machine instances using Google Compute Engine. You want to properly shut down your application before the virtual machines are preempted.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a shutdown script named k99.shutdown in the /etc/rc.6.d/ directory",
+                "answerText": "Create a shutdown script named k99.shutdown in the /etc/rc.6.d/ directory",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a shutdown script registered as a xinetd service in Linux and configure a Stackdriver endpoint check to call the service",
+                "answerText": "Create a shutdown script registered as a xinetd service in Linux and configure a Stackdriver endpoint check to call the service",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a shutdown script and use it as the value for a new metadata entry with the key shutdown-script in the Cloud Platform Console when you create the new virtual machine instance",
+                "answerText": "Create a shutdown script and use it as the value for a new metadata entry with the key shutdown-script in the Cloud Platform Console when you create the new virtual machine instance",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a shutdown script, registered as a xinetd service in Linux, and use the gcloud compute instances add-metadata command to specify the service URL as the value for a new metadata entry with the key shutdown-script-url",
+                "answerText": "Create a shutdown script, registered as a xinetd service in Linux, and use the gcloud compute instances add-metadata command to specify the service URL as the value for a new metadata entry with the key shutdown-script-url",
                 "isCorrect": false
             }
         ],
@@ -861,19 +857,19 @@ const examLibrary = [
         "questionText": "Your organization has a 3-tier web application deployed in the same network on Google Cloud Platform. Each tier (web, API, and database) scales independently of the others. Network traffic should flow through the web to the API tier and then on to the database tier. Traffic should not flow between the web and the database tier.How should you configure the network?",
         "answerOptions": [
             {
-                "answerText": "A. Add each tier to a different subnetwork",
+                "answerText": "Add each tier to a different subnetwork",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Set up software based firewalls on individual VMs",
+                "answerText": "Set up software based firewalls on individual VMs",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Add tags to each tier and set up routes to allow the desired traffic flow",
+                "answerText": "Add tags to each tier and set up routes to allow the desired traffic flow",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Add tags to each tier and set up firewall rules to allow the desired traffic flow",
+                "answerText": "Add tags to each tier and set up firewall rules to allow the desired traffic flow",
                 "isCorrect": true
             }
         ],
@@ -884,35 +880,35 @@ const examLibrary = [
         "questionText": "Your development team has installed a new Linux kernel module on the batch servers in Google Compute Engine (GCE) virtual machines (VMs) to speed up the nightly batch process. Two days after the installation, 50% of the batch servers failed the nightly batch run. You want to collect details on the failure to pass back to the development team.Which three actions should you take? (Choose three.)",
         "answerOptions": [
             {
-                "answerText": "A. Use Stackdriver Logging to search for the module log entries",
+                "answerText": "Use Stackdriver Logging to search for the module log entries",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Read the debug GCE Activity log using the API or Cloud Console",
+                "answerText": "Read the debug GCE Activity log using the API or Cloud Console",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use gcloud or Cloud Console to connect to the serial console and observe the logs",
+                "answerText": "Use gcloud or Cloud Console to connect to the serial console and observe the logs",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Identify whether a live migration event of the failed server occurred, using in the activity log",
+                "answerText": "Identify whether a live migration event of the failed server occurred, using in the activity log",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Adjust the Google Stackdriver timeline to match the failure time, and observe the batch server metrics",
+                "answerText": "Adjust the Google Stackdriver timeline to match the failure time, and observe the batch server metrics",
                 "isCorrect": true
             },
             {
-                "answerText": "F. Export a debug VM into an image, and run the image on a local server where kernel log messages will be displayed on the native screen",
+                "answerText": "Export a debug VM into an image, and run the image on a local server where kernel log messages will be displayed on the native screen",
                 "isCorrect": false
             },
             {
-                "answerText": "A. Use Stackdriver Logging to search for the module log entries = Check logs",
+                "answerText": "Use Stackdriver Logging to search for the module log entries = Check logs",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use gcloud or Cloud Console to connect to the serial console and observe the logs = Check grub messages, remember new kernel module was installed.",
+                "answerText": "Use gcloud or Cloud Console to connect to the serial console and observe the logs = Check grub messages, remember new kernel module was installed.",
                 "isCorrect": false
             }
         ],
@@ -923,23 +919,23 @@ const examLibrary = [
         "questionText": "Your company wants to try out the cloud with low risk. They want to archive approximately 100 TB of their log data to the cloud and test the analytics features available to them there, while also retaining that data as a long-term disaster recovery backup.Which two steps should you take? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Load logs into Google BigQuery",
+                "answerText": "Load logs into Google BigQuery",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Load logs into Google Cloud SQL",
+                "answerText": "Load logs into Google Cloud SQL",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Import logs into Google Stackdriver",
+                "answerText": "Import logs into Google Stackdriver",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Insert logs into Google Cloud Bigtable",
+                "answerText": "Insert logs into Google Cloud Bigtable",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Upload log files into Google Cloud Storage",
+                "answerText": "Upload log files into Google Cloud Storage",
                 "isCorrect": true
             }
         ],
@@ -950,31 +946,31 @@ const examLibrary = [
         "questionText": "You created a pipeline that can deploy your source code changes to your infrastructure in instance groups for self-healing. One of the changes negatively affects your key performance indicator. You are not sure how to fix it, and investigation could take up to a week.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Log in to a server, and iterate on the fox locally",
+                "answerText": "Log in to a server, and iterate on the fox locally",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Revert the source code change, and rerun the deployment pipeline",
+                "answerText": "Revert the source code change, and rerun the deployment pipeline",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Log into the servers with the bad code change, and swap in the previous code",
+                "answerText": "Log into the servers with the bad code change, and swap in the previous code",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Change the instance group template to the previous one, and delete all instances",
+                "answerText": "Change the instance group template to the previous one, and delete all instances",
                 "isCorrect": false
             },
             {
-                "answerText": "A. Log in to a server, and iterate on the fix locally\n>> Long step, hence eliminate",
+                "answerText": "Log in to a server, and iterate on the fix locally\n>> Long step, hence eliminate",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Revert the source code change and rerun the deployment pipeline\n>> This revert will be logged in the source repo. Will go with this way although D also is correct.",
+                "answerText": "Revert the source code change and rerun the deployment pipeline\n>> This revert will be logged in the source repo. Will go with this way although D also is correct.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. login to the servers with the bad code change, and swap in the previous code\n>> C is manually doing what can be automatically done by B and C, hence eliminate.",
+                "answerText": "login to the servers with the bad code change, and swap in the previous code\n>> C is manually doing what can be automatically done by B and C, hence eliminate.",
                 "isCorrect": false
             }
         ],
@@ -985,19 +981,19 @@ const examLibrary = [
         "questionText": "Your organization wants to control IAM policies for different departments independently, but centrally.Which approach should you take?",
         "answerOptions": [
             {
-                "answerText": "A. Multiple Organizations with multiple Folders",
+                "answerText": "Multiple Organizations with multiple Folders",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Multiple Organizations, one for each department",
+                "answerText": "Multiple Organizations, one for each department",
                 "isCorrect": false
             },
             {
-                "answerText": "C. A single Organization with Folders for each department",
+                "answerText": "A single Organization with Folders for each department",
                 "isCorrect": true
             },
             {
-                "answerText": "D. A single Organization with multiple projects, each with a central owner",
+                "answerText": "A single Organization with multiple projects, each with a central owner",
                 "isCorrect": false
             }
         ],
@@ -1008,15 +1004,15 @@ const examLibrary = [
         "questionText": "You deploy your custom Java application to Google App Engine. It fails to deploy and gives you the following stack trace.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Upload missing JAR files and redeploy your application.",
+                "answerText": "Upload missing JAR files and redeploy your application.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Digitally sign all of your JAR files and redeploy your application",
+                "answerText": "Digitally sign all of your JAR files and redeploy your application",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Recompile the CLoakedServlet class using and MD5 hash instead of SHA1",
+                "answerText": "Recompile the CLoakedServlet class using and MD5 hash instead of SHA1",
                 "isCorrect": false
             }
         ],
@@ -1027,19 +1023,19 @@ const examLibrary = [
         "questionText": "You are designing a mobile chat application. You want to ensure people cannot spoof chat messages, by providing a message were sent by a specific user.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Tag messages client side with the originating user identifier and the destination user.",
+                "answerText": "Tag messages client side with the originating user identifier and the destination user.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Encrypt the message client side using block-based encryption with a shared key.",
+                "answerText": "Encrypt the message client side using block-based encryption with a shared key.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use public key infrastructure (PKI) to encrypt the message client side using the originating user's private key.",
+                "answerText": "Use public key infrastructure (PKI) to encrypt the message client side using the originating user's private key.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Use a trusted certificate authority to enable SSL connectivity between the client application and the server.",
+                "answerText": "Use a trusted certificate authority to enable SSL connectivity between the client application and the server.",
                 "isCorrect": false
             }
         ],
@@ -1050,23 +1046,23 @@ const examLibrary = [
         "questionText": "As part of implementing their disaster recovery plan, your company is trying to replicate their production MySQL database from their private data center to theirGCP project using a Google Cloud VPN connection. They are experiencing latency issues and a small amount of packet loss that is disrupting the replication.What should they do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure their replication to use UDP.",
+                "answerText": "Configure their replication to use UDP.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure a Google Cloud Dedicated Interconnect.",
+                "answerText": "Configure a Google Cloud Dedicated Interconnect.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Restore their database daily using Google Cloud SQL.",
+                "answerText": "Restore their database daily using Google Cloud SQL.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Add additional VPN connections and load balance them.",
+                "answerText": "Add additional VPN connections and load balance them.",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Send the replicated transaction to Google Cloud Pub/Sub.",
+                "answerText": "Send the replicated transaction to Google Cloud Pub/Sub.",
                 "isCorrect": false
             }
         ],
@@ -1077,19 +1073,19 @@ const examLibrary = [
         "questionText": "Your customer support tool logs all email and chat conversations to Cloud Bigtable for retention and analysis. What is the recommended approach for sanitizing this data of personally identifiable information or payment card information before initial storage?",
         "answerOptions": [
             {
-                "answerText": "A. Hash all data using SHA256",
+                "answerText": "Hash all data using SHA256",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Encrypt all data using elliptic curve cryptography",
+                "answerText": "Encrypt all data using elliptic curve cryptography",
                 "isCorrect": false
             },
             {
-                "answerText": "C. De-identify the data with the Cloud Data Loss Prevention API",
+                "answerText": "De-identify the data with the Cloud Data Loss Prevention API",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Use regular expressions to find and redact phone numbers, email addresses, and credit card numbers",
+                "answerText": "Use regular expressions to find and redact phone numbers, email addresses, and credit card numbers",
                 "isCorrect": false
             }
         ],
@@ -1100,19 +1096,19 @@ const examLibrary = [
         "questionText": "You are using Cloud Shell and need to install a custom utility for use in a few weeks. Where can you store the file so it is in the default execution path and persists across sessions?",
         "answerOptions": [
             {
-                "answerText": "A. ~/bin",
+                "answerText": "~/bin",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Cloud Storage",
+                "answerText": "Cloud Storage",
                 "isCorrect": false
             },
             {
-                "answerText": "C. /google/scripts",
+                "answerText": "/google/scripts",
                 "isCorrect": false
             },
             {
-                "answerText": "D. /usr/local/bin",
+                "answerText": "/usr/local/bin",
                 "isCorrect": false
             }
         ],
@@ -1123,19 +1119,19 @@ const examLibrary = [
         "questionText": "You want to create a private connection between your instances on Compute Engine and your on-premises data center. You require a connection of at least 20Gbps. You want to follow Google-recommended practices. How should you set up the connection?",
         "answerOptions": [
             {
-                "answerText": "A. Create a VPC and connect it to your on-premises data center using Dedicated Interconnect.",
+                "answerText": "Create a VPC and connect it to your on-premises data center using Dedicated Interconnect.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create a VPC and connect it to your on-premises data center using a single Cloud VPN.",
+                "answerText": "Create a VPC and connect it to your on-premises data center using a single Cloud VPN.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a Cloud Content Delivery Network (Cloud CDN) and connect it to your on-premises data center using Dedicated Interconnect.",
+                "answerText": "Create a Cloud Content Delivery Network (Cloud CDN) and connect it to your on-premises data center using Dedicated Interconnect.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a Cloud Content Delivery Network (Cloud CDN) and connect it to your on-premises datacenter using a single Cloud VPN.",
+                "answerText": "Create a Cloud Content Delivery Network (Cloud CDN) and connect it to your on-premises datacenter using a single Cloud VPN.",
                 "isCorrect": false
             }
         ],
@@ -1146,19 +1142,19 @@ const examLibrary = [
         "questionText": "You are analyzing and defining business processes to support your startup's trial usage of GCP, and you don't yet know what consumer demand for your product will be. Your manager requires you to minimize GCP service costs and adhere to Google best practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Utilize free tier and sustained use discounts. Provision a staff position for service cost management.",
+                "answerText": "Utilize free tier and sustained use discounts. Provision a staff position for service cost management.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Utilize free tier and sustained use discounts. Provide training to the team about service cost management.",
+                "answerText": "Utilize free tier and sustained use discounts. Provide training to the team about service cost management.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Utilize free tier and committed use discounts. Provision a staff position for service cost management.",
+                "answerText": "Utilize free tier and committed use discounts. Provision a staff position for service cost management.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Utilize free tier and committed use discounts. Provide training to the team about service cost management.",
+                "answerText": "Utilize free tier and committed use discounts. Provide training to the team about service cost management.",
                 "isCorrect": false
             }
         ],
@@ -1169,19 +1165,19 @@ const examLibrary = [
         "questionText": "You are building a continuous deployment pipeline for a project stored in a Git source repository and want to ensure that code changes can be verified before deploying to production. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use Spinnaker to deploy builds to production using the red/black deployment strategy so that changes can easily be rolled back.",
+                "answerText": "Use Spinnaker to deploy builds to production using the red/black deployment strategy so that changes can easily be rolled back.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use Spinnaker to deploy builds to production and run tests on production deployments.",
+                "answerText": "Use Spinnaker to deploy builds to production and run tests on production deployments.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use Jenkins to build the staging branches and the master branch. Build and deploy changes to production for 10% of users before doing a complete rollout.",
+                "answerText": "Use Jenkins to build the staging branches and the master branch. Build and deploy changes to production for 10% of users before doing a complete rollout.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Jenkins to monitor tags in the repository. Deploy staging tags to a staging environment for testing. After testing, tag the repository for production and deploy that to the production environment.",
+                "answerText": "Use Jenkins to monitor tags in the repository. Deploy staging tags to a staging environment for testing. After testing, tag the repository for production and deploy that to the production environment.",
                 "isCorrect": true
             }
         ],
@@ -1192,19 +1188,19 @@ const examLibrary = [
         "questionText": "You have an outage in your Compute Engine managed instance group: all instances keep restarting after 5 seconds. You have a health check configured, but autoscaling is disabled. Your colleague, who is a Linux expert, offered to look into the issue. You need to make sure that he can access the VMs. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Grant your colleague the IAM role of project Viewer",
+                "answerText": "Grant your colleague the IAM role of project Viewer",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Perform a rolling restart on the instance group",
+                "answerText": "Perform a rolling restart on the instance group",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Disable the health check for the instance group. Add his SSH key to the project-wide SSH Keys",
+                "answerText": "Disable the health check for the instance group. Add his SSH key to the project-wide SSH Keys",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Disable autoscaling for the instance group. Add his SSH key to the project-wide SSH Keys",
+                "answerText": "Disable autoscaling for the instance group. Add his SSH key to the project-wide SSH Keys",
                 "isCorrect": false
             }
         ],
@@ -1215,19 +1211,19 @@ const examLibrary = [
         "questionText": "Your company is migrating its on-premises data center into the cloud. As part of the migration, you want to integrate Google Kubernetes Engine (GKE) for workload orchestration. Parts of your architecture must also be PCI DSS-compliant. Which of the following is most accurate?",
         "answerOptions": [
             {
-                "answerText": "A. App Engine is the only compute platform on GCP that is certified for PCI DSS hosting.",
+                "answerText": "App Engine is the only compute platform on GCP that is certified for PCI DSS hosting.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. GKE cannot be used under PCI DSS because it is considered shared hosting.",
+                "answerText": "GKE cannot be used under PCI DSS because it is considered shared hosting.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. GKE and GCP provide the tools you need to build a PCI DSS-compliant environment.",
+                "answerText": "GKE and GCP provide the tools you need to build a PCI DSS-compliant environment.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. All Google Cloud services are usable because Google Cloud Platform is certified PCI-compliant.",
+                "answerText": "All Google Cloud services are usable because Google Cloud Platform is certified PCI-compliant.",
                 "isCorrect": false
             }
         ],
@@ -1238,19 +1234,19 @@ const examLibrary = [
         "questionText": "Your company has multiple on-premises systems that serve as sources for reporting. The data has not been maintained well and has become degraded over time.You want to use Google-recommended practices to detect anomalies in your company data. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Upload your files into Cloud Storage. Use Cloud Datalab to explore and clean your data.",
+                "answerText": "Upload your files into Cloud Storage. Use Cloud Datalab to explore and clean your data.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Upload your files into Cloud Storage. Use Cloud Dataprep to explore and clean your data.",
+                "answerText": "Upload your files into Cloud Storage. Use Cloud Dataprep to explore and clean your data.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Connect Cloud Datalab to your on-premises systems. Use Cloud Datalab to explore and clean your data.",
+                "answerText": "Connect Cloud Datalab to your on-premises systems. Use Cloud Datalab to explore and clean your data.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Connect Cloud Dataprep to your on-premises systems. Use Cloud Dataprep to explore and clean your data.",
+                "answerText": "Connect Cloud Dataprep to your on-premises systems. Use Cloud Dataprep to explore and clean your data.",
                 "isCorrect": false
             }
         ],
@@ -1261,19 +1257,19 @@ const examLibrary = [
         "questionText": "Google Cloud Platform resources are managed hierarchically using organization, folders, and projects. When Cloud Identity and Access Management (IAM) policies exist at these different levels, what is the effective policy at a particular node of the hierarchy?",
         "answerOptions": [
             {
-                "answerText": "A. The effective policy is determined only by the policy set at the node",
+                "answerText": "The effective policy is determined only by the policy set at the node",
                 "isCorrect": false
             },
             {
-                "answerText": "B. The effective policy is the policy set at the node and restricted by the policies of its ancestors",
+                "answerText": "The effective policy is the policy set at the node and restricted by the policies of its ancestors",
                 "isCorrect": false
             },
             {
-                "answerText": "C. The effective policy is the union of the policy set at the node and policies inherited from its ancestors",
+                "answerText": "The effective policy is the union of the policy set at the node and policies inherited from its ancestors",
                 "isCorrect": true
             },
             {
-                "answerText": "D. The effective policy is the intersection of the policy set at the node and policies inherited from its ancestors",
+                "answerText": "The effective policy is the intersection of the policy set at the node and policies inherited from its ancestors",
                 "isCorrect": false
             }
         ],
@@ -1284,19 +1280,19 @@ const examLibrary = [
         "questionText": "You are migrating your on-premises solution to Google Cloud in several phases. You will use Cloud VPN to maintain a connection between your on-premises systems and Google Cloud until the migration is completed. You want to make sure all your on-premise systems remain reachable during this period. How should you organize your networking in Google Cloud?",
         "answerOptions": [
             {
-                "answerText": "A. Use the same IP range on Google Cloud as you use on-premises",
+                "answerText": "Use the same IP range on Google Cloud as you use on-premises",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use the same IP range on Google Cloud as you use on-premises for your primary IP range and use a secondary range that does not overlap with the range you use on-premises",
+                "answerText": "Use the same IP range on Google Cloud as you use on-premises for your primary IP range and use a secondary range that does not overlap with the range you use on-premises",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use an IP range on Google Cloud that does not overlap with the range you use on-premises",
+                "answerText": "Use an IP range on Google Cloud that does not overlap with the range you use on-premises",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Use an IP range on Google Cloud that does not overlap with the range you use on-premises for your primary IP range and use a secondary range with the same IP range as you use on-premises",
+                "answerText": "Use an IP range on Google Cloud that does not overlap with the range you use on-premises for your primary IP range and use a secondary range with the same IP range as you use on-premises",
                 "isCorrect": false
             }
         ],
@@ -1307,19 +1303,19 @@ const examLibrary = [
         "questionText": "You have found an error in your App Engine application caused by missing Cloud Datastore indexes. You have created a YAML file with the required indexes and want to deploy these new indexes to Cloud Datastore. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Point gcloud datastore create-indexes to your configuration file",
+                "answerText": "Point gcloud datastore create-indexes to your configuration file",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Upload the configuration file to App Engine's default Cloud Storage bucket, and have App Engine detect the new indexes",
+                "answerText": "Upload the configuration file to App Engine's default Cloud Storage bucket, and have App Engine detect the new indexes",
                 "isCorrect": false
             },
             {
-                "answerText": "C. In the GCP Console, use Datastore Admin to delete the current indexes and upload the new configuration file",
+                "answerText": "In the GCP Console, use Datastore Admin to delete the current indexes and upload the new configuration file",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create an HTTP request to the built-in python module to send the index configuration file to your application",
+                "answerText": "Create an HTTP request to the built-in python module to send the index configuration file to your application",
                 "isCorrect": false
             }
         ],
@@ -1330,19 +1326,19 @@ const examLibrary = [
         "questionText": "You have an application that will run on Compute Engine. You need to design an architecture that takes into account a disaster recovery plan that requires your application to fail over to another region in case of a regional outage. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Deploy the application on two Compute Engine instances in the same project but in a different region. Use the first instance to serve traffic, and use the HTTP load balancing service to fail over to the standby instance in case of a disaster.",
+                "answerText": "Deploy the application on two Compute Engine instances in the same project but in a different region. Use the first instance to serve traffic, and use the HTTP load balancing service to fail over to the standby instance in case of a disaster.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Deploy the application on a Compute Engine instance. Use the instance to serve traffic, and use the HTTP load balancing service to fail over to an instance on your premises in case of a disaster.",
+                "answerText": "Deploy the application on a Compute Engine instance. Use the instance to serve traffic, and use the HTTP load balancing service to fail over to an instance on your premises in case of a disaster.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Deploy the application on two Compute Engine instance groups, each in the same project but in a different region. Use the first instance group to serve traffic, and use the HTTP load balancing service to fail over to the standby instance group in case of a disaster.",
+                "answerText": "Deploy the application on two Compute Engine instance groups, each in the same project but in a different region. Use the first instance group to serve traffic, and use the HTTP load balancing service to fail over to the standby instance group in case of a disaster.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Deploy the application on two Compute Engine instance groups, each in a separate project and a different region. Use the first instance group to serve traffic,  and use the HTTP load balancing service to fail over to the standby instance group in case of a disaster.",
+                "answerText": "Deploy the application on two Compute Engine instance groups, each in a separate project and a different region. Use the first instance group to serve traffic,  and use the HTTP load balancing service to fail over to the standby instance group in case of a disaster.",
                 "isCorrect": false
             }
         ],
@@ -1353,19 +1349,19 @@ const examLibrary = [
         "questionText": "You are deploying an application on App Engine that needs to integrate with an on-premises database. For security purposes, your on-premises database must not be accessible through the public internet. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Deploy your application on App Engine standard environment and use App Engine firewall rules to limit access to the open on-premises database.",
+                "answerText": "Deploy your application on App Engine standard environment and use App Engine firewall rules to limit access to the open on-premises database.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Deploy your application on App Engine standard environment and use Cloud VPN to limit access to the on-premises database.",
+                "answerText": "Deploy your application on App Engine standard environment and use Cloud VPN to limit access to the on-premises database.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Deploy your application on App Engine flexible environment and use App Engine firewall rules to limit access to the on-premises database.",
+                "answerText": "Deploy your application on App Engine flexible environment and use App Engine firewall rules to limit access to the on-premises database.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Deploy your application on App Engine flexible environment and use Cloud VPN to limit access to the on-premises database.",
+                "answerText": "Deploy your application on App Engine flexible environment and use Cloud VPN to limit access to the on-premises database.",
                 "isCorrect": true
             }
         ],
@@ -1376,19 +1372,19 @@ const examLibrary = [
         "questionText": "You are working in a highly secured environment where public Internet access from the Compute Engine VMs is not allowed. You do not yet have a VPN connection to access an on-premises file server. You need to install specific software on a Compute Engine instance. How should you install the software?",
         "answerOptions": [
             {
-                "answerText": "A. Upload the required installation files to Cloud Storage. Configure the VM on a subnet with a Private Google Access subnet. Assign only an internal IP address to the VM. Download the installation files to the VM using gsutil.",
+                "answerText": "Upload the required installation files to Cloud Storage. Configure the VM on a subnet with a Private Google Access subnet. Assign only an internal IP address to the VM. Download the installation files to the VM using gsutil.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Upload the required installation files to Cloud Storage and use firewall rules to block all traffic except the IP address range for Cloud Storage. Download the files to the VM using gsutil.",
+                "answerText": "Upload the required installation files to Cloud Storage and use firewall rules to block all traffic except the IP address range for Cloud Storage. Download the files to the VM using gsutil.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Upload the required installation files to Cloud Source Repositories. Configure the VM on a subnet with a Private Google Access subnet. Assign only an internal IP address to the VM. Download the installation files to the VM using gcloud.",
+                "answerText": "Upload the required installation files to Cloud Source Repositories. Configure the VM on a subnet with a Private Google Access subnet. Assign only an internal IP address to the VM. Download the installation files to the VM using gcloud.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Upload the required installation files to Cloud Source Repositories and use firewall rules to block all traffic except the IP address range for Cloud Source Repositories. Download the files to the VM using gsutil.",
+                "answerText": "Upload the required installation files to Cloud Source Repositories and use firewall rules to block all traffic except the IP address range for Cloud Source Repositories. Download the files to the VM using gsutil.",
                 "isCorrect": false
             }
         ],
@@ -1399,19 +1395,19 @@ const examLibrary = [
         "questionText": "Your company is moving 75 TB of data into Google Cloud. You want to use Cloud Storage and follow Google-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Move your data onto a Transfer Appliance. Use a Transfer Appliance Rehydrator to decrypt the data into Cloud Storage.",
+                "answerText": "Move your data onto a Transfer Appliance. Use a Transfer Appliance Rehydrator to decrypt the data into Cloud Storage.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Move your data onto a Transfer Appliance. Use Cloud Dataprep to decrypt the data into Cloud Storage.",
+                "answerText": "Move your data onto a Transfer Appliance. Use Cloud Dataprep to decrypt the data into Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Install gsutil on each server that contains data. Use resumable transfers to upload the data into Cloud Storage.",
+                "answerText": "Install gsutil on each server that contains data. Use resumable transfers to upload the data into Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Install gsutil on each server containing data. Use streaming transfers to upload the data into Cloud Storage.",
+                "answerText": "Install gsutil on each server containing data. Use streaming transfers to upload the data into Cloud Storage.",
                 "isCorrect": false
             }
         ],
@@ -1422,19 +1418,19 @@ const examLibrary = [
         "questionText": "You have an application deployed on Google Kubernetes Engine using a Deployment named echo-deployment. The deployment is exposed using a Service called echo-service. You need to perform an update to the application with minimal downtime to the application. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use kubectl set image deployment/echo-deployment <new-image>",
+                "answerText": "Use kubectl set image deployment/echo-deployment <new-image>",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use the rolling update functionality of the Instance Group behind the Kubernetes cluster",
+                "answerText": "Use the rolling update functionality of the Instance Group behind the Kubernetes cluster",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Update the deployment yaml file with the new container image. Use kubectl delete deployment/echo-deployment and kubectl create \u05d2\u20ac\"f <yaml-file>",
+                "answerText": "Update the deployment yaml file with the new container image. Use kubectl delete deployment/echo-deployment and kubectl create \u05d2\u20ac\"f <yaml-file>",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Update the service yaml file which the new container image. Use kubectl delete service/echo-service and kubectl create \u05d2\u20ac\"f <yaml-file>",
+                "answerText": "Update the service yaml file which the new container image. Use kubectl delete service/echo-service and kubectl create \u05d2\u20ac\"f <yaml-file>",
                 "isCorrect": false
             }
         ],
@@ -1445,19 +1441,19 @@ const examLibrary = [
         "questionText": "Your company is using BigQuery as its enterprise data warehouse. Data is distributed over several Google Cloud projects. All queries on BigQuery need to be billed on a single project. You want to make sure that no query costs are incurred on the projects that contain the data. Users should be able to query the datasets, but not edit them.How should you configure users' access roles?",
         "answerOptions": [
             {
-                "answerText": "A. Add all users to a group. Grant the group the role of BigQuery user on the billing project and BigQuery dataViewer on the projects that contain the data.",
+                "answerText": "Add all users to a group. Grant the group the role of BigQuery user on the billing project and BigQuery dataViewer on the projects that contain the data.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Add all users to a group. Grant the group the roles of BigQuery dataViewer on the billing project and BigQuery user on the projects that contain the data.",
+                "answerText": "Add all users to a group. Grant the group the roles of BigQuery dataViewer on the billing project and BigQuery user on the projects that contain the data.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Add all users to a group. Grant the group the roles of BigQuery jobUser on the billing project and BigQuery dataViewer on the projects that contain the data.",
+                "answerText": "Add all users to a group. Grant the group the roles of BigQuery jobUser on the billing project and BigQuery dataViewer on the projects that contain the data.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Add all users to a group. Grant the group the roles of BigQuery dataViewer on the billing project and BigQuery jobUser on the projects that contain the data.",
+                "answerText": "Add all users to a group. Grant the group the roles of BigQuery dataViewer on the billing project and BigQuery jobUser on the projects that contain the data.",
                 "isCorrect": false
             }
         ],
@@ -1468,19 +1464,19 @@ const examLibrary = [
         "questionText": "You have developed an application using Cloud ML Engine that recognizes famous paintings from uploaded images. You want to test the application and allow specific people to upload images for the next 24 hours. Not all users have a Google Account. How should you have users upload images?",
         "answerOptions": [
             {
-                "answerText": "A. Have users upload the images to Cloud Storage. Protect the bucket with a password that expires after 24 hours.",
+                "answerText": "Have users upload the images to Cloud Storage. Protect the bucket with a password that expires after 24 hours.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Have users upload the images to Cloud Storage using a signed URL that expires after 24 hours.",
+                "answerText": "Have users upload the images to Cloud Storage using a signed URL that expires after 24 hours.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create an App Engine web application where users can upload images. Configure App Engine to disable the application after 24 hours. Authenticate users via Cloud Identity.",
+                "answerText": "Create an App Engine web application where users can upload images. Configure App Engine to disable the application after 24 hours. Authenticate users via Cloud Identity.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create an App Engine web application where users can upload images for the next 24 hours. Authenticate users via Cloud Identity.",
+                "answerText": "Create an App Engine web application where users can upload images for the next 24 hours. Authenticate users via Cloud Identity.",
                 "isCorrect": false
             }
         ],
@@ -1491,19 +1487,19 @@ const examLibrary = [
         "questionText": "Your web application must comply with the requirements of the European Union's General Data Protection Regulation (GDPR). You are responsible for the technical architecture of your web application. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Ensure that your web application only uses native features and services of Google Cloud Platform, because Google already has various certifications and provides \u05d2\u20acpass-on\u05d2\u20ac compliance when you use native features.",
+                "answerText": "Ensure that your web application only uses native features and services of Google Cloud Platform, because Google already has various certifications and provides \u05d2\u20acpass-on\u05d2\u20ac compliance when you use native features.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Enable the relevant GDPR compliance setting within the GCPConsole for each of the services in use within your application.",
+                "answerText": "Enable the relevant GDPR compliance setting within the GCPConsole for each of the services in use within your application.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Ensure that Cloud Security Scanner is part of your test planning strategy in order to pick up any compliance gaps.",
+                "answerText": "Ensure that Cloud Security Scanner is part of your test planning strategy in order to pick up any compliance gaps.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Define a design for the security of data in your web application that meets GDPR requirements.",
+                "answerText": "Define a design for the security of data in your web application that meets GDPR requirements.",
                 "isCorrect": true
             }
         ],
@@ -1514,19 +1510,19 @@ const examLibrary = [
         "questionText": "You need to set up Microsoft SQL Server on GCP. Management requires that there's no downtime in case of a data center outage in any of the zones within a GCP region. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure a Cloud SQL instance with high availability enabled.",
+                "answerText": "Configure a Cloud SQL instance with high availability enabled.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure a Cloud Spanner instance with a regional instance configuration.",
+                "answerText": "Configure a Cloud Spanner instance with a regional instance configuration.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Set up SQL Server on Compute Engine, using Always On Availability Groups using Windows Failover Clustering. Place nodes in different subnets.",
+                "answerText": "Set up SQL Server on Compute Engine, using Always On Availability Groups using Windows Failover Clustering. Place nodes in different subnets.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Set up SQL Server Always On Availability Groups using Windows Failover Clustering. Place nodes in different zones.",
+                "answerText": "Set up SQL Server Always On Availability Groups using Windows Failover Clustering. Place nodes in different zones.",
                 "isCorrect": true
             }
         ],
@@ -1537,19 +1533,19 @@ const examLibrary = [
         "questionText": "The development team has provided you with a Kubernetes Deployment file. You have no infrastructure yet and need to deploy the application. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use gcloud to create a Kubernetes cluster. Use Deployment Manager to create the deployment.",
+                "answerText": "Use gcloud to create a Kubernetes cluster. Use Deployment Manager to create the deployment.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use gcloud to create a Kubernetes cluster. Use kubectl to create the deployment.",
+                "answerText": "Use gcloud to create a Kubernetes cluster. Use kubectl to create the deployment.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use kubectl to create a Kubernetes cluster. Use Deployment Manager to create the deployment.",
+                "answerText": "Use kubectl to create a Kubernetes cluster. Use Deployment Manager to create the deployment.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use kubectl to create a Kubernetes cluster. Use kubectl to create the deployment.",
+                "answerText": "Use kubectl to create a Kubernetes cluster. Use kubectl to create the deployment.",
                 "isCorrect": false
             }
         ],
@@ -1560,19 +1556,19 @@ const examLibrary = [
         "questionText": "You need to evaluate your team readiness for a new GCP project. You must perform the evaluation and create a skills gap plan which incorporates the business goal of cost optimization. Your team has deployed two GCP projects successfully to date. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Allocate budget for team training. Set a deadline for the new GCP project.",
+                "answerText": "Allocate budget for team training. Set a deadline for the new GCP project.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Allocate budget for team training. Create a roadmap for your team to achieve Google Cloud certification based on job role.",
+                "answerText": "Allocate budget for team training. Create a roadmap for your team to achieve Google Cloud certification based on job role.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Allocate budget to hire skilled external consultants. Set a deadline for the new GCP project.",
+                "answerText": "Allocate budget to hire skilled external consultants. Set a deadline for the new GCP project.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Allocate budget to hire skilled external consultants. Create a roadmap for your team to achieve Google Cloud certification based on job role.",
+                "answerText": "Allocate budget to hire skilled external consultants. Create a roadmap for your team to achieve Google Cloud certification based on job role.",
                 "isCorrect": false
             }
         ],
@@ -1583,19 +1579,19 @@ const examLibrary = [
         "questionText": "You are designing an application for use only during business hours. For the minimum viable product release, you'd like to use a managed product that automatically `scales to zero` so you don't incur costs when there is no activity. Which primary compute resource should you choose?",
         "answerOptions": [
             {
-                "answerText": "A. Cloud Functions",
+                "answerText": "Cloud Functions",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Compute Engine",
+                "answerText": "Compute Engine",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Google Kubernetes Engine",
+                "answerText": "Google Kubernetes Engine",
                 "isCorrect": false
             },
             {
-                "answerText": "D. AppEngine flexible environment",
+                "answerText": "AppEngine flexible environment",
                 "isCorrect": false
             }
         ],
@@ -1606,19 +1602,19 @@ const examLibrary = [
         "questionText": "You are creating an App Engine application that uses Cloud Datastore as its persistence layer. You need to retrieve several root entities for which you have the identifiers. You want to minimize the overhead in operations performed by Cloud Datastore. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create the Key object for each Entity and run a batch get operation",
+                "answerText": "Create the Key object for each Entity and run a batch get operation",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create the Key object for each Entity and run multiple get operations, one operation for each entity",
+                "answerText": "Create the Key object for each Entity and run multiple get operations, one operation for each entity",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use the identifiers to create a query filter and run a batch query operation",
+                "answerText": "Use the identifiers to create a query filter and run a batch query operation",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use the identifiers to create a query filter and run multiple query operations, one operation for each entity",
+                "answerText": "Use the identifiers to create a query filter and run multiple query operations, one operation for each entity",
                 "isCorrect": false
             }
         ],
@@ -1629,19 +1625,19 @@ const examLibrary = [
         "questionText": "You need to upload files from your on-premises environment to Cloud Storage. You want the files to be encrypted on Cloud Storage using customer-supplied encryption keys. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Supply the encryption key in a .boto configuration file. Use gsutil to upload the files.",
+                "answerText": "Supply the encryption key in a .boto configuration file. Use gsutil to upload the files.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Supply the encryption key using gcloud config. Use gsutil to upload the files to that bucket.",
+                "answerText": "Supply the encryption key using gcloud config. Use gsutil to upload the files to that bucket.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use gsutil to upload the files, and use the flag --encryption-key to supply the encryption key.",
+                "answerText": "Use gsutil to upload the files, and use the flag --encryption-key to supply the encryption key.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use gsutil to create a bucket, and use the flag --encryption-key to supply the encryption key. Use gsutil to upload the files to that bucket.",
+                "answerText": "Use gsutil to create a bucket, and use the flag --encryption-key to supply the encryption key. Use gsutil to upload the files to that bucket.",
                 "isCorrect": false
             }
         ],
@@ -1652,19 +1648,19 @@ const examLibrary = [
         "questionText": "Your customer wants to capture multiple GBs of aggregate real-time key performance indicators (KPIs) from their game servers running on Google Cloud Platform and monitor the KPIs with low latency. How should they capture the KPIs?",
         "answerOptions": [
             {
-                "answerText": "A. Store time-series data from the game servers in Google Bigtable, and view it using Google Data Studio.",
+                "answerText": "Store time-series data from the game servers in Google Bigtable, and view it using Google Data Studio.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Output custom metrics to Stackdriver from the game servers, and create a Dashboard in Stackdriver Monitoring Console to view them.",
+                "answerText": "Output custom metrics to Stackdriver from the game servers, and create a Dashboard in Stackdriver Monitoring Console to view them.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Schedule BigQuery load jobs to ingest analytics files uploaded to Cloud Storage every ten minutes, and visualize the results in Google Data Studio.",
+                "answerText": "Schedule BigQuery load jobs to ingest analytics files uploaded to Cloud Storage every ten minutes, and visualize the results in Google Data Studio.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Insert the KPIs into Cloud Datastore entities, and run ad hoc analysis and visualizations of them in Cloud Datalab.",
+                "answerText": "Insert the KPIs into Cloud Datastore entities, and run ad hoc analysis and visualizations of them in Cloud Datalab.",
                 "isCorrect": false
             }
         ],
@@ -1675,19 +1671,19 @@ const examLibrary = [
         "questionText": "You have a Python web application with many dependencies that requires 0.1 CPU cores and 128 MB of memory to operate in production. You want to monitor and maximize machine utilization. You also want to reliably deploy new versions of the application. Which set of steps should you take?",
         "answerOptions": [
             {
-                "answerText": "A. Perform the following: 1. Create a managed instance group with f1-micro type machines. 2. Use a startup script to clone the repository, check out the production branch, install the dependencies, and start the Python app. 3. Restart the instances to automatically deploy new production releases.",
+                "answerText": "Perform the following: 1. Create a managed instance group with f1-micro type machines. 2. Use a startup script to clone the repository, check out the production branch, install the dependencies, and start the Python app. 3. Restart the instances to automatically deploy new production releases.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Perform the following: 1. Create a managed instance group with n1-standard-1 type machines. 2. Build a Compute Engine image from the production branch that contains all of the dependencies and automatically starts the Python app. 3. Rebuild the Compute Engine image, and update the instance template to deploy new production releases.",
+                "answerText": "Perform the following: 1. Create a managed instance group with n1-standard-1 type machines. 2. Build a Compute Engine image from the production branch that contains all of the dependencies and automatically starts the Python app. 3. Rebuild the Compute Engine image, and update the instance template to deploy new production releases.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Perform the following: 1. Create a Google Kubernetes Engine (GKE) cluster with n1-standard-1 type machines. 2. Build a Docker image from the production branch with all of the dependencies, and tag it with the version number. 3. Create a Kubernetes Deployment with the imagePullPolicy set to 'IfNotPresent' in the staging namespace, and then promote it to the production namespace after testing.",
+                "answerText": "Perform the following: 1. Create a Google Kubernetes Engine (GKE) cluster with n1-standard-1 type machines. 2. Build a Docker image from the production branch with all of the dependencies, and tag it with the version number. 3. Create a Kubernetes Deployment with the imagePullPolicy set to 'IfNotPresent' in the staging namespace, and then promote it to the production namespace after testing.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Perform the following: 1. Create a GKE cluster with n1-standard-4 type machines. 2. Build a Docker image from the master branch with all of the dependencies, and tag it with 'latest'. 3. Create a Kubernetes Deployment in the default namespace with the imagePullPolicy set to 'Always'. Restart the pods to automatically deploy new production releases.",
+                "answerText": "Perform the following: 1. Create a GKE cluster with n1-standard-4 type machines. 2. Build a Docker image from the master branch with all of the dependencies, and tag it with 'latest'. 3. Create a Kubernetes Deployment in the default namespace with the imagePullPolicy set to 'Always'. Restart the pods to automatically deploy new production releases.",
                 "isCorrect": false
             }
         ],
@@ -1698,19 +1694,19 @@ const examLibrary = [
         "questionText": "Your company wants to start using Google Cloud resources but wants to retain their on-premises Active Directory domain controller for identity management.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use the Admin Directory API to authenticate against the Active Directory domain controller.",
+                "answerText": "Use the Admin Directory API to authenticate against the Active Directory domain controller.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use Google Cloud Directory Sync to synchronize Active Directory usernames with cloud identities and configure SAML SSO.",
+                "answerText": "Use Google Cloud Directory Sync to synchronize Active Directory usernames with cloud identities and configure SAML SSO.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use Cloud Identity-Aware Proxy configured to use the on-premises Active Directory domain controller as an identity provider.",
+                "answerText": "Use Cloud Identity-Aware Proxy configured to use the on-premises Active Directory domain controller as an identity provider.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Compute Engine to create an Active Directory (AD) domain controller that is a replica of the on-premises AD domain controller using Google Cloud Directory Sync.",
+                "answerText": "Use Compute Engine to create an Active Directory (AD) domain controller that is a replica of the on-premises AD domain controller using Google Cloud Directory Sync.",
                 "isCorrect": false
             }
         ],
@@ -1721,19 +1717,19 @@ const examLibrary = [
         "questionText": "You are running a cluster on Kubernetes Engine (GKE) to serve a web application. Users are reporting that a specific part of the application is not responding anymore. You notice that all pods of your deployment keep restarting after 2 seconds. The application writes logs to standard output. You want to inspect the logs to find the cause of the issue. Which approach can you take?",
         "answerOptions": [
             {
-                "answerText": "A. Review the Stackdriver logs for each Compute Engine instance that is serving as a node in the cluster.",
+                "answerText": "Review the Stackdriver logs for each Compute Engine instance that is serving as a node in the cluster.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Review the Stackdriver logs for the specific GKE  container that is serving the unresponsive part of the application.",
+                "answerText": "Review the Stackdriver logs for the specific GKE  container that is serving the unresponsive part of the application.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Connect to the cluster using gcloud credentials and connect to a container in one of the pods to read the logs.",
+                "answerText": "Connect to the cluster using gcloud credentials and connect to a container in one of the pods to read the logs.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Review the Serial Port logs for each Compute Engine instance that is serving as a node in the cluster.",
+                "answerText": "Review the Serial Port logs for each Compute Engine instance that is serving as a node in the cluster.",
                 "isCorrect": false
             }
         ],
@@ -1744,19 +1740,19 @@ const examLibrary = [
         "questionText": "You are using a single Cloud SQL instance to serve your application from a specific zone. You want to introduce high availability. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a read replica instance in a different region",
+                "answerText": "Create a read replica instance in a different region",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a failover replica instance in a different region",
+                "answerText": "Create a failover replica instance in a different region",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a read replica instance in the same region, but in a different zone",
+                "answerText": "Create a read replica instance in the same region, but in a different zone",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a failover replica instance in the same region, but in a different zone",
+                "answerText": "Create a failover replica instance in the same region, but in a different zone",
                 "isCorrect": true
             }
         ],
@@ -1767,19 +1763,19 @@ const examLibrary = [
         "questionText": "Your company is running a stateless application on a Compute Engine instance. The application is used heavily during regular business hours and lightly outside of business hours. Users are reporting that the application is slow during peak hours. You need to optimize the application's performance. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a snapshot of the existing disk. Create an instance template from the snapshot. Create an autoscaled managed instance group from the instance template.",
+                "answerText": "Create a snapshot of the existing disk. Create an instance template from the snapshot. Create an autoscaled managed instance group from the instance template.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a snapshot of the existing disk. Create a custom image from the snapshot. Create an autoscaled managed instance group from the custom image.",
+                "answerText": "Create a snapshot of the existing disk. Create a custom image from the snapshot. Create an autoscaled managed instance group from the custom image.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a custom image from the existing disk. Create an instance template from the custom image. Create an autoscaled managed instance group from the instance template.",
+                "answerText": "Create a custom image from the existing disk. Create an instance template from the custom image. Create an autoscaled managed instance group from the instance template.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create an instance template from the existing disk. Create a custom image from the instance template. Create an autoscaled managed instance group from the custom image.",
+                "answerText": "Create an instance template from the existing disk. Create a custom image from the instance template. Create an autoscaled managed instance group from the custom image.",
                 "isCorrect": false
             }
         ],
@@ -1790,19 +1786,19 @@ const examLibrary = [
         "questionText": "Your web application has several VM instances running within a VPC. You want to restrict communications between instances to only the paths and ports you authorize, but you don't want to rely on static IP addresses or subnets because the app can autoscale. How should you restrict communications?",
         "answerOptions": [
             {
-                "answerText": "A. Use separate VPCs to restrict traffic",
+                "answerText": "Use separate VPCs to restrict traffic",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use firewall rules based on network tags attached to the compute instances",
+                "answerText": "Use firewall rules based on network tags attached to the compute instances",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use Cloud DNS and only allow connections from authorized hostnames",
+                "answerText": "Use Cloud DNS and only allow connections from authorized hostnames",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use service accounts and configure the web application to authorize particular service accounts to have access",
+                "answerText": "Use service accounts and configure the web application to authorize particular service accounts to have access",
                 "isCorrect": false
             }
         ],
@@ -1813,19 +1809,19 @@ const examLibrary = [
         "questionText": "You are using Cloud SQL as the database backend for a large CRM deployment. You want to scale as usage increases and ensure that you don't run out of storage, maintain 75% CPU usage cores, and keep replication lag below 60 seconds. What are the correct steps to meet your requirements?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Enable automatic storage increase for the instance. 2. Create a Stackdriver alert when CPU usage exceeds 75%, and change the instance type to reduce CPU usage. 3. Create a Stackdriver alert for replication lag, and shard the database to reduce replication time.",
+                "answerText": "1. Enable automatic storage increase for the instance. 2. Create a Stackdriver alert when CPU usage exceeds 75%, and change the instance type to reduce CPU usage. 3. Create a Stackdriver alert for replication lag, and shard the database to reduce replication time.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. 1. Enable automatic storage increase for the instance. 2. Change the instance type to a 32-core machine type to keep CPU usage below 75%. 3. Create a Stackdriver alert for replication lag, and deploy memcache to reduce load on the master.",
+                "answerText": "1. Enable automatic storage increase for the instance. 2. Change the instance type to a 32-core machine type to keep CPU usage below 75%. 3. Create a Stackdriver alert for replication lag, and deploy memcache to reduce load on the master.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Create a Stackdriver alert when storage exceeds 75%, and increase the available storage on the instance to create more space. 2. Deploy memcached to reduce CPU load. 3. Change the instance type to a 32-core machine type to reduce replication lag.",
+                "answerText": "1. Create a Stackdriver alert when storage exceeds 75%, and increase the available storage on the instance to create more space. 2. Deploy memcached to reduce CPU load. 3. Change the instance type to a 32-core machine type to reduce replication lag.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Create a Stackdriver alert when storage exceeds 75%, and increase the available storage on the instance to create more space. 2. Deploy memcached to reduce CPU load. 3. Create a Stackdriver alert for replication lag, and change the instance type to a 32-core machine type to reduce replication lag.",
+                "answerText": "1. Create a Stackdriver alert when storage exceeds 75%, and increase the available storage on the instance to create more space. 2. Deploy memcached to reduce CPU load. 3. Create a Stackdriver alert for replication lag, and change the instance type to a 32-core machine type to reduce replication lag.",
                 "isCorrect": false
             }
         ],
@@ -1836,19 +1832,19 @@ const examLibrary = [
         "questionText": "You are tasked with building an online analytical processing (OLAP) marketing analytics and reporting tool. This requires a relational database that can operate on hundreds of terabytes of data. What is the Google-recommended tool for such applications?",
         "answerOptions": [
             {
-                "answerText": "A. Cloud Spanner, because it is globally distributed",
+                "answerText": "Cloud Spanner, because it is globally distributed",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Cloud SQL, because it is a fully managed relational database",
+                "answerText": "Cloud SQL, because it is a fully managed relational database",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Cloud Firestore, because it offers real-time synchronization across devices",
+                "answerText": "Cloud Firestore, because it offers real-time synchronization across devices",
                 "isCorrect": false
             },
             {
-                "answerText": "D. BigQuery, because it is designed for large-scale processing of tabular data",
+                "answerText": "BigQuery, because it is designed for large-scale processing of tabular data",
                 "isCorrect": true
             }
         ],
@@ -1859,19 +1855,19 @@ const examLibrary = [
         "questionText": "You have deployed an application to Google Kubernetes Engine (GKE), and are using the Cloud SQL proxy container to make the Cloud SQL database available to the services running on Kubernetes. You are notified that the application is reporting database connection issues. Your company policies require a post- mortem. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use gcloud sql instances restart.",
+                "answerText": "Use gcloud sql instances restart.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Validate that the Service Account used by the Cloud SQL proxy container still has the Cloud Build Editor role.",
+                "answerText": "Validate that the Service Account used by the Cloud SQL proxy container still has the Cloud Build Editor role.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. In the GCP Console, navigate to Stackdriver Logging. Consult logs for (GKE) and Cloud SQL.",
+                "answerText": "In the GCP Console, navigate to Stackdriver Logging. Consult logs for (GKE) and Cloud SQL.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. In the GCP Console, navigate to Cloud SQL. Restore the latest backup. Use kubectl to restart all pods.",
+                "answerText": "In the GCP Console, navigate to Cloud SQL. Restore the latest backup. Use kubectl to restart all pods.",
                 "isCorrect": false
             }
         ],
@@ -1882,19 +1878,19 @@ const examLibrary = [
         "questionText": "Your company pushes batches of sensitive transaction data from its application server VMs to Cloud Pub/Sub for processing and storage. What is the Google- recommended way for your application to authenticate to the required Google Cloud services?",
         "answerOptions": [
             {
-                "answerText": "A. Ensure that VM service accounts are granted the appropriate Cloud Pub/Sub IAM roles.",
+                "answerText": "Ensure that VM service accounts are granted the appropriate Cloud Pub/Sub IAM roles.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Ensure that VM service accounts do not have access to Cloud Pub/Sub, and use VM access scopes to grant the appropriate Cloud Pub/Sub IAM roles.",
+                "answerText": "Ensure that VM service accounts do not have access to Cloud Pub/Sub, and use VM access scopes to grant the appropriate Cloud Pub/Sub IAM roles.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Generate an OAuth2 access token for accessing Cloud Pub/Sub, encrypt it, and store it in Cloud Storage for access from each VM.",
+                "answerText": "Generate an OAuth2 access token for accessing Cloud Pub/Sub, encrypt it, and store it in Cloud Storage for access from each VM.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a gateway to Cloud Pub/Sub using a Cloud Function, and grant the Cloud Function service account the appropriate Cloud Pub/Sub IAM roles.",
+                "answerText": "Create a gateway to Cloud Pub/Sub using a Cloud Function, and grant the Cloud Function service account the appropriate Cloud Pub/Sub IAM roles.",
                 "isCorrect": false
             }
         ],
@@ -1905,19 +1901,19 @@ const examLibrary = [
         "questionText": "You want to establish a Compute Engine application in a single VPC across two regions. The application must communicate over VPN to an on-premises network.How should you deploy the VPN?",
         "answerOptions": [
             {
-                "answerText": "A. Use VPC Network Peering between the VPC and the on-premises network.",
+                "answerText": "Use VPC Network Peering between the VPC and the on-premises network.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Expose the VPC to the on-premises network using IAM and VPC Sharing.",
+                "answerText": "Expose the VPC to the on-premises network using IAM and VPC Sharing.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a global Cloud VPN Gateway with VPN tunnels from each region to the on-premises peer gateway.",
+                "answerText": "Create a global Cloud VPN Gateway with VPN tunnels from each region to the on-premises peer gateway.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Deploy Cloud VPN Gateway in each region. Ensure that each region has at least one VPN tunnel to the on-premises peer gateway.",
+                "answerText": "Deploy Cloud VPN Gateway in each region. Ensure that each region has at least one VPN tunnel to the on-premises peer gateway.",
                 "isCorrect": true
             }
         ],
@@ -1928,19 +1924,19 @@ const examLibrary = [
         "questionText": "Your applications will be writing their logs to BigQuery for analysis. Each application should have its own table. Any logs older than 45 days should be removed.You want to optimize storage and follow Google-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure the expiration time for your tables at 45 days",
+                "answerText": "Configure the expiration time for your tables at 45 days",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Make the tables time-partitioned, and configure the partition expiration at 45 days",
+                "answerText": "Make the tables time-partitioned, and configure the partition expiration at 45 days",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Rely on BigQuery's default behavior to prune application logs older than 45 days",
+                "answerText": "Rely on BigQuery's default behavior to prune application logs older than 45 days",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a script that uses the BigQuery command line tool (bq) to remove records older than 45 days",
+                "answerText": "Create a script that uses the BigQuery command line tool (bq) to remove records older than 45 days",
                 "isCorrect": false
             }
         ],
@@ -1951,19 +1947,19 @@ const examLibrary = [
         "questionText": "You want your Google Kubernetes Engine cluster to automatically add or remove nodes based on CPU load.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure a HorizontalPodAutoscaler with a target CPU usage. Enable the Cluster Autoscaler from the GCP Console.",
+                "answerText": "Configure a HorizontalPodAutoscaler with a target CPU usage. Enable the Cluster Autoscaler from the GCP Console.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Configure a HorizontalPodAutoscaler with a target CPU usage. Enable autoscaling on the managed instance group for the cluster using the gcloud command.",
+                "answerText": "Configure a HorizontalPodAutoscaler with a target CPU usage. Enable autoscaling on the managed instance group for the cluster using the gcloud command.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a deployment and set the maxUnavailable and maxSurge properties. Enable the Cluster Autoscaler using the gcloud command.",
+                "answerText": "Create a deployment and set the maxUnavailable and maxSurge properties. Enable the Cluster Autoscaler using the gcloud command.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a deployment and set the maxUnavailable and maxSurge properties. Enable autoscaling on the cluster managed instance group from the GCP Console.",
+                "answerText": "Create a deployment and set the maxUnavailable and maxSurge properties. Enable autoscaling on the cluster managed instance group from the GCP Console.",
                 "isCorrect": false
             }
         ],
@@ -1974,19 +1970,19 @@ const examLibrary = [
         "questionText": "You need to develop procedures to verify resilience of disaster recovery for remote recovery using GCP. Your production environment is hosted on-premises. You need to establish a secure, redundant connection between your on-premises network and the GCP network.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Verify that Dedicated Interconnect can replicate files to GCP. Verify that direct peering can establish a secure connection between your networks if Dedicated Interconnect fails.",
+                "answerText": "Verify that Dedicated Interconnect can replicate files to GCP. Verify that direct peering can establish a secure connection between your networks if Dedicated Interconnect fails.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Verify that Dedicated Interconnect can replicate files to GCP. Verify that Cloud VPN can establish a secure connection between your networks if Dedicated Interconnect fails.",
+                "answerText": "Verify that Dedicated Interconnect can replicate files to GCP. Verify that Cloud VPN can establish a secure connection between your networks if Dedicated Interconnect fails.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Verify that the Transfer Appliance can replicate files to GCP. Verify that direct peering can establish a secure connection between your networks if the Transfer Appliance fails.",
+                "answerText": "Verify that the Transfer Appliance can replicate files to GCP. Verify that direct peering can establish a secure connection between your networks if the Transfer Appliance fails.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Verify that the Transfer Appliance can replicate files to GCP. Verify that Cloud VPN can establish a secure connection between your networks if the Transfer Appliance fails.",
+                "answerText": "Verify that the Transfer Appliance can replicate files to GCP. Verify that Cloud VPN can establish a secure connection between your networks if the Transfer Appliance fails.",
                 "isCorrect": false
             }
         ],
@@ -1997,19 +1993,19 @@ const examLibrary = [
         "questionText": "Your company operates nationally and plans to use GCP for multiple batch workloads, including some that are not time-critical. You also need to use GCP services that are HIPAA-certified and manage service costs.How should you design to meet Google best practices?",
         "answerOptions": [
             {
-                "answerText": "A. Provision preemptible VMs to reduce cost. Discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
+                "answerText": "Provision preemptible VMs to reduce cost. Discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Provision preemptible VMs to reduce cost. Disable and then discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
+                "answerText": "Provision preemptible VMs to reduce cost. Disable and then discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Provision standard VMs in the same region to reduce cost. Discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
+                "answerText": "Provision standard VMs in the same region to reduce cost. Discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Provision standard VMs to the same region to reduce cost. Disable and then discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
+                "answerText": "Provision standard VMs to the same region to reduce cost. Disable and then discontinue use of all GCP services and APIs that are not HIPAA-compliant.",
                 "isCorrect": false
             }
         ],
@@ -2020,19 +2016,19 @@ const examLibrary = [
         "questionText": "Your customer wants to do resilience testing of their authentication layer. This consists of a regional managed instance group serving a public REST API that reads from and writes to a Cloud SQL instance.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Engage with a security company to run web scrapers that look your for users' authentication data om malicious websites and notify you if any is found.",
+                "answerText": "Engage with a security company to run web scrapers that look your for users' authentication data om malicious websites and notify you if any is found.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Deploy intrusion detection software to your virtual machines to detect and log unauthorized access.",
+                "answerText": "Deploy intrusion detection software to your virtual machines to detect and log unauthorized access.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Schedule a disaster simulation exercise during which you can shut off all VMs in a zone to see how your application behaves.",
+                "answerText": "Schedule a disaster simulation exercise during which you can shut off all VMs in a zone to see how your application behaves.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Configure a read replica for your Cloud SQL instance in a different zone than the master, and then manually trigger a failover while monitoring KPIs for our REST API.",
+                "answerText": "Configure a read replica for your Cloud SQL instance in a different zone than the master, and then manually trigger a failover while monitoring KPIs for our REST API.",
                 "isCorrect": false
             }
         ],
@@ -2043,19 +2039,19 @@ const examLibrary = [
         "questionText": "Your BigQuery project has several users. For audit purposes, you need to see how many queries each user ran in the last month. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Connect Google Data Studio to BigQuery. Create a dimension for the users and a metric for the amount of queries per user.",
+                "answerText": "Connect Google Data Studio to BigQuery. Create a dimension for the users and a metric for the amount of queries per user.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. In the BigQuery interface, execute a query on the JOBS table to get the required information.",
+                "answerText": "In the BigQuery interface, execute a query on the JOBS table to get the required information.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use 'bq show' to list all jobs. Per job, use 'bq ls' to list job information and get the required information.",
+                "answerText": "Use 'bq show' to list all jobs. Per job, use 'bq ls' to list job information and get the required information.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Cloud Audit Logging to view Cloud Audit Logs, and create a filter on the query operation to get the required information.",
+                "answerText": "Use Cloud Audit Logging to view Cloud Audit Logs, and create a filter on the query operation to get the required information.",
                 "isCorrect": true
             }
         ],
@@ -2066,19 +2062,19 @@ const examLibrary = [
         "questionText": "You want to automate the creation of a managed instance group. The VMs have many OS package dependencies. You want to minimize the startup time for newVMs in the instance group.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use Terraform to create the managed instance group and a startup script to install the OS package dependencies.",
+                "answerText": "Use Terraform to create the managed instance group and a startup script to install the OS package dependencies.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a custom VM image with all OS package dependencies. Use Deployment Manager to create the managed instance group with the VM image.",
+                "answerText": "Create a custom VM image with all OS package dependencies. Use Deployment Manager to create the managed instance group with the VM image.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use Puppet to create the managed instance group and install the OS package dependencies.",
+                "answerText": "Use Puppet to create the managed instance group and install the OS package dependencies.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Deployment Manager to create the managed instance group and Ansible to install the OS package dependencies.",
+                "answerText": "Use Deployment Manager to create the managed instance group and Ansible to install the OS package dependencies.",
                 "isCorrect": false
             }
         ],
@@ -2089,19 +2085,19 @@ const examLibrary = [
         "questionText": "Your company captures all web traffic data in Google Analytics 360 and stores it in BigQuery. Each country has its own dataset. Each dataset has multiple tables.You want analysts from each country to be able to see and query only the data for their respective countries.How should you configure the access rights?",
         "answerOptions": [
             {
-                "answerText": "A. Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery jobUser. Share the appropriate dataset with view access with each respective analyst country-group.",
+                "answerText": "Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery jobUser. Share the appropriate dataset with view access with each respective analyst country-group.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery jobUser. Share the appropriate tables with view access with each respective analyst country-group.",
+                "answerText": "Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery jobUser. Share the appropriate tables with view access with each respective analyst country-group.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery dataViewer. Share the appropriate dataset with view access with each respective analyst country- group.",
+                "answerText": "Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery dataViewer. Share the appropriate dataset with view access with each respective analyst country- group.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery dataViewer. Share the appropriate table with view access with each respective analyst country-group.",
+                "answerText": "Create a group per country. Add analysts to their respective country-groups. Create a single group 'all_analysts', and add all country-groups as members. Grant the 'all_analysts' group the IAM role of BigQuery dataViewer. Share the appropriate table with view access with each respective analyst country-group.",
                 "isCorrect": false
             }
         ],
@@ -2112,19 +2108,19 @@ const examLibrary = [
         "questionText": "You have been engaged by your client to lead the migration of their application infrastructure to GCP. One of their current problems is that the on-premises high performance SAN is requiring frequent and expensive upgrades to keep up with the variety of workloads that are identified as follows: 20 TB of log archives retained for legal reasons; 500 GB of VM boot/data volumes and templates; 500 GB of image thumbnails; 200 GB of customer session state data that allows customers to restart sessions even if off-line for several days. Which of the following best reflects your recommendations for a cost-effective storage allocation?",
         "answerOptions": [
             {
-                "answerText": "A. Local SSD for customer session state data. Lifecycle-managed Cloud Storage for log archives, thumbnails, and VM boot/data volumes.",
+                "answerText": "Local SSD for customer session state data. Lifecycle-managed Cloud Storage for log archives, thumbnails, and VM boot/data volumes.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Memcache backed by Cloud Datastore for the customer session state data. Lifecycle-managed Cloud Storage for log archives, thumbnails, and VM boot/data volumes.",
+                "answerText": "Memcache backed by Cloud Datastore for the customer session state data. Lifecycle-managed Cloud Storage for log archives, thumbnails, and VM boot/data volumes.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Memcache backed by Cloud SQL for customer session state data. Assorted local SSD-backed instances for VM boot/data volumes. Cloud Storage for log archives and thumbnails.",
+                "answerText": "Memcache backed by Cloud SQL for customer session state data. Assorted local SSD-backed instances for VM boot/data volumes. Cloud Storage for log archives and thumbnails.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Memcache backed by Persistent Disk SSD storage for customer session state data. Assorted local SSD-backed instances for VM boot/data volumes. Cloud Storage for log archives and thumbnails.",
+                "answerText": "Memcache backed by Persistent Disk SSD storage for customer session state data. Assorted local SSD-backed instances for VM boot/data volumes. Cloud Storage for log archives and thumbnails.",
                 "isCorrect": false
             }
         ],
@@ -2135,19 +2131,19 @@ const examLibrary = [
         "questionText": "Your web application uses Google Kubernetes Engine to manage several workloads. One workload requires a consistent set of hostnames even after pod scaling and relaunches.Which feature of Kubernetes should you use to accomplish this?",
         "answerOptions": [
             {
-                "answerText": "A. StatefulSets",
+                "answerText": "StatefulSets",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Role-based access control",
+                "answerText": "Role-based access control",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Container environment variables",
+                "answerText": "Container environment variables",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Persistent Volumes",
+                "answerText": "Persistent Volumes",
                 "isCorrect": false
             }
         ],
@@ -2158,19 +2154,19 @@ const examLibrary = [
         "questionText": "You are using Cloud CDN to deliver static HTTP(S) website content hosted on a Compute Engine instance group. You want to improve the cache hit ratio.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Customize the cache keys to omit the protocol from the key.",
+                "answerText": "Customize the cache keys to omit the protocol from the key.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Shorten the expiration time of the cached objects.",
+                "answerText": "Shorten the expiration time of the cached objects.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Make sure the HTTP(S) header \u05d2\u20acCache-Region\u05d2\u20ac points to the closest region of your users.",
+                "answerText": "Make sure the HTTP(S) header \u05d2\u20acCache-Region\u05d2\u20ac points to the closest region of your users.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Replicate the static content in a Cloud Storage bucket. Point CloudCDN toward a load balancer on that bucket.",
+                "answerText": "Replicate the static content in a Cloud Storage bucket. Point CloudCDN toward a load balancer on that bucket.",
                 "isCorrect": false
             }
         ],
@@ -2181,19 +2177,19 @@ const examLibrary = [
         "questionText": "Your architecture calls for the centralized collection of all admin activity and VM system logs within your project.How should you collect these logs from both VMs and services?",
         "answerOptions": [
             {
-                "answerText": "A. All admin and VM system logs are automatically collected by Stackdriver.",
+                "answerText": "All admin and VM system logs are automatically collected by Stackdriver.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Stackdriver automatically collects admin activity logs for most services. The Stackdriver Logging agent must be installed on each instance to collect system logs.",
+                "answerText": "Stackdriver automatically collects admin activity logs for most services. The Stackdriver Logging agent must be installed on each instance to collect system logs.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Launch a custom syslogd compute instance and configure your GCP project and VMs to forward all logs to it.",
+                "answerText": "Launch a custom syslogd compute instance and configure your GCP project and VMs to forward all logs to it.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Install the Stackdriver Logging agent on a single compute instance and let it collect all audit and access logs for your environment.",
+                "answerText": "Install the Stackdriver Logging agent on a single compute instance and let it collect all audit and access logs for your environment.",
                 "isCorrect": false
             }
         ],
@@ -2204,19 +2200,19 @@ const examLibrary = [
         "questionText": "You have an App Engine application that needs to be updated. You want to test the update with production traffic before replacing the current application version.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Deploy the update using the Instance Group Updater to create a partial rollout, which allows for canary testing.",
+                "answerText": "Deploy the update using the Instance Group Updater to create a partial rollout, which allows for canary testing.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Deploy the update as a new version in the App Engine application, and split traffic between the new and current versions.",
+                "answerText": "Deploy the update as a new version in the App Engine application, and split traffic between the new and current versions.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Deploy the update in a new VPC, and use Google's global HTTP load balancing to split traffic between the update and current applications.",
+                "answerText": "Deploy the update in a new VPC, and use Google's global HTTP load balancing to split traffic between the update and current applications.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Deploy the update as a new App Engine application, and use Google's global HTTP load balancing to split traffic between the new and current applications.",
+                "answerText": "Deploy the update as a new App Engine application, and use Google's global HTTP load balancing to split traffic between the new and current applications.",
                 "isCorrect": false
             }
         ],
@@ -2227,19 +2223,19 @@ const examLibrary = [
         "questionText": "All Compute Engine instances in your VPC should be able to connect to an Active Directory server on specific ports. Any other traffic emerging from your instances is not allowed. You want to enforce this using VPC firewall rules. How should you configure the firewall rules?",
         "answerOptions": [
             {
-                "answerText": "A. Create an egress rule with priority 1000 to deny all traffic for all instances. Create another egress rule with priority 100 to allow the Active Directory traffic for all instances.",
+                "answerText": "Create an egress rule with priority 1000 to deny all traffic for all instances. Create another egress rule with priority 100 to allow the Active Directory traffic for all instances.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create an egress rule with priority 100 to deny all traffic for all instances. Create another egress rule with priority 1000 to allow the Active Directory traffic for all instances.",
+                "answerText": "Create an egress rule with priority 100 to deny all traffic for all instances. Create another egress rule with priority 1000 to allow the Active Directory traffic for all instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create an egress rule with priority 1000 to allow the Active Directory traffic. Rely on the implied deny egress rule with priority 100 to block all traffic for all instances.",
+                "answerText": "Create an egress rule with priority 1000 to allow the Active Directory traffic. Rely on the implied deny egress rule with priority 100 to block all traffic for all instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create an egress rule with priority 100 to allow the Active Directory traffic. Rely on the implied deny egress rule with priority 1000 to block all traffic for all instances.",
+                "answerText": "Create an egress rule with priority 100 to allow the Active Directory traffic. Rely on the implied deny egress rule with priority 1000 to block all traffic for all instances.",
                 "isCorrect": false
             }
         ],
@@ -2250,19 +2246,19 @@ const examLibrary = [
         "questionText": "Your customer runs a web service used by e-commerce sites to offer product recommendations to users. The company has begun experimenting with a machine learning model on Google Cloud Platform to improve the quality of results.What should the customer do to improve their model's results over time?",
         "answerOptions": [
             {
-                "answerText": "A. Export Cloud Machine Learning Engine performance metrics from Stackdriver to BigQuery, to be used to analyze the efficiency of the model.",
+                "answerText": "Export Cloud Machine Learning Engine performance metrics from Stackdriver to BigQuery, to be used to analyze the efficiency of the model.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Build a roadmap to move the machine learning model training from Cloud GPUs to Cloud TPUs, which offer better results.",
+                "answerText": "Build a roadmap to move the machine learning model training from Cloud GPUs to Cloud TPUs, which offer better results.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Monitor Compute Engine announcements for availability of newer CPU architectures, and deploy the model to them as soon as they are available for additional performance.",
+                "answerText": "Monitor Compute Engine announcements for availability of newer CPU architectures, and deploy the model to them as soon as they are available for additional performance.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Save a history of recommendations and results of the recommendations in BigQuery, to be used as training data.",
+                "answerText": "Save a history of recommendations and results of the recommendations in BigQuery, to be used as training data.",
                 "isCorrect": true
             }
         ],
@@ -2273,19 +2269,19 @@ const examLibrary = [
         "questionText": "A development team at your company has created a dockerized HTTPS web application. You need to deploy the application on Google Kubernetes Engine (GKE) and make sure that the application scales automatically.How should you deploy to GKE?",
         "answerOptions": [
             {
-                "answerText": "A. Use the Horizontal Pod Autoscaler and enable cluster autoscaling. Use an Ingress resource to load-balance the HTTPS traffic.",
+                "answerText": "Use the Horizontal Pod Autoscaler and enable cluster autoscaling. Use an Ingress resource to load-balance the HTTPS traffic.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use the Horizontal Pod Autoscaler and enable cluster autoscaling on the Kubernetes cluster. Use a Service resource of type LoadBalancer to load-balance the HTTPS traffic.",
+                "answerText": "Use the Horizontal Pod Autoscaler and enable cluster autoscaling on the Kubernetes cluster. Use a Service resource of type LoadBalancer to load-balance the HTTPS traffic.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Enable autoscaling on the Compute Engine instance group. Use an Ingress resource to load-balance the HTTPS traffic.",
+                "answerText": "Enable autoscaling on the Compute Engine instance group. Use an Ingress resource to load-balance the HTTPS traffic.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Enable autoscaling on the Compute Engine instance group. Use a Service resource of type LoadBalancer to load-balance the HTTPS traffic.",
+                "answerText": "Enable autoscaling on the Compute Engine instance group. Use a Service resource of type LoadBalancer to load-balance the HTTPS traffic.",
                 "isCorrect": false
             }
         ],
@@ -2296,19 +2292,19 @@ const examLibrary = [
         "questionText": "You need to design a solution for global load balancing based on the URL path being requested. You need to ensure operations reliability and end-to-end in- transit encryption based on Google best practices.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a cross-region load balancer with URL Maps.",
+                "answerText": "Create a cross-region load balancer with URL Maps.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create an HTTPS load balancer with URL Maps.",
+                "answerText": "Create an HTTPS load balancer with URL Maps.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create appropriate instance groups and instances. Configure SSL proxy load balancing.",
+                "answerText": "Create appropriate instance groups and instances. Configure SSL proxy load balancing.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a global forwarding rule. Configure SSL proxy load balancing.",
+                "answerText": "Create a global forwarding rule. Configure SSL proxy load balancing.",
                 "isCorrect": false
             }
         ],
@@ -2319,19 +2315,19 @@ const examLibrary = [
         "questionText": "You have an application that makes HTTP requests to Cloud Storage. Occasionally the requests fail with HTTP status codes of 5xx and 429.How should you handle these types of errors?",
         "answerOptions": [
             {
-                "answerText": "A. Use gRPC instead of HTTP for better performance.",
+                "answerText": "Use gRPC instead of HTTP for better performance.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Implement retry logic using a truncated exponential backoff strategy.",
+                "answerText": "Implement retry logic using a truncated exponential backoff strategy.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Make sure the Cloud Storage bucket is multi-regional for geo-redundancy.",
+                "answerText": "Make sure the Cloud Storage bucket is multi-regional for geo-redundancy.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Monitor https://status.cloud.google.com/feed.atom and only make requests if Cloud Storage is not reporting an incident.",
+                "answerText": "Monitor https://status.cloud.google.com/feed.atom and only make requests if Cloud Storage is not reporting an incident.",
                 "isCorrect": false
             }
         ],
@@ -2342,19 +2338,19 @@ const examLibrary = [
         "questionText": "You need to develop procedures to test a disaster plan for a mission-critical application. You want to use Google-recommended practices and native capabilities within GCP.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use Deployment Manager to automate service provisioning. Use Activity Logs to monitor and debug your tests.",
+                "answerText": "Use Deployment Manager to automate service provisioning. Use Activity Logs to monitor and debug your tests.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use Deployment Manager to automate service  provisioning. Use Stackdriver to monitor and debug your tests.",
+                "answerText": "Use Deployment Manager to automate service  provisioning. Use Stackdriver to monitor and debug your tests.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use gcloud scripts to automate service provisioning. Use Activity Logs to monitor and debug your tests.",
+                "answerText": "Use gcloud scripts to automate service provisioning. Use Activity Logs to monitor and debug your tests.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use gcloud scripts to automate service provisioning. Use Stackdriver to monitor and debug your tests.",
+                "answerText": "Use gcloud scripts to automate service provisioning. Use Stackdriver to monitor and debug your tests.",
                 "isCorrect": false
             }
         ],
@@ -2365,19 +2361,19 @@ const examLibrary = [
         "questionText": "Your company creates rendering software which users can download from the company website. Your company has customers all over the world. You want to minimize latency for all your customers. You want to follow Google-recommended practices.How should you store the files?",
         "answerOptions": [
             {
-                "answerText": "A. Save the files in a Multi-Regional Cloud Storage bucket.",
+                "answerText": "Save the files in a Multi-Regional Cloud Storage bucket.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Save the files in a Regional Cloud Storage bucket, one bucket per zone of the region.",
+                "answerText": "Save the files in a Regional Cloud Storage bucket, one bucket per zone of the region.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Save the files in multiple Regional Cloud Storage buckets, one bucket per zone per region.",
+                "answerText": "Save the files in multiple Regional Cloud Storage buckets, one bucket per zone per region.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Save the files in multiple Multi-Regional Cloud Storage buckets, one bucket per multi-region.",
+                "answerText": "Save the files in multiple Multi-Regional Cloud Storage buckets, one bucket per multi-region.",
                 "isCorrect": false
             }
         ],
@@ -2388,19 +2384,19 @@ const examLibrary = [
         "questionText": "Your company acquired a healthcare startup and must retain its customers' medical information for up to 4 more years, depending on when it was created. Your corporate policy is to securely retain this data, and then delete it as soon as regulations allow.Which approach should you take?",
         "answerOptions": [
             {
-                "answerText": "A. Store the data in Google Drive and manually delete records as they expire.",
+                "answerText": "Store the data in Google Drive and manually delete records as they expire.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Anonymize the data using the Cloud Data Loss Prevention API and store it indefinitely.",
+                "answerText": "Anonymize the data using the Cloud Data Loss Prevention API and store it indefinitely.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Store the data in Cloud Storage and use lifecycle management to delete files when they expire.",
+                "answerText": "Store the data in Cloud Storage and use lifecycle management to delete files when they expire.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Store the data in Cloud Storage and run a nightly batch script that deletes all expired data.",
+                "answerText": "Store the data in Cloud Storage and run a nightly batch script that deletes all expired data.",
                 "isCorrect": false
             }
         ],
@@ -2411,19 +2407,19 @@ const examLibrary = [
         "questionText": "You are deploying a PHP App Engine Standard service with Cloud SQL as the backend. You want to minimize the number of queries to the database.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Set the memcache service level to dedicated. Create a key from the hash of the query, and return database values from memcache before issuing a query to Cloud SQL.",
+                "answerText": "Set the memcache service level to dedicated. Create a key from the hash of the query, and return database values from memcache before issuing a query to Cloud SQL.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Set the memcache service level to dedicated. Create a cron task that runs every minute to populate the cache with keys containing query results.",
+                "answerText": "Set the memcache service level to dedicated. Create a cron task that runs every minute to populate the cache with keys containing query results.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Set the memcache service level to shared. Create a cron task that runs every minute to save all expected queries to a key called \u05d2\u20accached_queries\u05d2\u20ac.",
+                "answerText": "Set the memcache service level to shared. Create a cron task that runs every minute to save all expected queries to a key called \u05d2\u20accached_queries\u05d2\u20ac.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Set the memcache service level to shared. Create a key called \u05d2\u20accached_queries\u05d2\u20ac, and return database values from the key before using a query to Cloud SQL.",
+                "answerText": "Set the memcache service level to shared. Create a key called \u05d2\u20accached_queries\u05d2\u20ac, and return database values from the key before using a query to Cloud SQL.",
                 "isCorrect": false
             }
         ],
@@ -2434,19 +2430,19 @@ const examLibrary = [
         "questionText": "You need to ensure reliability for your application and operations by supporting reliable task scheduling for compute on GCP. Leveraging Google best practices, what should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Using the Cron service provided by App Engine, publish messages directly to a message-processing utility service running on Compute Engine instances.",
+                "answerText": "Using the Cron service provided by App Engine, publish messages directly to a message-processing utility service running on Compute Engine instances.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Using the Cron service provided by App Engine, publish messages to a Cloud Pub/Sub topic. Subscribe to that topic using a message-processing utility service running on Compute Engine instances.",
+                "answerText": "Using the Cron service provided by App Engine, publish messages to a Cloud Pub/Sub topic. Subscribe to that topic using a message-processing utility service running on Compute Engine instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Using the Cron service provided by Google Kubernetes Engine (GKE), publish messages directly to a message-processing utility service running on Compute Engine instances.",
+                "answerText": "Using the Cron service provided by Google Kubernetes Engine (GKE), publish messages directly to a message-processing utility service running on Compute Engine instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Using the Cron service provided by GKE, publish messages to a Cloud Pub/Sub topic. Subscribe to that topic using a message-processing utility service running on Compute Engine instances.",
+                "answerText": "Using the Cron service provided by GKE, publish messages to a Cloud Pub/Sub topic. Subscribe to that topic using a message-processing utility service running on Compute Engine instances.",
                 "isCorrect": false
             }
         ],
@@ -2457,19 +2453,19 @@ const examLibrary = [
         "questionText": "Your company is building a new architecture to support its data-centric business focus. You are responsible for setting up the network. Your company's mobile and web-facing applications will be deployed on-premises, and all data analysis will be conducted in GCP. The plan is to process and load 7 years of archived .csv files totaling 900 TB of data and then continue loading 10 TB of data daily. You currently have an existing 100-MB internet connection. What actions will meet your company's needs?",
         "answerOptions": [
             {
-                "answerText": "A. Compress and upload both archived  files and files uploaded daily using the gsutil \u05d2\u20ac\"m option.",
+                "answerText": "Compress and upload both archived  files and files uploaded daily using the gsutil \u05d2\u20ac\"m option.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Lease a Transfer Appliance, upload archived files to it, and send it to Google to transfer archived data to Cloud Storage. Establish a connection with Google using a Dedicated Interconnect or Direct Peering connection and use it to upload files daily.",
+                "answerText": "Lease a Transfer Appliance, upload archived files to it, and send it to Google to transfer archived data to Cloud Storage. Establish a connection with Google using a Dedicated Interconnect or Direct Peering connection and use it to upload files daily.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Lease a Transfer Appliance, upload archived files to it, and send it to Google to transfer archived data to Cloud Storage. Establish one Cloud VPN Tunnel to VPC networks over the public internet, and compress and upload files daily using the gsutil \u05d2\u20ac\"m option.",
+                "answerText": "Lease a Transfer Appliance, upload archived files to it, and send it to Google to transfer archived data to Cloud Storage. Establish one Cloud VPN Tunnel to VPC networks over the public internet, and compress and upload files daily using the gsutil \u05d2\u20ac\"m option.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Lease a Transfer Appliance, upload archived files to it, and send it to Google to transfer archived data to Cloud Storage. Establish a Cloud VPN Tunnel to VPC networks over the public internet, and compress and upload files daily.",
+                "answerText": "Lease a Transfer Appliance, upload archived files to it, and send it to Google to transfer archived data to Cloud Storage. Establish a Cloud VPN Tunnel to VPC networks over the public internet, and compress and upload files daily.",
                 "isCorrect": false
             }
         ],
@@ -2480,19 +2476,19 @@ const examLibrary = [
         "questionText": "You are developing a globally scaled frontend for a legacy streaming backend data API. This API expects events in strict chronological order with no repeat data for proper processing. Which products should you deploy to ensure guaranteed-once FIFO (first-in, first-out) delivery of data?",
         "answerOptions": [
             {
-                "answerText": "A. Cloud Pub/Sub alone",
+                "answerText": "Cloud Pub/Sub alone",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Cloud Pub/Sub to Cloud Dataflow",
+                "answerText": "Cloud Pub/Sub to Cloud Dataflow",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Cloud Pub/Sub to Stackdriver",
+                "answerText": "Cloud Pub/Sub to Stackdriver",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Cloud Pub/Sub to Cloud SQL",
+                "answerText": "Cloud Pub/Sub to Cloud SQL",
                 "isCorrect": false
             }
         ],
@@ -2503,19 +2499,19 @@ const examLibrary = [
         "questionText": "Your company is planning to perform a lift and shift migration of their Linux RHEL 6.5+ virtual machines. The virtual machines are running in an on-premisesVMware environment. You want to migrate them to Compute Engine following Google-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Define a migration plan based on the list of the applications and their dependencies. 2. Migrate all virtual machines into Compute Engine individually with Migrate for Compute Engine.",
+                "answerText": "1. Define a migration plan based on the list of the applications and their dependencies. 2. Migrate all virtual machines into Compute Engine individually with Migrate for Compute Engine.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. Perform an assessment of virtual machines running in the current VMware environment. 2. Create images of all disks. Import disks on Compute Engine. 3. Create standard virtual machines where the boot disks are the ones you have imported.",
+                "answerText": "1. Perform an assessment of virtual machines running in the current VMware environment. 2. Create images of all disks. Import disks on Compute Engine. 3. Create standard virtual machines where the boot disks are the ones you have imported.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Perform an assessment of virtual machines running in the current VMware environment. 2. Define a migration plan, prepare a Migrate for Compute Engine migration RunBook, and execute the migration.",
+                "answerText": "1. Perform an assessment of virtual machines running in the current VMware environment. 2. Define a migration plan, prepare a Migrate for Compute Engine migration RunBook, and execute the migration.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. 1. Perform an assessment of virtual machines running in the current VMware environment. 2. Install a third-party agent on all selected virtual machines. 3. Migrate all virtual machines into Compute Engine.",
+                "answerText": "1. Perform an assessment of virtual machines running in the current VMware environment. 2. Install a third-party agent on all selected virtual machines. 3. Migrate all virtual machines into Compute Engine.",
                 "isCorrect": false
             }
         ],
@@ -2526,19 +2522,19 @@ const examLibrary = [
         "questionText": "You need to deploy an application to Google Cloud. The application receives traffic via TCP and reads and writes data to the filesystem. The application does not support horizontal scaling. The application process requires full control over the data on the file system because concurrent access causes corruption. The business is willing to accept a downtime when an incident occurs, but the application must be available 24/7 to support their business operations. You need to design the architecture of this application on Google Cloud. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use a managed instance group with instances in multiple zones, use Cloud Filestore, and use an HTTP load balancer in front of the instances.",
+                "answerText": "Use a managed instance group with instances in multiple zones, use Cloud Filestore, and use an HTTP load balancer in front of the instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use a managed instance group with instances in multiple zones, use Cloud Filestore, and use a network load balancer in front of the instances.",
+                "answerText": "Use a managed instance group with instances in multiple zones, use Cloud Filestore, and use a network load balancer in front of the instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use an unmanaged instance group with an active and standby instance in different zones, use a regional persistent disk, and use an HTTP load balancer in front of the instances.",
+                "answerText": "Use an unmanaged instance group with an active and standby instance in different zones, use a regional persistent disk, and use an HTTP load balancer in front of the instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use an unmanaged instance group with an active and standby instance in different zones, use a regional persistent disk, and use a network load balancer in front of the instances.",
+                "answerText": "Use an unmanaged instance group with an active and standby instance in different zones, use a regional persistent disk, and use a network load balancer in front of the instances.",
                 "isCorrect": true
             }
         ],
@@ -2549,19 +2545,19 @@ const examLibrary = [
         "questionText": "Your company has an application running on multiple Compute Engine instances. You need to ensure that the application can communicate with an on-premises service that requires high throughput via internal IPs, while minimizing latency. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use OpenVPN to configure a VPN tunnel between the on-premises environment and Google Cloud.",
+                "answerText": "Use OpenVPN to configure a VPN tunnel between the on-premises environment and Google Cloud.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure a direct peering connection between the on-premises environment and Google Cloud.",
+                "answerText": "Configure a direct peering connection between the on-premises environment and Google Cloud.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use Cloud VPN to configure a VPN tunnel between the on-premises environment and Google Cloud.",
+                "answerText": "Use Cloud VPN to configure a VPN tunnel between the on-premises environment and Google Cloud.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure a Cloud Dedicated Interconnect connection between the on-premises environment and Google Cloud.",
+                "answerText": "Configure a Cloud Dedicated Interconnect connection between the on-premises environment and Google Cloud.",
                 "isCorrect": true
             }
         ],
@@ -2572,19 +2568,19 @@ const examLibrary = [
         "questionText": "You are managing an application deployed on Cloud Run for Anthos, and you need to define a strategy for deploying new versions of the application. You want to evaluate the new code with a subset of production traffic to decide whether to proceed with the rollout. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Deploy a new revision to Cloud Run with the new version. Configure traffic percentage between revisions.",
+                "answerText": "Deploy a new revision to Cloud Run with the new version. Configure traffic percentage between revisions.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Deploy a new service to Cloud Run with the new version. Add a Cloud Load Balancing instance in front of both services.",
+                "answerText": "Deploy a new service to Cloud Run with the new version. Add a Cloud Load Balancing instance in front of both services.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. In the Google Cloud Console page for Cloud Run, set up continuous deployment using Cloud Build for the development branch. As part of the Cloud Build trigger, configure the substitution variable TRAFFIC_PERCENTAGE with the percentage of traffic you want directed to a new version.",
+                "answerText": "In the Google Cloud Console page for Cloud Run, set up continuous deployment using Cloud Build for the development branch. As part of the Cloud Build trigger, configure the substitution variable TRAFFIC_PERCENTAGE with the percentage of traffic you want directed to a new version.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. In the Google Cloud Console, configure Traffic Director with a new Service that points to the new version of the application on Cloud Run. Configure Traffic Director to send a small percentage of traffic to the new version of the application.",
+                "answerText": "In the Google Cloud Console, configure Traffic Director with a new Service that points to the new version of the application on Cloud Run. Configure Traffic Director to send a small percentage of traffic to the new version of the application.",
                 "isCorrect": false
             }
         ],
@@ -2595,19 +2591,19 @@ const examLibrary = [
         "questionText": "You are monitoring Google Kubernetes Engine (GKE) clusters in a Cloud Monitoring workspace. As a Site Reliability Engineer (SRE), you need to triage incidents quickly. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Navigate the predefined dashboards in the Cloud Monitoring workspace, and then add metrics and create alert policies.",
+                "answerText": "Navigate the predefined dashboards in the Cloud Monitoring workspace, and then add metrics and create alert policies.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Navigate the predefined dashboards in the Cloud Monitoring workspace, create custom metrics, and install alerting software on a Compute Engine instance.",
+                "answerText": "Navigate the predefined dashboards in the Cloud Monitoring workspace, create custom metrics, and install alerting software on a Compute Engine instance.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Write a shell script that gathers metrics from GKE nodes, publish these metrics to a Pub/Sub topic, export the data to BigQuery, and make a Data Studio dashboard.",
+                "answerText": "Write a shell script that gathers metrics from GKE nodes, publish these metrics to a Pub/Sub topic, export the data to BigQuery, and make a Data Studio dashboard.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a custom dashboard in the Cloud Monitoring workspace for each incident, and then add metrics and create alert policies.",
+                "answerText": "Create a custom dashboard in the Cloud Monitoring workspace for each incident, and then add metrics and create alert policies.",
                 "isCorrect": false
             }
         ],
@@ -2618,23 +2614,23 @@ const examLibrary = [
         "questionText": "You are implementing a single Cloud SQL MySQL second-generation database that contains business-critical transaction data. You want to ensure that the minimum amount of data is lost in case of catastrophic failure. Which two features should you implement? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Sharding",
+                "answerText": "Sharding",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Read replicas",
+                "answerText": "Read replicas",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Binary logging",
+                "answerText": "Binary logging",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Automated backups",
+                "answerText": "Automated backups",
                 "isCorrect": true
             },
             {
-                "answerText": "E. Semisynchronous replication",
+                "answerText": "Semisynchronous replication",
                 "isCorrect": false
             }
         ],
@@ -2645,19 +2641,19 @@ const examLibrary = [
         "questionText": "You are working at a sports association whose members range in age from 8 to 30. The association collects a large amount of health data, such as sustained injuries. You are storing this data in BigQuery. Current legislation requires you to delete such information upon request of the subject. You want to design a solution that can accommodate such a request. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use a unique identifier for each individual. Upon a deletion request, delete all rows from BigQuery with this identifier.",
+                "answerText": "Use a unique identifier for each individual. Upon a deletion request, delete all rows from BigQuery with this identifier.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. When ingesting new data in BigQuery, run the data through the Data Loss Prevention (DLP) API to identify any personal information. As part of the DLP scan, save the result to Data Catalog. Upon a deletion request, query Data Catalog to find the column with personal information.",
+                "answerText": "When ingesting new data in BigQuery, run the data through the Data Loss Prevention (DLP) API to identify any personal information. As part of the DLP scan, save the result to Data Catalog. Upon a deletion request, query Data Catalog to find the column with personal information.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a BigQuery view over the table that contains all data. Upon a deletion request, exclude the rows that affect the subject's data from this view. Use this view instead of the source table for all analysis tasks.",
+                "answerText": "Create a BigQuery view over the table that contains all data. Upon a deletion request, exclude the rows that affect the subject's data from this view. Use this view instead of the source table for all analysis tasks.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use a unique identifier for each individual. Upon a deletion request, overwrite the column with the unique identifier with a salted SHA256 of its value.",
+                "answerText": "Use a unique identifier for each individual. Upon a deletion request, overwrite the column with the unique identifier with a salted SHA256 of its value.",
                 "isCorrect": false
             }
         ],
@@ -2668,19 +2664,19 @@ const examLibrary = [
         "questionText": "Your company has announced that they will be outsourcing operations functions. You want to allow developers to easily stage new versions of a cloud-based application in the production environment and allow the outsourced operations team to autonomously promote staged versions to production. You want to minimize the operational overhead of the solution. Which Google Cloud product should you migrate to?",
         "answerOptions": [
             {
-                "answerText": "A. App Engine",
+                "answerText": "App Engine",
                 "isCorrect": true
             },
             {
-                "answerText": "B. GKE On-Prem",
+                "answerText": "GKE On-Prem",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Compute Engine",
+                "answerText": "Compute Engine",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Google Kubernetes Engine",
+                "answerText": "Google Kubernetes Engine",
                 "isCorrect": false
             }
         ],
@@ -2691,19 +2687,19 @@ const examLibrary = [
         "questionText": "Your company is running its application workloads on Compute Engine. The applications have been deployed in production, acceptance, and development environments. The production environment is business-critical and is used 24/7, while the acceptance and development environments are only critical during office hours. Your CFO has asked you to optimize these environments to achieve cost savings during idle times. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a shell script that uses the gcloud command to change the machine type of the development and acceptance instances to a smaller machine type outside of office hours. Schedule the shell script on one of the production instances to automate the task.",
+                "answerText": "Create a shell script that uses the gcloud command to change the machine type of the development and acceptance instances to a smaller machine type outside of office hours. Schedule the shell script on one of the production instances to automate the task.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use Cloud Scheduler to trigger a Cloud Function that will stop the development and acceptance environments after office hours and start them just before office hours.",
+                "answerText": "Use Cloud Scheduler to trigger a Cloud Function that will stop the development and acceptance environments after office hours and start them just before office hours.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Deploy the development and acceptance applications on a managed instance group and enable autoscaling.",
+                "answerText": "Deploy the development and acceptance applications on a managed instance group and enable autoscaling.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use regular Compute Engine instances for the production environment, and use preemptible VMs for the acceptance and development environments.",
+                "answerText": "Use regular Compute Engine instances for the production environment, and use preemptible VMs for the acceptance and development environments.",
                 "isCorrect": false
             }
         ],
@@ -2714,19 +2710,19 @@ const examLibrary = [
         "questionText": "You are moving an application that uses MySQL from on-premises to Google Cloud. The application will run on Compute Engine and will use Cloud SQL. You want to cut over to the Compute Engine deployment of the application with minimal downtime and no data loss to your customers. You want to migrate the application with minimal modification. You also need to determine the cutover strategy. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Set up Cloud VPN to provide private network connectivity between the Compute Engine application and the on-premises MySQL server. 2. Stop the on-premises application. 3. Create a mysqldump of the on-premises MySQL server. 4. Upload the dump to a Cloud Storage bucket. 5. Import the dump into Cloud SQL. 6. Modify the source code of the application to write queries to both databases and read from its local database. 7. Start the Compute Engine application. 8. Stop the on-premises application.",
+                "answerText": "1. Set up Cloud VPN to provide private network connectivity between the Compute Engine application and the on-premises MySQL server. 2. Stop the on-premises application. 3. Create a mysqldump of the on-premises MySQL server. 4. Upload the dump to a Cloud Storage bucket. 5. Import the dump into Cloud SQL. 6. Modify the source code of the application to write queries to both databases and read from its local database. 7. Start the Compute Engine application. 8. Stop the on-premises application.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. Set up Cloud SQL proxy and MySQL proxy. 2. Create a mysqldump of the on-premises MySQL server. 3. Upload the dump to a Cloud Storage bucket. 4. Import the dump into Cloud SQL. 5. Stop the on-premises application. 6. Start the Compute Engine application.",
+                "answerText": "1. Set up Cloud SQL proxy and MySQL proxy. 2. Create a mysqldump of the on-premises MySQL server. 3. Upload the dump to a Cloud Storage bucket. 4. Import the dump into Cloud SQL. 5. Stop the on-premises application. 6. Start the Compute Engine application.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Set up Cloud VPN to provide private network connectivity between the Compute Engine application and the on-premises MySQL server. 2. Stop the on-premises application. 3. Start the Compute Engine application, configured to read and write to the on-premises MySQL server. 4. Create the replication configuration in Cloud SQL. 5. Configure the source database server to accept connections from the Cloud SQL replica. 6. Finalize the Cloud SQL replica configuration. 7. When replication has been completed, stop the Compute Engine application. 8. Promote the Cloud SQL replica to a standalone instance. 9. Restart the Compute Engine application, configured to read and write to the Cloud SQL standalone instance.",
+                "answerText": "1. Set up Cloud VPN to provide private network connectivity between the Compute Engine application and the on-premises MySQL server. 2. Stop the on-premises application. 3. Start the Compute Engine application, configured to read and write to the on-premises MySQL server. 4. Create the replication configuration in Cloud SQL. 5. Configure the source database server to accept connections from the Cloud SQL replica. 6. Finalize the Cloud SQL replica configuration. 7. When replication has been completed, stop the Compute Engine application. 8. Promote the Cloud SQL replica to a standalone instance. 9. Restart the Compute Engine application, configured to read and write to the Cloud SQL standalone instance.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. 1. Stop the on-premises application. 2. Create a mysqldump of the on-premises MySQL server. 3. Upload the dump to a Cloud Storage bucket. 4. Import the dump into Cloud SQL. 5. Start the application on Compute Engine.",
+                "answerText": "1. Stop the on-premises application. 2. Create a mysqldump of the on-premises MySQL server. 3. Upload the dump to a Cloud Storage bucket. 4. Import the dump into Cloud SQL. 5. Start the application on Compute Engine.",
                 "isCorrect": false
             }
         ],
@@ -2737,19 +2733,19 @@ const examLibrary = [
         "questionText": "Your organization has decided to restrict the use of external IP addresses on instances to only approved instances. You want to enforce this requirement across all of your Virtual Private Clouds (VPCs). What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Remove the default route on all VPCs. Move all approved instances into a new subnet that has a default route to an internet gateway.",
+                "answerText": "Remove the default route on all VPCs. Move all approved instances into a new subnet that has a default route to an internet gateway.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a new VPC in custom mode. Create a new subnet for the approved instances, and set a default route to the internet gateway on this new subnet.",
+                "answerText": "Create a new VPC in custom mode. Create a new subnet for the approved instances, and set a default route to the internet gateway on this new subnet.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Implement a Cloud NAT solution to remove the need for external IP addresses entirely.",
+                "answerText": "Implement a Cloud NAT solution to remove the need for external IP addresses entirely.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Set an Organization Policy with a constraint on constraints/compute.vmExternalIpAccess. List the approved instances in the allowedValues list.",
+                "answerText": "Set an Organization Policy with a constraint on constraints/compute.vmExternalIpAccess. List the approved instances in the allowedValues list.",
                 "isCorrect": true
             }
         ],
@@ -2760,19 +2756,19 @@ const examLibrary = [
         "questionText": "Your company uses the Firewall Insights feature in the Google Network Intelligence Center. You have several firewall rules applied to Compute Engine instances.You need to evaluate the efficiency of the applied firewall ruleset. When you bring up the Firewall Insights page in the Google Cloud Console, you notice that there are no log rows to display. What should you do to troubleshoot the issue?",
         "answerOptions": [
             {
-                "answerText": "A. Enable Virtual Private Cloud (VPC) flow logging.",
+                "answerText": "Enable Virtual Private Cloud (VPC) flow logging.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Enable Firewall Rules Logging for the firewall rules you want to monitor.",
+                "answerText": "Enable Firewall Rules Logging for the firewall rules you want to monitor.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Verify that your user account is assigned the compute.networkAdmin Identity and Access Management (IAM) role.",
+                "answerText": "Verify that your user account is assigned the compute.networkAdmin Identity and Access Management (IAM) role.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Install the Google Cloud SDK, and verify that there are no Firewall logs in the command line output.",
+                "answerText": "Install the Google Cloud SDK, and verify that there are no Firewall logs in the command line output.",
                 "isCorrect": false
             }
         ],
@@ -2783,19 +2779,19 @@ const examLibrary = [
         "questionText": "Your company has sensitive data in Cloud Storage buckets. Data analysts have Identity Access Management (IAM) permissions to read the buckets. You want to prevent data analysts from retrieving the data in the buckets from outside the office network. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Create a VPC Service Controls perimeter that includes the projects with the buckets. 2. Create an access level with the CIDR of the office network.",
+                "answerText": "1. Create a VPC Service Controls perimeter that includes the projects with the buckets. 2. Create an access level with the CIDR of the office network.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. 1. Create a firewall rule for all instances in the Virtual Private Cloud (VPC) network for source range. 2. Use the Classless Inter-domain Routing (CIDR) of the office network.",
+                "answerText": "1. Create a firewall rule for all instances in the Virtual Private Cloud (VPC) network for source range. 2. Use the Classless Inter-domain Routing (CIDR) of the office network.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Create a Cloud Function to remove IAM permissions from the buckets, and another Cloud Function to add IAM permissions to the buckets. 2. Schedule the Cloud Functions with Cloud Scheduler to add permissions at the start of business and remove permissions at the end of business.",
+                "answerText": "1. Create a Cloud Function to remove IAM permissions from the buckets, and another Cloud Function to add IAM permissions to the buckets. 2. Schedule the Cloud Functions with Cloud Scheduler to add permissions at the start of business and remove permissions at the end of business.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Create a Cloud VPN to the office network. 2. Configure Private Google Access for on-premises hosts.",
+                "answerText": "1. Create a Cloud VPN to the office network. 2. Configure Private Google Access for on-premises hosts.",
                 "isCorrect": false
             }
         ],
@@ -2806,19 +2802,19 @@ const examLibrary = [
         "questionText": "You have developed a non-critical update to your application that is running in a managed instance group, and have created a new instance template with the update that you want to release. To prevent any possible impact to the application, you don't want to update any running instances. You want any new instances that are created by the managed instance group to contain the new update. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Start a new rolling restart operation.",
+                "answerText": "Start a new rolling restart operation.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Start a new rolling replace operation.",
+                "answerText": "Start a new rolling replace operation.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Start a new rolling update. Select the Proactive update mode.",
+                "answerText": "Start a new rolling update. Select the Proactive update mode.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Start a new rolling update. Select the Opportunistic update mode.",
+                "answerText": "Start a new rolling update. Select the Opportunistic update mode.",
                 "isCorrect": true
             }
         ],
@@ -2829,19 +2825,19 @@ const examLibrary = [
         "questionText": "Your company is designing its application landscape on Compute Engine. Whenever a zonal outage occurs, the application should be restored in another zone as quickly as possible with the latest application data. You need to design the solution to meet this requirement. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a snapshot schedule for the disk containing the application data. Whenever a zonal outage occurs, use the latest snapshot to restore the disk in the same zone.",
+                "answerText": "Create a snapshot schedule for the disk containing the application data. Whenever a zonal outage occurs, use the latest snapshot to restore the disk in the same zone.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure the Compute Engine instances with an instance template for the application, and use a regional persistent disk for the application data. Whenever a zonal outage occurs, use the instance template to spin up the application in another zone in the same region. Use the regional persistent disk for the application data.",
+                "answerText": "Configure the Compute Engine instances with an instance template for the application, and use a regional persistent disk for the application data. Whenever a zonal outage occurs, use the instance template to spin up the application in another zone in the same region. Use the regional persistent disk for the application data.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create a snapshot schedule for the disk containing the application data. Whenever a zonal outage occurs, use the latest snapshot to restore the disk in another zone within the same region.",
+                "answerText": "Create a snapshot schedule for the disk containing the application data. Whenever a zonal outage occurs, use the latest snapshot to restore the disk in another zone within the same region.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure the Compute Engine instances with an instance template for the application, and use a regional persistent disk for the application data. Whenever a zonal outage occurs, use the instance template to spin up the application in another region. Use the regional persistent disk for the application data.",
+                "answerText": "Configure the Compute Engine instances with an instance template for the application, and use a regional persistent disk for the application data. Whenever a zonal outage occurs, use the instance template to spin up the application in another region. Use the regional persistent disk for the application data.",
                 "isCorrect": false
             }
         ],
@@ -2852,19 +2848,19 @@ const examLibrary = [
         "questionText": "Your company has just acquired another company, and you have been asked to integrate their existing Google Cloud environment into your company's data center. Upon investigation, you discover that some of the RFC 1918 IP ranges being used in the new company's Virtual Private Cloud (VPC) overlap with your data center IP space. What should you do to enable connectivity and make sure that there are no routing conflicts when connectivity is established?",
         "answerOptions": [
             {
-                "answerText": "A. Create a Cloud VPN connection from the new VPC to the data center, create a Cloud Router, and apply new IP addresses so there is no overlapping IP space.",
+                "answerText": "Create a Cloud VPN connection from the new VPC to the data center, create a Cloud Router, and apply new IP addresses so there is no overlapping IP space.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a Cloud VPN connection from the new VPC to the data center, and create a Cloud NAT instance to perform NAT on the overlapping IP space.",
+                "answerText": "Create a Cloud VPN connection from the new VPC to the data center, and create a Cloud NAT instance to perform NAT on the overlapping IP space.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create a Cloud VPN connection from the new VPC to the data center, create a Cloud Router, and apply a custom route advertisement to block the overlapping IP space.",
+                "answerText": "Create a Cloud VPN connection from the new VPC to the data center, create a Cloud Router, and apply a custom route advertisement to block the overlapping IP space.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a Cloud VPN connection from the new VPC to the data center, and apply a firewall rule that blocks the overlapping IP space.",
+                "answerText": "Create a Cloud VPN connection from the new VPC to the data center, and apply a firewall rule that blocks the overlapping IP space.",
                 "isCorrect": false
             }
         ],
@@ -2875,19 +2871,19 @@ const examLibrary = [
         "questionText": "You need to migrate Hadoop jobs for your company's Data Science team without modifying the underlying infrastructure. You want to minimize costs and infrastructure management effort. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a Dataproc cluster using standard worker instances.",
+                "answerText": "Create a Dataproc cluster using standard worker instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a Dataproc cluster using preemptible worker instances.",
+                "answerText": "Create a Dataproc cluster using preemptible worker instances.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Manually deploy a Hadoop cluster on Compute Engine using standard instances.",
+                "answerText": "Manually deploy a Hadoop cluster on Compute Engine using standard instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Manually deploy a Hadoop cluster on Compute Engine using preemptible instances.",
+                "answerText": "Manually deploy a Hadoop cluster on Compute Engine using preemptible instances.",
                 "isCorrect": false
             }
         ],
@@ -2898,19 +2894,19 @@ const examLibrary = [
         "questionText": "Your company has a project in Google Cloud with three Virtual Private Clouds (VPCs). There is a Compute Engine instance on each VPC. Network subnets do not overlap and must remain separated. The network configuration is shown below.Instance #1 is an exception and must communicate directly with both Instance #2 and Instance #3 via internal IPs. How should you accomplish this?",
         "answerOptions": [
             {
-                "answerText": "A. Create a cloud router to advertise subnet #2 and subnet #3 to subnet #1.",
+                "answerText": "Create a cloud router to advertise subnet #2 and subnet #3 to subnet #1.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Add two additional NICs to Instance #1 with the following configuration: \u05d2\u20ac\u00a2 NIC1 \u05d2\u2014\u2039 VPC: VPC #2 \u05d2\u2014\u2039 SUBNETWORK: subnet #2 \u05d2\u20ac\u00a2 NIC2 \u05d2\u2014\u2039 VPC: VPC #3 \u05d2\u2014\u2039 SUBNETWORK: subnet #3 Update firewall rules to enable traffic between instances.",
+                "answerText": "Add two additional NICs to Instance #1 with the following configuration: \u05d2\u20ac\u00a2 NIC1 \u05d2\u2014\u2039 VPC: VPC #2 \u05d2\u2014\u2039 SUBNETWORK: subnet #2 \u05d2\u20ac\u00a2 NIC2 \u05d2\u2014\u2039 VPC: VPC #3 \u05d2\u2014\u2039 SUBNETWORK: subnet #3 Update firewall rules to enable traffic between instances.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create two VPN tunnels via CloudVPN: \u05d2\u20ac\u00a2 1 between VPC #1 and VPC #2. \u05d2\u20ac\u00a2 1 between VPC #2 and VPC #3. Update firewall rules to enable traffic between the instances.",
+                "answerText": "Create two VPN tunnels via CloudVPN: \u05d2\u20ac\u00a2 1 between VPC #1 and VPC #2. \u05d2\u20ac\u00a2 1 between VPC #2 and VPC #3. Update firewall rules to enable traffic between the instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Peer all three VPCs: \u05d2\u20ac\u00a2 Peer VPC #1 with VPC #2. \u05d2\u20ac\u00a2 Peer VPC #2 with VPC #3. Update firewall rules to enable traffic between the instances.",
+                "answerText": "Peer all three VPCs: \u05d2\u20ac\u00a2 Peer VPC #1 with VPC #2. \u05d2\u20ac\u00a2 Peer VPC #2 with VPC #3. Update firewall rules to enable traffic between the instances.",
                 "isCorrect": false
             }
         ],
@@ -2921,19 +2917,19 @@ const examLibrary = [
         "questionText": "You need to deploy an application on Google Cloud that must run on a Debian Linux environment. The application requires extensive configuration in order to operate correctly. You want to ensure that you can install Debian distribution updates with minimal manual intervention whenever they become available. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a Compute Engine instance template using the most recent Debian image. Create an instance from this template, and install and configure the application as part of the startup script. Repeat this process whenever a new Google-managed Debian image becomes available.",
+                "answerText": "Create a Compute Engine instance template using the most recent Debian image. Create an instance from this template, and install and configure the application as part of the startup script. Repeat this process whenever a new Google-managed Debian image becomes available.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a Debian-based Compute Engine instance, install and configure the application, and use OS patch management to install available updates.",
+                "answerText": "Create a Debian-based Compute Engine instance, install and configure the application, and use OS patch management to install available updates.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create an instance with the latest available Debian image. Connect to the instance via SSH, and install and configure the application on the instance. Repeat this process whenever a new Google-managed Debian image becomes available.",
+                "answerText": "Create an instance with the latest available Debian image. Connect to the instance via SSH, and install and configure the application on the instance. Repeat this process whenever a new Google-managed Debian image becomes available.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a Docker container with Debian as the base image. Install and configure the application as part of the Docker image creation process. Host the container on Google Kubernetes Engine and restart the container whenever a new update is available.",
+                "answerText": "Create a Docker container with Debian as the base image. Install and configure the application as part of the Docker image creation process. Host the container on Google Kubernetes Engine and restart the container whenever a new update is available.",
                 "isCorrect": false
             }
         ],
@@ -2944,19 +2940,19 @@ const examLibrary = [
         "questionText": "You have an application that runs in Google Kubernetes Engine (GKE). Over the last 2 weeks, customers have reported that a specific part of the application returns errors very frequently. You currently have no logging or monitoring solution enabled on your GKE cluster. You want to diagnose the problem, but you have not been able to replicate the issue. You want to cause minimal disruption to the application. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Update your GKE cluster to use Cloud Operations for GKE. 2. Use the GKE Monitoring dashboard to investigate logs from affected Pods.",
+                "answerText": "1. Update your GKE cluster to use Cloud Operations for GKE. 2. Use the GKE Monitoring dashboard to investigate logs from affected Pods.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. 1. Create a new GKE cluster with Cloud Operations for GKE enabled. 2. Migrate the affected Pods to the new cluster, and redirect traffic for those Pods to the new cluster. 3. Use the GKE Monitoring dashboard to investigate logs from affected Pods.",
+                "answerText": "1. Create a new GKE cluster with Cloud Operations for GKE enabled. 2. Migrate the affected Pods to the new cluster, and redirect traffic for those Pods to the new cluster. 3. Use the GKE Monitoring dashboard to investigate logs from affected Pods.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Update your GKE cluster to use Cloud Operations for GKE, and deploy Prometheus. 2. Set an alert to trigger whenever the application returns an error.",
+                "answerText": "1. Update your GKE cluster to use Cloud Operations for GKE, and deploy Prometheus. 2. Set an alert to trigger whenever the application returns an error.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Create a new GKE cluster with Cloud Operations for GKE enabled, and deploy Prometheus. 2. Migrate the affected Pods to the new cluster, and redirect traffic for those Pods to the new cluster. 3. Set an alert to trigger whenever the application returns an error.",
+                "answerText": "1. Create a new GKE cluster with Cloud Operations for GKE enabled, and deploy Prometheus. 2. Migrate the affected Pods to the new cluster, and redirect traffic for those Pods to the new cluster. 3. Set an alert to trigger whenever the application returns an error.",
                 "isCorrect": false
             }
         ],
@@ -2967,19 +2963,19 @@ const examLibrary = [
         "questionText": "You need to deploy a stateful workload on Google Cloud. The workload can scale horizontally, but each instance needs to read and write to the same POSIX filesystem. At high load, the stateful workload needs to support up to 100 MB/s of writes. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use a persistent disk for each instance.",
+                "answerText": "Use a persistent disk for each instance.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use a regional persistent disk for each instance.",
+                "answerText": "Use a regional persistent disk for each instance.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a Cloud Filestore instance and mount it in each instance.",
+                "answerText": "Create a Cloud Filestore instance and mount it in each instance.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a Cloud Storage bucket and mount it in each instance using gcsfuse.",
+                "answerText": "Create a Cloud Storage bucket and mount it in each instance using gcsfuse.",
                 "isCorrect": false
             }
         ],
@@ -2990,19 +2986,19 @@ const examLibrary = [
         "questionText": "Your company has an application deployed on Anthos clusters (formerly Anthos GKE) that is running multiple microservices. The cluster has both Anthos ServiceMesh and Anthos Config Management configured. End users inform you that the application is responding very slowly. You want to identify the microservice that is causing the delay. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use the Service Mesh visualization in the Cloud Console to inspect the telemetry between the microservices.",
+                "answerText": "Use the Service Mesh visualization in the Cloud Console to inspect the telemetry between the microservices.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use Anthos Config Management to create a ClusterSelector selecting the relevant cluster. On the Google Cloud Console page for Google Kubernetes Engine, view the Workloads and filter on the cluster. Inspect the configurations of the filtered workloads.",
+                "answerText": "Use Anthos Config Management to create a ClusterSelector selecting the relevant cluster. On the Google Cloud Console page for Google Kubernetes Engine, view the Workloads and filter on the cluster. Inspect the configurations of the filtered workloads.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use Anthos Config Management to create a namespaceSelector selecting the relevant cluster namespace. On the Google Cloud Console page for Google Kubernetes Engine, visit the workloads and filter on the namespace. Inspect the configurations of the filtered workloads.",
+                "answerText": "Use Anthos Config Management to create a namespaceSelector selecting the relevant cluster namespace. On the Google Cloud Console page for Google Kubernetes Engine, visit the workloads and filter on the namespace. Inspect the configurations of the filtered workloads.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Reinstall istio using the default istio profile in order to collect request latency. Evaluate the telemetry between the microservices in the Cloud Console.",
+                "answerText": "Reinstall istio using the default istio profile in order to collect request latency. Evaluate the telemetry between the microservices in the Cloud Console.",
                 "isCorrect": false
             }
         ],
@@ -3013,19 +3009,19 @@ const examLibrary = [
         "questionText": "You are working at a financial institution that stores mortgage loan approval documents on Cloud Storage. Any change to these approval documents must be uploaded as a separate approval file, so you want to ensure that these documents cannot be deleted or overwritten for the next 5 years. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a retention policy on the bucket for the duration of 5 years. Create a lock on the retention policy.",
+                "answerText": "Create a retention policy on the bucket for the duration of 5 years. Create a lock on the retention policy.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create the bucket with uniform bucket-level access, and grant a service account the role of Object Writer. Use the service account to upload new files.",
+                "answerText": "Create the bucket with uniform bucket-level access, and grant a service account the role of Object Writer. Use the service account to upload new files.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use a customer-managed key for the encryption of the bucket. Rotate the key after 5 years.",
+                "answerText": "Use a customer-managed key for the encryption of the bucket. Rotate the key after 5 years.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create the bucket with fine-grained access control, and grant a service account the role of Object Writer. Use the service account to upload new files.",
+                "answerText": "Create the bucket with fine-grained access control, and grant a service account the role of Object Writer. Use the service account to upload new files.",
                 "isCorrect": false
             }
         ],
@@ -3036,19 +3032,19 @@ const examLibrary = [
         "questionText": "Your team will start developing a new application using microservices architecture on Kubernetes Engine. As part of the development lifecycle, any code change that has been pushed to the remote develop branch on your GitHub repository should be built and tested automatically. When the build and test are successful, the relevant microservice will be deployed automatically in the development environment. You want to ensure that all code deployed in the development environment follows this process. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Have each developer install a pre-commit hook on their workstation that tests the code and builds the container when committing on the development branch. After a successful commit, have the developer deploy the newly built container image on the development cluster.",
+                "answerText": "Have each developer install a pre-commit hook on their workstation that tests the code and builds the container when committing on the development branch. After a successful commit, have the developer deploy the newly built container image on the development cluster.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Install a post-commit hook on the remote git repository that tests the code and builds the container when code is pushed to the development branch. After a successful commit, have the developer deploy the newly built container image on the development cluster.",
+                "answerText": "Install a post-commit hook on the remote git repository that tests the code and builds the container when code is pushed to the development branch. After a successful commit, have the developer deploy the newly built container image on the development cluster.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a Cloud Build trigger based on the development branch that tests the code, builds the container, and stores it in Container Registry. Create a deployment pipeline that watches for new images and deploys the new image on the development cluster. Ensure only the deployment tool has access to deploy new versions.",
+                "answerText": "Create a Cloud Build trigger based on the development branch that tests the code, builds the container, and stores it in Container Registry. Create a deployment pipeline that watches for new images and deploys the new image on the development cluster. Ensure only the deployment tool has access to deploy new versions.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a Cloud Build trigger based on the development branch to build a new container image and store it in Container Registry. Rely on Vulnerability Scanning to ensure the code tests succeed. As the final step of the Cloud Build process, deploy the new container image on the development cluster. Ensure only Cloud Build has access to deploy new versions.",
+                "answerText": "Create a Cloud Build trigger based on the development branch to build a new container image and store it in Container Registry. Rely on Vulnerability Scanning to ensure the code tests succeed. As the final step of the Cloud Build process, deploy the new container image on the development cluster. Ensure only Cloud Build has access to deploy new versions.",
                 "isCorrect": false
             }
         ],
@@ -3059,19 +3055,19 @@ const examLibrary = [
         "questionText": "Your operations team has asked you to help diagnose a performance issue in a production application that runs on Compute Engine. The application is dropping requests that reach it when under heavy load. The process list for affected instances shows a single application process that is consuming all available CPU, and autoscaling has reached the upper limit of instances. There is no abnormal load on any other related systems, including the database. You want to allow production traffic to be served again as quickly as possible. Which action should you recommend?",
         "answerOptions": [
             {
-                "answerText": "A. Change the autoscaling metric to agent.googleapis.com/memory/percent_used.",
+                "answerText": "Change the autoscaling metric to agent.googleapis.com/memory/percent_used.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Restart the affected instances on a staggered schedule.",
+                "answerText": "Restart the affected instances on a staggered schedule.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. SSH to each instance and restart the application process.",
+                "answerText": "SSH to each instance and restart the application process.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Increase the maximum number of instances in the autoscaling group.",
+                "answerText": "Increase the maximum number of instances in the autoscaling group.",
                 "isCorrect": true
             }
         ],
@@ -3082,19 +3078,19 @@ const examLibrary = [
         "questionText": "You are implementing the infrastructure for a web service on Google Cloud. The web service needs to receive and store the data from 500,000 requests per second. The data will be queried later in real time, based on exact matches of a known set of attributes. There will be periods where the web service will not receive any requests. The business wants to keep costs low. Which web service platform and database should you use for the application?",
         "answerOptions": [
             {
-                "answerText": "A. Cloud Run and BigQuery",
+                "answerText": "Cloud Run and BigQuery",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Cloud Run and Cloud Bigtable",
+                "answerText": "Cloud Run and Cloud Bigtable",
                 "isCorrect": true
             },
             {
-                "answerText": "C. A Compute Engine autoscaling managed instance group and BigQuery",
+                "answerText": "A Compute Engine autoscaling managed instance group and BigQuery",
                 "isCorrect": false
             },
             {
-                "answerText": "D. A Compute Engine autoscaling managed instance group and Cloud Bigtable",
+                "answerText": "A Compute Engine autoscaling managed instance group and Cloud Bigtable",
                 "isCorrect": false
             }
         ],
@@ -3105,19 +3101,19 @@ const examLibrary = [
         "questionText": "You are developing an application using different microservices that should remain internal to the cluster. You want to be able to configure each microservice with a specific number of replicas. You also want to be able to address a specific microservice from any other microservice in a uniform way, regardless of the number of replicas the microservice scales to. You need to implement this solution on Google Kubernetes Engine. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Deploy each microservice as a Deployment. Expose the Deployment in the cluster using a Service, and use the Service DNS name to address it from other microservices within the cluster.",
+                "answerText": "Deploy each microservice as a Deployment. Expose the Deployment in the cluster using a Service, and use the Service DNS name to address it from other microservices within the cluster.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Deploy each microservice as a Deployment. Expose the Deployment in the cluster using an Ingress, and use the Ingress IP address to address the Deployment from other microservices within the cluster.",
+                "answerText": "Deploy each microservice as a Deployment. Expose the Deployment in the cluster using an Ingress, and use the Ingress IP address to address the Deployment from other microservices within the cluster.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Deploy each microservice as a Pod. Expose the Pod in the cluster using a Service, and use the Service DNS name to address the microservice from other microservices within the cluster.",
+                "answerText": "Deploy each microservice as a Pod. Expose the Pod in the cluster using a Service, and use the Service DNS name to address the microservice from other microservices within the cluster.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Deploy each microservice as a Pod. Expose the Pod in the cluster using an Ingress, and use the Ingress IP address name to address the Pod from other microservices within the cluster.",
+                "answerText": "Deploy each microservice as a Pod. Expose the Pod in the cluster using an Ingress, and use the Ingress IP address name to address the Pod from other microservices within the cluster.",
                 "isCorrect": false
             }
         ],
@@ -3128,19 +3124,19 @@ const examLibrary = [
         "questionText": "Your company has a networking team and a development team. The development team runs applications on Compute Engine instances that contain sensitive data. The development team requires administrative permissions for Compute Engine. Your company requires all network resources to be managed by the networking team. The development team does not want the networking team to have access to the sensitive data on the instances. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Create a project with a standalone VPC and assign the Network Admin role to the networking team. 2. Create a second project with a standalone VPC and assign the Compute Admin role to the development team. 3. Use Cloud VPN to join the two VPCs.",
+                "answerText": "1. Create a project with a standalone VPC and assign the Network Admin role to the networking team. 2. Create a second project with a standalone VPC and assign the Compute Admin role to the development team. 3. Use Cloud VPN to join the two VPCs.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. Create a project with a standalone Virtual Private Cloud (VPC), assign the Network Admin role to the networking team, and assign the Compute Admin role to the development team.",
+                "answerText": "1. Create a project with a standalone Virtual Private Cloud (VPC), assign the Network Admin role to the networking team, and assign the Compute Admin role to the development team.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Create a project with a Shared VPC and assign the Network Admin role to the networking team. 2. Create a second project without a VPC, configure it as a Shared VPC service project, and assign the Compute Admin role to the development team.",
+                "answerText": "1. Create a project with a Shared VPC and assign the Network Admin role to the networking team. 2. Create a second project without a VPC, configure it as a Shared VPC service project, and assign the Compute Admin role to the development team.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. 1. Create a project with a standalone VPC and assign the Network Admin role to the networking team. 2. Create a second project with a standalone VPC and assign the Compute Admin role to the development team. 3. Use VPC Peering to join the two VPCs.",
+                "answerText": "1. Create a project with a standalone VPC and assign the Network Admin role to the networking team. 2. Create a second project with a standalone VPC and assign the Compute Admin role to the development team. 3. Use VPC Peering to join the two VPCs.",
                 "isCorrect": false
             }
         ],
@@ -3151,19 +3147,19 @@ const examLibrary = [
         "questionText": "Your company wants you to build a highly reliable web application with a few public APIs as the backend. You don't expect a lot of user traffic, but traffic could spike occasionally. You want to leverage Cloud Load Balancing, and the solution must be cost-effective for users. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Store static content such as HTML and images in Cloud CDN. Host the APIs on App Engine and store the user data in Cloud SQL.",
+                "answerText": "Store static content such as HTML and images in Cloud CDN. Host the APIs on App Engine and store the user data in Cloud SQL.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Store static content such as HTML and images in a Cloud Storage bucket. Host the APIs on a zonal Google Kubernetes Engine cluster with worker nodes in multiple zones, and save the user data in Cloud Spanner.",
+                "answerText": "Store static content such as HTML and images in a Cloud Storage bucket. Host the APIs on a zonal Google Kubernetes Engine cluster with worker nodes in multiple zones, and save the user data in Cloud Spanner.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Store static content such as HTML and images in Cloud CDN. Use Cloud Run to host the APIs and save the user data in Cloud SQL.",
+                "answerText": "Store static content such as HTML and images in Cloud CDN. Use Cloud Run to host the APIs and save the user data in Cloud SQL.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Store static content such as HTML and images in a Cloud Storage bucket. Use Cloud Functions to host the APIs and save the user data in Firestore.",
+                "answerText": "Store static content such as HTML and images in a Cloud Storage bucket. Use Cloud Functions to host the APIs and save the user data in Firestore.",
                 "isCorrect": true
             }
         ],
@@ -3174,19 +3170,19 @@ const examLibrary = [
         "questionText": "Your company sends all Google Cloud logs to Cloud Logging. Your security team wants to monitor the logs. You want to ensure that the security team can react quickly if an anomaly such as an unwanted firewall change or server breach is detected. You want to follow Google-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Schedule a cron job with Cloud Scheduler. The scheduled job queries the logs every minute for the relevant events.",
+                "answerText": "Schedule a cron job with Cloud Scheduler. The scheduled job queries the logs every minute for the relevant events.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Export logs to BigQuery, and trigger a query in BigQuery to process the log data for the relevant events.",
+                "answerText": "Export logs to BigQuery, and trigger a query in BigQuery to process the log data for the relevant events.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Export logs to a Pub/Sub topic, and trigger Cloud Function with the relevant log events.",
+                "answerText": "Export logs to a Pub/Sub topic, and trigger Cloud Function with the relevant log events.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Export logs to a Cloud Storage bucket, and trigger Cloud Run with the relevant log events.",
+                "answerText": "Export logs to a Cloud Storage bucket, and trigger Cloud Run with the relevant log events.",
                 "isCorrect": false
             }
         ],
@@ -3197,19 +3193,19 @@ const examLibrary = [
         "questionText": "You have deployed several instances on Compute Engine. As a security requirement, instances cannot have a public IP address. There is no VPN connection between Google Cloud and your office, and you need to connect via SSH into a specific machine without violating the security requirements. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure Cloud NAT on the subnet where the instance is hosted. Create an SSH connection to the Cloud NAT IP address to reach the instance.",
+                "answerText": "Configure Cloud NAT on the subnet where the instance is hosted. Create an SSH connection to the Cloud NAT IP address to reach the instance.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Add all instances to an unmanaged instance group. Configure TCP Proxy Load Balancing with the instance group as a backend. Connect to the instance using the TCP Proxy IP.",
+                "answerText": "Add all instances to an unmanaged instance group. Configure TCP Proxy Load Balancing with the instance group as a backend. Connect to the instance using the TCP Proxy IP.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure Identity-Aware Proxy (IAP) for the instance and ensure that you have the role of IAP-secured Tunnel User. Use the gcloud command line tool to ssh into the instance.",
+                "answerText": "Configure Identity-Aware Proxy (IAP) for the instance and ensure that you have the role of IAP-secured Tunnel User. Use the gcloud command line tool to ssh into the instance.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a bastion host in the network to SSH into the bastion host from your office location. From the bastion host, SSH into the desired instance.",
+                "answerText": "Create a bastion host in the network to SSH into the bastion host from your office location. From the bastion host, SSH into the desired instance.",
                 "isCorrect": false
             }
         ],
@@ -3220,19 +3216,19 @@ const examLibrary = [
         "questionText": "Your company is using Google Cloud. You have two folders under the Organization: Finance and Shopping. The members of the development team are in aGoogle Group. The development team group has been assigned the Project Owner role on the Organization. You want to prevent the development team from creating resources in projects in the Finance folder. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Assign the development team group the Project Viewer role on the Finance folder, and assign the development team group the Project Owner role on the Shopping folder.",
+                "answerText": "Assign the development team group the Project Viewer role on the Finance folder, and assign the development team group the Project Owner role on the Shopping folder.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Assign the development team group only the Project Viewer role on the Finance folder.",
+                "answerText": "Assign the development team group only the Project Viewer role on the Finance folder.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Assign the development team group the Project Owner role on the Shopping folder, and remove the development team group Project Owner role from the Organization.",
+                "answerText": "Assign the development team group the Project Owner role on the Shopping folder, and remove the development team group Project Owner role from the Organization.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Assign the development team group only the Project Owner role on the Shopping folder.",
+                "answerText": "Assign the development team group only the Project Owner role on the Shopping folder.",
                 "isCorrect": false
             }
         ],
@@ -3243,19 +3239,19 @@ const examLibrary = [
         "questionText": "You are developing your microservices application on Google Kubernetes Engine. During testing, you want to validate the behavior of your application in case a specific microservice should suddenly crash. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Add a taint to one of the nodes of the Kubernetes cluster. For the specific microservice, configure a pod anti-affinity label that has the name of the tainted node as a value.",
+                "answerText": "Add a taint to one of the nodes of the Kubernetes cluster. For the specific microservice, configure a pod anti-affinity label that has the name of the tainted node as a value.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use Istio's fault injection on the particular microservice whose faulty behavior you want to simulate.",
+                "answerText": "Use Istio's fault injection on the particular microservice whose faulty behavior you want to simulate.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Destroy one of the nodes of the Kubernetes cluster to observe the behavior.",
+                "answerText": "Destroy one of the nodes of the Kubernetes cluster to observe the behavior.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure Istio's traffic management features to steer the traffic away from a crashing microservice.",
+                "answerText": "Configure Istio's traffic management features to steer the traffic away from a crashing microservice.",
                 "isCorrect": false
             }
         ],
@@ -3266,19 +3262,19 @@ const examLibrary = [
         "questionText": "Your company is developing a new application that will allow globally distributed users to upload pictures and share them with other selected users. The application will support millions of concurrent users. You want to allow developers to focus on just building code without having to create and maintain the underlying infrastructure. Which service should you use to deploy the application?",
         "answerOptions": [
             {
-                "answerText": "A. App Engine",
+                "answerText": "App Engine",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Cloud Endpoints",
+                "answerText": "Cloud Endpoints",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Compute Engine",
+                "answerText": "Compute Engine",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Google Kubernetes Engine",
+                "answerText": "Google Kubernetes Engine",
                 "isCorrect": false
             }
         ],
@@ -3289,19 +3285,19 @@ const examLibrary = [
         "questionText": "Your company provides a recommendation engine for retail customers. You are providing retail customers with an API where they can submit a user ID and theAPI returns a list of recommendations for that user. You are responsible for the API lifecycle and want to ensure stability for your customers in case the API makes backward-incompatible changes. You want to follow Google-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a distribution list of all customers to inform them of an upcoming backward-incompatible change at least one month before replacing the old API with the new API.",
+                "answerText": "Create a distribution list of all customers to inform them of an upcoming backward-incompatible change at least one month before replacing the old API with the new API.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create an automated process to generate API documentation, and update the public API documentation as part of the CI/CD process when deploying an update to the API.",
+                "answerText": "Create an automated process to generate API documentation, and update the public API documentation as part of the CI/CD process when deploying an update to the API.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use a versioning strategy for the APIs that increases the version number on every backward-incompatible change.",
+                "answerText": "Use a versioning strategy for the APIs that increases the version number on every backward-incompatible change.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Use a versioning strategy for the APIs that adds the suffix \u05d2\u20acDEPRECATED\u05d2\u20ac to the current API version number on every backward-incompatible change. Use the current version number for the new API.",
+                "answerText": "Use a versioning strategy for the APIs that adds the suffix \u05d2\u20acDEPRECATED\u05d2\u20ac to the current API version number on every backward-incompatible change. Use the current version number for the new API.",
                 "isCorrect": false
             }
         ],
@@ -3312,19 +3308,19 @@ const examLibrary = [
         "questionText": "Your company has developed a monolithic, 3-tier application to allow external users to upload and share files. The solution cannot be easily enhanced and lacks reliability. The development team would like to re-architect the application to adopt microservices and a fully managed service approach, but they need to convince their leadership that the effort is worthwhile. Which advantage(s) should they highlight to leadership?",
         "answerOptions": [
             {
-                "answerText": "A. The new approach will be significantly less costly, make it easier to manage the underlying infrastructure, and automatically manage the CI/CD pipelines.",
+                "answerText": "The new approach will be significantly less costly, make it easier to manage the underlying infrastructure, and automatically manage the CI/CD pipelines.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. The monolithic solution can be converted to a container with Docker. The generated container can then be deployed into a Kubernetes cluster.",
+                "answerText": "The monolithic solution can be converted to a container with Docker. The generated container can then be deployed into a Kubernetes cluster.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. The new approach will make it easier to decouple infrastructure from application, develop and release new features, manage the underlying infrastructure, manage CI/CD pipelines and perform A/B testing, and scale the solution if necessary.",
+                "answerText": "The new approach will make it easier to decouple infrastructure from application, develop and release new features, manage the underlying infrastructure, manage CI/CD pipelines and perform A/B testing, and scale the solution if necessary.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. The process can be automated with Migrate for Compute Engine.",
+                "answerText": "The process can be automated with Migrate for Compute Engine.",
                 "isCorrect": false
             }
         ],
@@ -3335,19 +3331,19 @@ const examLibrary = [
         "questionText": "Your team is developing a web application that will be deployed on Google Kubernetes Engine (GKE). Your CTO expects a successful launch and you need to ensure your application can handle the expected load of tens of thousands of users. You want to test the current deployment to ensure the latency of your application stays below a certain threshold. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use a load testing tool to simulate the expected number of concurrent users and total requests to your application, and inspect the results.",
+                "answerText": "Use a load testing tool to simulate the expected number of concurrent users and total requests to your application, and inspect the results.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Enable autoscaling on the GKE cluster and enable horizontal pod autoscaling on your application deployments. Send curl requests to your application, and validate if the auto scaling works.",
+                "answerText": "Enable autoscaling on the GKE cluster and enable horizontal pod autoscaling on your application deployments. Send curl requests to your application, and validate if the auto scaling works.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Replicate the application over multiple GKE clusters in every Google Cloud region. Configure a global HTTP(S) load balancer to expose the different clusters over a single global IP address.",
+                "answerText": "Replicate the application over multiple GKE clusters in every Google Cloud region. Configure a global HTTP(S) load balancer to expose the different clusters over a single global IP address.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Cloud Debugger in the development environment to understand the latency between the different microservices.",
+                "answerText": "Use Cloud Debugger in the development environment to understand the latency between the different microservices.",
                 "isCorrect": false
             }
         ],
@@ -3358,19 +3354,19 @@ const examLibrary = [
         "questionText": "Your company has a Kubernetes application that pulls messages from Pub/Sub and stores them in Filestore. Because the application is simple, it was deployed as a single pod. The infrastructure team has analyzed Pub/Sub metrics and discovered that the application cannot process the messages in real time. Most of them wait for minutes before being processed. You need to scale the elaboration process that is I/O-intensive. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use kubectl autoscale deployment APP_NAME --max 6 --min 2 --cpu-percent 50 to configure Kubernetes autoscaling deployment.",
+                "answerText": "Use kubectl autoscale deployment APP_NAME --max 6 --min 2 --cpu-percent 50 to configure Kubernetes autoscaling deployment.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure a Kubernetes autoscaling deployment based on the subscription/push_request_latencies metric.",
+                "answerText": "Configure a Kubernetes autoscaling deployment based on the subscription/push_request_latencies metric.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use the --enable-autoscaling flag when you create the Kubernetes cluster.",
+                "answerText": "Use the --enable-autoscaling flag when you create the Kubernetes cluster.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure a Kubernetes autoscaling deployment based on the subscription/num_undelivered_messages metric.",
+                "answerText": "Configure a Kubernetes autoscaling deployment based on the subscription/num_undelivered_messages metric.",
                 "isCorrect": true
             }
         ],
@@ -3381,19 +3377,19 @@ const examLibrary = [
         "questionText": "Your company is developing a web-based application. You need to make sure that production deployments are linked to source code commits and are fully auditable. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Make sure a developer is tagging the code commit with the date and time of commit.",
+                "answerText": "Make sure a developer is tagging the code commit with the date and time of commit.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Make sure a developer is adding a comment to the commit that links to the deployment.",
+                "answerText": "Make sure a developer is adding a comment to the commit that links to the deployment.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Make the container tag match the source code commit hash.",
+                "answerText": "Make the container tag match the source code commit hash.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Make sure the developer is tagging the commits with latest.",
+                "answerText": "Make sure the developer is tagging the commits with latest.",
                 "isCorrect": false
             }
         ],
@@ -3404,19 +3400,19 @@ const examLibrary = [
         "questionText": "An application development team has come to you for advice. They are planning to write and deploy an HTTP(S) API using Go 1.12. The API will have a very unpredictable workload and must remain reliable during peaks in traffic. They want to minimize operational overhead for this application. Which approach should you recommend?",
         "answerOptions": [
             {
-                "answerText": "A. Develop the application with containers, and deploy to Google Kubernetes Engine.",
+                "answerText": "Develop the application with containers, and deploy to Google Kubernetes Engine.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Develop the application for App Engine standard environment.",
+                "answerText": "Develop the application for App Engine standard environment.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use a Managed Instance Group when deploying to Compute Engine.",
+                "answerText": "Use a Managed Instance Group when deploying to Compute Engine.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Develop the application for App Engine flexible environment, using a custom runtime.",
+                "answerText": "Develop the application for App Engine flexible environment, using a custom runtime.",
                 "isCorrect": false
             }
         ],
@@ -3427,19 +3423,19 @@ const examLibrary = [
         "questionText": "Your company is designing its data lake on Google Cloud and wants to develop different ingestion pipelines to collect unstructured data from different sources.After the data is stored in Google Cloud, it will be processed in several data pipelines to build a recommendation engine for end users on the website. The structure of the data retrieved from the source systems can change at any time. The data must be stored exactly as it was retrieved for reprocessing purposes in case the data structure is incompatible with the current processing pipelines. You need to design an architecture to support the use case after you retrieve the data. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Send the data through the processing pipeline, and then store the processed data in a BigQuery table for reprocessing.",
+                "answerText": "Send the data through the processing pipeline, and then store the processed data in a BigQuery table for reprocessing.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Store the data in a BigQuery table. Design the processing pipelines to retrieve the data from the table.",
+                "answerText": "Store the data in a BigQuery table. Design the processing pipelines to retrieve the data from the table.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Send the data through the processing pipeline, and then store the processed data in a Cloud Storage bucket for reprocessing.",
+                "answerText": "Send the data through the processing pipeline, and then store the processed data in a Cloud Storage bucket for reprocessing.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Store the data in a Cloud Storage bucket. Design the processing pipelines to retrieve the data from the bucket.",
+                "answerText": "Store the data in a Cloud Storage bucket. Design the processing pipelines to retrieve the data from the bucket.",
                 "isCorrect": true
             }
         ],
@@ -3450,19 +3446,19 @@ const examLibrary = [
         "questionText": "You are responsible for the Google Cloud environment in your company. Multiple departments need access to their own projects, and the members within each department will have the same project responsibilities. You want to structure your Google Cloud environment for minimal maintenance and maximum overview ofIAM permissions as each department's projects start and end. You want to follow Google-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Grant all department members the required IAM permissions for their respective projects.",
+                "answerText": "Grant all department members the required IAM permissions for their respective projects.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a Google Group per department and add all department members to their respective groups. Create a folder per department and grant the respective group the required IAM permissions at the folder level. Add the projects under the respective folders.",
+                "answerText": "Create a Google Group per department and add all department members to their respective groups. Create a folder per department and grant the respective group the required IAM permissions at the folder level. Add the projects under the respective folders.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create a folder per department and grant the respective members of the department the required IAM permissions at the folder level. Structure all projects for each department under the respective folders.",
+                "answerText": "Create a folder per department and grant the respective members of the department the required IAM permissions at the folder level. Structure all projects for each department under the respective folders.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a Google Group per department and add all department members to their respective groups. Grant each group the required IAM permissions for their respective projects.",
+                "answerText": "Create a Google Group per department and add all department members to their respective groups. Grant each group the required IAM permissions for their respective projects.",
                 "isCorrect": false
             }
         ],
@@ -3473,19 +3469,19 @@ const examLibrary = [
         "questionText": "Your company has an application running as a Deployment in a Google Kubernetes Engine (GKE) cluster. You have separate clusters for development, staging, and production. You have discovered that the team is able to deploy a Docker image to the production cluster without first testing the deployment in development and then staging. You want to allow the team to have autonomy but want to prevent this from happening. You want a Google Cloud solution that can be implemented quickly with minimal effort. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure a Kubernetes lifecycle hook to prevent the container from starting if it is not approved for usage in the given environment.",
+                "answerText": "Configure a Kubernetes lifecycle hook to prevent the container from starting if it is not approved for usage in the given environment.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Implement a corporate policy to prevent teams from deploying Docker images to an environment unless the Docker image was tested in an earlier environment.",
+                "answerText": "Implement a corporate policy to prevent teams from deploying Docker images to an environment unless the Docker image was tested in an earlier environment.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure binary authorization policies for the development, staging, and production clusters. Create attestations as part of the continuous integration pipeline.",
+                "answerText": "Configure binary authorization policies for the development, staging, and production clusters. Create attestations as part of the continuous integration pipeline.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a Kubernetes admissions controller to prevent the container from starting if it is not approved for usage in the given environment.",
+                "answerText": "Create a Kubernetes admissions controller to prevent the container from starting if it is not approved for usage in the given environment.",
                 "isCorrect": false
             }
         ],
@@ -3496,19 +3492,19 @@ const examLibrary = [
         "questionText": "Your company wants to migrate their 10-TB on-premises database export into Cloud Storage. You want to minimize the time it takes to complete this activity, the overall cost, and database load. The bandwidth between the on-premises environment and Google Cloud is 1 Gbps. You want to follow Google-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Develop a Dataflow job to read data directly from the database and write it into Cloud Storage.",
+                "answerText": "Develop a Dataflow job to read data directly from the database and write it into Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use the Data Transfer appliance to perform an offline migration.",
+                "answerText": "Use the Data Transfer appliance to perform an offline migration.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use a commercial partner ETL solution to extract the data from the on-premises database and upload it into Cloud Storage.",
+                "answerText": "Use a commercial partner ETL solution to extract the data from the on-premises database and upload it into Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Compress the data and upload it with gsutil -m to enable multi-threaded copy.",
+                "answerText": "Compress the data and upload it with gsutil -m to enable multi-threaded copy.",
                 "isCorrect": false
             }
         ],
@@ -3519,19 +3515,19 @@ const examLibrary = [
         "questionText": "Your company has an enterprise application running on Compute Engine that requires high availability and high performance. The application has been deployed on two instances in two zones in the same region in active-passive mode. The application writes data to a persistent disk. In the case of a single zone outage, that data should be immediately made available to the other instance in the other zone. You want to maximize performance while minimizing downtime and data loss.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Attach a persistent SSD disk to the first instance. 2. Create a snapshot every hour. 3. In case of a zone outage, recreate a persistent SSD disk in the second instance where data is coming from the created snapshot.",
+                "answerText": "1. Attach a persistent SSD disk to the first instance. 2. Create a snapshot every hour. 3. In case of a zone outage, recreate a persistent SSD disk in the second instance where data is coming from the created snapshot.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. Create a Cloud Storage bucket. 2. Mount the bucket into the first instance with gcs-fuse. 3. In case of a zone outage, mount the Cloud Storage bucket to the second instance with gcs-fuse.",
+                "answerText": "1. Create a Cloud Storage bucket. 2. Mount the bucket into the first instance with gcs-fuse. 3. In case of a zone outage, mount the Cloud Storage bucket to the second instance with gcs-fuse.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Attach a regional SSD persistent disk to the first instance. 2. In case of a zone outage, force-attach the disk to the other instance.",
+                "answerText": "1. Attach a regional SSD persistent disk to the first instance. 2. In case of a zone outage, force-attach the disk to the other instance.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. 1. Attach a local SSD to the first instance disk. 2. Execute an rsync command every hour where the target is a persistent SSD disk attached to the second instance. 3. In case of a zone outage, use the second instance.",
+                "answerText": "1. Attach a local SSD to the first instance disk. 2. Execute an rsync command every hour where the target is a persistent SSD disk attached to the second instance. 3. In case of a zone outage, use the second instance.",
                 "isCorrect": false
             }
         ],
@@ -3542,19 +3538,19 @@ const examLibrary = [
         "questionText": "You are designing a Data Warehouse on Google Cloud and want to store sensitive data in BigQuery. Your company requires you to generate the encryption keys outside of Google Cloud. You need to implement a solution. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Generate a new key in Cloud Key Management Service (Cloud KMS). Store all data in Cloud Storage using the customer-managed key option and select the created key. Set up a Dataflow pipeline to decrypt the data and to store it in a new BigQuery dataset.",
+                "answerText": "Generate a new key in Cloud Key Management Service (Cloud KMS). Store all data in Cloud Storage using the customer-managed key option and select the created key. Set up a Dataflow pipeline to decrypt the data and to store it in a new BigQuery dataset.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Generate a new key in Cloud KMS. Create a dataset in BigQuery using the customer-managed key option and select the created key.",
+                "answerText": "Generate a new key in Cloud KMS. Create a dataset in BigQuery using the customer-managed key option and select the created key.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Import a key in Cloud KMS. Store all data in Cloud Storage using the customer-managed key option and select the created key. Set up a Dataflow pipeline to decrypt the data and to store it in a new BigQuery dataset.",
+                "answerText": "Import a key in Cloud KMS. Store all data in Cloud Storage using the customer-managed key option and select the created key. Set up a Dataflow pipeline to decrypt the data and to store it in a new BigQuery dataset.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Import a key in Cloud KMS. Create a dataset in BigQuery using the customer-supplied key option and select the created key.",
+                "answerText": "Import a key in Cloud KMS. Create a dataset in BigQuery using the customer-supplied key option and select the created key.",
                 "isCorrect": true
             }
         ],
@@ -3565,19 +3561,19 @@ const examLibrary = [
         "questionText": "Your organization has stored sensitive data in a Cloud Storage bucket. For regulatory reasons, your company must be able to rotate the encryption key used to encrypt the data in the bucket. The data will be processed in Dataproc. You want to follow Google-recommended practices for security. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a key with Cloud Key Management Service (KMS). Encrypt the data using the encrypt method of Cloud KMS.",
+                "answerText": "Create a key with Cloud Key Management Service (KMS). Encrypt the data using the encrypt method of Cloud KMS.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a key with Cloud Key Management Service (KMS). Set the encryption key on the bucket to the Cloud KMS key.",
+                "answerText": "Create a key with Cloud Key Management Service (KMS). Set the encryption key on the bucket to the Cloud KMS key.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Generate a GPG key pair. Encrypt the data using the GPG key. Upload the encrypted data to the bucket.",
+                "answerText": "Generate a GPG key pair. Encrypt the data using the GPG key. Upload the encrypted data to the bucket.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Generate an AES-256 encryption key. Encrypt the data in the bucket using the customer-supplied encryption keys feature.",
+                "answerText": "Generate an AES-256 encryption key. Encrypt the data in the bucket using the customer-supplied encryption keys feature.",
                 "isCorrect": false
             }
         ],
@@ -3588,19 +3584,19 @@ const examLibrary = [
         "questionText": "Your team needs to create a Google Kubernetes Engine (GKE) cluster to host a newly built application that requires access to third-party services on the internet.Your company does not allow any Compute Engine instance to have a public IP address on Google Cloud. You need to create a deployment strategy that adheres to these guidelines. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure the GKE cluster as a private cluster, and configure Cloud NAT Gateway for the cluster subnet.",
+                "answerText": "Configure the GKE cluster as a private cluster, and configure Cloud NAT Gateway for the cluster subnet.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Configure the GKE cluster as a private cluster. Configure Private Google Access on the Virtual Private Cloud (VPC).",
+                "answerText": "Configure the GKE cluster as a private cluster. Configure Private Google Access on the Virtual Private Cloud (VPC).",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure the GKE cluster as a route-based cluster. Configure Private Google Access on the Virtual Private Cloud (VPC).",
+                "answerText": "Configure the GKE cluster as a route-based cluster. Configure Private Google Access on the Virtual Private Cloud (VPC).",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a Compute Engine instance, and install a NAT Proxy on the instance. Configure all workloads on GKE to pass through this proxy to access third-party services on the Internet.",
+                "answerText": "Create a Compute Engine instance, and install a NAT Proxy on the instance. Configure all workloads on GKE to pass through this proxy to access third-party services on the Internet.",
                 "isCorrect": false
             }
         ],
@@ -3611,19 +3607,19 @@ const examLibrary = [
         "questionText": "Your company has a support ticketing solution that uses App Engine Standard. The project that contains the App Engine application already has a Virtual PrivateCloud (VPC) network fully connected to the company's on-premises environment through a Cloud VPN tunnel. You want to enable the App Engine application to communicate with a database that is running in the company's on-premises environment. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure private Google access for on-premises hosts only.",
+                "answerText": "Configure private Google access for on-premises hosts only.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure private Google access.",
+                "answerText": "Configure private Google access.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure private services access.",
+                "answerText": "Configure private services access.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure serverless VPC access.",
+                "answerText": "Configure serverless VPC access.",
                 "isCorrect": true
             }
         ],
@@ -3634,19 +3630,19 @@ const examLibrary = [
         "questionText": "Your company is planning to upload several important files to Cloud Storage. After the upload is completed, they want to verify that the uploaded content is identical to what they have on-premises. You want to minimize the cost and effort of performing this check. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Use Linux shasum to compute a digest of files you want to upload. 2. Use gsutil -m to upload all the files to Cloud Storage. 3. Use gsutil cp to download the uploaded files. 4. Use Linux shasum to compute a digest of the downloaded files. 5. Compare the hashes.",
+                "answerText": "1. Use Linux shasum to compute a digest of files you want to upload. 2. Use gsutil -m to upload all the files to Cloud Storage. 3. Use gsutil cp to download the uploaded files. 4. Use Linux shasum to compute a digest of the downloaded files. 5. Compare the hashes.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. Use gsutil -m to upload the files to Cloud Storage. 2. Develop a custom Java application that computes CRC32C hashes. 3. Use gsutil ls -L gs://[YOUR_BUCKET_NAME] to collect CRC32C hashes of the uploaded files. 4. Compare the hashes.",
+                "answerText": "1. Use gsutil -m to upload the files to Cloud Storage. 2. Develop a custom Java application that computes CRC32C hashes. 3. Use gsutil ls -L gs://[YOUR_BUCKET_NAME] to collect CRC32C hashes of the uploaded files. 4. Compare the hashes.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Use gsutil -m to upload all the files to Cloud Storage. 2. Use gsutil cp to download the uploaded files. 3. Use Linux diff to compare the content of the files.",
+                "answerText": "1. Use gsutil -m to upload all the files to Cloud Storage. 2. Use gsutil cp to download the uploaded files. 3. Use Linux diff to compare the content of the files.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Use gsutil -m to upload the files to Cloud Storage. 2. Use gsutil hash -c FILE_NAME to generate CRC32C hashes of all on-premises files. 3. Use gsutil ls -L gs://[YOUR_BUCKET_NAME] to collect CRC32C hashes of the uploaded files. 4. Compare the hashes.",
+                "answerText": "1. Use gsutil -m to upload the files to Cloud Storage. 2. Use gsutil hash -c FILE_NAME to generate CRC32C hashes of all on-premises files. 3. Use gsutil ls -L gs://[YOUR_BUCKET_NAME] to collect CRC32C hashes of the uploaded files. 4. Compare the hashes.",
                 "isCorrect": true
             }
         ],
@@ -3657,19 +3653,19 @@ const examLibrary = [
         "questionText": "You have deployed an application on Anthos clusters (formerly Anthos GKE). According to the SRE practices at your company, you need to be alerted if request latency is above a certain threshold for a specified amount of time. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Install Anthos Service Mesh on your cluster. Use the Google Cloud Console to define a Service Level Objective (SLO), and create an alerting policy based on this SLO.",
+                "answerText": "Install Anthos Service Mesh on your cluster. Use the Google Cloud Console to define a Service Level Objective (SLO), and create an alerting policy based on this SLO.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Enable the Cloud Trace API on your project, and use Cloud Monitoring Alerts to send an alert based on the Cloud Trace metrics.",
+                "answerText": "Enable the Cloud Trace API on your project, and use Cloud Monitoring Alerts to send an alert based on the Cloud Trace metrics.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use Cloud Profiler to follow up the request latency. Create a custom metric in Cloud Monitoring based on the results of Cloud Profiler, and create an Alerting policy in case this metric exceeds the threshold.",
+                "answerText": "Use Cloud Profiler to follow up the request latency. Create a custom metric in Cloud Monitoring based on the results of Cloud Profiler, and create an Alerting policy in case this metric exceeds the threshold.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure Anthos Config Management on your cluster, and create a yaml file that defines the SLO and alerting policy you want to deploy in your cluster.",
+                "answerText": "Configure Anthos Config Management on your cluster, and create a yaml file that defines the SLO and alerting policy you want to deploy in your cluster.",
                 "isCorrect": false
             }
         ],
@@ -3680,19 +3676,19 @@ const examLibrary = [
         "questionText": "Your company has a stateless web API that performs scientific calculations. The web API runs on a single Google Kubernetes Engine (GKE) cluster. The cluster is currently deployed in us-central1. Your company has expanded to offer your API to customers in Asia. You want to reduce the latency for users in Asia.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a second GKE cluster in asia-southeast1, and expose both APIs using a Service of type LoadBalancer. Add the public IPs to the Cloud DNS zone.",
+                "answerText": "Create a second GKE cluster in asia-southeast1, and expose both APIs using a Service of type LoadBalancer. Add the public IPs to the Cloud DNS zone.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use a global HTTP(s) load balancer with Cloud CDN enabled.",
+                "answerText": "Use a global HTTP(s) load balancer with Cloud CDN enabled.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a second GKE cluster in asia-southeast1, and use kubemci to create a global HTTP(s) load balancer.",
+                "answerText": "Create a second GKE cluster in asia-southeast1, and use kubemci to create a global HTTP(s) load balancer.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Increase the memory and CPU allocated to the application in the cluster.",
+                "answerText": "Increase the memory and CPU allocated to the application in the cluster.",
                 "isCorrect": false
             }
         ],
@@ -3703,19 +3699,19 @@ const examLibrary = [
         "questionText": "You are migrating third-party applications from optimized on-premises virtual machines to Google Cloud. You are unsure about the optimum CPU and memory options. The applications have a consistent usage pattern across multiple weeks. You want to optimize resource usage for the lowest cost. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create an instance template with the smallest available machine type, and use an image of the third-party application taken from a current on-premises virtual machine. Create a managed instance group that uses average CPU utilization to autoscale the number of instances in the group. Modify the average CPU utilization threshold to optimize the number of instances running.",
+                "answerText": "Create an instance template with the smallest available machine type, and use an image of the third-party application taken from a current on-premises virtual machine. Create a managed instance group that uses average CPU utilization to autoscale the number of instances in the group. Modify the average CPU utilization threshold to optimize the number of instances running.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create an App Engine flexible environment, and deploy the third-party application using a Dockerfile and a custom runtime. Set CPU and memory options similar to your application's current on-premises virtual machine in the app.yaml file.",
+                "answerText": "Create an App Engine flexible environment, and deploy the third-party application using a Dockerfile and a custom runtime. Set CPU and memory options similar to your application's current on-premises virtual machine in the app.yaml file.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create multiple Compute Engine instances with varying CPU and memory options. Install the Cloud Monitoring agent, and deploy the third-party application on each of them. Run a load test with high traffic levels on the application, and use the results to determine the optimal settings.",
+                "answerText": "Create multiple Compute Engine instances with varying CPU and memory options. Install the Cloud Monitoring agent, and deploy the third-party application on each of them. Run a load test with high traffic levels on the application, and use the results to determine the optimal settings.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a Compute Engine instance with CPU and memory options similar to your application's current on-premises virtual machine. Install the Cloud Monitoring agent, and deploy the third-party application. Run a load test with normal traffic levels on the application, and follow the Rightsizing Recommendations in the Cloud Console.",
+                "answerText": "Create a Compute Engine instance with CPU and memory options similar to your application's current on-premises virtual machine. Install the Cloud Monitoring agent, and deploy the third-party application. Run a load test with normal traffic levels on the application, and follow the Rightsizing Recommendations in the Cloud Console.",
                 "isCorrect": true
             }
         ],
@@ -3726,19 +3722,19 @@ const examLibrary = [
         "questionText": "Your company has a Google Cloud project that uses BigQuery for data warehousing. They have a VPN tunnel between the on-premises environment and GoogleCloud that is configured with Cloud VPN. The security team wants to avoid data exfiltration by malicious insiders, compromised code, and accidental oversharing. What should they do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure Private Google Access for on-premises only.",
+                "answerText": "Configure Private Google Access for on-premises only.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Perform the following tasks: 1. Create a service account. 2. Give the BigQuery JobUser role and Storage Reader role to the service account. 3. Remove all other IAM access from the project.",
+                "answerText": "Perform the following tasks: 1. Create a service account. 2. Give the BigQuery JobUser role and Storage Reader role to the service account. 3. Remove all other IAM access from the project.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure VPC Service Controls and configure Private Google Access.",
+                "answerText": "Configure VPC Service Controls and configure Private Google Access.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Configure Private Google Access.",
+                "answerText": "Configure Private Google Access.",
                 "isCorrect": false
             }
         ],
@@ -3749,19 +3745,19 @@ const examLibrary = [
         "questionText": "You are working at an institution that processes medical data. You are migrating several workloads onto Google Cloud. Company policies require all workloads to run on physically separated hardware, and workloads from different clients must also be separated. You created a sole-tenant node group and added a node for each client. You need to deploy the workloads on these dedicated hosts. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Add the node group name as a network tag when creating Compute Engine instances in order to host each workload on the correct node group.",
+                "answerText": "Add the node group name as a network tag when creating Compute Engine instances in order to host each workload on the correct node group.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Add the node name as a network tag when creating Compute Engine instances in order to host each workload on the correct node.",
+                "answerText": "Add the node name as a network tag when creating Compute Engine instances in order to host each workload on the correct node.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use node affinity labels based on the node group name when creating Compute Engine instances in order to host each workload on the correct node group.",
+                "answerText": "Use node affinity labels based on the node group name when creating Compute Engine instances in order to host each workload on the correct node group.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use node affinity labels based on the node name when creating Compute Engine instances in order to host each workload on the correct node.",
+                "answerText": "Use node affinity labels based on the node name when creating Compute Engine instances in order to host each workload on the correct node.",
                 "isCorrect": true
             }
         ],
@@ -3772,19 +3768,19 @@ const examLibrary = [
         "questionText": "Your company's test suite is a custom C++ application that runs tests throughout each day on Linux virtual machines. The full test suite takes several hours to complete, running on a limited number of on-premises servers reserved for testing. Your company wants to move the testing infrastructure to the cloud, to reduce the amount of time it takes to fully test a change to the system, while changing the tests as little as possible.Which cloud infrastructure should you recommend?",
         "answerOptions": [
             {
-                "answerText": "A. Google Compute Engine unmanaged instance groups and Network Load Balancer",
+                "answerText": "Google Compute Engine unmanaged instance groups and Network Load Balancer",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Google Compute Engine managed instance groups with auto-scaling",
+                "answerText": "Google Compute Engine managed instance groups with auto-scaling",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Google Cloud Dataproc to run Apache Hadoop jobs to process each test",
+                "answerText": "Google Cloud Dataproc to run Apache Hadoop jobs to process each test",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Google App Engine with Google StackDriver for logging",
+                "answerText": "Google App Engine with Google StackDriver for logging",
                 "isCorrect": false
             }
         ],
@@ -3795,19 +3791,19 @@ const examLibrary = [
         "questionText": "A lead software engineer tells you that his new application design uses websockets and HTTP sessions that are not distributed across the web servers. You want to help him ensure his application will run properly on Google Cloud Platform.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Help the engineer to convert his websocket code to use HTTP streaming",
+                "answerText": "Help the engineer to convert his websocket code to use HTTP streaming",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Review the encryption requirements for websocket connections with the security team",
+                "answerText": "Review the encryption requirements for websocket connections with the security team",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Meet with the cloud operations team and the engineer to discuss load balancer options",
+                "answerText": "Meet with the cloud operations team and the engineer to discuss load balancer options",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Help the engineer redesign the application to use a distributed user session service that does not rely on websockets and HTTP sessions.",
+                "answerText": "Help the engineer redesign the application to use a distributed user session service that does not rely on websockets and HTTP sessions.",
                 "isCorrect": false
             }
         ],
@@ -3818,19 +3814,19 @@ const examLibrary = [
         "questionText": "The application reliability team at your company this added a debug feature to their backend service to send all server events to Google Cloud Storage for eventual analysis. The event records are at least 50 KB and at most 15 MB and are expected to peak at 3,000 events per second. You want to minimize data loss.Which process should you implement?",
         "answerOptions": [
             {
-                "answerText": "A. \u05d2\u20ac\u00a2 Append metadata to file body \u05d2\u20ac\u00a2 Compress individual files \u05d2\u20ac\u00a2 Name files with serverName \u05d2\u20ac\" Timestamp \u05d2\u20ac\u00a2 Create a new bucket if bucket is older than 1 hour and save individual files to the new bucket. Otherwise, save files to existing bucket.",
+                "answerText": "\u05d2\u20ac\u00a2 Append metadata to file body \u05d2\u20ac\u00a2 Compress individual files \u05d2\u20ac\u00a2 Name files with serverName \u05d2\u20ac\" Timestamp \u05d2\u20ac\u00a2 Create a new bucket if bucket is older than 1 hour and save individual files to the new bucket. Otherwise, save files to existing bucket.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. \u05d2\u20ac\u00a2 Batch every 10,000 events with a single manifest file for metadata \u05d2\u20ac\u00a2 Compress event files and manifest file into a single archive file \u05d2\u20ac\u00a2 Name files using serverName \u05d2\u20ac\" EventSequence \u05d2\u20ac\u00a2 Create a new bucket if bucket is older than 1 day and save the single archive file to the new bucket. Otherwise, save the single archive file to existing bucket.",
+                "answerText": "\u05d2\u20ac\u00a2 Batch every 10,000 events with a single manifest file for metadata \u05d2\u20ac\u00a2 Compress event files and manifest file into a single archive file \u05d2\u20ac\u00a2 Name files using serverName \u05d2\u20ac\" EventSequence \u05d2\u20ac\u00a2 Create a new bucket if bucket is older than 1 day and save the single archive file to the new bucket. Otherwise, save the single archive file to existing bucket.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. \u05d2\u20ac\u00a2 Compress individual files \u05d2\u20ac\u00a2 Name files with serverName \u05d2\u20ac\" EventSequence \u05d2\u20ac\u00a2 Save files to one bucket \u05d2\u20ac\u00a2 Set custom metadata headers for each object after saving",
+                "answerText": "\u05d2\u20ac\u00a2 Compress individual files \u05d2\u20ac\u00a2 Name files with serverName \u05d2\u20ac\" EventSequence \u05d2\u20ac\u00a2 Save files to one bucket \u05d2\u20ac\u00a2 Set custom metadata headers for each object after saving",
                 "isCorrect": false
             },
             {
-                "answerText": "D. \u05d2\u20ac\u00a2 Append metadata to file body \u05d2\u20ac\u00a2 Compress individual files \u05d2\u20ac\u00a2 Name files with a random prefix pattern \u05d2\u20ac\u00a2 Save files to one bucket",
+                "answerText": "\u05d2\u20ac\u00a2 Append metadata to file body \u05d2\u20ac\u00a2 Compress individual files \u05d2\u20ac\u00a2 Name files with a random prefix pattern \u05d2\u20ac\u00a2 Save files to one bucket",
                 "isCorrect": true
             }
         ],
@@ -3841,19 +3837,19 @@ const examLibrary = [
         "questionText": "A recent audit revealed that a new network was created in your GCP project. In this network, a GCE instance has an SSH port open to the world. You want to discover this network's origin.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Search for Create VM entry in the Stackdriver alerting console",
+                "answerText": "Search for Create VM entry in the Stackdriver alerting console",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Navigate to the Activity page in the Home section. Set category to Data Access and search for Create VM entry",
+                "answerText": "Navigate to the Activity page in the Home section. Set category to Data Access and search for Create VM entry",
                 "isCorrect": false
             },
             {
-                "answerText": "C. In the Logging section of the console, specify GCE Network as the logging section. Search for the Create Insert entry",
+                "answerText": "In the Logging section of the console, specify GCE Network as the logging section. Search for the Create Insert entry",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Connect to the GCE instance using project SSH keys. Identify previous logins in system logs, and match these with the project owners list",
+                "answerText": "Connect to the GCE instance using project SSH keys. Identify previous logins in system logs, and match these with the project owners list",
                 "isCorrect": false
             }
         ],
@@ -3864,19 +3860,19 @@ const examLibrary = [
         "questionText": "You want to make a copy of a production Linux virtual machine in the US-Central region. You want to manage and replace the copy easily if there are changes on the production virtual machine. You will deploy the copy as a new instance in a different project in the US-East region.What steps must you take?",
         "answerOptions": [
             {
-                "answerText": "A. Use the Linux dd and netcat commands to copy and stream the root disk contents to a new virtual machine instance in the US-East region.",
+                "answerText": "Use the Linux dd and netcat commands to copy and stream the root disk contents to a new virtual machine instance in the US-East region.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a snapshot of the root disk and select the snapshot as the root disk when you create a new virtual machine instance in the US-East region.",
+                "answerText": "Create a snapshot of the root disk and select the snapshot as the root disk when you create a new virtual machine instance in the US-East region.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create an image file from the root disk with Linux dd command, create a new virtual machine instance in the US-East region",
+                "answerText": "Create an image file from the root disk with Linux dd command, create a new virtual machine instance in the US-East region",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a snapshot of the root disk, create an image file in Google Cloud Storage from the snapshot, and create a new virtual machine instance in the US-East region using the image file the root disk.",
+                "answerText": "Create a snapshot of the root disk, create an image file in Google Cloud Storage from the snapshot, and create a new virtual machine instance in the US-East region using the image file the root disk.",
                 "isCorrect": true
             }
         ],
@@ -3887,19 +3883,19 @@ const examLibrary = [
         "questionText": "Your company runs several databases on a single MySQL instance. They need to take backups of a specific database at regular intervals. The backup activity needs to complete as quickly as possible and cannot be allowed to impact disk performance.How should you configure the storage?",
         "answerOptions": [
             {
-                "answerText": "A. Configure a cron job to use the gcloud tool to take regular backups using persistent disk snapshots.",
+                "answerText": "Configure a cron job to use the gcloud tool to take regular backups using persistent disk snapshots.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Mount a Local SSD volume as the backup location. After the backup is complete, use gsutil to move the backup to Google Cloud Storage.",
+                "answerText": "Mount a Local SSD volume as the backup location. After the backup is complete, use gsutil to move the backup to Google Cloud Storage.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use gcsfise to mount a Google Cloud Storage bucket as a volume directly on the instance and write backups to the mounted location using mysqldump.",
+                "answerText": "Use gcsfise to mount a Google Cloud Storage bucket as a volume directly on the instance and write backups to the mounted location using mysqldump.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Mount additional persistent disk volumes onto each virtual machine (VM) instance in a RAID10 array and use LVM to create snapshots to send to Cloud Storage",
+                "answerText": "Mount additional persistent disk volumes onto each virtual machine (VM) instance in a RAID10 array and use LVM to create snapshots to send to Cloud Storage",
                 "isCorrect": false
             }
         ],
@@ -3910,27 +3906,27 @@ const examLibrary = [
         "questionText": "You are helping the QA team to roll out a new load-testing tool to test the scalability of your primary cloud services that run on Google Compute Engine with CloudBigtable.Which three requirements should they include? (Choose three.)",
         "answerOptions": [
             {
-                "answerText": "A. Ensure that the load tests validate the performance of Cloud Bigtable",
+                "answerText": "Ensure that the load tests validate the performance of Cloud Bigtable",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create a separate Google Cloud project to use for the load-testing environment",
+                "answerText": "Create a separate Google Cloud project to use for the load-testing environment",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Schedule the load-testing tool to regularly run against the production environment",
+                "answerText": "Schedule the load-testing tool to regularly run against the production environment",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Ensure all third-party systems your services use is capable of handling high load",
+                "answerText": "Ensure all third-party systems your services use is capable of handling high load",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Instrument the production services to record every transaction for replay by the load-testing tool",
+                "answerText": "Instrument the production services to record every transaction for replay by the load-testing tool",
                 "isCorrect": false
             },
             {
-                "answerText": "F. Instrument the load-testing tool and the target services with detailed logging and metrics collection",
+                "answerText": "Instrument the load-testing tool and the target services with detailed logging and metrics collection",
                 "isCorrect": true
             }
         ],
@@ -3941,19 +3937,19 @@ const examLibrary = [
         "questionText": "Your customer is moving their corporate applications to Google Cloud Platform. The security team wants detailed visibility of all projects in the organization. You provision the Google Cloud Resource Manager and set up yourself as the org admin.What Google Cloud Identity and Access Management (Cloud IAM) roles should you give to the security team?",
         "answerOptions": [
             {
-                "answerText": "A. Org viewer, project owner",
+                "answerText": "Org viewer, project owner",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Org viewer, project viewer",
+                "answerText": "Org viewer, project viewer",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Org admin, project browser",
+                "answerText": "Org admin, project browser",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Project owner, network admin",
+                "answerText": "Project owner, network admin",
                 "isCorrect": false
             }
         ],
@@ -3964,23 +3960,23 @@ const examLibrary = [
         "questionText": "Your company places a high value on being responsive and meeting customer needs quickly. Their primary business objectives are release speed and agility. You want to reduce the chance of security errors being accidentally introduced.Which two actions can you take? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Ensure every code check-in is peer reviewed by a security SME",
+                "answerText": "Ensure every code check-in is peer reviewed by a security SME",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use source code security analyzers as part of the CI/CD pipeline",
+                "answerText": "Use source code security analyzers as part of the CI/CD pipeline",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Ensure you have stubs to unit test all interfaces between components",
+                "answerText": "Ensure you have stubs to unit test all interfaces between components",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Enable code signing and a trusted binary repository integrated with your CI/CD pipeline",
+                "answerText": "Enable code signing and a trusted binary repository integrated with your CI/CD pipeline",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Run a vulnerability security scanner as part of your continuous-integration /continuous-delivery (CI/CD) pipeline",
+                "answerText": "Run a vulnerability security scanner as part of your continuous-integration /continuous-delivery (CI/CD) pipeline",
                 "isCorrect": true
             }
         ],
@@ -3991,19 +3987,19 @@ const examLibrary = [
         "questionText": "You want to enable your running Google Kubernetes Engine cluster to scale as demand for your application changes.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Add additional nodes to your Kubernetes Engine cluster using the following command: gcloud container clusters resize CLUSTER_Name \u05d2\u20ac\" -size 10",
+                "answerText": "Add additional nodes to your Kubernetes Engine cluster using the following command: gcloud container clusters resize CLUSTER_Name \u05d2\u20ac\" -size 10",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Add a tag to the instances in the cluster with the following command: gcloud compute instances add-tags INSTANCE - -tags enable- autoscaling max-nodes-10",
+                "answerText": "Add a tag to the instances in the cluster with the following command: gcloud compute instances add-tags INSTANCE - -tags enable- autoscaling max-nodes-10",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Update the existing Kubernetes Engine cluster with the following command: gcloud alpha container clusters update mycluster - -enable- autoscaling - -min-nodes=1 - -max-nodes=10",
+                "answerText": "Update the existing Kubernetes Engine cluster with the following command: gcloud alpha container clusters update mycluster - -enable- autoscaling - -min-nodes=1 - -max-nodes=10",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a new Kubernetes Engine cluster with the following command: gcloud alpha container clusters create mycluster - -enable- autoscaling - -min-nodes=1 - -max-nodes=10 and redeploy your application",
+                "answerText": "Create a new Kubernetes Engine cluster with the following command: gcloud alpha container clusters create mycluster - -enable- autoscaling - -min-nodes=1 - -max-nodes=10 and redeploy your application",
                 "isCorrect": false
             }
         ],
@@ -4014,19 +4010,19 @@ const examLibrary = [
         "questionText": "Your marketing department wants to send out a promotional email campaign. The development team wants to minimize direct operation management. They project a wide range of possible customer responses, from 100 to 500,000 click-through per day. The link leads to a simple website that explains the promotion and collects user information and preferences.Which infrastructure should you recommend? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Use Google App Engine to serve the website and Google Cloud Datastore to store user data.",
+                "answerText": "Use Google App Engine to serve the website and Google Cloud Datastore to store user data.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use a Google Container Engine cluster to serve the website and store data to persistent disk.",
+                "answerText": "Use a Google Container Engine cluster to serve the website and store data to persistent disk.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use a managed instance group to serve the website and Google Cloud Bigtable to store user data.",
+                "answerText": "Use a managed instance group to serve the website and Google Cloud Bigtable to store user data.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Use a single Compute Engine virtual machine (VM) to host a web server, backend by Google Cloud SQL.",
+                "answerText": "Use a single Compute Engine virtual machine (VM) to host a web server, backend by Google Cloud SQL.",
                 "isCorrect": false
             }
         ],
@@ -4037,23 +4033,23 @@ const examLibrary = [
         "questionText": "Your company just finished a rapid lift and shift to Google Compute Engine for your compute needs. You have another 9 months to design and deploy a more cloud-native solution. Specifically, you want a system that is no-ops and auto-scaling.Which two compute products should you choose? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Compute Engine with containers",
+                "answerText": "Compute Engine with containers",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Google Kubernetes Engine with containers",
+                "answerText": "Google Kubernetes Engine with containers",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Google App Engine Standard Environment",
+                "answerText": "Google App Engine Standard Environment",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Compute Engine with custom instance types",
+                "answerText": "Compute Engine with custom instance types",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Compute Engine with managed instance groups",
+                "answerText": "Compute Engine with managed instance groups",
                 "isCorrect": false
             }
         ],
@@ -4064,19 +4060,19 @@ const examLibrary = [
         "questionText": "One of your primary business objectives is being able to trust the data stored in your application. You want to log all changes to the application data.How can you design your logging system to verify authenticity of your logs?",
         "answerOptions": [
             {
-                "answerText": "A. Write the log concurrently in the cloud and on premises",
+                "answerText": "Write the log concurrently in the cloud and on premises",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use a SQL database and limit who can modify the log table",
+                "answerText": "Use a SQL database and limit who can modify the log table",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Digitally sign each timestamp and log entry and store the signature",
+                "answerText": "Digitally sign each timestamp and log entry and store the signature",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a JSON dump of each log entry and store it in Google Cloud Storage",
+                "answerText": "Create a JSON dump of each log entry and store it in Google Cloud Storage",
                 "isCorrect": false
             }
         ],
@@ -4087,19 +4083,19 @@ const examLibrary = [
         "questionText": "Your company has a Google Workspace account and Google Cloud Organization. Some developers in the company have created Google Cloud projects outside of the Google Cloud Organization.You want to create an Organization structure that allows developers to create projects, but prevents them from modifying production projects. You want to manage policies for all projects centrally and be able to set more restrictive policies for production projects.You want to minimize disruption to users and developers when business needs change in the future. You want to follow Google-recommended practices. Now should you design the Organization structure?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Create a second Google Workspace account and Organization. 2. Grant all developers the Project Creator IAM role on the new Organization. 3. Move the developer projects into the new Organization. 4. Set the policies for all projects on both Organizations. 5. Additionally, set the production policies on the original Organization.",
+                "answerText": "1. Create a second Google Workspace account and Organization. 2. Grant all developers the Project Creator IAM role on the new Organization. 3. Move the developer projects into the new Organization. 4. Set the policies for all projects on both Organizations. 5. Additionally, set the production policies on the original Organization.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. Create a folder under the Organization resource named \u05d2\u20acProduction.\u05d2\u20ac 2. Grant all developers the Project Creator IAM role on the new Organization. 3. Move the developer projects into the new Organization. 4. Set the policies for all projects on the Organization. 5. Additionally, set the production policies on the \u05d2\u20acProduction\u05d2\u20ac folder.",
+                "answerText": "1. Create a folder under the Organization resource named \u05d2\u20acProduction.\u05d2\u20ac 2. Grant all developers the Project Creator IAM role on the new Organization. 3. Move the developer projects into the new Organization. 4. Set the policies for all projects on the Organization. 5. Additionally, set the production policies on the \u05d2\u20acProduction\u05d2\u20ac folder.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Create folders under the Organization resource named \u05d2\u20acDevelopment\u05d2\u20ac and \u05d2\u20acProduction.\u05d2\u20ac 2. Grant all developers the Project Creator IAM role on the \u05d2\u20acDevelopment\u05d2\u20ac folder. 3. Move the developer projects into the \u05d2\u20acDevelopment\u05d2\u20ac folder. 4. Set the policies for all projects on the Organization. 5. Additionally, set the production policies on the \u05d2\u20acProduction\u05d2\u20ac folder.",
+                "answerText": "1. Create folders under the Organization resource named \u05d2\u20acDevelopment\u05d2\u20ac and \u05d2\u20acProduction.\u05d2\u20ac 2. Grant all developers the Project Creator IAM role on the \u05d2\u20acDevelopment\u05d2\u20ac folder. 3. Move the developer projects into the \u05d2\u20acDevelopment\u05d2\u20ac folder. 4. Set the policies for all projects on the Organization. 5. Additionally, set the production policies on the \u05d2\u20acProduction\u05d2\u20ac folder.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. 1. Designate the Organization for production projects only. 2. Ensure that developers do not have the Project Creator IAM role on the Organization. 3. Create development projects outside of the Organization using the developer Google Workspace accounts. 4. Set the policies for all projects on the Organization. 5. Additionally, set the production policies on the individual production projects.",
+                "answerText": "1. Designate the Organization for production projects only. 2. Ensure that developers do not have the Project Creator IAM role on the Organization. 3. Create development projects outside of the Organization using the developer Google Workspace accounts. 4. Set the policies for all projects on the Organization. 5. Additionally, set the production policies on the individual production projects.",
                 "isCorrect": false
             }
         ],
@@ -4110,19 +4106,19 @@ const examLibrary = [
         "questionText": "Your company has an application running on Compute Engine that allows users to play their favorite music. There are a fixed number of instances. Files are stored in Cloud Storage, and data is streamed directly to users. Users are reporting that they sometimes need to attempt to play popular songs multiple times before they are successful. You need to improve the performance of the application. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Mount the Cloud Storage bucket using gcsfuse on all backend Compute Engine instances. 2. Serve music files directly from the backend Compute Engine instance.",
+                "answerText": "1. Mount the Cloud Storage bucket using gcsfuse on all backend Compute Engine instances. 2. Serve music files directly from the backend Compute Engine instance.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. Create a Cloud Filestore NFS volume and attach it to the backend Compute Engine instances. 2. Download popular songs in Cloud Filestore. 3. Serve music files directly from the backend Compute Engine instance.",
+                "answerText": "1. Create a Cloud Filestore NFS volume and attach it to the backend Compute Engine instances. 2. Download popular songs in Cloud Filestore. 3. Serve music files directly from the backend Compute Engine instance.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Copy popular songs into CloudSQL as a blob. 2. Update application code to retrieve data from CloudSQL when Cloud Storage is overloaded.",
+                "answerText": "1. Copy popular songs into CloudSQL as a blob. 2. Update application code to retrieve data from CloudSQL when Cloud Storage is overloaded.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Create a managed instance group with Compute Engine instances. 2. Create a global load balancer and configure it with two backends: \u05d2\u2014\u2039 Managed instance group \u05d2\u2014\u2039 Cloud Storage bucket 3. Enable Cloud CDN on the bucket backend.",
+                "answerText": "1. Create a managed instance group with Compute Engine instances. 2. Create a global load balancer and configure it with two backends: \u05d2\u2014\u2039 Managed instance group \u05d2\u2014\u2039 Cloud Storage bucket 3. Enable Cloud CDN on the bucket backend.",
                 "isCorrect": true
             }
         ],
@@ -4133,19 +4129,19 @@ const examLibrary = [
         "questionText": "The operations team in your company wants to save Cloud VPN log events for one year. You need to configure the cloud infrastructure to save the logs. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Set up a filter in Cloud Logging and a Cloud Storage bucket as an export target for the logs you want to save.",
+                "answerText": "Set up a filter in Cloud Logging and a Cloud Storage bucket as an export target for the logs you want to save.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Enable the Compute Engine API, and then enable logging on the firewall rules that match the traffic you want to save.",
+                "answerText": "Enable the Compute Engine API, and then enable logging on the firewall rules that match the traffic you want to save.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Set up a Cloud Logging Dashboard titled Cloud VPN Logs, and then add a chart that queries for the VPN metrics over a one-year time period.",
+                "answerText": "Set up a Cloud Logging Dashboard titled Cloud VPN Logs, and then add a chart that queries for the VPN metrics over a one-year time period.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Set up a filter in Cloud Logging and a topic in Pub/Sub to publish the logs.",
+                "answerText": "Set up a filter in Cloud Logging and a topic in Pub/Sub to publish the logs.",
                 "isCorrect": false
             }
         ],
@@ -4156,19 +4152,19 @@ const examLibrary = [
         "questionText": "You are working with a data warehousing team that performs data analysis. The team needs to process data from external partners, but the data contains personally identifiable information (PII). You need to process and store the data without storing any of the PIIE data. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a Dataflow pipeline to retrieve the data from the external sources. As part of the pipeline, use the Cloud Data Loss Prevention (Cloud DLP) API to remove any PII data. Store the result in BigQuery.",
+                "answerText": "Create a Dataflow pipeline to retrieve the data from the external sources. As part of the pipeline, use the Cloud Data Loss Prevention (Cloud DLP) API to remove any PII data. Store the result in BigQuery.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create a Dataflow pipeline to retrieve the data from the external sources. As part of the pipeline, store all non-PII data in BigQuery and store all PII data in a Cloud Storage bucket that has a retention policy set.",
+                "answerText": "Create a Dataflow pipeline to retrieve the data from the external sources. As part of the pipeline, store all non-PII data in BigQuery and store all PII data in a Cloud Storage bucket that has a retention policy set.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Ask the external partners to upload all data on Cloud Storage. Configure Bucket Lock for the bucket. Create a Dataflow pipeline to read the data from the bucket. As part of the pipeline, use the Cloud Data Loss Prevention (Cloud DLP) API to remove any PII data. Store the result in BigQuery.",
+                "answerText": "Ask the external partners to upload all data on Cloud Storage. Configure Bucket Lock for the bucket. Create a Dataflow pipeline to read the data from the bucket. As part of the pipeline, use the Cloud Data Loss Prevention (Cloud DLP) API to remove any PII data. Store the result in BigQuery.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Ask the external partners to import all data in your BigQuery dataset. Create a dataflow pipeline to copy the data into a new table. As part of the Dataflow bucket, skip all data in columns that have PII data",
+                "answerText": "Ask the external partners to import all data in your BigQuery dataset. Create a dataflow pipeline to copy the data into a new table. As part of the Dataflow bucket, skip all data in columns that have PII data",
                 "isCorrect": false
             }
         ],
@@ -4179,19 +4175,19 @@ const examLibrary = [
         "questionText": "You want to allow your operations team to store logs from all the production projects in your Organization, without including logs from other projects. All of the production projects are contained in a folder. You want to ensure that all logs for existing and new production projects are captured automatically. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create an aggregated export on the Production folder. Set the log sink to be a Cloud Storage bucket in an operations project.",
+                "answerText": "Create an aggregated export on the Production folder. Set the log sink to be a Cloud Storage bucket in an operations project.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create an aggregated export on the Organization resource. Set the log sink to be a Cloud Storage bucket in an operations project.",
+                "answerText": "Create an aggregated export on the Organization resource. Set the log sink to be a Cloud Storage bucket in an operations project.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create log exports in the production projects. Set the log sinks to be a Cloud Storage bucket in an operations project.",
+                "answerText": "Create log exports in the production projects. Set the log sinks to be a Cloud Storage bucket in an operations project.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create log exports in the production projects. Set the log sinks to be BigQuery datasets in the production projects, and grant IAM access to the operations team to run queries on the datasets.",
+                "answerText": "Create log exports in the production projects. Set the log sinks to be BigQuery datasets in the production projects, and grant IAM access to the operations team to run queries on the datasets.",
                 "isCorrect": false
             }
         ],
@@ -4202,19 +4198,19 @@ const examLibrary = [
         "questionText": "Your company has an application that is running on multiple instances of Compute Engine. It generates 1 TB per day of logs. For compliance reasons, the logs need to be kept for at least two years. The logs need to be available for active query for 30 days. After that, they just need to be retained for audit purposes. You want to implement a storage solution that is compliant, minimizes costs, and follows Google-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Install a Cloud Logging agent on all instances. 2. Create a sink to export logs into a regional Cloud Storage bucket. 3. Create an Object Lifecycle rule to move files into a Coldline Cloud Storage bucket after one month. 4. Configure a retention policy at the bucket level using bucket lock.",
+                "answerText": "1. Install a Cloud Logging agent on all instances. 2. Create a sink to export logs into a regional Cloud Storage bucket. 3. Create an Object Lifecycle rule to move files into a Coldline Cloud Storage bucket after one month. 4. Configure a retention policy at the bucket level using bucket lock.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. 1. Write a daily cron job, running on all instances, that uploads logs into a Cloud Storage bucket. 2. Create a sink to export logs into a regional Cloud Storage bucket. 3. Create an Object Lifecycle rule to move files into a Coldline Cloud Storage bucket after one month.",
+                "answerText": "1. Write a daily cron job, running on all instances, that uploads logs into a Cloud Storage bucket. 2. Create a sink to export logs into a regional Cloud Storage bucket. 3. Create an Object Lifecycle rule to move files into a Coldline Cloud Storage bucket after one month.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Install a Cloud Logging agent on all instances. 2. Create a sink to export logs into a partitioned BigQuery table. 3. Set a time_partitioning_expiration of 30 days.",
+                "answerText": "1. Install a Cloud Logging agent on all instances. 2. Create a sink to export logs into a partitioned BigQuery table. 3. Set a time_partitioning_expiration of 30 days.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Create a daily cron job, running on all instances, that uploads logs into a partitioned BigQuery table. 2. Set a time_partitioning_expiration of 30 days.",
+                "answerText": "1. Create a daily cron job, running on all instances, that uploads logs into a partitioned BigQuery table. 2. Set a time_partitioning_expiration of 30 days.",
                 "isCorrect": false
             }
         ],
@@ -4225,19 +4221,19 @@ const examLibrary = [
         "questionText": "Your company has just recently activated Cloud Identity to manage users. The Google Cloud Organization has been configured as well. The security team needs to secure projects that will be part of the Organization. They want to prohibit IAM users outside the domain from gaining permissions from now on. What should they do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure an organization policy to restrict identities by domain.",
+                "answerText": "Configure an organization policy to restrict identities by domain.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Configure an organization policy to block creation of service accounts.",
+                "answerText": "Configure an organization policy to block creation of service accounts.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure Cloud Scheduler to trigger a Cloud Function every hour that removes all users that don't belong to the Cloud Identity domain from all projects.",
+                "answerText": "Configure Cloud Scheduler to trigger a Cloud Function every hour that removes all users that don't belong to the Cloud Identity domain from all projects.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a technical user (e.g., [email protected] ), and give it the project owner role at root organization level. Write a bash script that: \u05d2\u20ac\u00a2 Lists all the IAM rules of all projects within the organization. \u05d2\u20ac\u00a2 Deletes all users that do not belong to the company domain. Create a Compute Engine instance in a project within the Organization and configure gcloud to be executed with technical user credentials. Configure a cron job that executes the bash script every hour.",
+                "answerText": "Create a technical user (e.g., [email protected] ), and give it the project owner role at root organization level. Write a bash script that: \u05d2\u20ac\u00a2 Lists all the IAM rules of all projects within the organization. \u05d2\u20ac\u00a2 Deletes all users that do not belong to the company domain. Create a Compute Engine instance in a project within the Organization and configure gcloud to be executed with technical user credentials. Configure a cron job that executes the bash script every hour.",
                 "isCorrect": false
             }
         ],
@@ -4248,19 +4244,19 @@ const examLibrary = [
         "questionText": "Your company has an application running on Google Cloud that is collecting data from thousands of physical devices that are globally distributed. Data is published to Pub/Sub and streamed in real time into an SSD Cloud Bigtable cluster via a Dataflow pipeline. The operations team informs you that your CloudBigtable cluster has a , and queries are taking longer than expected. You need to resolve the problem and prevent it from happening in the future. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Advise your clients to use HBase APIs instead of NodeJS APIs.",
+                "answerText": "Advise your clients to use HBase APIs instead of NodeJS APIs.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Delete records older than 30 days.",
+                "answerText": "Delete records older than 30 days.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Review your RowKey strategy and ensure that keys are evenly spread across the alphabet.",
+                "answerText": "Review your RowKey strategy and ensure that keys are evenly spread across the alphabet.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Double the number of nodes you currently have.",
+                "answerText": "Double the number of nodes you currently have.",
                 "isCorrect": false
             }
         ],
@@ -4271,19 +4267,19 @@ const examLibrary = [
         "questionText": "Your company has a Google Cloud project that uses BigQuery for data warehousing. There are some tables that contain personally identifiable information (PII).Only the compliance team may access the PII. The other information in the tables must be available to the data science team. You want to minimize cost and the time it takes to assign appropriate access to the tables. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. From the dataset where you have the source data, create views of tables that you want to share, excluding PII. 2. Assign an appropriate project-level IAM role to the members of the data science team. 3. Assign access controls to the dataset that contains the view.",
+                "answerText": "1. From the dataset where you have the source data, create views of tables that you want to share, excluding PII. 2. Assign an appropriate project-level IAM role to the members of the data science team. 3. Assign access controls to the dataset that contains the view.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. From the dataset where you have the source data, create materialized views of tables that you want to share, excluding PII. 2. Assign an appropriate project-level IAM role to the members of the data science team. 3. Assign access controls to the dataset that contains the view.",
+                "answerText": "1. From the dataset where you have the source data, create materialized views of tables that you want to share, excluding PII. 2. Assign an appropriate project-level IAM role to the members of the data science team. 3. Assign access controls to the dataset that contains the view.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Create a dataset for the data science team. 2. Create views of tables that you want to share, excluding PII. 3. Assign an appropriate project-level IAM role to the members of the data science team. 4. Assign access controls to the dataset that contains the view. 5. Authorize the view to access the source dataset.",
+                "answerText": "1. Create a dataset for the data science team. 2. Create views of tables that you want to share, excluding PII. 3. Assign an appropriate project-level IAM role to the members of the data science team. 4. Assign access controls to the dataset that contains the view. 5. Authorize the view to access the source dataset.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. 1. Create a dataset for the data science team. 2. Create materialized views of tables that you want to share, excluding PII. 3. Assign an appropriate project-level IAM role to the members of the data science team. 4. Assign access controls to the dataset that contains the view. 5. Authorize the view to access the source dataset.",
+                "answerText": "1. Create a dataset for the data science team. 2. Create materialized views of tables that you want to share, excluding PII. 3. Assign an appropriate project-level IAM role to the members of the data science team. 4. Assign access controls to the dataset that contains the view. 5. Authorize the view to access the source dataset.",
                 "isCorrect": false
             }
         ],
@@ -4294,19 +4290,19 @@ const examLibrary = [
         "questionText": "Your operations team currently stores 10 TB of data in an object storage service from a third-party provider. They want to move this data to a Cloud Storage bucket as quickly as possible, following Google-recommended practices. They want to minimize the cost of this data migration. Which approach should they use?",
         "answerOptions": [
             {
-                "answerText": "A. Use the gsutil mv command to move the data.",
+                "answerText": "Use the gsutil mv command to move the data.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use the Storage Transfer Service to move the data.",
+                "answerText": "Use the Storage Transfer Service to move the data.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Download the data to a Transfer Appliance, and ship it to Google.",
+                "answerText": "Download the data to a Transfer Appliance, and ship it to Google.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Download the data to the on-premises data center, and upload it to the Cloud Storage bucket.",
+                "answerText": "Download the data to the on-premises data center, and upload it to the Cloud Storage bucket.",
                 "isCorrect": false
             }
         ],
@@ -4317,19 +4313,19 @@ const examLibrary = [
         "questionText": "You have a Compute Engine managed instance group that adds and removes Compute Engine instances from the group in response to the load on your application. The instances have a shutdown script that removes REDIS database entries associated with the instance. You see that many database entries have not been removed, and you suspect that the shutdown script is the problem. You need to ensure that the commands in the shutdown script are run reliably every time an instance is shut down. You create a Cloud Function to remove the database entries. What should you do next?",
         "answerOptions": [
             {
-                "answerText": "A. Modify the shutdown script to wait for 30 seconds before triggering the Cloud Function.",
+                "answerText": "Modify the shutdown script to wait for 30 seconds before triggering the Cloud Function.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Do not use the Cloud Function. Modify the shutdown script to restart if it has not completed in 30 seconds.",
+                "answerText": "Do not use the Cloud Function. Modify the shutdown script to restart if it has not completed in 30 seconds.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Set up a Cloud Monitoring sink that triggers the Cloud Function after an instance removal log message arrives in Cloud Logging.",
+                "answerText": "Set up a Cloud Monitoring sink that triggers the Cloud Function after an instance removal log message arrives in Cloud Logging.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Modify the shutdown script to wait for 30 seconds and then publish a message to a Pub/Sub queue.",
+                "answerText": "Modify the shutdown script to wait for 30 seconds and then publish a message to a Pub/Sub queue.",
                 "isCorrect": false
             }
         ],
@@ -4340,19 +4336,19 @@ const examLibrary = [
         "questionText": "You are managing several projects on Google Cloud and need to interact on a daily basis with BigQuery, Bigtable, and Kubernetes Engine using the gcloud CL tool. You are travelling a lot and work on different workstations during the week. You want to avoid having to manage the gcloud CLI manually. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use Google Cloud Shell in the Google Cloud Console to interact with Google Cloud.",
+                "answerText": "Use Google Cloud Shell in the Google Cloud Console to interact with Google Cloud.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create a Compute Engine instance and install gcloud on the instance. Connect to this instance via SSH to always use the same gcloud installation when interacting with Google Cloud.",
+                "answerText": "Create a Compute Engine instance and install gcloud on the instance. Connect to this instance via SSH to always use the same gcloud installation when interacting with Google Cloud.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Install gcloud on all of your workstations. Run the command gcloud components auto-update on each workstation",
+                "answerText": "Install gcloud on all of your workstations. Run the command gcloud components auto-update on each workstation",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use a package manager to install gcloud on your workstations instead of installing it manually.",
+                "answerText": "Use a package manager to install gcloud on your workstations instead of installing it manually.",
                 "isCorrect": false
             }
         ],
@@ -4363,19 +4359,19 @@ const examLibrary = [
         "questionText": "Your company recently acquired a company that has infrastructure in Google Cloud. Each company has its own Google Cloud organization. Each company is using a Shared Virtual Private Cloud (VPC) to provide network connectivity for its applications. Some of the subnets used by both companies overlap. In order for both businesses to integrate, the applications need to have private network connectivity. These applications are not on overlapping subnets. You want to provide connectivity with minimal re-engineering. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Set up VPC peering and peer each Shared VPC together.",
+                "answerText": "Set up VPC peering and peer each Shared VPC together.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Migrate the projects from the acquired company into your company's Google Cloud organization. Re-launch the instances in your companies Shared VPC.",
+                "answerText": "Migrate the projects from the acquired company into your company's Google Cloud organization. Re-launch the instances in your companies Shared VPC.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Set up a Cloud VPN gateway in each Shared VPC and peer Cloud VPNs.",
+                "answerText": "Set up a Cloud VPN gateway in each Shared VPC and peer Cloud VPNs.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Configure SSH port forwarding on each application to provide connectivity between applications in the different Shared VPCs.",
+                "answerText": "Configure SSH port forwarding on each application to provide connectivity between applications in the different Shared VPCs.",
                 "isCorrect": false
             }
         ],
@@ -4386,19 +4382,19 @@ const examLibrary = [
         "questionText": "You are managing several internal applications that are deployed on Compute Engine. Business users inform you that an application has become very slow over the past few days. You want to find the underlying cause in order to solve the problem. What should you do first?",
         "answerOptions": [
             {
-                "answerText": "A. Inspect the logs and metrics from the instances in Cloud Logging and Cloud Monitoring.",
+                "answerText": "Inspect the logs and metrics from the instances in Cloud Logging and Cloud Monitoring.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Change the Compute Engine Instances behind the application to a machine type with more CPU and memory.",
+                "answerText": "Change the Compute Engine Instances behind the application to a machine type with more CPU and memory.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Restore a backup of the application database from a time before the application became slow.",
+                "answerText": "Restore a backup of the application database from a time before the application became slow.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Deploy the applications on a managed instance group with autoscaling enabled. Add a load balancer in front of the managed instance group, and have the users connect to the IP of the load balancer.",
+                "answerText": "Deploy the applications on a managed instance group with autoscaling enabled. Add a load balancer in front of the managed instance group, and have the users connect to the IP of the load balancer.",
                 "isCorrect": false
             }
         ],
@@ -4409,19 +4405,19 @@ const examLibrary = [
         "questionText": "Your company has an application running as a Deployment in a Google Kubernetes Engine (GKE) cluster. When releasing new versions of the application via a rolling deployment, the team has been causing outages. The root cause of the outages is misconfigurations with parameters that are only used in production. You want to put preventive measures for this in the platform to prevent outages. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure liveness and readiness probes in the Pod specification.",
+                "answerText": "Configure liveness and readiness probes in the Pod specification.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Configure health checks on the managed instance group.",
+                "answerText": "Configure health checks on the managed instance group.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a Scheduled Task to check whether the application is available.",
+                "answerText": "Create a Scheduled Task to check whether the application is available.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure an uptime alert in Cloud Monitoring.",
+                "answerText": "Configure an uptime alert in Cloud Monitoring.",
                 "isCorrect": false
             }
         ],
@@ -4432,19 +4428,19 @@ const examLibrary = [
         "questionText": "Your company uses Google Kubernetes Engine (GKE) as a platform for all workloads. Your company has a single large GKE cluster that contains batch, stateful, and stateless workloads. The GKE cluster is configured with a single node pool with 200 nodes. Your company needs to reduce the cost of this cluster but does not want to compromise availability. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a second GKE cluster for the batch workloads only. Allocate the 200 original nodes across both clusters.",
+                "answerText": "Create a second GKE cluster for the batch workloads only. Allocate the 200 original nodes across both clusters.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure CPU and memory limits on the namespaces in the cluster. Configure all Pods to have a CPU and memory limits.",
+                "answerText": "Configure CPU and memory limits on the namespaces in the cluster. Configure all Pods to have a CPU and memory limits.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure a HorizontalPodAutoscaler for all stateless workloads and for all compatible stateful workloads. Configure the cluster to use node auto scaling.",
+                "answerText": "Configure a HorizontalPodAutoscaler for all stateless workloads and for all compatible stateful workloads. Configure the cluster to use node auto scaling.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Change the node pool to use preemptible VMs.",
+                "answerText": "Change the node pool to use preemptible VMs.",
                 "isCorrect": false
             }
         ],
@@ -4455,19 +4451,19 @@ const examLibrary = [
         "questionText": "Your company has a Google Cloud project that uses BigQuery for data warehousing on a pay-per-use basis. You want to monitor queries in real time to discover the most costly queries and which users spend the most. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. In the BigQuery dataset that contains all the tables to be queried, add a label for each user that can launch a query. 2. Open the Billing page of the project. 3. Select Reports. 4. Select BigQuery as the product and filter by the user you want to check.",
+                "answerText": "1. In the BigQuery dataset that contains all the tables to be queried, add a label for each user that can launch a query. 2. Open the Billing page of the project. 3. Select Reports. 4. Select BigQuery as the product and filter by the user you want to check.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. Create a Cloud Logging sink to export BigQuery data access logs to BigQuery. 2. Perform a BigQuery query on the generated table to extract the information you need.",
+                "answerText": "1. Create a Cloud Logging sink to export BigQuery data access logs to BigQuery. 2. Perform a BigQuery query on the generated table to extract the information you need.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Create a Cloud Logging sink to export BigQuery data access logs to Cloud Storage. 2. Develop a Dataflow pipeline to compute the cost of queries split by users.",
+                "answerText": "1. Create a Cloud Logging sink to export BigQuery data access logs to Cloud Storage. 2. Develop a Dataflow pipeline to compute the cost of queries split by users.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Activate billing export into BigQuery. 2. Perform a BigQuery query on the billing table to extract the information you need.",
+                "answerText": "1. Activate billing export into BigQuery. 2. Perform a BigQuery query on the billing table to extract the information you need.",
                 "isCorrect": true
             }
         ],
@@ -4478,19 +4474,19 @@ const examLibrary = [
         "questionText": "Your company and one of its partners each have a Google Cloud project in separate organizations. Your company's project (prj-a) runs in Virtual Private Cloud(vpc-a). The partner's project (prj-b) runs in vpc-b. There are two instances running on vpc-a and one instance running on vpc-b. Subnets defined in both VPCs are not overlapping. You need to ensure that all instances communicate with each other via internal IPs, minimizing latency and maximizing throughput. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Set up a network peering between vpc-a and vpc-b.",
+                "answerText": "Set up a network peering between vpc-a and vpc-b.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Set up a VPN between vpc-a and vpc-b using Cloud VPN.",
+                "answerText": "Set up a VPN between vpc-a and vpc-b using Cloud VPN.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure IAP TCP forwarding on the instance in vpc-b, and then launch the following gcloud command from one of the instances in vpc-a gcloud: gcloud compute start-iap-tunnel INSTANCE_NAME_IN_VPC_8 22 \\ --local-host-port=localhost:22",
+                "answerText": "Configure IAP TCP forwarding on the instance in vpc-b, and then launch the following gcloud command from one of the instances in vpc-a gcloud: gcloud compute start-iap-tunnel INSTANCE_NAME_IN_VPC_8 22 \\ --local-host-port=localhost:22",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Create an additional instance in vpc-a. 2. Create an additional instance in vpc-b. 3. Install OpenVPN in newly created instances. 4. Configure a VPN tunnel between vpc-a and vpc-b with the help of OpenVPN.",
+                "answerText": "1. Create an additional instance in vpc-a. 2. Create an additional instance in vpc-b. 3. Install OpenVPN in newly created instances. 4. Configure a VPN tunnel between vpc-a and vpc-b with the help of OpenVPN.",
                 "isCorrect": false
             }
         ],
@@ -4501,19 +4497,19 @@ const examLibrary = [
         "questionText": "You want to store critical business information in Cloud Storage buckets. The information is regularly changed, but previous versions need to be referenced on a regular basis. You want to ensure that there is a record of all changes to any information in these buckets. You want to ensure that accidental edits or deletions can be easily rolled back. Which feature should you enable?",
         "answerOptions": [
             {
-                "answerText": "A. Bucket Lock",
+                "answerText": "Bucket Lock",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Object Versioning",
+                "answerText": "Object Versioning",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Object change notification",
+                "answerText": "Object change notification",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Object Lifecycle Management",
+                "answerText": "Object Lifecycle Management",
                 "isCorrect": false
             }
         ],
@@ -4524,19 +4520,19 @@ const examLibrary = [
         "questionText": "You have a Compute Engine application that you want to autoscale when total memory usage exceeds 80%. You have installed the Cloud Monitoring agent and configured the autoscaling policy as follows:\u2711 Metric identifier: agent.googleapis.com/memory/percent_used\u2711 Filter: metric.label.state = 'used'\u2711 Target utilization level: 80\u2711 Target type: GAUGE \nYou observe that the application does not scale under high load. You want to resolve this. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Change the Target type to DELTA_PER_MINUTE.",
+                "answerText": "Change the Target type to DELTA_PER_MINUTE.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Change the Metric identifier to agent.googleapis.com/memory/bytes_used.",
+                "answerText": "Change the Metric identifier to agent.googleapis.com/memory/bytes_used.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Change the filter to metric.label.state = 'used' AND metric.label.state = 'buffered' AND metric.label.state = 'cached' AND metric.label.state = 'slab'.",
+                "answerText": "Change the filter to metric.label.state = 'used' AND metric.label.state = 'buffered' AND metric.label.state = 'cached' AND metric.label.state = 'slab'.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Change the filter to metric.label.state = 'free' and the Target utilization to 20.",
+                "answerText": "Change the filter to metric.label.state = 'free' and the Target utilization to 20.",
                 "isCorrect": false
             }
         ],
@@ -4547,19 +4543,19 @@ const examLibrary = [
         "questionText": "You are deploying an application to Google Cloud. The application is part of a system. The application in Google Cloud must communicate over a private network with applications in a non-Google Cloud environment. The expected average throughput is 200 kbps. The business requires:\u2711 as close to 100% system availability as possible\u2711 cost optimizationYou need to design the connectivity between the locations to meet the business requirements. What should you provision?",
         "answerOptions": [
             {
-                "answerText": "A. An HA Cloud VPN gateway connected with two tunnels to an on-premises VPN gateway",
+                "answerText": "An HA Cloud VPN gateway connected with two tunnels to an on-premises VPN gateway",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Two Classic Cloud VPN gateways connected to two on-premises VPN gateways Configure each Classic Cloud VPN gateway to have two tunnels, each connected to different on-premises VPN gateways",
+                "answerText": "Two Classic Cloud VPN gateways connected to two on-premises VPN gateways Configure each Classic Cloud VPN gateway to have two tunnels, each connected to different on-premises VPN gateways",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Two HA Cloud VPN gateways connected to two on-premises VPN gateways Configure each HA Cloud VPN gateway to have two tunnels, each connected to different on-premises VPN gateways",
+                "answerText": "Two HA Cloud VPN gateways connected to two on-premises VPN gateways Configure each HA Cloud VPN gateway to have two tunnels, each connected to different on-premises VPN gateways",
                 "isCorrect": false
             },
             {
-                "answerText": "D. A single Cloud VPN gateway connected to an on-premises VPN gateway",
+                "answerText": "A single Cloud VPN gateway connected to an on-premises VPN gateway",
                 "isCorrect": false
             }
         ],
@@ -4570,19 +4566,19 @@ const examLibrary = [
         "questionText": "Your company has an application running on App Engine that allows users to upload music files and share them with other people. You want to allow users to upload files directly into Cloud Storage from their browser session. The payload should not be passed through the backend. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Set a CORS configuration in the target Cloud Storage bucket where the base URL of the App Engine application is an allowed origin. 2. Use the Cloud Storage Signed URL feature to generate a POST URL.",
+                "answerText": "1. Set a CORS configuration in the target Cloud Storage bucket where the base URL of the App Engine application is an allowed origin. 2. Use the Cloud Storage Signed URL feature to generate a POST URL.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. 1. Set a CORS configuration in the target Cloud Storage bucket where the base URL of the App Engine application is an allowed origin. 2. Assign the Cloud Storage WRITER role to users who upload files.",
+                "answerText": "1. Set a CORS configuration in the target Cloud Storage bucket where the base URL of the App Engine application is an allowed origin. 2. Assign the Cloud Storage WRITER role to users who upload files.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Use the Cloud Storage Signed URL feature to generate a POST URL. 2. Use App Engine default credentials to sign requests against Cloud Storage.",
+                "answerText": "1. Use the Cloud Storage Signed URL feature to generate a POST URL. 2. Use App Engine default credentials to sign requests against Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Assign the Cloud Storage WRITER role to users who upload files. 2. Use App Engine default credentials to sign requests against Cloud Storage.",
+                "answerText": "1. Assign the Cloud Storage WRITER role to users who upload files. 2. Use App Engine default credentials to sign requests against Cloud Storage.",
                 "isCorrect": false
             }
         ],
@@ -4593,19 +4589,19 @@ const examLibrary = [
         "questionText": "You are configuring the cloud network architecture for a newly created project in Google Cloud that will host applications in Compute Engine. Compute Engine virtual machine instances will be created in two different subnets (sub-a and sub-b) within a single region:\u2022\tInstances in sub-a will have public IP addresses.\u2022\tInstances in sub-b will have only private IP addresses.To download updated packages, instances must connect to a public repository outside the boundaries of Google Cloud. You need to allow sub-b to access the external repository. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Enable Private Google Access on sub-b.",
+                "answerText": "Enable Private Google Access on sub-b.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure Cloud NAT and select sub-b in the NAT mapping section.",
+                "answerText": "Configure Cloud NAT and select sub-b in the NAT mapping section.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Configure a bastion host instance in sub-a to connect to instances in sub-b.",
+                "answerText": "Configure a bastion host instance in sub-a to connect to instances in sub-b.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Enable Identity-Aware Proxy for TCP forwarding for instances in sub-b.",
+                "answerText": "Enable Identity-Aware Proxy for TCP forwarding for instances in sub-b.",
                 "isCorrect": false
             }
         ],
@@ -4616,19 +4612,19 @@ const examLibrary = [
         "questionText": "Your company is planning to migrate their Windows Server 2022 from their on-premises data center to Google Cloud. You need to bring the licenses that are currently in use in on-premises virtual machines into the target cloud environment. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. 1. Create an image of the on-premises virtual machines and upload into Cloud Storage. 2. Import the image as a virtual disk on Compute Engine.",
+                "answerText": "1. Create an image of the on-premises virtual machines and upload into Cloud Storage. 2. Import the image as a virtual disk on Compute Engine.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. 1. Create standard instances on Compute Engine. 2. Select as the OS the same Microsoft Windows version that is currently in use in the on-premises environment.",
+                "answerText": "1. Create standard instances on Compute Engine. 2. Select as the OS the same Microsoft Windows version that is currently in use in the on-premises environment.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. 1. Create an image of the on-premises virtual machine. 2. Import the image as a virtual disk on Compute Engine. 3. Create a standard instance on Compute Engine, selecting as the OS the same Microsoft Windows version that is currently in use in the on-premises environment. 4. Attach a data disk that includes data that matches the created image.",
+                "answerText": "1. Create an image of the on-premises virtual machine. 2. Import the image as a virtual disk on Compute Engine. 3. Create a standard instance on Compute Engine, selecting as the OS the same Microsoft Windows version that is currently in use in the on-premises environment. 4. Attach a data disk that includes data that matches the created image.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. 1. Create an image of the on-premises virtual machines. 2. Import the image as a virtual disk on Compute Engine using --os=windows-2022-dc-v . 3. Create a sole-tenancy instance on Compute Engine that uses the imported disk as a boot disk.",
+                "answerText": "1. Create an image of the on-premises virtual machines. 2. Import the image as a virtual disk on Compute Engine using --os=windows-2022-dc-v . 3. Create a sole-tenancy instance on Compute Engine that uses the imported disk as a boot disk.",
                 "isCorrect": true
             }
         ],
@@ -4639,19 +4635,19 @@ const examLibrary = [
         "questionText": "You are deploying an application to Google Cloud. The application is part of a system. The application in Google Cloud must communicate over a private network with applications in a non-Google Cloud environment. The expected average throughput is 200 kbps. The business requires:\u2022\t99.99% system availability\u2022\tcost optimizationYou need to design the connectivity between the locations to meet the business requirements. What should you provision?",
         "answerOptions": [
             {
-                "answerText": "A. An HA Cloud VPN gateway connected with two tunnels to an on-premises VPN gateway.",
+                "answerText": "An HA Cloud VPN gateway connected with two tunnels to an on-premises VPN gateway.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. A Classic Cloud VPN gateway connected with two tunnels to an on-premises VPN gateway.",
+                "answerText": "A Classic Cloud VPN gateway connected with two tunnels to an on-premises VPN gateway.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Two HA Cloud VPN gateways connected to two on-premises VPN gateways. Configure each HA Cloud VPN gateway to have two tunnels, each connected to different on-premises VPN gateways.",
+                "answerText": "Two HA Cloud VPN gateways connected to two on-premises VPN gateways. Configure each HA Cloud VPN gateway to have two tunnels, each connected to different on-premises VPN gateways.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. A Classic Cloud VPN gateway connected with one tunnel to an on-premises VPN gateway.",
+                "answerText": "A Classic Cloud VPN gateway connected with one tunnel to an on-premises VPN gateway.",
                 "isCorrect": false
             }
         ],
@@ -4662,19 +4658,19 @@ const examLibrary = [
         "questionText": "Your company wants to migrate their 10-TB on-premises database export into Cloud Storage. You want to minimize the time it takes to complete this activity and the overall cost. The bandwidth between the on-premises environment and Google Cloud is 1 Gbps. You want to follow Google-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Develop a Dataflow job to read data directly from the database and write it into Cloud Storage.",
+                "answerText": "Develop a Dataflow job to read data directly from the database and write it into Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use the Data Transfer appliance to perform an offline migration.",
+                "answerText": "Use the Data Transfer appliance to perform an offline migration.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use a commercial partner ETL solution to extract the data from the on-premises database and upload it into Cloud Storage.",
+                "answerText": "Use a commercial partner ETL solution to extract the data from the on-premises database and upload it into Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Upload the data with gcloud storage cp.",
+                "answerText": "Upload the data with gcloud storage cp.",
                 "isCorrect": false
             }
         ],
@@ -4685,19 +4681,19 @@ const examLibrary = [
         "questionText": "You are working at a financial institution that stores mortgage loan approval documents on Cloud Storage. Any change to these approval documents must be uploaded as a separate approval file. You need to ensure that these documents cannot be deleted or overwritten for the next 5 years. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a retention policy on the bucket for the duration of 5 years. Create a lock on the retention policy.",
+                "answerText": "Create a retention policy on the bucket for the duration of 5 years. Create a lock on the retention policy.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create a retention policy organizational constraint constraints/storage.retentionPolicySeconds at the organization level. Set the duration to 5 years.",
+                "answerText": "Create a retention policy organizational constraint constraints/storage.retentionPolicySeconds at the organization level. Set the duration to 5 years.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use a customer-managed key for the encryption of the bucket. Rotate the key after 5 years.",
+                "answerText": "Use a customer-managed key for the encryption of the bucket. Rotate the key after 5 years.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a retention policy organizational constraint constraints/storage.retentionPolicySeconds at the project level. Set the duration to 5 years.",
+                "answerText": "Create a retention policy organizational constraint constraints/storage.retentionPolicySeconds at the project level. Set the duration to 5 years.",
                 "isCorrect": false
             }
         ],
@@ -4708,19 +4704,19 @@ const examLibrary = [
         "questionText": "Your company has decided to make a major revision of their API in order to create better experiences for their developers. They need to keep the old version of the API available and deployable, while allowing new customers and testers to try out the new API. They want to keep the same SSL and DNS records in place to serve both APIs. What should they do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure a new load balancer for the new version of the API",
+                "answerText": "Configure a new load balancer for the new version of the API",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Reconfigure old clients to use a new endpoint for the new API",
+                "answerText": "Reconfigure old clients to use a new endpoint for the new API",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Have the old API forward traffic to the new API based on the path",
+                "answerText": "Have the old API forward traffic to the new API based on the path",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use separate backend pools for each API path behind the load balancer",
+                "answerText": "Use separate backend pools for each API path behind the load balancer",
                 "isCorrect": true
             }
         ],
@@ -4731,19 +4727,19 @@ const examLibrary = [
         "questionText": "You have a Compute Engine application that you want to autoscale when total memory usage exceeds 80%. You have installed the Cloud Monitoring agent and configured the autoscaling policy as follows:You observe that the application does not scale under high load. You want to resolve this. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Change the Target type to DELTA_PER_MINUTE.",
+                "answerText": "Change the Target type to DELTA_PER_MINUTE.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Change the Metric identifier to agent.googleapis.com/memory/bytes_used.",
+                "answerText": "Change the Metric identifier to agent.googleapis.com/memory/bytes_used.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Change the filter to metric.label.state = \u2018used\u2019.",
+                "answerText": "Change the filter to metric.label.state = \u2018used\u2019.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Change the filter to metric.label.state = \u2018free\u2019 and the Target utilization to 20.",
+                "answerText": "Change the filter to metric.label.state = \u2018free\u2019 and the Target utilization to 20.",
                 "isCorrect": false
             }
         ],
@@ -4754,19 +4750,19 @@ const examLibrary = [
         "questionText": "Your company has a Google Cloud project that uses BigOuery for data warehousing. The VPN tunnel between the on-premises environment and Google Cloud is configured with Cloud VPN. Your security team wants to avoid data exfiltration by malicious insiders, compromised code, and accidental oversharing. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure Private Service Connect.",
+                "answerText": "Configure Private Service Connect.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure VPC Service Controls and configure Private Google Access for on-promises hosts.",
+                "answerText": "Configure VPC Service Controls and configure Private Google Access for on-promises hosts.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create a service account, grant the BigQuery JobUser role and Storage Object Viewer role to the service account, and remove all other Identity and Access Management (IAM) access from the project.",
+                "answerText": "Create a service account, grant the BigQuery JobUser role and Storage Object Viewer role to the service account, and remove all other Identity and Access Management (IAM) access from the project.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure Private Google Access.",
+                "answerText": "Configure Private Google Access.",
                 "isCorrect": false
             }
         ],
@@ -4777,19 +4773,19 @@ const examLibrary = [
         "questionText": "The JencoMart security team requires that all Google Cloud Platform infrastructure is deployed using a least privilege model with separation of duties for administration between production and development resources.What Google domain and project structure should you recommend?",
         "answerOptions": [
             {
-                "answerText": "A. Create two G Suite accounts to manage users: one for development/test/staging and one for production. Each account should contain one project for every application",
+                "answerText": "Create two G Suite accounts to manage users: one for development/test/staging and one for production. Each account should contain one project for every application",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create two G Suite accounts to manage users: one with a single project for all development applications and one with a single project for all production applications",
+                "answerText": "Create two G Suite accounts to manage users: one with a single project for all development applications and one with a single project for all production applications",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a single G Suite account to manage users with each stage of each application in its own project",
+                "answerText": "Create a single G Suite account to manage users with each stage of each application in its own project",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a single G Suite account to manage users with one project for the development/test/staging environment and one project for the production environment",
+                "answerText": "Create a single G Suite account to manage users with one project for the development/test/staging environment and one project for the production environment",
                 "isCorrect": false
             }
         ],
@@ -4800,27 +4796,27 @@ const examLibrary = [
         "questionText": "A few days after JencoMart migrates the user credentials database to Google Cloud Platform and shuts down the old server, the new database server stops responding to SSH connections. It is still serving database requests to the application servers correctly.What three steps should you take to diagnose the problem? (Choose three.)",
         "answerOptions": [
             {
-                "answerText": "A. Delete the virtual machine (VM) and disks and create a new one",
+                "answerText": "Delete the virtual machine (VM) and disks and create a new one",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Delete the instance, attach the disk to a new VM, and investigate",
+                "answerText": "Delete the instance, attach the disk to a new VM, and investigate",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Take a snapshot of the disk and connect to a new machine to investigate",
+                "answerText": "Take a snapshot of the disk and connect to a new machine to investigate",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Check inbound firewall rules for the network the machine is connected to",
+                "answerText": "Check inbound firewall rules for the network the machine is connected to",
                 "isCorrect": true
             },
             {
-                "answerText": "E. Connect the machine to another network with very simple firewall rules and investigate",
+                "answerText": "Connect the machine to another network with very simple firewall rules and investigate",
                 "isCorrect": false
             },
             {
-                "answerText": "F. Print the Serial Console output for the instance for troubleshooting, activate the interactive console, and investigate",
+                "answerText": "Print the Serial Console output for the instance for troubleshooting, activate the interactive console, and investigate",
                 "isCorrect": true
             }
         ],
@@ -4831,19 +4827,19 @@ const examLibrary = [
         "questionText": "JencoMart has decided to migrate user profile storage to Google Cloud Datastore and the application servers to Google Compute Engine (GCE). During the migration, the existing infrastructure will need access to Datastore to upload the data.What service account key-management strategy should you recommend?",
         "answerOptions": [
             {
-                "answerText": "A. Provision service account keys for the on-premises infrastructure and for the GCE virtual machines (VMs)",
+                "answerText": "Provision service account keys for the on-premises infrastructure and for the GCE virtual machines (VMs)",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Authenticate the on-premises infrastructure with a user account and provision service account keys for the VMs",
+                "answerText": "Authenticate the on-premises infrastructure with a user account and provision service account keys for the VMs",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Provision service account keys for the on-premises infrastructure and use Google Cloud Platform (GCP) managed keys for the VMs",
+                "answerText": "Provision service account keys for the on-premises infrastructure and use Google Cloud Platform (GCP) managed keys for the VMs",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Deploy a custom authentication service on GCE/Google Kubernetes Engine (GKE) for the on-premises infrastructure and use GCP managed keys for the VMs",
+                "answerText": "Deploy a custom authentication service on GCE/Google Kubernetes Engine (GKE) for the on-premises infrastructure and use GCP managed keys for the VMs",
                 "isCorrect": false
             }
         ],
@@ -4854,23 +4850,23 @@ const examLibrary = [
         "questionText": "JencoMart has built a version of their application on Google Cloud Platform that serves traffic to Asia. You want to measure success against their business and technical goals.Which metrics should you track?",
         "answerOptions": [
             {
-                "answerText": "A. Error rates for requests from Asia",
+                "answerText": "Error rates for requests from Asia",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Latency difference between US and Asia",
+                "answerText": "Latency difference between US and Asia",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Total visits, error rates, and latency from Asia",
+                "answerText": "Total visits, error rates, and latency from Asia",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Total visits and average latency for users from Asia",
+                "answerText": "Total visits and average latency for users from Asia",
                 "isCorrect": false
             },
             {
-                "answerText": "E. The number of character sets present in the database",
+                "answerText": "The number of character sets present in the database",
                 "isCorrect": false
             }
         ],
@@ -4881,27 +4877,27 @@ const examLibrary = [
         "questionText": "The migration of JencoMart's application to Google Cloud Platform (GCP) is progressing too slowly. The infrastructure is shown in the diagram. You want to maximize throughput.What are three potential bottlenecks? (Choose three.)",
         "answerOptions": [
             {
-                "answerText": "A. A single VPN tunnel, which limits throughput",
+                "answerText": "A single VPN tunnel, which limits throughput",
                 "isCorrect": true
             },
             {
-                "answerText": "B. A tier of Google Cloud Storage that is not suited for this task",
+                "answerText": "A tier of Google Cloud Storage that is not suited for this task",
                 "isCorrect": false
             },
             {
-                "answerText": "C. A copy command that is not suited to operate over long distances",
+                "answerText": "A copy command that is not suited to operate over long distances",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Fewer virtual machines (VMs) in GCP than on-premises machines",
+                "answerText": "Fewer virtual machines (VMs) in GCP than on-premises machines",
                 "isCorrect": false
             },
             {
-                "answerText": "E. A separate storage layer outside the VMs, which is not suited for this task",
+                "answerText": "A separate storage layer outside the VMs, which is not suited for this task",
                 "isCorrect": false
             },
             {
-                "answerText": "F. Complicated internet connectivity between the on-premises infrastructure and GCP",
+                "answerText": "Complicated internet connectivity between the on-premises infrastructure and GCP",
                 "isCorrect": true
             }
         ],
@@ -4912,19 +4908,19 @@ const examLibrary = [
         "questionText": "JencoMart wants to move their User Profiles database to Google Cloud Platform.Which Google Database should they use?",
         "answerOptions": [
             {
-                "answerText": "A. Cloud Spanner",
+                "answerText": "Cloud Spanner",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Google BigQuery",
+                "answerText": "Google BigQuery",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Google Cloud SQL",
+                "answerText": "Google Cloud SQL",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Google Cloud Datastore",
+                "answerText": "Google Cloud Datastore",
                 "isCorrect": true
             }
         ],
@@ -4935,19 +4931,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Helicopter Racing League (HRL) case study. Your team is in charge of creating a payment card data vault for card numbers used to bill tens of thousands of viewers, merchandise consumers, and season ticket holders. You need to implement a custom card tokenization service that meets the following requirements:*    It must provide low latency at minimal cost.*    It must be able to identify duplicate credit cards and must not store plaintext card numbers.*    It should support annual key rotation.Which storage approach should you adopt for your tokenization service?",
         "answerOptions": [
             {
-                "answerText": "A. Store the card data in Secret Manager after running a query to identify duplicates.",
+                "answerText": "Store the card data in Secret Manager after running a query to identify duplicates.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Encrypt the card data with a deterministic algorithm stored in Firestore using Datastore mode.",
+                "answerText": "Encrypt the card data with a deterministic algorithm stored in Firestore using Datastore mode.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Encrypt the card data with a deterministic algorithm and shard it across multiple Memorystore instances.",
+                "answerText": "Encrypt the card data with a deterministic algorithm and shard it across multiple Memorystore instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use column-level encryption to store the data in Cloud SQL.",
+                "answerText": "Use column-level encryption to store the data in Cloud SQL.",
                 "isCorrect": false
             }
         ],
@@ -4958,19 +4954,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Helicopter Racing League (HRL) case study. Recently HRL started a new regional racing league in Cape Town, South Africa. In an effort to give customers in Cape Town a better user experience, HRL has partnered with the Content Delivery Network provider, Fastly. HRL needs to allow traffic coming from all of the Fastly IP address ranges into their Virtual Private Cloud network (VPC network). You are a member of the HRL security team and you need to configure the update that will allow only the Fastly IP address ranges through the External HTTP(S) load balancer. Which command should you use?",
         "answerOptions": [
             {
-                "answerText": "A. ",
+                "answerText": "",
                 "isCorrect": false
             },
             {
-                "answerText": "B. ",
+                "answerText": "",
                 "isCorrect": false
             },
             {
-                "answerText": "C. ",
+                "answerText": "",
                 "isCorrect": false
             },
             {
-                "answerText": "D. ",
+                "answerText": "",
                 "isCorrect": true
             }
         ],
@@ -4981,19 +4977,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Helicopter Racing League (HRL) case study. The HRL development team releases a new version of their predictive capability application every Tuesday evening at 3 a.m. UTC to a repository. The security team at HRL has developed an in-house penetration test Cloud Function calledAirwolf. The security team wants to run Airwolf against the predictive capability application as soon as it is released every Tuesday. You need to set up Airwolf to run at the recurring weekly cadence. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Set up Cloud Tasks and a Cloud Storage bucket that triggers a Cloud Function.",
+                "answerText": "Set up Cloud Tasks and a Cloud Storage bucket that triggers a Cloud Function.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Set up a Cloud Logging sink and a Cloud Storage bucket that triggers a Cloud Function.",
+                "answerText": "Set up a Cloud Logging sink and a Cloud Storage bucket that triggers a Cloud Function.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure the deployment job to notify a Pub/Sub queue that triggers a Cloud Function.",
+                "answerText": "Configure the deployment job to notify a Pub/Sub queue that triggers a Cloud Function.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Set up Identity and Access Management (IAM) and Confidential Computing to trigger a Cloud Function.",
+                "answerText": "Set up Identity and Access Management (IAM) and Confidential Computing to trigger a Cloud Function.",
                 "isCorrect": false
             }
         ],
@@ -5004,19 +5000,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Helicopter Racing League (HRL) case study. HRL wants better prediction accuracy from their ML prediction models. They want you to use Google's AI Platform so HRL can understand and interpret the predictions. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use Explainable AI.",
+                "answerText": "Use Explainable AI.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use Vision AI.",
+                "answerText": "Use Vision AI.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use Google Cloud's operations suite.",
+                "answerText": "Use Google Cloud's operations suite.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Jupyter Notebooks.",
+                "answerText": "Use Jupyter Notebooks.",
                 "isCorrect": false
             }
         ],
@@ -5027,19 +5023,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Helicopter Racing League (HRL) case study. HRL is looking for a cost-effective approach for storing their race data such as telemetry. They want to keep all historical records, train models using only the previous season's data, and plan for data growth in terms of volume and information collected. You need to propose a data solution. Considering HRL business requirements and the goals expressed by CEO S. Hawke, what should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use Firestore for its scalable and flexible document-based database. Use collections to aggregate race data by season and event.",
+                "answerText": "Use Firestore for its scalable and flexible document-based database. Use collections to aggregate race data by season and event.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use Cloud Spanner for its scalability and ability to version schemas with zero downtime. Split race data using season as a primary key.",
+                "answerText": "Use Cloud Spanner for its scalability and ability to version schemas with zero downtime. Split race data using season as a primary key.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use BigQuery for its scalability and ability to add columns to a schema. Partition race data based on season.",
+                "answerText": "Use BigQuery for its scalability and ability to add columns to a schema. Partition race data based on season.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Use Cloud SQL for its ability to automatically manage storage increases and compatibility with MySQL. Use separate database instances for each season.",
+                "answerText": "Use Cloud SQL for its ability to automatically manage storage increases and compatibility with MySQL. Use separate database instances for each season.",
                 "isCorrect": false
             }
         ],
@@ -5050,19 +5046,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Helicopter Racing League (HRL) case study. A recent finance audit of cloud infrastructure noted an exceptionally high number ofCompute Engine instances are allocated to do video encoding and transcoding. You suspect that these Virtual Machines are zombie machines that were not deleted after their workloads completed. You need to quickly get a list of which VM instances are idle. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Log into each Compute Engine instance and collect disk, CPU, memory, and network usage statistics for analysis.",
+                "answerText": "Log into each Compute Engine instance and collect disk, CPU, memory, and network usage statistics for analysis.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use the gcloud compute instances list to list the virtual machine instances that have the idle: true label set.",
+                "answerText": "Use the gcloud compute instances list to list the virtual machine instances that have the idle: true label set.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use the gcloud recommender command to list the idle virtual machine instances.",
+                "answerText": "Use the gcloud recommender command to list the idle virtual machine instances.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. From the Google Console, identify which Compute Engine instances in the managed instance groups are no longer responding to health check probes.",
+                "answerText": "From the Google Console, identify which Compute Engine instances in the managed instance groups are no longer responding to health check probes.",
                 "isCorrect": false
             }
         ],
@@ -5073,23 +5069,23 @@ const examLibrary = [
         "questionText": "For this question, refer to the EHR Healthcare case study. You are responsible for ensuring that EHR's use of Google Cloud will pass an upcoming privacy compliance audit. What should you do? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Verify EHR's product usage against the list of compliant products on the Google Cloud compliance page.",
+                "answerText": "Verify EHR's product usage against the list of compliant products on the Google Cloud compliance page.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Advise EHR to execute a Business Associate Agreement (BAA) with Google Cloud.",
+                "answerText": "Advise EHR to execute a Business Associate Agreement (BAA) with Google Cloud.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use Firebase Authentication for EHR's user facing applications.",
+                "answerText": "Use Firebase Authentication for EHR's user facing applications.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Implement Prometheus to detect and prevent security breaches on EHR's web-based applications.",
+                "answerText": "Implement Prometheus to detect and prevent security breaches on EHR's web-based applications.",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Use GKE private clusters for all Kubernetes workloads.",
+                "answerText": "Use GKE private clusters for all Kubernetes workloads.",
                 "isCorrect": false
             }
         ],
@@ -5100,19 +5096,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the EHR Healthcare case study. You need to define the technical architecture for securely deploying workloads to Google Cloud. You also need to ensure that only verified containers are deployed using Google Cloud services. What should you do? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Enable Binary Authorization on GKE, and sign containers as part of a CI/CD pipeline.",
+                "answerText": "Enable Binary Authorization on GKE, and sign containers as part of a CI/CD pipeline.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Configure Jenkins to utilize Kritis to cryptographically sign a container as part of a CI/CD pipeline.",
+                "answerText": "Configure Jenkins to utilize Kritis to cryptographically sign a container as part of a CI/CD pipeline.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure Container Registry to only allow trusted service accounts to create and deploy containers from the registry.",
+                "answerText": "Configure Container Registry to only allow trusted service accounts to create and deploy containers from the registry.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Configure Container Registry to use vulnerability scanning to confirm that there are no vulnerabilities before deploying the workload.",
+                "answerText": "Configure Container Registry to use vulnerability scanning to confirm that there are no vulnerabilities before deploying the workload.",
                 "isCorrect": false
             }
         ],
@@ -5123,19 +5119,19 @@ const examLibrary = [
         "questionText": "You need to upgrade the EHR connection to comply with their requirements. The new connection design must support business-critical needs and meet the same network and security policy requirements. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Add a new Dedicated Interconnect connection.",
+                "answerText": "Add a new Dedicated Interconnect connection.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Upgrade the bandwidth on the Dedicated Interconnect connection to 100 G.",
+                "answerText": "Upgrade the bandwidth on the Dedicated Interconnect connection to 100 G.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Add three new Cloud VPN connections.",
+                "answerText": "Add three new Cloud VPN connections.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Add a new Carrier Peering connection.",
+                "answerText": "Add a new Carrier Peering connection.",
                 "isCorrect": false
             }
         ],
@@ -5146,19 +5142,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the EHR Healthcare case study. You need to define the technical architecture for hybrid connectivity between EHR's on-premises systems and Google Cloud. You want to follow Google's recommended practices for production-level applications. Considering the EHR Healthcare business and technical requirements, what should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure two Partner Interconnect connections in one metro (City), and make sure the Interconnect connections are placed in different metro zones.",
+                "answerText": "Configure two Partner Interconnect connections in one metro (City), and make sure the Interconnect connections are placed in different metro zones.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure two VPN connections from on-premises to Google Cloud, and make sure the VPN devices on-premises are in separate racks.",
+                "answerText": "Configure two VPN connections from on-premises to Google Cloud, and make sure the VPN devices on-premises are in separate racks.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure Direct Peering between EHR Healthcare and Google Cloud, and make sure you are peering at least two Google locations.",
+                "answerText": "Configure Direct Peering between EHR Healthcare and Google Cloud, and make sure you are peering at least two Google locations.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure two Dedicated Interconnect connections in one metro (City) and two connections in another metro, and make sure the Interconnect connections are placed in different metro zones.",
+                "answerText": "Configure two Dedicated Interconnect connections in one metro (City) and two connections in another metro, and make sure the Interconnect connections are placed in different metro zones.",
                 "isCorrect": true
             }
         ],
@@ -5169,19 +5165,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the EHR Healthcare case study. You are a developer on the EHR customer portal team. Your team recently migrated the customer portal application to Google Cloud. The load has increased on the application servers, and now the application is logging many timeout errors. You recently incorporated Pub/Sub into the application architecture, and the application is not logging any Pub/Sub publishing errors. You want to improve publishing latency.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Increase the Pub/Sub Total Timeout retry value.",
+                "answerText": "Increase the Pub/Sub Total Timeout retry value.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Move from a Pub/Sub subscriber pull model to a push model.",
+                "answerText": "Move from a Pub/Sub subscriber pull model to a push model.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Turn off Pub/Sub message batching.",
+                "answerText": "Turn off Pub/Sub message batching.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a backup Pub/Sub message queue.",
+                "answerText": "Create a backup Pub/Sub message queue.",
                 "isCorrect": false
             }
         ],
@@ -5192,19 +5188,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the EHR Healthcare case study. In the past, configuration errors put public IP addresses on backend servers that should not have been accessible from the Internet. You need to ensure that no one can put external IP addresses on backend Compute Engine instances and that external IP addresses can only be configured on frontend Compute Engine instances. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create an Organizational Policy with a constraint to allow external IP addresses only on the frontend Compute Engine instances.",
+                "answerText": "Create an Organizational Policy with a constraint to allow external IP addresses only on the frontend Compute Engine instances.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Revoke the compute.networkAdmin role from all users in the project with front end instances.",
+                "answerText": "Revoke the compute.networkAdmin role from all users in the project with front end instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create an Identity and Access Management (IAM) policy that maps the IT staff to the compute.networkAdmin role for the organization.",
+                "answerText": "Create an Identity and Access Management (IAM) policy that maps the IT staff to the compute.networkAdmin role for the organization.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a custom Identity and Access Management (IAM) role named GCE_FRONTEND with the compute.addresses.create permission.",
+                "answerText": "Create a custom Identity and Access Management (IAM) role named GCE_FRONTEND with the compute.addresses.create permission.",
                 "isCorrect": false
             }
         ],
@@ -5215,19 +5211,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the EHR Healthcare case study. You are responsible for designing the Google Cloud network architecture for Google KubernetesEngine. You want to follow Google best practices. Considering the EHR Healthcare business and technical requirements, what should you do to reduce the attack surface?",
         "answerOptions": [
             {
-                "answerText": "A. Use a private cluster with a private endpoint with master authorized networks configured.",
+                "answerText": "Use a private cluster with a private endpoint with master authorized networks configured.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use a public cluster with firewall rules and Virtual Private Cloud (VPC) routes.",
+                "answerText": "Use a public cluster with firewall rules and Virtual Private Cloud (VPC) routes.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use a private cluster with a public endpoint with master authorized networks configured.",
+                "answerText": "Use a private cluster with a public endpoint with master authorized networks configured.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use a public cluster with master authorized networks enabled and firewall rules.",
+                "answerText": "Use a public cluster with master authorized networks enabled and firewall rules.",
                 "isCorrect": false
             }
         ],
@@ -5238,19 +5234,19 @@ const examLibrary = [
         "questionText": "Mountkirk Games wants you to design their new testing strategy. How should the test coverage differ from their existing backends on the other platforms?",
         "answerOptions": [
             {
-                "answerText": "A. Tests should scale well beyond the prior approaches",
+                "answerText": "Tests should scale well beyond the prior approaches",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Unit tests are no longer required, only end-to-end tests",
+                "answerText": "Unit tests are no longer required, only end-to-end tests",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Tests should be applied after the release is in the production environment",
+                "answerText": "Tests should be applied after the release is in the production environment",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Tests should include directly testing the Google Cloud Platform (GCP) infrastructure",
+                "answerText": "Tests should include directly testing the Google Cloud Platform (GCP) infrastructure",
                 "isCorrect": false
             }
         ],
@@ -5261,19 +5257,19 @@ const examLibrary = [
         "questionText": "Mountkirk Games has deployed their new backend on Google Cloud Platform (GCP). You want to create a through testing process for new versions of the backend before they are released to the public. You want the testing environment to scale in an economical way. How should you design the process?",
         "answerOptions": [
             {
-                "answerText": "A. Create a scalable environment in GCP for simulating production load",
+                "answerText": "Create a scalable environment in GCP for simulating production load",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use the existing infrastructure to test the GCP-based backend at scale",
+                "answerText": "Use the existing infrastructure to test the GCP-based backend at scale",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Build stress tests into each component of your application using resources internal to GCP to simulate load",
+                "answerText": "Build stress tests into each component of your application using resources internal to GCP to simulate load",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a set of static environments in GCP to test different levels of load \u05d2\u20ac\" for example, high, medium, and low",
+                "answerText": "Create a set of static environments in GCP to test different levels of load \u05d2\u20ac\" for example, high, medium, and low",
                 "isCorrect": false
             }
         ],
@@ -5284,19 +5280,19 @@ const examLibrary = [
         "questionText": "Mountkirk Games wants to set up a continuous delivery pipeline. Their architecture includes many small services that they want to be able to update and roll back quickly. Mountkirk Games has the following requirements:\u2711 Services are deployed redundantly across multiple regions in the US and Europe\u2711 Only frontend services are exposed on the public internet\u2711 They can provide a single frontend IP for their fleet of services\u2711 Deployment artifacts are immutableWhich set of products should they use?",
         "answerOptions": [
             {
-                "answerText": "A. Google Cloud Storage, Google Cloud Dataflow, Google Compute Engine",
+                "answerText": "Google Cloud Storage, Google Cloud Dataflow, Google Compute Engine",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Google Cloud Storage, Google App Engine, Google Network Load Balancer",
+                "answerText": "Google Cloud Storage, Google App Engine, Google Network Load Balancer",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Google Kubernetes Registry, Google Container Engine, Google HTTP(S) Load Balancer",
+                "answerText": "Google Kubernetes Registry, Google Container Engine, Google HTTP(S) Load Balancer",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Google Cloud Functions, Google Cloud Pub/Sub, Google Cloud Deployment Manager",
+                "answerText": "Google Cloud Functions, Google Cloud Pub/Sub, Google Cloud Deployment Manager",
                 "isCorrect": false
             }
         ],
@@ -5307,19 +5303,19 @@ const examLibrary = [
         "questionText": "Mountkirk Games' gaming servers are not automatically scaling properly. Last month, they rolled out a new feature, which suddenly became very popular. A record number of users are trying to use the service, but many of them are getting 503 errors and very slow response times. What should they investigate first?",
         "answerOptions": [
             {
-                "answerText": "A. Verify that the database is online",
+                "answerText": "Verify that the database is online",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Verify that the project quota hasn't been exceeded",
+                "answerText": "Verify that the project quota hasn't been exceeded",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Verify that the new feature code did not introduce any performance bugs",
+                "answerText": "Verify that the new feature code did not introduce any performance bugs",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Verify that the load-testing team is not running their tool against production",
+                "answerText": "Verify that the load-testing team is not running their tool against production",
                 "isCorrect": false
             }
         ],
@@ -5330,19 +5326,19 @@ const examLibrary = [
         "questionText": "Mountkirk Games needs to create a repeatable and configurable mechanism for deploying isolated application environments. Developers and testers can access each other's environments and resources, but they cannot access staging or production resources. The staging environment needs access to some services from production.What should you do to isolate development environments from staging and production?",
         "answerOptions": [
             {
-                "answerText": "A. Create a project for development and test and another for staging and production",
+                "answerText": "Create a project for development and test and another for staging and production",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a network for development and test and another for staging and production",
+                "answerText": "Create a network for development and test and another for staging and production",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create one subnetwork for development and another for staging and production",
+                "answerText": "Create one subnetwork for development and another for staging and production",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create one project for development, a second for staging and a third for production",
+                "answerText": "Create one project for development, a second for staging and a third for production",
                 "isCorrect": true
             }
         ],
@@ -5353,23 +5349,23 @@ const examLibrary = [
         "questionText": "Mountkirk Games wants to set up a real-time analytics platform for their new game. The new platform must meet their technical requirements.Which combination of Google technologies will meet all of their requirements?",
         "answerOptions": [
             {
-                "answerText": "A. Kubernetes Engine, Cloud Pub/Sub, and Cloud SQL",
+                "answerText": "Kubernetes Engine, Cloud Pub/Sub, and Cloud SQL",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Cloud Dataflow, Cloud Storage, Cloud Pub/Sub, and BigQuery",
+                "answerText": "Cloud Dataflow, Cloud Storage, Cloud Pub/Sub, and BigQuery",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Cloud SQL, Cloud Storage, Cloud Pub/Sub, and Cloud Dataflow",
+                "answerText": "Cloud SQL, Cloud Storage, Cloud Pub/Sub, and Cloud Dataflow",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Cloud Dataproc, Cloud Pub/Sub, Cloud SQL, and Cloud Dataflow",
+                "answerText": "Cloud Dataproc, Cloud Pub/Sub, Cloud SQL, and Cloud Dataflow",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Cloud Pub/Sub, Compute Engine, Cloud Storage, and Cloud Dataproc",
+                "answerText": "Cloud Pub/Sub, Compute Engine, Cloud Storage, and Cloud Dataproc",
                 "isCorrect": false
             }
         ],
@@ -5380,23 +5376,23 @@ const examLibrary = [
         "questionText": "For this question, refer to the Mountkirk Games case study. Mountkirk Games wants to migrate from their current analytics and statistics reporting model to one that meets their technical requirements on Google Cloud Platform.Which two steps should be part of their migration plan? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Evaluate the impact of migrating their current batch ETL code to Cloud Dataflow.",
+                "answerText": "Evaluate the impact of migrating their current batch ETL code to Cloud Dataflow.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Write a schema migration plan to denormalize data for better performance in BigQuery.",
+                "answerText": "Write a schema migration plan to denormalize data for better performance in BigQuery.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Draw an architecture diagram that shows how to move from a single MySQL database to a MySQL cluster.",
+                "answerText": "Draw an architecture diagram that shows how to move from a single MySQL database to a MySQL cluster.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Load 10 TB of analytics data from a previous game into a Cloud SQL instance, and run test queries against the full dataset to confirm that they complete successfully.",
+                "answerText": "Load 10 TB of analytics data from a previous game into a Cloud SQL instance, and run test queries against the full dataset to confirm that they complete successfully.",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Integrate Cloud Armor to defend against possible SQL injection attacks in analytics files uploaded to Cloud Storage.",
+                "answerText": "Integrate Cloud Armor to defend against possible SQL injection attacks in analytics files uploaded to Cloud Storage.",
                 "isCorrect": false
             }
         ],
@@ -5407,19 +5403,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Mountkirk Games case study. You need to analyze and define the technical architecture for the compute workloads for your company, Mountkirk Games. Considering the Mountkirk Games business and technical requirements, what should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create network load balancers. Use preemptible Compute Engine instances.",
+                "answerText": "Create network load balancers. Use preemptible Compute Engine instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create network load balancers. Use non-preemptible Compute Engine instances.",
+                "answerText": "Create network load balancers. Use non-preemptible Compute Engine instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a global load balancer with managed instance groups and autoscaling policies. Use preemptible Compute Engine instances.",
+                "answerText": "Create a global load balancer with managed instance groups and autoscaling policies. Use preemptible Compute Engine instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a global load balancer with managed instance groups and autoscaling policies. Use non-preemptible Compute Engine instances.",
+                "answerText": "Create a global load balancer with managed instance groups and autoscaling policies. Use non-preemptible Compute Engine instances.",
                 "isCorrect": true
             }
         ],
@@ -5430,23 +5426,23 @@ const examLibrary = [
         "questionText": "For this question, refer to the Mountkirk Games case study. Mountkirk Games wants to design their solution for the future in order to take advantage of cloud and technology improvements as they become available. Which two steps should they take? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Store as much analytics and game activity data as financially feasible today so it can be used to train machine learning models to predict user behavior in the future.",
+                "answerText": "Store as much analytics and game activity data as financially feasible today so it can be used to train machine learning models to predict user behavior in the future.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Begin packaging their game backend artifacts in container images and running them on Google  Kubernetes Engine to improve the ability to scale up or down based on game activity.",
+                "answerText": "Begin packaging their game backend artifacts in container images and running them on Google  Kubernetes Engine to improve the ability to scale up or down based on game activity.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Set up a CI/CD pipeline using Jenkins and Spinnaker to automate canary deployments and improve development velocity.",
+                "answerText": "Set up a CI/CD pipeline using Jenkins and Spinnaker to automate canary deployments and improve development velocity.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Adopt a schema versioning tool to reduce downtime when adding new game features that require storing additional player data in the database.",
+                "answerText": "Adopt a schema versioning tool to reduce downtime when adding new game features that require storing additional player data in the database.",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Implement a weekly rolling maintenance process for the Linux virtual machines so they can apply critical kernel patches and package updates and reduce the risk of 0-day vulnerabilities.",
+                "answerText": "Implement a weekly rolling maintenance process for the Linux virtual machines so they can apply critical kernel patches and package updates and reduce the risk of 0-day vulnerabilities.",
                 "isCorrect": false
             }
         ],
@@ -5457,19 +5453,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Mountkirk Games case study. Mountkirk Games wants you to design a way to test the analytics platform's resilience to changes in mobile network latency. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Deploy failure injection software to the game analytics platform that can inject additional latency to mobile client analytics traffic.",
+                "answerText": "Deploy failure injection software to the game analytics platform that can inject additional latency to mobile client analytics traffic.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Build a test client that can be run from a mobile phone emulator on a Compute Engine virtual machine, and run multiple copies in Google Cloud Platform regions all over the world to generate realistic traffic.",
+                "answerText": "Build a test client that can be run from a mobile phone emulator on a Compute Engine virtual machine, and run multiple copies in Google Cloud Platform regions all over the world to generate realistic traffic.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Add the ability to introduce a random amount of delay before beginning to process analytics files uploaded from mobile devices.",
+                "answerText": "Add the ability to introduce a random amount of delay before beginning to process analytics files uploaded from mobile devices.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create an opt-in beta of the game that runs on players' mobile devices and collects response times from analytics endpoints running in Google Cloud Platform regions all over the world.",
+                "answerText": "Create an opt-in beta of the game that runs on players' mobile devices and collects response times from analytics endpoints running in Google Cloud Platform regions all over the world.",
                 "isCorrect": false
             }
         ],
@@ -5480,19 +5476,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Mountkirk Games case study. You need to analyze and define the technical architecture for the database workloads for your company, Mountkirk Games. Considering the business and technical requirements, what should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use Cloud SQL for time series data, and use Cloud Bigtable for historical data queries.",
+                "answerText": "Use Cloud SQL for time series data, and use Cloud Bigtable for historical data queries.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use Cloud SQL to replace MySQL, and use Cloud Spanner for historical data queries.",
+                "answerText": "Use Cloud SQL to replace MySQL, and use Cloud Spanner for historical data queries.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use Cloud Bigtable to replace MySQL, and use BigQuery for historical data queries.",
+                "answerText": "Use Cloud Bigtable to replace MySQL, and use BigQuery for historical data queries.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Cloud Bigtable for time series data, use Cloud Spanner for transactional data, and use BigQuery for historical data queries.",
+                "answerText": "Use Cloud Bigtable for time series data, use Cloud Spanner for transactional data, and use BigQuery for historical data queries.",
                 "isCorrect": true
             }
         ],
@@ -5503,19 +5499,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Mountkirk Games case study. Which managed storage option meets Mountkirk's technical requirement for storing game activity in a time series database service?",
         "answerOptions": [
             {
-                "answerText": "A. Cloud Bigtable",
+                "answerText": "Cloud Bigtable",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Cloud Spanner",
+                "answerText": "Cloud Spanner",
                 "isCorrect": false
             },
             {
-                "answerText": "C. BigQuery",
+                "answerText": "BigQuery",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Cloud Datastore",
+                "answerText": "Cloud Datastore",
                 "isCorrect": false
             }
         ],
@@ -5526,19 +5522,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Mountkirk Games case study. You are in charge of the new Game Backend Platform architecture. The game communicates with the backend over a REST API.You want to follow Google-recommended practices. How should you design the backend?",
         "answerOptions": [
             {
-                "answerText": "A. Create an instance template for the backend. For every region, deploy it on a multi-zone managed instance group. Use an L4 load balancer.",
+                "answerText": "Create an instance template for the backend. For every region, deploy it on a multi-zone managed instance group. Use an L4 load balancer.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create an instance template for the backend. For every region, deploy it on a single-zone managed instance group. Use an L4 load balancer.",
+                "answerText": "Create an instance template for the backend. For every region, deploy it on a single-zone managed instance group. Use an L4 load balancer.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create an instance template for the backend. For every region, deploy it on a multi-zone managed instance group. Use an L7 load balancer.",
+                "answerText": "Create an instance template for the backend. For every region, deploy it on a multi-zone managed instance group. Use an L7 load balancer.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create an instance template for the backend. For every region, deploy it on a single-zone managed instance group. Use an L7 load balancer.",
+                "answerText": "Create an instance template for the backend. For every region, deploy it on a single-zone managed instance group. Use an L7 load balancer.",
                 "isCorrect": false
             }
         ],
@@ -5549,19 +5545,19 @@ const examLibrary = [
         "questionText": "You need to optimize batch file transfers into Cloud Storage for Mountkirk Games' new Google Cloud solution. The batch files contain game statistics that need to be staged in Cloud Storage and be processed by an extract transform load (ETL) tool. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use gsutil to batch move files in sequence.",
+                "answerText": "Use gsutil to batch move files in sequence.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use gsutil to batch copy the files in parallel.",
+                "answerText": "Use gsutil to batch copy the files in parallel.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Use gsutil to extract the files as the first part of ETL.",
+                "answerText": "Use gsutil to extract the files as the first part of ETL.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use gsutil to load the files as the last part of ETL.",
+                "answerText": "Use gsutil to load the files as the last part of ETL.",
                 "isCorrect": false
             }
         ],
@@ -5572,19 +5568,19 @@ const examLibrary = [
         "questionText": "You are implementing Firestore for Mountkirk Games. Mountkirk Games wants to give a new game programmatic access to a legacy game's Firestore database.Access should be as restricted as possible. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a service account (SA) in the legacy game's Google Cloud project, add a second SA in the new game's IAM page, and then give the Organization Admin role to both SAs.",
+                "answerText": "Create a service account (SA) in the legacy game's Google Cloud project, add a second SA in the new game's IAM page, and then give the Organization Admin role to both SAs.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a service account (SA) in the legacy game's Google Cloud project, give the SA the Organization Admin role, and then give it the Firebase Admin role in both projects.",
+                "answerText": "Create a service account (SA) in the legacy game's Google Cloud project, give the SA the Organization Admin role, and then give it the Firebase Admin role in both projects.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a service account (SA) in the legacy game's Google Cloud project, add this SA in the new game's IAM page, and then give it the Firebase Admin role in both projects.",
+                "answerText": "Create a service account (SA) in the legacy game's Google Cloud project, add this SA in the new game's IAM page, and then give it the Firebase Admin role in both projects.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a service account (SA) in the legacy game's Google Cloud project, give it the Firebase Admin role, and then migrate the new game to the legacy game's project.",
+                "answerText": "Create a service account (SA) in the legacy game's Google Cloud project, give it the Firebase Admin role, and then migrate the new game to the legacy game's project.",
                 "isCorrect": false
             }
         ],
@@ -5595,19 +5591,19 @@ const examLibrary = [
         "questionText": "Mountkirk Games wants to limit the physical location of resources to their operating Google Cloud regions. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure an organizational policy which constrains where resources can be deployed.",
+                "answerText": "Configure an organizational policy which constrains where resources can be deployed.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Configure IAM conditions to limit what resources can be configured.",
+                "answerText": "Configure IAM conditions to limit what resources can be configured.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure the quotas for resources in the regions not being used to 0.",
+                "answerText": "Configure the quotas for resources in the regions not being used to 0.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure a custom alert in Cloud Monitoring so you can disable resources as they are created in other regions.",
+                "answerText": "Configure a custom alert in Cloud Monitoring so you can disable resources as they are created in other regions.",
                 "isCorrect": false
             }
         ],
@@ -5618,19 +5614,19 @@ const examLibrary = [
         "questionText": "You need to implement a network ingress for a new game that meets the defined business and technical requirements. Mountkirk Games wants each regional game instance to be located in multiple Google Cloud regions. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure a global load balancer connected to a managed instance group running Compute Engine instances.",
+                "answerText": "Configure a global load balancer connected to a managed instance group running Compute Engine instances.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Configure kubemci with a global load balancer and Google Kubernetes Engine.",
+                "answerText": "Configure kubemci with a global load balancer and Google Kubernetes Engine.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure a global load balancer with Google Kubernetes Engine.",
+                "answerText": "Configure a global load balancer with Google Kubernetes Engine.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure Ingress for Anthos with a global load balancer and Google Kubernetes Engine.",
+                "answerText": "Configure Ingress for Anthos with a global load balancer and Google Kubernetes Engine.",
                 "isCorrect": true
             }
         ],
@@ -5641,19 +5637,19 @@ const examLibrary = [
         "questionText": "Your development teams release new versions of games running on Google Kubernetes Engine (GKE) daily. You want to create service level indicators (SLIs) to evaluate the quality of the new versions from the user's perspective. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create CPU Utilization and Request Latency as service level indicators.",
+                "answerText": "Create CPU Utilization and Request Latency as service level indicators.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create GKE CPU Utilization and Memory Utilization as service level indicators.",
+                "answerText": "Create GKE CPU Utilization and Memory Utilization as service level indicators.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create Request Latency and Error Rate as service level indicators.",
+                "answerText": "Create Request Latency and Error Rate as service level indicators.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create Server Uptime and Error Rate as service level indicators.",
+                "answerText": "Create Server Uptime and Error Rate as service level indicators.",
                 "isCorrect": false
             }
         ],
@@ -5664,19 +5660,19 @@ const examLibrary = [
         "questionText": "Mountkirk Games wants you to secure the connectivity from the new gaming application platform to Google Cloud. You want to streamline the process and followGoogle-recommended practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure Workload Identity and service accounts to be used by the application platform.",
+                "answerText": "Configure Workload Identity and service accounts to be used by the application platform.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use Kubernetes Secrets, which are obfuscated by default. Configure these Secrets to be used by the application platform.",
+                "answerText": "Use Kubernetes Secrets, which are obfuscated by default. Configure these Secrets to be used by the application platform.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure Kubernetes Secrets to store the secret, enable Application-Layer Secrets Encryption, and use Cloud Key Management Service (Cloud KMS) to manage the encryption keys. Configure these Secrets to be used by the application platform.",
+                "answerText": "Configure Kubernetes Secrets to store the secret, enable Application-Layer Secrets Encryption, and use Cloud Key Management Service (Cloud KMS) to manage the encryption keys. Configure these Secrets to be used by the application platform.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure HashiCorp Vault on Compute Engine, and use customer managed encryption keys and Cloud Key Management Service (Cloud KMS) to manage the encryption keys. Configure these Secrets to be used by the application platform.",
+                "answerText": "Configure HashiCorp Vault on Compute Engine, and use customer managed encryption keys and Cloud Key Management Service (Cloud KMS) to manage the encryption keys. Configure these Secrets to be used by the application platform.",
                 "isCorrect": false
             }
         ],
@@ -5687,19 +5683,19 @@ const examLibrary = [
         "questionText": "Your development team has created a mobile game app. You want to test the new mobile app on Android and iOS devices with a variety of configurations. You need to ensure that testing is efficient and cost-effective. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Upload your mobile app to the Firebase Test Lab, and test the mobile app on Android and iOS devices.",
+                "answerText": "Upload your mobile app to the Firebase Test Lab, and test the mobile app on Android and iOS devices.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create Android and iOS VMs on Google Cloud, install the mobile app on the VMs, and test the mobile app.",
+                "answerText": "Create Android and iOS VMs on Google Cloud, install the mobile app on the VMs, and test the mobile app.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create Android and iOS containers on Google Kubernetes Engine (GKE), install the mobile app on the containers, and test the mobile app.",
+                "answerText": "Create Android and iOS containers on Google Kubernetes Engine (GKE), install the mobile app on the containers, and test the mobile app.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Upload your mobile app with different configurations to Firebase Hosting and test each configuration.",
+                "answerText": "Upload your mobile app with different configurations to Firebase Hosting and test each configuration.",
                 "isCorrect": false
             }
         ],
@@ -5710,19 +5706,19 @@ const examLibrary = [
         "questionText": "TerramEarth's CTO wants to use the raw data from connected vehicles to help identify approximately when a vehicle in the field will have a catastrophic failure. You want to allow analysts to centrally query the vehicle data. Which architecture should you recommend?",
         "answerOptions": [
             {
-                "answerText": "A. ",
+                "answerText": "",
                 "isCorrect": true
             },
             {
-                "answerText": "B. ",
+                "answerText": "",
                 "isCorrect": false
             },           
             {
-                "answerText": "C. ",
+                "answerText": "",
                 "isCorrect": false
             },
             {
-                "answerText": "D. ",
+                "answerText": "",
                 "isCorrect": false
             }
         ],
@@ -5733,23 +5729,23 @@ const examLibrary = [
         "questionText": "The TerramEarth development team wants to create an API to meet the company's business requirements. You want the development team to focus their development effort on business value versus creating a custom framework.Which method should they use?",
         "answerOptions": [
             {
-                "answerText": "A. Use Google App Engine with Google Cloud Endpoints. Focus on an API for dealers and partners",
+                "answerText": "Use Google App Engine with Google Cloud Endpoints. Focus on an API for dealers and partners",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use Google App Engine with a JAX-RS Jersey Java-based framework. Focus on an API for the public",
+                "answerText": "Use Google App Engine with a JAX-RS Jersey Java-based framework. Focus on an API for the public",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use Google App Engine with the Swagger (Open API Specification) framework. Focus on an API for the public",
+                "answerText": "Use Google App Engine with the Swagger (Open API Specification) framework. Focus on an API for the public",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Google Container Engine with a Django Python container. Focus on an API for the public",
+                "answerText": "Use Google Container Engine with a Django Python container. Focus on an API for the public",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Use Google Container Engine with a Tomcat container with the Swagger (Open API Specification) framework. Focus on an API for dealers and partners",
+                "answerText": "Use Google Container Engine with a Tomcat container with the Swagger (Open API Specification) framework. Focus on an API for dealers and partners",
                 "isCorrect": false
             }
         ],
@@ -5760,19 +5756,19 @@ const examLibrary = [
         "questionText": "Your development team has created a structured API to retrieve vehicle data. They want to allow third parties to develop tools for dealerships that use this vehicle event data. You want to support delegated authorization against this data.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Build or leverage an OAuth-compatible access control system",
+                "answerText": "Build or leverage an OAuth-compatible access control system",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Build SAML 2.0 SSO compatibility into your authentication system",
+                "answerText": "Build SAML 2.0 SSO compatibility into your authentication system",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Restrict data access based on the source IP address of the partner systems",
+                "answerText": "Restrict data access based on the source IP address of the partner systems",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create secondary credentials for each dealer that can be given to the trusted third party",
+                "answerText": "Create secondary credentials for each dealer that can be given to the trusted third party",
                 "isCorrect": false
             }
         ],
@@ -5783,19 +5779,19 @@ const examLibrary = [
         "questionText": "TerramEarth plans to connect all 20 million vehicles in the field to the cloud. This increases the volume to 20 million 600 byte records a second for 40 TB an hour.How should you design the data ingestion?",
         "answerOptions": [
             {
-                "answerText": "A. Vehicles write data directly to GCS",
+                "answerText": "Vehicles write data directly to GCS",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Vehicles write data directly to Google Cloud Pub/Sub",
+                "answerText": "Vehicles write data directly to Google Cloud Pub/Sub",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Vehicles stream data directly to Google BigQuery",
+                "answerText": "Vehicles stream data directly to Google BigQuery",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Vehicles continue to write data using the existing system (FTP)",
+                "answerText": "Vehicles continue to write data using the existing system (FTP)",
                 "isCorrect": false
             }
         ],
@@ -5806,19 +5802,19 @@ const examLibrary = [
         "questionText": "You analyzed TerramEarth's business requirement to reduce downtime, and found that they can achieve a majority of time saving by reducing customer's wait time for parts. You decided to focus on reduction of the 3 weeks aggregate reporting time.Which modifications to the company's processes should you recommend?",
         "answerOptions": [
             {
-                "answerText": "A. Migrate from CSV to binary format, migrate from FTP to SFTP transport, and develop machine learning analysis of metrics",
+                "answerText": "Migrate from CSV to binary format, migrate from FTP to SFTP transport, and develop machine learning analysis of metrics",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Migrate from FTP to streaming transport, migrate from CSV to binary format, and develop machine learning analysis of metrics",
+                "answerText": "Migrate from FTP to streaming transport, migrate from CSV to binary format, and develop machine learning analysis of metrics",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Increase fleet cellular connectivity to 80%, migrate from FTP to streaming transport, and develop machine learning analysis of metrics",
+                "answerText": "Increase fleet cellular connectivity to 80%, migrate from FTP to streaming transport, and develop machine learning analysis of metrics",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Migrate from FTP to SFTP transport, develop machine learning analysis of metrics, and increase dealer local inventory by a fixed factor",
+                "answerText": "Migrate from FTP to SFTP transport, develop machine learning analysis of metrics, and increase dealer local inventory by a fixed factor",
                 "isCorrect": false
             }
         ],
@@ -5829,19 +5825,19 @@ const examLibrary = [
         "questionText": "Which of TerramEarth's legacy enterprise processes will experience significant change as a result of increased Google Cloud Platform adoption?",
         "answerOptions": [
             {
-                "answerText": "A. Opex/capex allocation, LAN changes, capacity planning",
+                "answerText": "Opex/capex allocation, LAN changes, capacity planning",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Capacity planning, TCO calculations, opex/capex allocation",
+                "answerText": "Capacity planning, TCO calculations, opex/capex allocation",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Capacity planning, utilization measurement, data center expansion",
+                "answerText": "Capacity planning, utilization measurement, data center expansion",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Data Center expansion, TCO calculations, utilization measurement",
+                "answerText": "Data Center expansion, TCO calculations, utilization measurement",
                 "isCorrect": false
             }
         ],
@@ -5852,19 +5848,19 @@ const examLibrary = [
         "questionText": "To speed up data retrieval, more vehicles will be upgraded to cellular connections and be able to transmit data to the ETL process. The current FTP process is error-prone and restarts the data transfer from the start of the file when connections fail, which happens often. You want to improve the reliability of the solution and minimize data transfer time on the cellular connections.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use one Google Container Engine cluster of FTP servers. Save the data to a Multi-Regional bucket. Run the ETL process using data in the bucket",
+                "answerText": "Use one Google Container Engine cluster of FTP servers. Save the data to a Multi-Regional bucket. Run the ETL process using data in the bucket",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use multiple Google Container Engine clusters running FTP servers located in different regions. Save the data to Multi-Regional buckets in US, EU, and Asia. Run the ETL process using the data in the bucket",
+                "answerText": "Use multiple Google Container Engine clusters running FTP servers located in different regions. Save the data to Multi-Regional buckets in US, EU, and Asia. Run the ETL process using the data in the bucket",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Directly transfer the files to different Google Cloud Multi-Regional Storage bucket locations in US, EU, and Asia using Google APIs over HTTP(S). Run the ETL process using the data in the bucket",
+                "answerText": "Directly transfer the files to different Google Cloud Multi-Regional Storage bucket locations in US, EU, and Asia using Google APIs over HTTP(S). Run the ETL process using the data in the bucket",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Directly transfer the files to a different Google Cloud Regional Storage bucket location in US, EU, and Asia using Google APIs over HTTP(S). Run the ETL process to retrieve the data from each Regional bucket",
+                "answerText": "Directly transfer the files to a different Google Cloud Regional Storage bucket location in US, EU, and Asia using Google APIs over HTTP(S). Run the ETL process to retrieve the data from each Regional bucket",
                 "isCorrect": true
             }
         ],
@@ -5875,19 +5871,19 @@ const examLibrary = [
         "questionText": "TerramEarth's 20 million vehicles are scattered around the world. Based on the vehicle's location, its telemetry data is stored in a Google Cloud Storage (GCS) regional bucket (US, Europe, or Asia). The CTO has asked you to run a report on the raw telemetry data to determine why vehicles are breaking down after 100 K miles. You want to run this job on all the data.What is the most cost-effective way to run this job?",
         "answerOptions": [
             {
-                "answerText": "A. Move all the data into 1 zone, then launch a Cloud Dataproc cluster to run the job",
+                "answerText": "Move all the data into 1 zone, then launch a Cloud Dataproc cluster to run the job",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Move all the data into 1 region, then launch a Google Cloud Dataproc cluster to run the job",
+                "answerText": "Move all the data into 1 region, then launch a Google Cloud Dataproc cluster to run the job",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Launch a cluster in each region to preprocess and compress the raw data, then move the data into a multi-region bucket and use a Dataproc cluster to finish the job",
+                "answerText": "Launch a cluster in each region to preprocess and compress the raw data, then move the data into a multi-region bucket and use a Dataproc cluster to finish the job",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Launch a cluster in each region to preprocess and compress the raw data, then move the data into a region bucket and use a Cloud Dataproc cluster to finish the job",
+                "answerText": "Launch a cluster in each region to preprocess and compress the raw data, then move the data into a region bucket and use a Cloud Dataproc cluster to finish the job",
                 "isCorrect": true
             }
         ],
@@ -5898,19 +5894,19 @@ const examLibrary = [
         "questionText": "TerramEarth has equipped all connected trucks with servers and sensors to collect telemetry data. Next year they want to use the data to train machine learning models. They want to store this data in the cloud while reducing costs.What should they do?",
         "answerOptions": [
             {
-                "answerText": "A. Have the vehicle's computer compress the data in hourly snapshots, and store it in a Google Cloud Storage (GCS) Nearline bucket",
+                "answerText": "Have the vehicle's computer compress the data in hourly snapshots, and store it in a Google Cloud Storage (GCS) Nearline bucket",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Push the telemetry data in real-time to a streaming dataflow job that compresses the data, and store it in Google BigQuery",
+                "answerText": "Push the telemetry data in real-time to a streaming dataflow job that compresses the data, and store it in Google BigQuery",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Push the telemetry data in real-time to a streaming dataflow job that compresses the data, and store it in Cloud Bigtable",
+                "answerText": "Push the telemetry data in real-time to a streaming dataflow job that compresses the data, and store it in Cloud Bigtable",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Have the vehicle's computer compress the data in hourly snapshots, and store it in a GCS Coldline bucket",
+                "answerText": "Have the vehicle's computer compress the data in hourly snapshots, and store it in a GCS Coldline bucket",
                 "isCorrect": true
             }
         ],
@@ -5921,27 +5917,27 @@ const examLibrary = [
         "questionText": "Your agricultural division is experimenting with fully autonomous vehicles. You want your architecture to promote strong security during vehicle operation.Which two architectures should you consider? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Treat every micro service call between modules on the vehicle as untrusted.",
+                "answerText": "Treat every micro service call between modules on the vehicle as untrusted.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Require IPv6 for connectivity to ensure a secure address space.",
+                "answerText": "Require IPv6 for connectivity to ensure a secure address space.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use a trusted platform module (TPM) and verify firmware and binaries on boot.",
+                "answerText": "Use a trusted platform module (TPM) and verify firmware and binaries on boot.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Use a functional programming language to isolate code execution cycles.",
+                "answerText": "Use a functional programming language to isolate code execution cycles.",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Use multiple connectivity subsystems for redundancy.",
+                "answerText": "Use multiple connectivity subsystems for redundancy.",
                 "isCorrect": false
             },
             {
-                "answerText": "F. Enclose the vehicle's drive electronics in a Faraday cage to isolate chips.",
+                "answerText": "Enclose the vehicle's drive electronics in a Faraday cage to isolate chips.",
                 "isCorrect": false
             }
         ],
@@ -5952,19 +5948,19 @@ const examLibrary = [
         "questionText": "Operational parameters such as oil pressure are adjustable on each of TerramEarth's vehicles to increase their efficiency, depending on their environmental conditions. Your primary goal is to increase the operating efficiency of all 20 million cellular and unconnected vehicles in the field.How can you accomplish this goal?",
         "answerOptions": [
             {
-                "answerText": "A. Have you engineers inspect the data for patterns, and then create an algorithm with rules that make operational adjustments automatically",
+                "answerText": "Have you engineers inspect the data for patterns, and then create an algorithm with rules that make operational adjustments automatically",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Capture all operating data, train machine learning models that identify ideal operations, and run locally to make operational adjustments automatically",
+                "answerText": "Capture all operating data, train machine learning models that identify ideal operations, and run locally to make operational adjustments automatically",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Implement a Google Cloud Dataflow streaming job with a sliding window, and use Google Cloud Messaging (GCM) to make operational adjustments automatically",
+                "answerText": "Implement a Google Cloud Dataflow streaming job with a sliding window, and use Google Cloud Messaging (GCM) to make operational adjustments automatically",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Capture all operating data, train machine learning models that identify ideal operations, and host in Google Cloud Machine Learning (ML) Platform to make operational adjustments automatically",
+                "answerText": "Capture all operating data, train machine learning models that identify ideal operations, and host in Google Cloud Machine Learning (ML) Platform to make operational adjustments automatically",
                 "isCorrect": false
             }
         ],
@@ -5975,19 +5971,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. To be compliant with European GDPR regulation, TerramEarth is required to delete data generated from itsEuropean customers after a period of 36 months when it contains personal data. In the new architecture, this data will be stored in both Cloud Storage andBigQuery. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a BigQuery table for the European data, and set the table retention period to 36 months. For Cloud Storage, use gsutil to enable lifecycle management using a DELETE action with an Age condition of 36 months.",
+                "answerText": "Create a BigQuery table for the European data, and set the table retention period to 36 months. For Cloud Storage, use gsutil to enable lifecycle management using a DELETE action with an Age condition of 36 months.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a BigQuery table for the European data, and set the table retention period to 36 months. For Cloud Storage, use gsutil to create a SetStorageClass to NONE action when with an Age condition of 36 months.",
+                "answerText": "Create a BigQuery table for the European data, and set the table retention period to 36 months. For Cloud Storage, use gsutil to create a SetStorageClass to NONE action when with an Age condition of 36 months.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a BigQuery time-partitioned table for the European data, and set the partition expiration period to 36 months. For Cloud Storage, use gsutil to enable lifecycle management using a DELETE action with an Age condition of 36 months.",
+                "answerText": "Create a BigQuery time-partitioned table for the European data, and set the partition expiration period to 36 months. For Cloud Storage, use gsutil to enable lifecycle management using a DELETE action with an Age condition of 36 months.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a BigQuery time-partitioned table for the European data, and set the partition expiration  period to 36 months. For Cloud Storage, use gsutil to create a SetStorageClass to NONE action with an Age condition of 36 months.",
+                "answerText": "Create a BigQuery time-partitioned table for the European data, and set the partition expiration  period to 36 months. For Cloud Storage, use gsutil to create a SetStorageClass to NONE action with an Age condition of 36 months.",
                 "isCorrect": false
             }
         ],
@@ -5998,19 +5994,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. TerramEarth has decided to store data files in Cloud Storage. You need to configure Cloud Storage lifecycle rule to store 1 year of data and minimize file storage cost.Which two actions should you take?",
         "answerOptions": [
             {
-                "answerText": "A. Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac30\u05d2\u20ac, Storage Class: \u05d2\u20acStandard\u05d2\u20ac, and Action: \u05d2\u20acSet to Coldline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac365\u05d2\u20ac, Storage Class: \u05d2\u20acColdline\u05d2\u20ac, and Action: \u05d2\u20acDelete\u05d2\u20ac.",
+                "answerText": "Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac30\u05d2\u20ac, Storage Class: \u05d2\u20acStandard\u05d2\u20ac, and Action: \u05d2\u20acSet to Coldline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac365\u05d2\u20ac, Storage Class: \u05d2\u20acColdline\u05d2\u20ac, and Action: \u05d2\u20acDelete\u05d2\u20ac.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac30\u05d2\u20ac, Storage Class: \u05d2\u20acColdline\u05d2\u20ac, and Action: \u05d2\u20acSet to Nearline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac91\u05d2\u20ac, Storage Class: \u05d2\u20acColdline\u05d2\u20ac, and Action: \u05d2\u20acSet to Nearline\u05d2\u20ac.",
+                "answerText": "Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac30\u05d2\u20ac, Storage Class: \u05d2\u20acColdline\u05d2\u20ac, and Action: \u05d2\u20acSet to Nearline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac91\u05d2\u20ac, Storage Class: \u05d2\u20acColdline\u05d2\u20ac, and Action: \u05d2\u20acSet to Nearline\u05d2\u20ac.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac90\u05d2\u20ac, Storage Class: \u05d2\u20acStandard\u05d2\u20ac, and Action: \u05d2\u20acSet to Nearline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac91\u05d2\u20ac, Storage Class: \u05d2\u20acNearline\u05d2\u20ac, and Action: \u05d2\u20acSet to Coldline\u05d2\u20ac.",
+                "answerText": "Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac90\u05d2\u20ac, Storage Class: \u05d2\u20acStandard\u05d2\u20ac, and Action: \u05d2\u20acSet to Nearline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac91\u05d2\u20ac, Storage Class: \u05d2\u20acNearline\u05d2\u20ac, and Action: \u05d2\u20acSet to Coldline\u05d2\u20ac.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac30\u05d2\u20ac, Storage Class: \u05d2\u20acStandard\u05d2\u20ac, and Action: \u05d2\u20acSet to Coldline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac365\u05d2\u20ac, Storage Class: \u05d2\u20acNearline\u05d2\u20ac, and Action: \u05d2\u20acDelete\u05d2\u20ac.",
+                "answerText": "Create a Cloud Storage lifecycle rule with Age: \u05d2\u20ac30\u05d2\u20ac, Storage Class: \u05d2\u20acStandard\u05d2\u20ac, and Action: \u05d2\u20acSet to Coldline\u05d2\u20ac, and create a second GCS life-cycle rule with Age: \u05d2\u20ac365\u05d2\u20ac, Storage Class: \u05d2\u20acNearline\u05d2\u20ac, and Action: \u05d2\u20acDelete\u05d2\u20ac.",
                 "isCorrect": false
             }
         ],
@@ -6021,19 +6017,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. You need to implement a reliable, scalable GCP solution for the data warehouse for your company,TerramEarth.Considering the TerramEarth business and technical requirements, what should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Replace the existing data warehouse with BigQuery. Use table partitioning.",
+                "answerText": "Replace the existing data warehouse with BigQuery. Use table partitioning.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Replace the existing data warehouse with a Compute Engine instance with 96 CPUs.",
+                "answerText": "Replace the existing data warehouse with a Compute Engine instance with 96 CPUs.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Replace the existing data warehouse with BigQuery. Use federated data sources.",
+                "answerText": "Replace the existing data warehouse with BigQuery. Use federated data sources.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Replace the existing data warehouse with a Compute Engine instance with 96 CPUs. Add an additional Compute Engine preemptible instance with 32 CPUs.",
+                "answerText": "Replace the existing data warehouse with a Compute Engine instance with 96 CPUs. Add an additional Compute Engine preemptible instance with 32 CPUs.",
                 "isCorrect": false
             }
         ],
@@ -6044,19 +6040,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. A new architecture that writes all incoming data to BigQuery has been introduced. You notice that the data is dirty, and want to ensure data quality on an automated daily basis while managing cost.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Set up a streaming Cloud Dataflow job, receiving data by the ingestion process. Clean the data in a Cloud Dataflow pipeline.",
+                "answerText": "Set up a streaming Cloud Dataflow job, receiving data by the ingestion process. Clean the data in a Cloud Dataflow pipeline.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a Cloud Function that reads data from BigQuery and cleans it. Trigger the Cloud Function from a Compute Engine instance.",
+                "answerText": "Create a Cloud Function that reads data from BigQuery and cleans it. Trigger the Cloud Function from a Compute Engine instance.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a SQL statement on the data in BigQuery, and save it as a view. Run the view daily, and save the result to a new table.",
+                "answerText": "Create a SQL statement on the data in BigQuery, and save it as a view. Run the view daily, and save the result to a new table.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Cloud Dataprep and configure the BigQuery tables as the source. Schedule a daily job to clean the data.",
+                "answerText": "Use Cloud Dataprep and configure the BigQuery tables as the source. Schedule a daily job to clean the data.",
                 "isCorrect": true
             }
         ],
@@ -6067,19 +6063,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. Considering the technical requirements, how should you reduce the unplanned vehicle downtime in GCP?",
         "answerOptions": [
             {
-                "answerText": "A. Use BigQuery as the data warehouse. Connect all vehicles to the network and stream data into BigQuery using Cloud Pub/Sub and Cloud Dataflow. Use Google Data Studio for analysis and reporting.",
+                "answerText": "Use BigQuery as the data warehouse. Connect all vehicles to the network and stream data into BigQuery using Cloud Pub/Sub and Cloud Dataflow. Use Google Data Studio for analysis and reporting.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use BigQuery as the data warehouse. Connect all vehicles to the network and upload gzip files to a Multi-Regional Cloud Storage bucket using gcloud. Use Google Data Studio for analysis and reporting.",
+                "answerText": "Use BigQuery as the data warehouse. Connect all vehicles to the network and upload gzip files to a Multi-Regional Cloud Storage bucket using gcloud. Use Google Data Studio for analysis and reporting.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use Cloud Dataproc Hive as the data warehouse. Upload gzip files to a Multi-Regional Cloud Storage bucket. Upload this data into BigQuery using gcloud. Use Google Data Studio for analysis and reporting.",
+                "answerText": "Use Cloud Dataproc Hive as the data warehouse. Upload gzip files to a Multi-Regional Cloud Storage bucket. Upload this data into BigQuery using gcloud. Use Google Data Studio for analysis and reporting.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use Cloud Dataproc Hive as the data warehouse. Directly stream data into partitioned Hive tables. Use Pig scripts to analyze data.",
+                "answerText": "Use Cloud Dataproc Hive as the data warehouse. Directly stream data into partitioned Hive tables. Use Pig scripts to analyze data.",
                 "isCorrect": false
             }
         ],
@@ -6090,19 +6086,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. You are asked to design a new architecture for the ingestion of the data of the 200,000 vehicles that are connected to a cellular network. You want to follow Google-recommended practices.Considering the technical requirements, which components should you use for the ingestion of the data?",
         "answerOptions": [
             {
-                "answerText": "A. Google Kubernetes Engine with an SSL Ingress",
+                "answerText": "Google Kubernetes Engine with an SSL Ingress",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Cloud IoT Core with public/private key pairs",
+                "answerText": "Cloud IoT Core with public/private key pairs",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Compute Engine with project-wide SSH keys",
+                "answerText": "Compute Engine with project-wide SSH keys",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Compute Engine with specific SSH keys",
+                "answerText": "Compute Engine with specific SSH keys",
                 "isCorrect": false
             }
         ],
@@ -6113,19 +6109,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. You start to build a new application that uses a few Cloud Functions for the backend. One use case requires a Cloud Function func_display to invoke another Cloud Function func_query. You want func_query only to accept invocations from func_display. You also want to follow Google's recommended best practices. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a token and pass it in as an environment variable to func_display. When invoking func_query, include the token in the request. Pass the same token to func_query and reject the invocation if the tokens are different.",
+                "answerText": "Create a token and pass it in as an environment variable to func_display. When invoking func_query, include the token in the request. Pass the same token to func_query and reject the invocation if the tokens are different.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Make func_query 'Require authentication.' Create a unique service account and associate it to func_display. Grant the service account invoker role for func_query. Create an id token in func_display and include the token to the request when invoking func_query.",
+                "answerText": "Make func_query 'Require authentication.' Create a unique service account and associate it to func_display. Grant the service account invoker role for func_query. Create an id token in func_display and include the token to the request when invoking func_query.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Make func_query 'Require authentication' and only accept internal traffic. Create those two functions in the same VPC. Create an ingress firewall rule for func_query to only allow traffic from func_display.",
+                "answerText": "Make func_query 'Require authentication' and only accept internal traffic. Create those two functions in the same VPC. Create an ingress firewall rule for func_query to only allow traffic from func_display.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create those two functions in the same project and VPC. Make func_query only accept internal traffic. Create an ingress firewall for func_query to only allow traffic from func_display. Also, make sure both functions use the same service account.",
+                "answerText": "Create those two functions in the same project and VPC. Make func_query only accept internal traffic. Create an ingress firewall for func_query to only allow traffic from func_display. Also, make sure both functions use the same service account.",
                 "isCorrect": false
             }
         ],
@@ -6136,19 +6132,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. You have broken down a legacy monolithic application into a few containerized RESTful microservices.You want to run those microservices on Cloud Run. You also want to make sure the services are highly available with low latency to your customers. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Deploy Cloud Run services to multiple availability zones. Create Cloud Endpoints that point to the services. Create a global HTTP(S) Load Balancing instance and attach the Cloud Endpoints to its backend.",
+                "answerText": "Deploy Cloud Run services to multiple availability zones. Create Cloud Endpoints that point to the services. Create a global HTTP(S) Load Balancing instance and attach the Cloud Endpoints to its backend.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Deploy Cloud Run services to multiple regions. Create serverless network endpoint groups pointing to the services. Add the serverless NEGs to a backend service that is used by a global HTTP(S) Load Balancing instance.",
+                "answerText": "Deploy Cloud Run services to multiple regions. Create serverless network endpoint groups pointing to the services. Add the serverless NEGs to a backend service that is used by a global HTTP(S) Load Balancing instance.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Deploy Cloud Run services to multiple regions. In Cloud DNS, create a latency-based DNS name that points to the services.",
+                "answerText": "Deploy Cloud Run services to multiple regions. In Cloud DNS, create a latency-based DNS name that points to the services.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Deploy Cloud Run services to multiple availability zones. Create a TCP/IP global load balancer. Add the Cloud Run Endpoints to its backend service.",
+                "answerText": "Deploy Cloud Run services to multiple availability zones. Create a TCP/IP global load balancer. Add the Cloud Run Endpoints to its backend service.",
                 "isCorrect": false
             }
         ],
@@ -6159,23 +6155,23 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. You are migrating a Linux-based application from your private data center to Google Cloud. TheTerramEarth security team sent you several recent Linux vulnerabilities published by Common Vulnerabilities and Exposures (CVE). You need assistance in understanding how these vulnerabilities could impact your migration. What should you do? (Choose two.)",
         "answerOptions": [
             {
-                "answerText": "A. Open a support case regarding the CVE and chat with the support engineer.",
+                "answerText": "Open a support case regarding the CVE and chat with the support engineer.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Read the CVEs from the Google Cloud Status Dashboard to understand the impact.",
+                "answerText": "Read the CVEs from the Google Cloud Status Dashboard to understand the impact.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Read the CVEs from the Google Cloud Platform Security Bulletins to understand the impact.",
+                "answerText": "Read the CVEs from the Google Cloud Platform Security Bulletins to understand the impact.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Post a question regarding the CVE in Stack Overflow to get an explanation.",
+                "answerText": "Post a question regarding the CVE in Stack Overflow to get an explanation.",
                 "isCorrect": false
             },
             {
-                "answerText": "E. Post a question regarding the CVE in a Google Cloud discussion group to get an explanation.",
+                "answerText": "Post a question regarding the CVE in a Google Cloud discussion group to get an explanation.",
                 "isCorrect": false
             }
         ],
@@ -6186,19 +6182,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. TerramEarth has a legacy web application that you cannot migrate to cloud. However, you still want to build a cloud-native way to monitor the application. If the application goes down, you want the URL to point to a \"Site is unavailable\" page as soon as possible. You also want your Ops team to receive a notification for the issue. You need to build a reliable solution for minimum cost. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Create a scheduled job in Cloud Run to invoke a container every minute. The container will check the application URL. If the application is down, switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
+                "answerText": "Create a scheduled job in Cloud Run to invoke a container every minute. The container will check the application URL. If the application is down, switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a cron job on a Compute Engine VM that runs every minute. The cron job invokes a Python program to check the application URL. If the application is down, switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
+                "answerText": "Create a cron job on a Compute Engine VM that runs every minute. The cron job invokes a Python program to check the application URL. If the application is down, switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a Cloud Monitoring uptime check to validate the application URL. If it fails, put a message in a Pub/Sub queue that triggers a Cloud Function to switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
+                "answerText": "Create a Cloud Monitoring uptime check to validate the application URL. If it fails, put a message in a Pub/Sub queue that triggers a Cloud Function to switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Use Cloud Error Reporting to check the application URL. If the application is down, switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
+                "answerText": "Use Cloud Error Reporting to check the application URL. If the application is down, switch the URL to the \"Site is unavailable\" page, and notify the Ops team.",
                 "isCorrect": false
             }
         ],
@@ -6209,19 +6205,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. You are building a microservice-based application for TerramEarth. The application is based on Docker containers. You want to follow Google-recommended practices to build the application continuously and store the build artifacts. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Configure a trigger in Cloud Build for new source changes. Invoke Cloud Build to build container images for each microservice, and tag them using the code commit hash. Push the images to the Container Registry.",
+                "answerText": "Configure a trigger in Cloud Build for new source changes. Invoke Cloud Build to build container images for each microservice, and tag them using the code commit hash. Push the images to the Container Registry.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Configure a trigger in Cloud Build for new source changes. The trigger invokes build jobs and build container images for the microservices. Tag the images with a version number, and push them to Cloud Storage.",
+                "answerText": "Configure a trigger in Cloud Build for new source changes. The trigger invokes build jobs and build container images for the microservices. Tag the images with a version number, and push them to Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a Scheduler job to check the repo every minute. For any new change, invoke Cloud Build to build container images for the microservices. Tag the images using the current timestamp, and push them to the Container Registry.",
+                "answerText": "Create a Scheduler job to check the repo every minute. For any new change, invoke Cloud Build to build container images for the microservices. Tag the images using the current timestamp, and push them to the Container Registry.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure a trigger in Cloud Build for new source changes. Invoke Cloud Build to build one container image, and tag the image with the label 'latest.' Push the image to the Container Registry.",
+                "answerText": "Configure a trigger in Cloud Build for new source changes. Invoke Cloud Build to build one container image, and tag the image with the label 'latest.' Push the image to the Container Registry.",
                 "isCorrect": false
             }
         ],
@@ -6232,19 +6228,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the TerramEarth case study. TerramEarth has about 1 petabyte (PB) of vehicle testing data in a private data center. You want to move the data to Cloud Storage for your machine learning team. Currently, a 1-Gbps interconnect link is available for you. The machine learning team wants to start using the data in a month. What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Request Transfer Appliances from Google Cloud, export the data to appliances, and return the appliances to Google Cloud.",
+                "answerText": "Request Transfer Appliances from Google Cloud, export the data to appliances, and return the appliances to Google Cloud.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Configure the Storage Transfer service from Google Cloud to send the data from your data center to Cloud Storage.",
+                "answerText": "Configure the Storage Transfer service from Google Cloud to send the data from your data center to Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Make sure there are no other users consuming the 1Gbps link, and use multi-thread transfer to upload the data to Cloud Storage.",
+                "answerText": "Make sure there are no other users consuming the 1Gbps link, and use multi-thread transfer to upload the data to Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Export files to an encrypted USB device, send the device to Google Cloud, and request an import of the data to Cloud Storage.",
+                "answerText": "Export files to an encrypted USB device, send the device to Google Cloud, and request an import of the data to Cloud Storage.",
                 "isCorrect": false
             }
         ],
@@ -6255,19 +6251,19 @@ const examLibrary = [
         "questionText": "The Dress4Win security team has disabled external SSH access into production virtual machines (VMs) on Google Cloud Platform (GCP).The operations team needs to remotely manage the VMs, build and push Docker containers, and manage Google Cloud Storage objects.What can they do?",
         "answerOptions": [
             {
-                "answerText": "A. Grant the operations engineer access to use Google Cloud Shell.",
+                "answerText": "Grant the operations engineer access to use Google Cloud Shell.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Configure a VPN connection to GCP to allow SSH access to the cloud VMs.",
+                "answerText": "Configure a VPN connection to GCP to allow SSH access to the cloud VMs.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Develop a new access request process that grants temporary SSH access to cloud VMs when an operations engineer needs to perform a task.",
+                "answerText": "Develop a new access request process that grants temporary SSH access to cloud VMs when an operations engineer needs to perform a task.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Have the development team build an API service that allows the operations team to execute specific remote procedure calls to accomplish their tasks.",
+                "answerText": "Have the development team build an API service that allows the operations team to execute specific remote procedure calls to accomplish their tasks.",
                 "isCorrect": false
             }
         ],
@@ -6278,19 +6274,19 @@ const examLibrary = [
         "questionText": "At Dress4Win, an operations engineer wants to create a tow-cost solution to remotely archive copies of database backup files.The database files are compressed tar files stored in their current data center.How should he proceed?",
         "answerOptions": [
             {
-                "answerText": "A. Create a cron script using gsutil to copy the files to a Coldline Storage bucket.",
+                "answerText": "Create a cron script using gsutil to copy the files to a Coldline Storage bucket.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Create a cron script using gsutil to copy the files to a Regional Storage bucket.",
+                "answerText": "Create a cron script using gsutil to copy the files to a Regional Storage bucket.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Create a Cloud Storage Transfer Service Job to copy the files to a Coldline Storage bucket.",
+                "answerText": "Create a Cloud Storage Transfer Service Job to copy the files to a Coldline Storage bucket.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Create a Cloud Storage Transfer Service job to copy the files to a Regional Storage bucket.",
+                "answerText": "Create a Cloud Storage Transfer Service job to copy the files to a Regional Storage bucket.",
                 "isCorrect": false
             }
         ],
@@ -6301,19 +6297,19 @@ const examLibrary = [
         "questionText": "Dress4Win has asked you to recommend machine types they should deploy their application servers to.How should you proceed?",
         "answerOptions": [
             {
-                "answerText": "A. Perform a mapping of the on-premises physical hardware cores and RAM to the nearest machine types in the cloud.",
+                "answerText": "Perform a mapping of the on-premises physical hardware cores and RAM to the nearest machine types in the cloud.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Recommend that Dress4Win deploy application servers to machine types that offer the highest RAM to CPU ratio available.",
+                "answerText": "Recommend that Dress4Win deploy application servers to machine types that offer the highest RAM to CPU ratio available.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Recommend that Dress4Win deploy into production with the smallest instances available, monitor them over time, and scale the machine type up until the desired performance is reached.",
+                "answerText": "Recommend that Dress4Win deploy into production with the smallest instances available, monitor them over time, and scale the machine type up until the desired performance is reached.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Identify the number of virtual cores and RAM associated with the application server virtual machines align them to a custom machine type in the cloud, monitor performance, and scale the machine types up until the desired performance is reached.",
+                "answerText": "Identify the number of virtual cores and RAM associated with the application server virtual machines align them to a custom machine type in the cloud, monitor performance, and scale the machine types up until the desired performance is reached.",
                 "isCorrect": true
             }
         ],
@@ -6324,19 +6320,19 @@ const examLibrary = [
         "questionText": "As part of Dress4Win's plans to migrate to the cloud, they want to be able to set up a managed logging and monitoring system so they can handle spikes in their traffic load.They want to ensure that:* The infrastructure can be notified when it needs to scale up and down to handle the ebb and flow of usage throughout the day* Their administrators are notified automatically when their application reports errors.* They can filter their aggregated logs down in order to debug one piece of the application across many hostsWhich Google StackDriver features should they use?",
         "answerOptions": [
             {
-                "answerText": "A. Logging, Alerts, Insights, Debug",
+                "answerText": "Logging, Alerts, Insights, Debug",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Monitoring, Trace, Debug, Logging",
+                "answerText": "Monitoring, Trace, Debug, Logging",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Monitoring, Logging, Alerts, Error Reporting",
+                "answerText": "Monitoring, Logging, Alerts, Error Reporting",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Monitoring, Logging, Debug, Error Report",
+                "answerText": "Monitoring, Logging, Debug, Error Report",
                 "isCorrect": false
             }
         ],
@@ -6347,19 +6343,19 @@ const examLibrary = [
         "questionText": "Dress4Win would like to become familiar with deploying applications to the cloud by successfully deploying some applications quickly, as is. They have asked for your recommendation.What should you advise?",
         "answerOptions": [
             {
-                "answerText": "A. Identify self-contained applications with external dependencies as a first move to the cloud.",
+                "answerText": "Identify self-contained applications with external dependencies as a first move to the cloud.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Identify enterprise applications with internal dependencies and recommend these as a first move to the cloud.",
+                "answerText": "Identify enterprise applications with internal dependencies and recommend these as a first move to the cloud.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Suggest moving their in-house databases to the cloud and continue serving requests to on-premise applications.",
+                "answerText": "Suggest moving their in-house databases to the cloud and continue serving requests to on-premise applications.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Recommend moving their message queuing servers to the cloud and continue handling requests to on-premise applications.",
+                "answerText": "Recommend moving their message queuing servers to the cloud and continue handling requests to on-premise applications.",
                 "isCorrect": false
             }
         ],
@@ -6370,19 +6366,19 @@ const examLibrary = [
         "questionText": "Dress4Win has asked you for advice on how to migrate their on-premises MySQL deployment to the cloud.They want to minimize downtime and performance impact to their on-premises solution during the migration.Which approach should you recommend?",
         "answerOptions": [
             {
-                "answerText": "A. Create a dump of the on-premises MySQL master server, and then shut it down, upload it to the cloud environment, and load into a new MySQL cluster.",
+                "answerText": "Create a dump of the on-premises MySQL master server, and then shut it down, upload it to the cloud environment, and load into a new MySQL cluster.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Setup a MySQL replica server/slave in the cloud environment, and configure it for asynchronous replication from the MySQL master server on-premises until cutover.",
+                "answerText": "Setup a MySQL replica server/slave in the cloud environment, and configure it for asynchronous replication from the MySQL master server on-premises until cutover.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. Create a new MySQL cluster in the cloud, configure applications to begin writing to both on premises and cloud MySQL masters, and destroy the original cluster at cutover.",
+                "answerText": "Create a new MySQL cluster in the cloud, configure applications to begin writing to both on premises and cloud MySQL masters, and destroy the original cluster at cutover.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Create a dump of the MySQL replica server into the cloud environment, load it into: Google Cloud Datastore, and configure applications to read/write to Cloud Datastore at cutover.",
+                "answerText": "Create a dump of the MySQL replica server into the cloud environment, load it into: Google Cloud Datastore, and configure applications to read/write to Cloud Datastore at cutover.",
                 "isCorrect": false
             }
         ],
@@ -6393,19 +6389,19 @@ const examLibrary = [
         "questionText": "Dress4Win has configured a new uptime check with Google Stackdriver for several of their legacy services. The Stackdriver dashboard is not reporting the services as healthy.What should they do?",
         "answerOptions": [
             {
-                "answerText": "A. Install the Stackdriver agent on all of the legacy web servers.",
+                "answerText": "Install the Stackdriver agent on all of the legacy web servers.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. In the Cloud Platform Console download the list of the uptime servers' IP addresses and create an inbound firewall rule",
+                "answerText": "In the Cloud Platform Console download the list of the uptime servers' IP addresses and create an inbound firewall rule",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Configure their load balancer to pass through the User-Agent HTTP header when the value matches GoogleStackdriverMonitoring-UptimeChecks (https:// cloud.google.com/monitoring)",
+                "answerText": "Configure their load balancer to pass through the User-Agent HTTP header when the value matches GoogleStackdriverMonitoring-UptimeChecks (https:// cloud.google.com/monitoring)",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Configure their legacy web servers to allow requests that contain user-Agent HTTP header when the value matches GoogleStackdriverMonitoring- UptimeChecks (https://cloud.google.com/monitoring)",
+                "answerText": "Configure their legacy web servers to allow requests that contain user-Agent HTTP header when the value matches GoogleStackdriverMonitoring- UptimeChecks (https://cloud.google.com/monitoring)",
                 "isCorrect": true
             }
         ],
@@ -6416,19 +6412,19 @@ const examLibrary = [
         "questionText": "As part of their new application experience, Dress4Wm allows customers to upload images of themselves.The customer has exclusive control over who may view these images.Customers should be able to upload images with minimal latency and also be shown their images quickly on the main application page when they log in.Which configuration should Dress4Win use?",
         "answerOptions": [
             {
-                "answerText": "A. Store image files in a Google Cloud Storage bucket. Use Google Cloud Datastore to maintain metadata that maps each customer's ID and their image files.",
+                "answerText": "Store image files in a Google Cloud Storage bucket. Use Google Cloud Datastore to maintain metadata that maps each customer's ID and their image files.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Store image files in a Google Cloud Storage bucket. Add custom metadata to the uploaded images in Cloud Storage that contains the customer's unique ID.",
+                "answerText": "Store image files in a Google Cloud Storage bucket. Add custom metadata to the uploaded images in Cloud Storage that contains the customer's unique ID.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use a distributed file system to store customers' images. As storage needs increase, add more persistent disks and/or nodes. Assign each customer a unique ID, which sets each file's owner attribute, ensuring privacy of images.",
+                "answerText": "Use a distributed file system to store customers' images. As storage needs increase, add more persistent disks and/or nodes. Assign each customer a unique ID, which sets each file's owner attribute, ensuring privacy of images.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use a distributed file system to store customers' images. As storage needs increase, add more persistent disks and/or nodes. Use a Google Cloud SQL database to maintain metadata that maps each customer's ID to their image files.",
+                "answerText": "Use a distributed file system to store customers' images. As storage needs increase, add more persistent disks and/or nodes. Use a Google Cloud SQL database to maintain metadata that maps each customer's ID to their image files.",
                 "isCorrect": false
             }
         ],
@@ -6439,19 +6435,19 @@ const examLibrary = [
         "questionText": "Dress4Win has end-to-end tests covering 100% of their endpoints.They want to ensure that the move to the cloud does not introduce any new bugs.Which additional testing methods should the developers employ to prevent an outage?",
         "answerOptions": [
             {
-                "answerText": "A. They should enable Google Stackdriver Debugger on the application code to show errors in the code.",
+                "answerText": "They should enable Google Stackdriver Debugger on the application code to show errors in the code.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. They should add additional unit tests and production scale load tests on their cloud staging environment.",
+                "answerText": "They should add additional unit tests and production scale load tests on their cloud staging environment.",
                 "isCorrect": true
             },
             {
-                "answerText": "C. They should run the end-to-end tests in the cloud staging environment to determine if the code is working as intended.",
+                "answerText": "They should run the end-to-end tests in the cloud staging environment to determine if the code is working as intended.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. They should add canary tests so developers can measure how much of an impact the new release causes to latency.",
+                "answerText": "They should add canary tests so developers can measure how much of an impact the new release causes to latency.",
                 "isCorrect": false
             }
         ],
@@ -6462,19 +6458,19 @@ const examLibrary = [
         "questionText": "You want to ensure Dress4Win's sales and tax records remain available for infrequent viewing by auditors for at least 10 years.Cost optimization is your top priority.Which cloud services should you choose?",
         "answerOptions": [
             {
-                "answerText": "A. Google Cloud Storage Coldline to store the data, and gsutil to access the data.",
+                "answerText": "Google Cloud Storage Coldline to store the data, and gsutil to access the data.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Google Cloud Storage Nearline to store the data, and gsutil to access the data.",
+                "answerText": "Google Cloud Storage Nearline to store the data, and gsutil to access the data.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Google Bigtabte with US or EU as location to store the data, and gcloud to access the data.",
+                "answerText": "Google Bigtabte with US or EU as location to store the data, and gcloud to access the data.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. BigQuery to store the data, and a web server cluster in a managed instance group to access the data. Google Cloud SQL mirrored across two distinct regions to store the data, and a Redis cluster in a managed instance group to access the data.",
+                "answerText": "BigQuery to store the data, and a web server cluster in a managed instance group to access the data. Google Cloud SQL mirrored across two distinct regions to store the data, and a Redis cluster in a managed instance group to access the data.",
                 "isCorrect": false
             }
         ],
@@ -6485,19 +6481,19 @@ const examLibrary = [
         "questionText": "The current Dress4Win system architecture has high latency to some customers because it is located in one data center.As of a future evaluation and optimizing for performance in the cloud, Dresss4Win wants to distribute its system architecture to multiple locations when Google cloud platform.Which approach should they use?",
         "answerOptions": [
             {
-                "answerText": "A. Use regional managed instance groups and a global load balancer to increase performance because the regional managed instance group can grow instances in each region separately based on traffic.",
+                "answerText": "Use regional managed instance groups and a global load balancer to increase performance because the regional managed instance group can grow instances in each region separately based on traffic.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Use a global load balancer with a set of virtual machines that forward the requests to a closer group of virtual machines managed by your operations team.",
+                "answerText": "Use a global load balancer with a set of virtual machines that forward the requests to a closer group of virtual machines managed by your operations team.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Use regional managed instance groups and a global load balancer to increase reliability by providing automatic failover between zones in different regions.",
+                "answerText": "Use regional managed instance groups and a global load balancer to increase reliability by providing automatic failover between zones in different regions.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use a global load balancer with a set of virtual machines that forward the requests to a closer group of virtual machines as part of a separate managed instance groups.",
+                "answerText": "Use a global load balancer with a set of virtual machines that forward the requests to a closer group of virtual machines as part of a separate managed instance groups.",
                 "isCorrect": false
             }
         ],
@@ -6508,19 +6504,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Dress4Win case study. Dress4Win is expected to grow to 10 times its size in 1 year with a corresponding growth in data and traffic that mirrors the existing patterns of usage. The CIO has set the target of migrating production infrastructure to the cloud within the next 6 months. How will you configure the solution to scale for this growth without making major application changes and still maximize the ROI?",
         "answerOptions": [
             {
-                "answerText": "A. Migrate the web application layer to App Engine, and MySQL to Cloud Datastore, and NAS to Cloud Storage. Deploy RabbitMQ, and deploy Hadoop servers using Deployment Manager.",
+                "answerText": "Migrate the web application layer to App Engine, and MySQL to Cloud Datastore, and NAS to Cloud Storage. Deploy RabbitMQ, and deploy Hadoop servers using Deployment Manager.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Migrate RabbitMQ to Cloud Pub/Sub, Hadoop to BigQuery, and NAS to Compute Engine with Persistent Disk storage. Deploy Tomcat, and deploy Nginx using Deployment Manager.",
+                "answerText": "Migrate RabbitMQ to Cloud Pub/Sub, Hadoop to BigQuery, and NAS to Compute Engine with Persistent Disk storage. Deploy Tomcat, and deploy Nginx using Deployment Manager.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Implement managed instance groups for Tomcat and Nginx. Migrate MySQL to Cloud SQL, RabbitMQ to Cloud Pub/Sub, Hadoop to Cloud Dataproc, and NAS to Compute Engine with Persistent Disk storage.",
+                "answerText": "Implement managed instance groups for Tomcat and Nginx. Migrate MySQL to Cloud SQL, RabbitMQ to Cloud Pub/Sub, Hadoop to Cloud Dataproc, and NAS to Compute Engine with Persistent Disk storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Implement managed instance groups for the Tomcat and Nginx. Migrate MySQL to Cloud SQL, RabbitMQ to Cloud Pub/Sub, Hadoop to Cloud Dataproc, and NAS to Cloud Storage.",
+                "answerText": "Implement managed instance groups for the Tomcat and Nginx. Migrate MySQL to Cloud SQL, RabbitMQ to Cloud Pub/Sub, Hadoop to Cloud Dataproc, and NAS to Cloud Storage.",
                 "isCorrect": true
             }
         ],
@@ -6531,19 +6527,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Dress4Win case study. Considering the given business requirements, how would you automate the deployment of web and transactional data layers?",
         "answerOptions": [
             {
-                "answerText": "A. Deploy Nginx and Tomcat using Cloud Deployment Manager to Compute Engine. Deploy a Cloud SQL server to replace MySQL. Deploy Jenkins using Cloud Deployment Manager.",
+                "answerText": "Deploy Nginx and Tomcat using Cloud Deployment Manager to Compute Engine. Deploy a Cloud SQL server to replace MySQL. Deploy Jenkins using Cloud Deployment Manager.",
                 "isCorrect": true
             },
             {
-                "answerText": "B. Deploy Nginx and Tomcat using Cloud Launcher. Deploy a MySQL server using Cloud Launcher. Deploy Jenkins to Compute Engine using Cloud Deployment Manager scripts.",
+                "answerText": "Deploy Nginx and Tomcat using Cloud Launcher. Deploy a MySQL server using Cloud Launcher. Deploy Jenkins to Compute Engine using Cloud Deployment Manager scripts.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Migrate Nginx and Tomcat to App Engine. Deploy a Cloud Datastore server to replace the MySQL server in a high-availability configuration. Deploy Jenkins to Compute Engine using Cloud Launcher.",
+                "answerText": "Migrate Nginx and Tomcat to App Engine. Deploy a Cloud Datastore server to replace the MySQL server in a high-availability configuration. Deploy Jenkins to Compute Engine using Cloud Launcher.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Migrate Nginx and Tomcat to App Engine. Deploy a MySQL server using Cloud Launcher. Deploy Jenkins to Compute Engine using Cloud Launcher.",
+                "answerText": "Migrate Nginx and Tomcat to App Engine. Deploy a MySQL server using Cloud Launcher. Deploy Jenkins to Compute Engine using Cloud Launcher.",
                 "isCorrect": false
             }
         ],
@@ -6554,19 +6550,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Dress4Win case study. Which of the compute services should be migrated as-is and would still be an optimized architecture for performance in the cloud?",
         "answerOptions": [
             {
-                "answerText": "A. Web applications deployed using App Engine standard environment",
+                "answerText": "Web applications deployed using App Engine standard environment",
                 "isCorrect": false
             },
             {
-                "answerText": "B. RabbitMQ deployed using an unmanaged instance group",
+                "answerText": "RabbitMQ deployed using an unmanaged instance group",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Hadoop/Spark deployed using Cloud Dataproc Regional in High Availability mode",
+                "answerText": "Hadoop/Spark deployed using Cloud Dataproc Regional in High Availability mode",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Jenkins, monitoring, bastion hosts, security scanners services deployed on custom machine types",
+                "answerText": "Jenkins, monitoring, bastion hosts, security scanners services deployed on custom machine types",
                 "isCorrect": false
             }
         ],
@@ -6577,19 +6573,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Dress4Win case study. To be legally compliant during an audit, Dress4Win must be able to give insights in all administrative actions that modify the configuration or metadata of resources on Google Cloud.What should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Use Stackdriver Trace to create a Trace list analysis.",
+                "answerText": "Use Stackdriver Trace to create a Trace list analysis.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Use Stackdriver Monitoring to create a dashboard on the project's activity.",
+                "answerText": "Use Stackdriver Monitoring to create a dashboard on the project's activity.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Enable Cloud Identity-Aware Proxy in all projects, and add the group of Administrators as a member.",
+                "answerText": "Enable Cloud Identity-Aware Proxy in all projects, and add the group of Administrators as a member.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Use the Activity page in the GCP Console and Stackdriver Logging to provide the required insight.",
+                "answerText": "Use the Activity page in the GCP Console and Stackdriver Logging to provide the required insight.",
                 "isCorrect": true
             }
         ],
@@ -6600,19 +6596,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Dress4Win case study. You are responsible for the security of data stored in Cloud Storage for your company, Dress4Win. You have already created a set of Google Groups and assigned the appropriate users to those groups. You should use Google best practices and implement the simplest design to meet the requirements.Considering Dress4Win's business and technical requirements, what should you do?",
         "answerOptions": [
             {
-                "answerText": "A. Assign custom IAM roles to the Google Groups you created in order to enforce security requirements. Encrypt data with a customer-supplied encryption key when storing files in Cloud Storage.",
+                "answerText": "Assign custom IAM roles to the Google Groups you created in order to enforce security requirements. Encrypt data with a customer-supplied encryption key when storing files in Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Assign custom IAM roles to the Google Groups you created in order to enforce security requirements. Enable default storage encryption before storing files in Cloud Storage.",
+                "answerText": "Assign custom IAM roles to the Google Groups you created in order to enforce security requirements. Enable default storage encryption before storing files in Cloud Storage.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Assign predefined IAM roles to the Google Groups you created in order to enforce security requirements. Utilize Google's default encryption at rest when storing files in Cloud Storage.",
+                "answerText": "Assign predefined IAM roles to the Google Groups you created in order to enforce security requirements. Utilize Google's default encryption at rest when storing files in Cloud Storage.",
                 "isCorrect": true
             },
             {
-                "answerText": "D. Assign predefined IAM roles to the Google Groups you created in order to enforce security requirements. Ensure that the default Cloud KMS key is set before storing files in Cloud Storage.",
+                "answerText": "Assign predefined IAM roles to the Google Groups you created in order to enforce security requirements. Ensure that the default Cloud KMS key is set before storing files in Cloud Storage.",
                 "isCorrect": false
             }
         ],
@@ -6623,19 +6619,19 @@ const examLibrary = [
         "questionText": "For this question, refer to the Dress4Win case study. You want to ensure that your on-premises architecture meets business requirements before you migrate your solution.What change in the on-premises architecture should you make?",
         "answerOptions": [
             {
-                "answerText": "A. Replace RabbitMQ with Google Pub/Sub.",
+                "answerText": "Replace RabbitMQ with Google Pub/Sub.",
                 "isCorrect": false
             },
             {
-                "answerText": "B. Downgrade MySQL to v5.7, which is supported by Cloud SQL for MySQL.",
+                "answerText": "Downgrade MySQL to v5.7, which is supported by Cloud SQL for MySQL.",
                 "isCorrect": false
             },
             {
-                "answerText": "C. Resize compute resources to match predefined Compute Engine machine types.",
+                "answerText": "Resize compute resources to match predefined Compute Engine machine types.",
                 "isCorrect": false
             },
             {
-                "answerText": "D. Containerize the micro-services and host them in Google Kubernetes Engine.",
+                "answerText": "Containerize the micro-services and host them in Google Kubernetes Engine.",
                 "isCorrect": true
             }
         ],
