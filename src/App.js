@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-// FIXED: Removed imports. Scripts will be loaded dynamically in the App component.
-
 
 // =================================================================================
 // === DATA & CONFIGURATION ========================================================
@@ -6676,14 +6674,55 @@ const shuffleArray = (array) => {
 // =================================================================================
 
 const Logo = () => (
-    <svg className="h-10 w-10 text-purple-600 dark:text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className="h-8 w-8 text-indigo-600 dark:text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2L2 7l10 5 10-5-10-5z" />
         <path d="M2 17l10 5 10-5" />
         <path d="M2 12l10 5 10-5" />
     </svg>
 );
 
-const UserProfileDropdown = ({ onShowHistory, onShowSettings }) => {
+const ProfileModal = ({ isOpen, onClose, history }) => {
+    if (!isOpen) return null;
+
+    const totalExams = history.length;
+    const avgScore = totalExams > 0 ? Math.round(history.reduce((sum, entry) => sum + entry.score, 0) / totalExams) : 0;
+    const highestScore = totalExams > 0 ? Math.max(...history.map(entry => entry.score)) : 0;
+    const passedExams = history.filter(entry => entry.score >= entry.passingScore).length;
+    const passRate = totalExams > 0 ? Math.round((passedExams / totalExams) * 100) : 0;
+
+    return (
+        <Modal isOpen={isOpen} onClose={onClose} showConfirm={false} title="My Profile">
+            <div className="flex flex-col items-center mb-6">
+                <div className="h-24 w-24 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-4xl font-extrabold shadow-lg mb-4 ring-4 ring-indigo-50 dark:ring-gray-800">
+                    U
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">User Profile</h3>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">Quiz Enthusiast</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 mb-2">
+                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-2xl text-center border border-gray-100 dark:border-gray-600 shadow-sm">
+                    <p className="text-3xl font-black text-indigo-600 dark:text-indigo-400">{totalExams}</p>
+                    <p className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">Quizzes Taken</p>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-2xl text-center border border-gray-100 dark:border-gray-600 shadow-sm">
+                    <p className="text-3xl font-black text-purple-600 dark:text-purple-400">{avgScore}</p>
+                    <p className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">Avg Score</p>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-2xl text-center border border-gray-100 dark:border-gray-600 shadow-sm">
+                    <p className="text-3xl font-black text-green-600 dark:text-green-400">{highestScore}</p>
+                    <p className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">Best Score</p>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-2xl text-center border border-gray-100 dark:border-gray-600 shadow-sm">
+                    <p className="text-3xl font-black text-blue-600 dark:text-blue-400">{passRate}%</p>
+                    <p className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">Pass Rate</p>
+                </div>
+            </div>
+        </Modal>
+    );
+};
+
+const UserProfileDropdown = ({ onShowHistory, onShowSettings, onShowProfile }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -6699,19 +6738,20 @@ const UserProfileDropdown = ({ onShowHistory, onShowSettings }) => {
 
     return (
         <div className="relative" ref={dropdownRef}>
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600">
-                <svg className="h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition">
+                <svg className="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
             </button>
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 ring-1 ring-black ring-opacity-5">
+                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-2xl z-50 border border-gray-100 dark:border-gray-700 overflow-hidden">
                     <div className="py-1">
-                        <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700">
+                        <div className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
                             <p className="truncate"><span className="font-semibold">Welcome,</span> User</p>
                         </div>
-                        <button onClick={() => { onShowSettings(); setIsOpen(false); }} className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</button>
-                        <button onClick={() => { onShowHistory(); setIsOpen(false); }} className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">View History</button>
+                        <button onClick={() => { onShowProfile(); setIsOpen(false); }} className="w-full text-left block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">My Profile</button>
+                        <button onClick={() => { onShowSettings(); setIsOpen(false); }} className="w-full text-left block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">Settings</button>
+                        <button onClick={() => { onShowHistory(); setIsOpen(false); }} className="w-full text-left block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">View History</button>
                     </div>
                 </div>
             )}
@@ -6719,111 +6759,226 @@ const UserProfileDropdown = ({ onShowHistory, onShowSettings }) => {
     );
 };
 
-
-const Header = ({ onShowHistory, onShowSettings, onGoToDashboard }) => (
-    <header className="flex justify-between items-center p-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center gap-3">
-             <button onClick={onGoToDashboard} className="flex items-center gap-3">
+const Header = ({ onShowHistory, onShowSettings, onGoToDashboard, onShowProfile }) => (
+    <header className="flex justify-between items-center px-4 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 shadow-sm h-[60px]">
+        <div className="flex items-center gap-2">
+             <button onClick={onGoToDashboard} className="flex items-center gap-2 hover:opacity-80 transition">
                 <Logo />
-                <h1 className="text-xl font-bold text-gray-800 dark:text-gray-100">Quiz Platform</h1>
+                <h1 className="text-lg font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">Quiz Platform</h1>
             </button>
         </div>
-        <UserProfileDropdown onShowHistory={onShowHistory} onShowSettings={onShowSettings} />
+        <UserProfileDropdown onShowHistory={onShowHistory} onShowSettings={onShowSettings} onShowProfile={onShowProfile} />
     </header>
 );
 
-const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange }) => {
+const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory }) => {
     const categories = ['All', ...new Set(allExams.map(exam => exam.category))];
+    
+    const totalExamsTaken = scoreHistory ? scoreHistory.length : 0;
+    const avgScore = totalExamsTaken > 0 ? Math.round(scoreHistory.reduce((sum, entry) => sum + entry.score, 0) / totalExamsTaken) : 0;
 
     return (
-        <div className="p-4 md:p-8 flex-grow">
-            <div className="flex flex-col md:flex-row justify-between md:items-center mb-8 gap-4">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Exam Dashboard</h1>
-                <div className="relative w-full md:w-72">
+        <div className="p-4 md:p-8 flex-grow max-w-7xl mx-auto w-full space-y-8">
+            
+            {/* Hero Banner Section */}
+            <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-3xl p-6 md:p-10 text-white shadow-xl relative overflow-hidden">
+                <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="text-center md:text-left">
+                        <h1 className="text-3xl md:text-4xl font-extrabold mb-2">Welcome Back! 👋</h1>
+                        <p className="text-indigo-100 text-base md:text-lg max-w-xl">Ready to continue your learning journey? Choose an exam below and test your skills.</p>
+                    </div>
+                    <div className="flex gap-4 bg-white/10 p-4 rounded-2xl backdrop-blur-sm border border-white/20">
+                        <div className="text-center px-4 border-r border-white/20">
+                            <p className="text-3xl font-black">{totalExamsTaken}</p>
+                            <p className="text-[10px] md:text-xs font-bold text-indigo-200 uppercase tracking-wider mt-1">Quizzes Taken</p>
+                        </div>
+                        <div className="text-center px-4">
+                            <p className="text-3xl font-black">{avgScore}</p>
+                            <p className="text-[10px] md:text-xs font-bold text-indigo-200 uppercase tracking-wider mt-1">Avg Score</p>
+                        </div>
+                    </div>
+                </div>
+                {/* Decorative background shapes */}
+                <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute bottom-0 left-10 -mb-10 w-48 h-48 bg-purple-900/30 rounded-full blur-2xl pointer-events-none"></div>
+            </div>
+
+            {/* Filters and Search Bar */}
+            <div className="flex flex-col md:flex-row justify-between md:items-start gap-4 bg-white dark:bg-gray-800 p-3 md:p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                <div className="flex flex-wrap gap-2 flex-grow">
+                    {categories.map(category => (
+                        <button
+                            key={category}
+                            onClick={() => onSelectCategory(category)}
+                            className={`whitespace-nowrap px-4 py-2 md:px-5 md:py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                                selectedCategory === category
+                                    ? 'bg-indigo-600 text-white shadow-md transform scale-105'
+                                    : 'bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600'
+                            }`}
+                        >
+                            {category}
+                        </button>
+                    ))}
+                </div>
+                
+                <div className="relative w-full md:w-80 lg:w-96 shrink-0">
                     <input
                         type="text"
                         value={searchTerm}
                         onChange={onSearchChange}
-                        placeholder="Search for an exam..."
-                        className="w-full p-3 pl-10 text-gray-700 bg-white dark:bg-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                        placeholder="Search exams..."
+                        className="w-full p-3 pl-11 text-sm md:text-base text-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-shadow outline-none"
                     />
-                    <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
             </div>
-            
-            <div className="mb-8 flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700 pb-4">
-                {categories.map(category => (
-                    <button
-                        key={category}
-                        onClick={() => onSelectCategory(category)}
-                        className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
-                            selectedCategory === category
-                                ? 'bg-purple-600 text-white'
-                                : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
-                        }`}
-                    >
-                        {category}
-                    </button>
-                ))}
-            </div>
 
+            {/* Exam Grid */}
             {filteredExams.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredExams.map(exam => (
-                        <div key={exam.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 flex flex-col">
-                            <div className="p-6 flex-grow">
-                                <div className="flex items-start gap-4 mb-4">
+                        <div key={exam.id} className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                            <div className="p-6 flex-grow relative">
+                                <div className="absolute top-6 right-6">
+                                    <div className="inline-block px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold rounded-full border border-indigo-100 dark:border-indigo-800">
+                                        {exam.category}
+                                    </div>
+                                </div>
+                                <div className="mb-5 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-2xl inline-block group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20 transition-colors">
                                     {exam.icon}
-                                    <div className="flex-grow">
-                                        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{exam.title}</h2>
-                                        <p className="text-gray-600 dark:text-gray-400">{exam.description}</p>
+                                </div>
+                                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 leading-tight">{exam.title}</h2>
+                                <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-5">{exam.description}</p>
+                                
+                                {/* Info Badges */}
+                                <div className="flex flex-wrap gap-2 mt-auto">
+                                    <div className="flex items-center gap-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 py-1.5 px-3 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        {exam.questions.length} Qs
+                                    </div>
+                                    <div className="flex items-center gap-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 py-1.5 px-3 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        {Math.round((exam.durationSeconds || (exam.questions.length * 60)) / 60)} Mins
                                     </div>
                                 </div>
                             </div>
-                            <div className="p-6 pt-0">
-                                <button onClick={() => onSelectExam(exam)} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition-colors">
-                                    Start Exam
+                            <div className="p-4 pt-0 mt-auto">
+                                <button onClick={() => onSelectExam(exam)} className="w-full bg-gray-50 dark:bg-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 text-gray-700 dark:text-gray-200 hover:text-white font-bold py-3.5 px-4 rounded-xl transition-colors flex items-center justify-center gap-2 group/btn">
+                                    Configure & Start
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                                 </button>
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-16">
-                    <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">No Exams Found</h2>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">Try adjusting your category or search term.</p>
+                <div className="text-center py-20 bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700 mb-4">
+                        <svg className="h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">No Exams Found</h2>
+                    <p className="text-gray-500 dark:text-gray-400 mt-2 max-w-sm mx-auto">We couldn't find any exams matching your search criteria. Try adjusting your filters.</p>
+                    <button onClick={() => {setSearchTerm(''); setSelectedCategory('All');}} className="mt-6 text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Clear Filters</button>
                 </div>
             )}
         </div>
     );
 };
 
-
-const Modal = ({ isOpen, onClose, onConfirm, title, children, showConfirm = true, confirmButtonColor = 'red' }) => {
+const Modal = ({ isOpen, onClose, onConfirm, title, children, showConfirm = true, confirmText = "Confirm", confirmButtonColor = 'red' }) => {
     if (!isOpen) return null;
 
     const colorClasses = {
-        red: 'bg-red-600 hover:bg-red-700',
-        green: 'bg-green-600 hover:bg-green-700'
+        red: 'bg-red-600 hover:bg-red-700 text-white',
+        green: 'bg-green-600 hover:bg-green-700 text-white',
+        indigo: 'bg-indigo-600 hover:bg-indigo-700 text-white'
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
-                <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">{title}</h3>
+        <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-50 flex justify-center items-center p-4">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto animate-fade-in-up">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{title}</h3>
                 <div className="text-gray-600 dark:text-gray-300 mb-6">{children}</div>
-                <div className="flex justify-end gap-4">
-                    <button onClick={onClose} className="px-4 py-2 rounded-lg text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 font-semibold">
+                <div className="flex justify-end gap-3">
+                    <button onClick={onClose} className="px-4 py-2 rounded-xl text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition">
                         {showConfirm ? 'Cancel' : 'Close'}
                     </button>
                     {showConfirm && (
-                        <button onClick={onConfirm} className={`px-4 py-2 rounded-lg text-white font-semibold ${colorClasses[confirmButtonColor] || colorClasses.red}`}>Confirm</button>
+                        <button onClick={onConfirm} className={`px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition ${colorClasses[confirmButtonColor] || colorClasses.red}`}>{confirmText}</button>
                     )}
                 </div>
             </div>
         </div>
+    );
+};
+
+const ExamConfigModal = ({ isOpen, onClose, exam, onStart }) => {
+    const [numQuestions, setNumQuestions] = useState(10);
+    const [order, setOrder] = useState('random');
+
+    useEffect(() => {
+        if (exam) {
+            setNumQuestions(Math.min(exam.questionsPerQuiz || 10, exam.questions.length));
+        }
+    }, [exam]);
+
+    if (!isOpen || !exam) return null;
+
+    const maxQs = exam.questions.length;
+
+    const handleConfirm = () => {
+        // Enforce bounds
+        const finalNum = Math.max(1, Math.min(maxQs, Number(numQuestions)));
+        onStart(finalNum, order);
+    };
+
+    return (
+        <Modal isOpen={isOpen} onClose={onClose} showConfirm={true} onConfirm={handleConfirm} confirmText="Start Exam" confirmButtonColor="indigo" title={`Setup: ${exam.title}`}>
+            <div className="space-y-5 text-left">
+                <div>
+                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">Number of Questions</label>
+                    <div className="flex items-center gap-3">
+                        <input 
+                            type="range" 
+                            min="1" 
+                            max={maxQs} 
+                            value={numQuestions} 
+                            onChange={(e) => setNumQuestions(e.target.value)}
+                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-indigo-600"
+                        />
+                        <input 
+                            type="number" 
+                            min="1" 
+                            max={maxQs} 
+                            value={numQuestions} 
+                            onChange={(e) => setNumQuestions(e.target.value)}
+                            className="w-16 p-2 text-center text-sm font-semibold border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                        />
+                    </div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">Maximum available: {maxQs}</p>
+                </div>
+                <div>
+                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">Question Selection</label>
+                    <select 
+                        value={order} 
+                        onChange={e => setOrder(e.target.value)} 
+                        className="w-full p-2.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer"
+                    >
+                        <option value="random">Randomized</option>
+                        <option value="sequential">Sequential (In Order 1 to N)</option>
+                    </select>
+                </div>
+                <div className="bg-indigo-50 dark:bg-indigo-900/30 p-3 rounded-lg border border-indigo-100 dark:border-indigo-800">
+                     <p className="text-xs text-indigo-800 dark:text-indigo-200 font-medium text-center">
+                         Timer will adjust automatically based on your selection.
+                     </p>
+                </div>
+            </div>
+        </Modal>
     );
 };
 
@@ -6835,15 +6990,17 @@ const SettingsModal = ({ isVisible, onClose, theme, onThemeChange }) => {
     return (
         <Modal isOpen={isVisible} onClose={onClose} title="Settings" showConfirm={false}>
             <div className="space-y-4">
-                <div className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                <div className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
                     <div className="flex items-center gap-3">
-                        <span className={`text-xl ${theme === 'dark' ? 'text-yellow-400' : 'text-gray-400'}`}>🌙</span>
+                        <span className={`text-xl ${theme === 'dark' ? 'text-indigo-400' : 'text-gray-400'}`}>
+                           {theme === 'dark' ? '🌙' : '☀️'}
+                        </span>
                         <span className="font-semibold text-gray-700 dark:text-gray-200">Dark Mode</span>
                     </div>
                     <button
                         onClick={handleToggle}
                         className={`relative inline-flex items-center h-6 rounded-full w-11 transition-colors ${
-                            theme === 'dark' ? 'bg-purple-600' : 'bg-gray-300'
+                            theme === 'dark' ? 'bg-indigo-600' : 'bg-gray-300'
                         }`}
                     >
                         <span
@@ -6867,24 +7024,24 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion }) => {
     };
 
     return (
-        <div className="flex flex-wrap justify-center gap-2 pb-4">
+        <div className="flex flex-wrap gap-2 pb-2">
             {questions.map((q, i) => {
                 const userAnswer = userAnswers[i];
                 const answeredCorrectly = isCorrect(q, userAnswer);
                 const wasAnswered = userAnswer && userAnswer.length > 0;
 
-                let buttonClass = 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200'; // Unanswered
+                let buttonClass = 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'; // Unanswered
                 if (wasAnswered && answeredCorrectly) {
-                    buttonClass = 'bg-green-500 hover:bg-green-600 text-white'; // Correct
+                    buttonClass = 'bg-green-500 text-white border border-green-600'; // Correct
                 } else if (wasAnswered && !answeredCorrectly) {
-                    buttonClass = 'bg-red-500 hover:bg-red-600 text-white'; // Incorrect
+                    buttonClass = 'bg-red-500 text-white border border-red-600'; // Incorrect
                 }
 
                 return (
                     <button
                         key={i}
                         onClick={() => onGoToQuestion(i)}
-                        className={`h-12 w-12 flex-shrink-0 flex items-center justify-center font-bold rounded-lg transition-colors shadow-md ${buttonClass}`}
+                        className={`h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0 flex items-center justify-center text-xs sm:text-sm font-bold rounded-lg transition-colors shadow-sm hover:opacity-80 ${buttonClass}`}
                     >
                         {i + 1}
                     </button>
@@ -6912,7 +7069,7 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
             return;
         }
         if (!scriptsLoaded || typeof window.html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
-            console.error("PDF generation libraries (jsPDF, html2canvas) are not loaded.");
+            console.error("PDF generation libraries are not loaded.");
             return;
         }
 
@@ -6920,17 +7077,12 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
         const { jsPDF } = window.jspdf;
         const html2canvas = window.html2canvas;
 
-        html2canvas(reviewContent, { 
-            scale: 2,
-            useCORS: true,
-            logging: false
-        }).then(canvas => {
+        html2canvas(reviewContent, { scale: 2, useCORS: true, logging: false }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
             const pdfWidth = 210; 
             const pdfHeight = 297; 
             const imgHeight = canvas.height * pdfWidth / canvas.width;
             let heightLeft = imgHeight;
-
             const pdf = new jsPDF('p', 'mm', 'a4');
             let position = 0;
 
@@ -6946,14 +7098,9 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
 
             const date = new Date().toLocaleDateString('en-CA');
             const safeTitle = exam.title.replace(/[^a-zA-Z0-9]/g, '_');
-            const fileName = `${safeTitle}_Review_${date}.pdf`;
-            
-            pdf.save(fileName);
+            pdf.save(`${safeTitle}_Review_${date}.pdf`);
             setIsDownloading(false);
-        }).catch(error => {
-            console.error("Error generating PDF:", error);
-            setIsDownloading(false);
-        });
+        }).catch(() => setIsDownloading(false));
     };
 
     useEffect(() => {
@@ -6975,113 +7122,117 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
     };
 
     const toggleExplanation = (index) => setExplanationVisibility(prev => ({ ...prev, [index]: !prev[index] }));
-    
-    const handleGoToQuestion = (index) => {
-        const element = document.getElementById(`review-card-${index}`);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    };
+    const handleGoToQuestion = (index) => document.getElementById(`review-card-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     return (
-        <div className="p-4 md:p-8">
-            <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-2">{isFromHistory ? 'Reviewing Past Quiz' : 'Quiz Completed!'}</h2>
-                <p className="text-xl text-gray-500 dark:text-gray-400 text-center mb-8">{exam.title}</p>
-                
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                        <div className="text-center md:text-left">
-                            <p className="text-lg text-gray-600 dark:text-gray-300">Your Score</p>
-                            <p className="text-7xl font-bold text-purple-700 dark:text-purple-400 my-1">{score}</p>
-                            <p className="text-md text-gray-500 dark:text-gray-400">(Passing Score: {exam.passingScore})</p>
-                        </div>
-                        <div className="flex-grow text-center">
-                             <p className={`text-2xl font-bold mb-2 ${color}`}>{message}</p>
-                             <p className="text-lg text-gray-700 dark:text-gray-200">You answered {rawScore} out of {totalQuestions} questions correctly.</p>
-                        </div>
-                        <div className="flex flex-wrap justify-center gap-4">
-                            <button onClick={() => onRestart(exam)} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg">
-                                {isFromHistory ? 'Restart Exam' : 'Try Again'}
-                            </button>
-                            {isFromHistory ? (
-                                <button onClick={onBackToHistory} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-full shadow-lg">Back to History</button>
-                            ) : (
-                                <button onClick={onBackToDashboard} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-full shadow-lg">Dashboard</button>
-                            )}
-                             <button onClick={onShowHistory} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-full shadow-lg">View History</button>
-                        </div>
+        <div className="p-4 md:p-8 max-w-4xl mx-auto w-full">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-1">
+                {isFromHistory ? 'Reviewing Past Quiz' : 'Quiz Completed!'}
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 text-center mb-6">{exam.title}</p>
+            
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 md:p-8 mb-6 text-center md:text-left">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="w-full md:w-auto text-center md:text-left">
+                        <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Your Score</p>
+                        <p className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-purple-600 my-2">{score}</p>
+                        <p className="text-xs text-gray-400 dark:text-gray-500">Passing Score: {exam.passingScore}</p>
+                    </div>
+                    <div className="flex-grow text-center">
+                         <p className={`text-xl md:text-2xl font-bold mb-1 ${color}`}>{message}</p>
+                         <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 inline-block px-4 py-2 rounded-lg">You answered <strong>{rawScore}</strong> out of <strong>{totalQuestions}</strong> correctly.</p>
                     </div>
                 </div>
-            
-                <div className="text-left">
-                    <div className="p-4 rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                        <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Review Your Answers</h3>
-                            <div className="flex items-center gap-2">
-                                <button onClick={() => handleFilterClick('all')} className={`px-4 py-2 rounded-lg font-semibold ${reviewFilter === 'all' && isReviewVisible ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`}>All</button>
-                                <button onClick={() => handleFilterClick('incorrect')} className={`px-4 py-2 rounded-lg font-semibold ${reviewFilter === 'incorrect' && isReviewVisible ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`}>Incorrect</button>
-                                {isReviewVisible && (
-                                    <button onClick={handleDownloadPdf} disabled={isDownloading || !scriptsLoaded} className="px-4 py-2 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 disabled:bg-green-300 disabled:cursor-not-allowed">
-                                        {isDownloading ? 'Downloading...' : 'Download PDF'}
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                        {isReviewVisible && <ReviewQuestionGrid questions={questions} userAnswers={userAnswers} onGoToQuestion={handleGoToQuestion} />}
-                    </div>
-
-                    {isReviewVisible && (
-                        <div id="review-content" className="mt-6">
-                            {filteredQuestions.map((question, index) => {
-                                const originalQuestionIndex = questions.findIndex(q => q.id === question.id);
-                                return (
-                                    <div key={question.id} id={`review-card-${originalQuestionIndex}`} className="mb-6 p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 scroll-mt-24">
-                                        <p className="font-medium text-lg text-gray-900 dark:text-gray-100 mb-2 whitespace-pre-wrap">{originalQuestionIndex + 1}. {question.questionText}</p>
-                                        <ul className="flex flex-col gap-2">
-                                            {question.answerOptions.map((option, optionIndex) => {
-                                                const isUserAnswer = userAnswers[originalQuestionIndex] && userAnswers[originalQuestionIndex].includes(optionIndex);
-                                                const isCorrectAnswer = option.isCorrect;
-                                                let styleClass = 'bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200';
-                                                let label = null;
-                                                if (isCorrectAnswer) {
-                                                    styleClass = 'bg-green-100 dark:bg-green-900 border-green-400 dark:border-green-700 text-green-800 dark:text-green-200';
-                                                    label = <span className="ml-auto pl-4 font-semibold">Correct Answer</span>;
-                                                }
-                                                if (isUserAnswer) {
-                                                    if (isCorrectAnswer) {
-                                                        label = <div className="ml-auto pl-4 flex flex-col items-end text-right"><span className="font-semibold text-green-700 dark:text-green-300">Correct Answer</span><span className="font-semibold text-blue-700 dark:text-blue-300 text-sm">(Your Answer)</span></div>;
-                                                    } else {
-                                                        styleClass = 'bg-red-100 dark:bg-red-900 border-red-400 dark:border-red-700 text-red-800 dark:text-red-200';
-                                                        label = <span className="ml-auto pl-4 font-semibold">Your Answer</span>;
-                                                    }
-                                                }
-                                                return (
-                                                    <li key={optionIndex} className={`p-2 md:p-3 rounded-lg border-2 flex items-center ${styleClass}`}>
-                                                        <span className="mr-3 font-bold h-6 w-6 flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200">{String.fromCharCode(65 + optionIndex)}</span>
-                                                        <span className="flex-grow">{option.answerText}</span>
-                                                        {label}
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                        {question.explanation && (
-                                            <div className="mt-4 text-left">
-                                                <button onClick={() => toggleExplanation(originalQuestionIndex)} className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 font-semibold py-2 px-4 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors shadow-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm-7.071 0a1 1 0 001.414 1.414l.707-.707a1 1 0 10-1.414-1.414l-.707.707zM10 16a1 1 0 100 2 1 1 0 000-2z" /></svg>
-                                                    {explanationVisibility[originalQuestionIndex] ? 'Hide' : 'Show'} Explanation
-                                                </button>
-                                                {explanationVisibility[originalQuestionIndex] && (
-                                                    <div className="mt-3 p-4 bg-gray-100 dark:bg-gray-900 border-l-4 border-gray-400 dark:border-gray-500 text-gray-800 dark:text-gray-200"><p className="font-bold">Explanation</p><p className="mt-1 whitespace-pre-wrap">{question.explanation}</p></div>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
-                                )
-                            })}
-                        </div>
+                
+                <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
+                    <button onClick={() => onRestart(exam)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm">
+                        {isFromHistory ? 'Retake Exam' : 'Try Again'}
+                    </button>
+                    {isFromHistory ? (
+                        <button onClick={onBackToHistory} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2.5 px-6 rounded-xl transition text-sm">Back to History</button>
+                    ) : (
+                        <button onClick={onBackToDashboard} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2.5 px-6 rounded-xl transition text-sm">Dashboard</button>
                     )}
                 </div>
+            </div>
+        
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div className="p-4 md:p-6 bg-gray-50 dark:bg-gray-800/80 border-b border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100">Review Answers</h3>
+                    <div className="flex items-center gap-2 bg-gray-200 dark:bg-gray-700 p-1 rounded-xl">
+                        <button onClick={() => handleFilterClick('all')} className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition ${reviewFilter === 'all' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}>All</button>
+                        <button onClick={() => handleFilterClick('incorrect')} className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition ${reviewFilter === 'incorrect' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}>Incorrect</button>
+                    </div>
+                </div>
+                
+                {isReviewVisible && (
+                    <div className="p-4 md:p-6 border-b border-gray-100 dark:border-gray-700">
+                        <ReviewQuestionGrid questions={questions} userAnswers={userAnswers} onGoToQuestion={handleGoToQuestion} />
+                        <div className="mt-4 flex justify-end">
+                            <button onClick={handleDownloadPdf} disabled={isDownloading || !scriptsLoaded} className="px-4 py-2 rounded-lg text-sm font-semibold bg-green-500 text-white hover:bg-green-600 disabled:opacity-50 transition flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                                {isDownloading ? 'Downloading...' : 'Save as PDF'}
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {isReviewVisible && (
+                    <div id="review-content" className="p-4 md:p-6 space-y-6">
+                        {filteredQuestions.map((question, index) => {
+                            const originalQuestionIndex = questions.findIndex(q => q.id === question.id);
+                            return (
+                                <div key={question.id} id={`review-card-${originalQuestionIndex}`} className="p-4 md:p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 scroll-mt-20">
+                                    <p className="font-medium text-base text-gray-900 dark:text-gray-100 mb-4 whitespace-pre-wrap"><span className="text-gray-500 mr-2">{originalQuestionIndex + 1}.</span> {question.questionText}</p>
+                                    <ul className="flex flex-col gap-2.5">
+                                        {question.answerOptions.map((option, optionIndex) => {
+                                            const isUserAnswer = userAnswers[originalQuestionIndex] && userAnswers[originalQuestionIndex].includes(optionIndex);
+                                            const isCorrectAnswer = option.isCorrect;
+                                            
+                                            let styleClass = 'bg-gray-50 dark:bg-gray-700/30 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300';
+                                            let label = null;
+                                            
+                                            if (isCorrectAnswer) {
+                                                styleClass = 'bg-green-50 dark:bg-green-900/20 border-green-500 text-green-800 dark:text-green-200';
+                                                label = <span className="ml-auto text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Correct</span>;
+                                            }
+                                            
+                                            if (isUserAnswer) {
+                                                if (isCorrectAnswer) {
+                                                    label = <span className="ml-auto text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Your Answer (Correct)</span>;
+                                                } else {
+                                                    styleClass = 'bg-red-50 dark:bg-red-900/20 border-red-400 text-red-800 dark:text-red-200';
+                                                    label = <span className="ml-auto text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wider">Your Answer (Wrong)</span>;
+                                                }
+                                            }
+                                            
+                                            return (
+                                                <li key={optionIndex} className={`p-3 rounded-lg border flex items-center text-sm ${styleClass}`}>
+                                                    <span className={`mr-3 font-bold h-6 w-6 flex items-center justify-center rounded-md text-xs flex-shrink-0 ${isCorrectAnswer ? 'bg-green-200 text-green-800' : (isUserAnswer && !isCorrectAnswer ? 'bg-red-200 text-red-800' : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300')}`}>{String.fromCharCode(65 + optionIndex)}</span>
+                                                    <span className="flex-grow pr-2">{option.answerText}</span>
+                                                    {label}
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                    {question.explanation && (
+                                        <div className="mt-5 text-left">
+                                            <button onClick={() => toggleExplanation(originalQuestionIndex)} className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 uppercase tracking-wide transition">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${explanationVisibility[originalQuestionIndex] ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
+                                                {explanationVisibility[originalQuestionIndex] ? 'Hide Explanation' : 'View Explanation'}
+                                            </button>
+                                            {explanationVisibility[originalQuestionIndex] && (
+                                                <div className="mt-3 p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-lg text-sm text-gray-700 dark:text-gray-300 border border-indigo-100 dark:border-indigo-800/50">
+                                                    <p className="whitespace-pre-wrap">{question.explanation}</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )
+                        })}
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -7089,36 +7240,27 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
 
 const QuestionGrid = ({ totalQuestions, userAnswers, flaggedQuestions, currentQuestionIndex, onGoToQuestion }) => {
     return (
-        <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-4">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Question Navigator</h3>
-            <div className="flex flex-wrap justify-center gap-2 pb-4">
-                {Array.from({ length: totalQuestions }, (_, i) => {
-                    const isAnswered = userAnswers[i] && userAnswers[i].length > 0;
-                    const isCurrent = i === currentQuestionIndex;
-                    const isFlagged = flaggedQuestions[i];
+        <div className="flex flex-wrap gap-1.5 pb-2">
+            {Array.from({ length: totalQuestions }, (_, i) => {
+                const isAnswered = userAnswers[i] && userAnswers[i].length > 0;
+                const isCurrent = i === currentQuestionIndex;
+                const isFlagged = flaggedQuestions[i];
 
-                    let buttonClass = 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200';
-                    if (isAnswered) {
-                        buttonClass = 'bg-blue-500 hover:bg-blue-600 text-white';
-                    }
-                    if (isCurrent) {
-                        buttonClass = 'bg-purple-600 hover:bg-purple-700 text-white';
-                    }
-                    if (isFlagged) {
-                        buttonClass = 'bg-yellow-400 dark:bg-yellow-500 hover:bg-yellow-500 dark:hover:bg-yellow-600 text-black dark:text-gray-900';
-                    }
+                let buttonClass = 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border border-transparent';
+                if (isAnswered) buttonClass = 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-200 border-indigo-300 dark:border-indigo-700';
+                if (isCurrent) buttonClass = 'bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-300 dark:ring-indigo-800 ring-offset-1 dark:ring-offset-gray-900';
+                if (isFlagged) buttonClass = 'bg-yellow-400 text-yellow-900 border-yellow-500';
 
-                    return (
-                        <button
-                            key={i}
-                            onClick={() => onGoToQuestion(i)}
-                            className={`h-12 w-12 flex-shrink-0 flex items-center justify-center font-bold rounded-lg transition-colors shadow-md ${buttonClass}`}
-                        >
-                            {i + 1}
-                        </button>
-                    );
-                })}
-            </div>
+                return (
+                    <button
+                        key={i}
+                        onClick={() => onGoToQuestion(i)}
+                        className={`h-8 w-8 sm:h-9 sm:w-9 flex-shrink-0 flex items-center justify-center text-xs font-bold rounded-md transition-all ${buttonClass}`}
+                    >
+                        {i + 1}
+                    </button>
+                );
+            })}
         </div>
     );
 };
@@ -7126,88 +7268,140 @@ const QuestionGrid = ({ totalQuestions, userAnswers, flaggedQuestions, currentQu
 
 const QuestionView = ({ currentQuestionData, currentQuestionIndex, totalQuestions, userAnswers, onAnswer, onFlag, onNext, onPrev, flaggedQuestions, timeLeft, onGoToQuestion }) => {
     const mainContentRef = useRef(null);
+    const [isGridExpanded, setIsGridExpanded] = useState(false);
     
     useEffect(() => {
         if (mainContentRef.current) mainContentRef.current.scrollTop = 0;
     }, [currentQuestionIndex]);
 
     return (
-        <div className="relative p-4 md:p-8">
-            <div className="pb-4">
-                <div className="flex justify-between items-center mb-6">
-                    <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">
-                        <span>Question {currentQuestionIndex + 1}</span>/{totalQuestions}
+        // Key layout change for mobile: Flex column that takes exactly the remaining height minus header (approx 60px).
+        // This ensures the bottom action bar is always visible without scrolling the whole page.
+        <div className="flex flex-col h-[calc(100dvh-60px)] md:h-[auto] md:min-h-[600px] w-full max-w-4xl mx-auto md:py-6">
+            
+            {/* The Main Container Card */}
+            <div className="flex flex-col flex-grow bg-white dark:bg-gray-800 md:rounded-2xl md:shadow-lg border-x-0 md:border border-gray-200 dark:border-gray-700 overflow-hidden relative">
+                
+                {/* Header Strip */}
+                <div className="flex justify-between items-center p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
+                    <div className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Question <span className="text-gray-900 dark:text-gray-100">{currentQuestionIndex + 1}</span> of {totalQuestions}
                     </div>
-                    <div className="text-2xl font-bold text-purple-700 dark:text-purple-400 bg-purple-100 dark:bg-gray-800 px-4 py-2 rounded-lg shadow-inner">
+                    <div className={`text-sm font-bold px-3 py-1 rounded-full flex items-center gap-1.5 ${timeLeft < 60 ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 animate-pulse' : 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300'}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         {formatTime(timeLeft)}
                     </div>
                 </div>
-                <div className="text-lg font-medium text-gray-800 dark:text-gray-100 mt-3 mb-6 text-left whitespace-pre-wrap">
-                    {currentQuestionData.questionText}
-                </div>
-                {currentQuestionData.imageUrl && (
-                    <div className="my-4 flex justify-center">
-                        <img 
-                            src={currentQuestionData.imageUrl} 
-                            alt="Question diagram" 
-                            className="rounded-lg border-2 border-gray-200 dark:border-gray-700"
-                            onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Image+Not+Found'; }}
-                        />
+                
+                {/* Scrollable Content Area */}
+                <div className="flex-grow overflow-y-auto p-4 sm:p-6" ref={mainContentRef}>
+                    <div className="text-base sm:text-lg font-medium text-gray-800 dark:text-gray-100 mb-5 leading-relaxed whitespace-pre-wrap">
+                        {currentQuestionData.questionText}
                     </div>
-                )}
-                <div className="flex flex-col gap-3">
-                    {currentQuestionData.answerOptions.map((answerOption, index) => {
-                        const isSelected = userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].includes(index);
-                        let buttonClass = 'bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600';
-                        if (isSelected) buttonClass = 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 border-blue-400 dark:border-blue-600 ring-2 ring-blue-300 dark:ring-blue-500';
-                        return (
-                            <button key={index} onClick={() => onAnswer(index)} className={`w-full font-medium py-3 px-4 rounded-lg border-2 transition duration-200 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-opacity-75 ${buttonClass} hover:scale-102 cursor-pointer text-left flex items-center`}>
-                                <span className="mr-3 font-bold h-6 w-6 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 flex-shrink-0">{String.fromCharCode(65 + index)}</span>
-                                <span>{answerOption.answerText}</span>
-                            </button>
-                        );
-                    })}
+                    
+                    {currentQuestionData.imageUrl && (
+                        <div className="my-4 flex justify-center">
+                            <img 
+                                src={currentQuestionData.imageUrl} 
+                                alt="Question context" 
+                                className="rounded-xl border border-gray-200 dark:border-gray-700 max-h-48 object-contain"
+                                onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Image+Not+Found'; }}
+                            />
+                        </div>
+                    )}
+                    
+                    <div className="flex flex-col gap-2.5 sm:gap-3 mb-6">
+                        {currentQuestionData.answerOptions.map((answerOption, index) => {
+                            const isSelected = userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].includes(index);
+                            let buttonClass = 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-600';
+                            if (isSelected) buttonClass = 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-200 border-indigo-400 dark:border-indigo-600 ring-1 ring-indigo-400 dark:ring-indigo-600';
+                            
+                            return (
+                                <button key={index} onClick={() => onAnswer(index)} className={`w-full py-3 px-4 rounded-xl border transition-all duration-150 focus:outline-none text-left flex items-center min-h-[56px] ${buttonClass}`}>
+                                    <span className={`mr-3 font-bold h-6 w-6 flex items-center justify-center rounded-md text-xs flex-shrink-0 transition-colors ${isSelected ? 'bg-indigo-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'}`}>
+                                        {String.fromCharCode(65 + index)}
+                                    </span>
+                                    <span className="text-sm sm:text-base leading-snug">{answerOption.answerText}</span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Expandable Navigation Grid for mobile, or always visible on larger screens */}
+                    <div className="mt-8 pt-4 border-t border-gray-100 dark:border-gray-700">
+                         <div className="flex justify-between items-center mb-3">
+                             <h4 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Question Map</h4>
+                             <button className="md:hidden text-indigo-600 dark:text-indigo-400 text-xs font-semibold" onClick={() => setIsGridExpanded(!isGridExpanded)}>
+                                 {isGridExpanded ? 'Hide' : 'Show All'}
+                             </button>
+                         </div>
+                         <div className={`${isGridExpanded ? 'block' : 'hidden md:block'}`}>
+                            <QuestionGrid
+                                totalQuestions={totalQuestions}
+                                userAnswers={userAnswers}
+                                flaggedQuestions={flaggedQuestions}
+                                currentQuestionIndex={currentQuestionIndex}
+                                onGoToQuestion={onGoToQuestion}
+                            />
+                         </div>
+                    </div>
                 </div>
-                <div className="mt-8 flex justify-between items-center">
-                    <button onClick={onFlag} className={`font-bold py-3 px-5 md:py-3 md:px-6 text-sm md:text-base rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-opacity-75 ${flaggedQuestions[currentQuestionIndex] ? 'bg-yellow-500 hover:bg-yellow-600 text-white focus:ring-yellow-400' : 'bg-yellow-300 hover:bg-yellow-400 text-yellow-800 focus:ring-yellow-300'}`}>
-                        {flaggedQuestions[currentQuestionIndex] ? 'Unflag' : 'Flag'}
+                
+                {/* Fixed Bottom Action Bar */}
+                <div className="p-3 sm:p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex justify-between items-center shrink-0">
+                    <button onClick={onFlag} className={`flex items-center justify-center gap-1.5 py-2 px-4 sm:py-2.5 sm:px-5 text-sm font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 dark:focus:ring-offset-gray-800 ${flaggedQuestions[currentQuestionIndex] ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                           <path fillRule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clipRule="evenodd" />
+                        </svg>
+                        <span className="hidden sm:inline">{flaggedQuestions[currentQuestionIndex] ? 'Unflag' : 'Flag'}</span>
                     </button>
-                    <div className="flex gap-2 md:gap-4">
-                        {currentQuestionIndex > 0 && <button onClick={onPrev} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-5 md:py-3 md:px-8 text-sm md:text-base rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">Back</button>}
-                        <button onClick={onNext} className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 md:py-3 md:px-8 text-sm md:text-base rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-                            {currentQuestionIndex === totalQuestions - 1 ? 'Submit' : 'Next'}
+                    
+                    <div className="flex gap-2 sm:gap-3">
+                        {currentQuestionIndex > 0 && (
+                            <button onClick={onPrev} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-4 sm:py-2.5 sm:px-6 text-sm rounded-lg transition">
+                                Back
+                            </button>
+                        )}
+                        <button onClick={onNext} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-5 sm:py-2.5 sm:px-8 text-sm rounded-lg transition shadow-sm">
+                            {currentQuestionIndex === totalQuestions - 1 ? 'Finish' : 'Next'}
                         </button>
                     </div>
                 </div>
-                <QuestionGrid
-                    totalQuestions={totalQuestions}
-                    userAnswers={userAnswers}
-                    flaggedQuestions={flaggedQuestions}
-                    currentQuestionIndex={currentQuestionIndex}
-                    onGoToQuestion={onGoToQuestion}
-                />
+
             </div>
         </div>
     );
 };
 
 const FinalReviewScreen = ({ flaggedQuestions, unansweredQuestions, onGoToQuestion, onSubmitFinal }) => (
-    <div className="p-4 md:p-8">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">Final Review</h2>
-        <div className="mb-8">
-            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3">Flagged Questions</h3>
-            {flaggedQuestions.length > 0 ? (
-                <div className="flex flex-wrap gap-2">{flaggedQuestions.map(qIndex => <button key={`flagged-${qIndex}`} onClick={() => onGoToQuestion(qIndex)} className="h-10 w-10 flex items-center justify-center font-bold rounded-md text-white bg-yellow-500 hover:bg-yellow-600 transition-colors">{qIndex + 1}</button>)}</div>
-            ) : <p className="text-gray-500 dark:text-gray-400">No questions flagged for review.</p>}
-        </div>
-        <div className="mb-8">
-            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3">Unanswered Questions</h3>
-            {unansweredQuestions.length > 0 ? (
-                <div className="flex flex-wrap gap-2">{unansweredQuestions.map(qIndex => <button key={`unanswered-${qIndex}`} onClick={() => onGoToQuestion(qIndex)} className="h-10 w-10 flex items-center justify-center font-bold rounded-md text-white bg-gray-400 hover:bg-gray-500 transition-colors">{qIndex + 1}</button>)}</div>
-            ) : <p className="text-gray-500 dark:text-gray-400">All questions have been answered.</p>}
-        </div>
-        <div className="mt-12 text-center">
-            <button onClick={onSubmitFinal} className="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-10 rounded-full shadow-xl transition duration-300 ease-in-out transform hover:scale-105">
+    <div className="p-4 md:p-8 max-w-2xl mx-auto flex flex-col items-center justify-center min-h-[60vh]">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 md:p-10 w-full text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">Final Review</h2>
+            <p className="text-gray-500 dark:text-gray-400 mb-8 text-sm">Please check your answers before submitting.</p>
+            
+            <div className="mb-8 text-left">
+                <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Flagged Questions</h3>
+                {flaggedQuestions.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                        {flaggedQuestions.map(qIndex => (
+                            <button key={`flagged-${qIndex}`} onClick={() => onGoToQuestion(qIndex)} className="h-10 w-10 flex items-center justify-center text-sm font-bold rounded-lg text-yellow-900 bg-yellow-400 hover:bg-yellow-500 transition-colors shadow-sm">{qIndex + 1}</button>
+                        ))}
+                    </div>
+                ) : <p className="text-gray-500 dark:text-gray-400 text-sm italic bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">No questions flagged for review.</p>}
+            </div>
+            
+            <div className="mb-10 text-left">
+                <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Unanswered Questions</h3>
+                {unansweredQuestions.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                        {unansweredQuestions.map(qIndex => (
+                            <button key={`unanswered-${qIndex}`} onClick={() => onGoToQuestion(qIndex)} className="h-10 w-10 flex items-center justify-center text-sm font-bold rounded-lg text-white bg-gray-400 hover:bg-gray-500 transition-colors shadow-sm">{qIndex + 1}</button>
+                        ))}
+                    </div>
+                ) : <p className="text-gray-500 dark:text-gray-400 text-sm italic bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">Great job! All questions have been answered.</p>}
+            </div>
+            
+            <button onClick={onSubmitFinal} className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 px-10 rounded-xl shadow-md transition duration-200 transform active:scale-95">
                 Submit Final Answers
             </button>
         </div>
@@ -7227,47 +7421,49 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
             <Modal isOpen={isClearModalOpen} onClose={() => setIsClearModalOpen(false)} onConfirm={handleClearConfirm} title="Clear History">
                 Are you sure you want to clear your entire score history? This action cannot be undone.
             </Modal>
-            <div className={`fixed inset-0 z-40 transition-all duration-500 ease-in-out ${isVisible ? '' : 'pointer-events-none'}`}>
-                <div className={`absolute inset-0 bg-black transition-opacity duration-500 ${isVisible ? 'bg-opacity-50' : 'bg-opacity-0'}`} onClick={onClose}></div>
-                <div className={`absolute top-0 right-0 h-full w-full max-w-md bg-white dark:bg-gray-800 shadow-2xl transform transition-transform duration-500 ease-in-out ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}>
-                    <div className="p-6 flex flex-col h-full">
-                        <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
-                            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Score History</h2>
-                            <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            <div className={`fixed inset-0 z-40 transition-all duration-300 ease-in-out ${isVisible ? '' : 'pointer-events-none'}`}>
+                <div className={`absolute inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`} onClick={onClose}></div>
+                <div className={`absolute top-0 right-0 h-full w-full max-w-sm bg-white dark:bg-gray-800 shadow-2xl transform transition-transform duration-300 ease-in-out border-l border-gray-100 dark:border-gray-700 ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}>
+                    <div className="p-5 flex flex-col h-full">
+                        <div className="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-4 mb-4">
+                            <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">Score History</h2>
+                            <button onClick={onClose} className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
                         </div>
-                        <div className="flex-grow overflow-y-auto">
+                        <div className="flex-grow overflow-y-auto pr-1">
                             {history.length > 0 ? (
-                                <ul className="space-y-4">
+                                <ul className="space-y-3">
                                     {history.map((entry) => (
-                                        <li key={entry.id} className={`rounded-lg flex justify-between items-center text-left transition-colors group relative ${entry.score >= entry.passingScore ? 'bg-green-100 dark:bg-green-900' : 'bg-red-100 dark:bg-red-900'}`}>
-                                            <button onClick={() => onReview(entry)} className={`w-full p-4 text-left hover:${entry.score >= entry.passingScore ? 'bg-green-200 dark:bg-green-800' : 'bg-red-200 dark:bg-red-800'} rounded-lg transition-colors`}>
-                                                <div className="flex-grow pr-8">
-                                                    <p className="font-bold text-lg text-gray-800 dark:text-gray-100">{entry.examTitle}</p>
-                                                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">{Math.round(entry.rawScore)} / {entry.totalQuestions} correct</p>
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{new Date(entry.date).toLocaleString()}</p>
+                                        <li key={entry.id} className={`rounded-xl border flex justify-between items-stretch text-left group relative overflow-hidden ${entry.score >= entry.passingScore ? 'bg-green-50/50 border-green-100 dark:bg-green-900/10 dark:border-green-900/30' : 'bg-red-50/50 border-red-100 dark:bg-red-900/10 dark:border-red-900/30'}`}>
+                                            <button onClick={() => onReview(entry)} className="w-full p-4 text-left transition-colors flex items-center justify-between">
+                                                <div className="flex-grow pr-4">
+                                                    <p className="font-bold text-sm text-gray-800 dark:text-gray-100 truncate">{entry.examTitle}</p>
+                                                    <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mt-1">{Math.round(entry.rawScore)} / {entry.totalQuestions} correct</p>
+                                                    <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">{new Date(entry.date).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}</p>
                                                 </div>
-                                                <p className="text-3xl font-bold text-gray-800 dark:text-gray-100 absolute top-1/2 right-4 -translate-y-1/2">{entry.score}</p>
+                                                <div className={`text-xl font-bold ${entry.score >= entry.passingScore ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                                    {entry.score}
+                                                </div>
                                             </button>
                                             <button 
                                                 onClick={() => onPromptDelete(entry.id)}
-                                                className="absolute top-1 right-1 p-1 rounded-full text-gray-500 dark:text-gray-400 hover:bg-red-200 dark:hover:bg-red-800 hover:text-red-600 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                className="absolute top-1/2 -translate-y-1/2 right-2 p-1.5 rounded-lg bg-white/80 dark:bg-gray-800/80 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm backdrop-blur-sm"
                                                 aria-label="Delete entry"
                                             >
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
                                             </button>
                                         </li>
                                     ))}
                                 </ul>
-                            ) : <p className="text-center text-gray-500 dark:text-gray-400 mt-8">No scores recorded yet.</p>}
+                            ) : <div className="text-center text-gray-400 dark:text-gray-500 mt-10 text-sm">No scores recorded yet.</div>}
                         </div>
                         {history.length > 0 && (
-                            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                                <button onClick={() => setIsClearModalOpen(true)} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
-                                    Clear All History
+                            <div className="pt-4 mt-4 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 shrink-0">
+                                <button onClick={() => setIsClearModalOpen(true)} className="w-full bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-900/20 dark:hover:bg-red-900/40 dark:text-red-400 font-semibold py-2.5 px-4 rounded-xl transition text-sm">
+                                    Clear History
                                 </button>
                             </div>
                         )}
@@ -7301,56 +7497,60 @@ const App = () => {
     const [scoreHistory, setScoreHistory] = useState([]);
     const [isHistoryVisible, setIsHistoryVisible] = useState(false);
     const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+    const [isProfileVisible, setIsProfileVisible] = useState(false);
     const [isExitConfirmVisible, setIsExitConfirmVisible] = useState(false);
-    const [isStartConfirmVisible, setIsStartConfirmVisible] = useState(false);
+    
+    // Config modal state
+    const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
     const [examToStart, setExamToStart] = useState(null);
+    
     const [entryToDelete, setEntryToDelete] = useState(null);
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
 
-    // ✅ Place the useEffect hook for the title here
     useEffect(() => {
-        let newTitle = "Exam App"; // Default title
-
-        if (appState === 'dashboard') {
-            newTitle = "Dashboard - Exam App";
-        } else if (appState === 'quiz' && activeExam) {
-            newTitle = `${activeExam.title} - Quiz`;
-        } else if (appState === 'review' && completedQuizData) {
-            newTitle = `Results for ${completedQuizData.examTitle}`;
-        } else if (appState === 'review' && reviewingHistoryEntry) {
-            newTitle = `Reviewing ${reviewingHistoryEntry.examTitle}`;
-        }
-        
+        let newTitle = "Exam App";
+        if (appState === 'dashboard') newTitle = "Dashboard - Exam App";
+        else if (appState === 'quiz' && activeExam) newTitle = `${activeExam.title} - Quiz`;
+        else if (appState === 'review' && completedQuizData) newTitle = `Results for ${completedQuizData.examTitle}`;
+        else if (appState === 'review' && reviewingHistoryEntry) newTitle = `Reviewing ${reviewingHistoryEntry.examTitle}`;
         document.title = newTitle;
     }, [appState, activeExam, completedQuizData, reviewingHistoryEntry]);
 
+
     // --- HANDLERS ---
-    const handleSelectExam = (exam) => {
-        setActiveExam(exam);
-        const questionsForQuiz = shuffleArray([...exam.questions]).slice(0, exam.questionsPerQuiz);
-        setCurrentQuizQuestions(questionsForQuiz);
-        setUserAnswers(Array(questionsForQuiz.length).fill(null).map(() => []));
-        setFlaggedQuestions(Array(questionsForQuiz.length).fill(false));
+    const handlePromptStartExam = (exam) => {
+        setExamToStart(exam);
+        setIsConfigModalOpen(true);
+    };
+
+    const handleStartConfiguredExam = (numQuestionsToTake, orderSelection) => {
+        if (!examToStart) return;
+
+        let selectedQuestions = [...examToStart.questions];
+        
+        if (orderSelection === 'random') {
+            selectedQuestions = shuffleArray(selectedQuestions);
+        }
+        
+        selectedQuestions = selectedQuestions.slice(0, numQuestionsToTake);
+        
+        // Calculate proportional time based on number of questions selected vs default questions
+        const defaultQs = examToStart.questions.length;
+        const totalDurationForMaxQs = examToStart.durationSeconds || (defaultQs * 60); 
+        const calculatedTime = Math.ceil((totalDurationForMaxQs / defaultQs) * numQuestionsToTake);
+
+        setActiveExam(examToStart);
+        setCurrentQuizQuestions(selectedQuestions);
+        setUserAnswers(Array(numQuestionsToTake).fill(null).map(() => []));
+        setFlaggedQuestions(Array(numQuestionsToTake).fill(false));
         setCurrentQuestionIndex(0);
-        setTimeLeft(exam.durationSeconds);
+        setTimeLeft(calculatedTime);
         setIsQuizActive(true);
         setShowFinalReview(false);
         setCompletedQuizData(null);
         setReviewingHistoryEntry(null);
         setAppState('quiz');
-    };
-
-    const handlePromptStartExam = (exam) => {
-        setExamToStart(exam);
-        setIsStartConfirmVisible(true);
-    };
-
-    const handleConfirmStartExam = () => {
-        if (examToStart) {
-            handleSelectExam(examToStart);
-        }
-        setIsStartConfirmVisible(false);
-        setExamToStart(null);
+        setIsConfigModalOpen(false);
     };
     
     const handleSubmitQuiz = useCallback(() => {
@@ -7369,10 +7569,11 @@ const App = () => {
         });
 
         const totalQuestions = currentQuizQuestions.length;
+        // Keep the 100-900 scaling logic consistent regardless of question count
         const finalScaledScore = totalQuestions > 0 ? Math.round(((totalPoints / totalQuestions) * 800) + 100) : 100;
 
         const scoreEntry = {
-            id: new Date().toISOString(), // Use timestamp as a unique ID
+            id: new Date().toISOString(),
             examId: activeExam.id,
             examTitle: activeExam.title,
             score: finalScaledScore,
@@ -7387,7 +7588,6 @@ const App = () => {
         
         setCompletedQuizData(scoreEntry);
         
-        // Save to localStorage
         const currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
         const newHistory = [scoreEntry, ...currentHistory];
         localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
@@ -7444,9 +7644,7 @@ const App = () => {
         setScoreHistory([]);
     };
 
-    const handlePromptDelete = (entryId) => {
-        setEntryToDelete(entryId);
-    };
+    const handlePromptDelete = (entryId) => setEntryToDelete(entryId);
 
     const handleConfirmDelete = () => {
         const currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
@@ -7457,9 +7655,8 @@ const App = () => {
     };
     
     const handleGoToDashboard = () => {
-        if (appState === 'quiz') {
-            setIsExitConfirmVisible(true);
-        } else {
+        if (appState === 'quiz') setIsExitConfirmVisible(true);
+        else {
             setAppState('dashboard');
             setActiveExam(null);
             setCompletedQuizData(null);
@@ -7475,7 +7672,6 @@ const App = () => {
 
     // --- HOOKS ---
     useEffect(() => {
-        // Dynamically load scripts for PDF generation
         const loadScript = (src) => {
             return new Promise((resolve, reject) => {
                 const script = document.createElement('script');
@@ -7489,26 +7685,17 @@ const App = () => {
         Promise.all([
             loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"),
             loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js")
-        ]).then(() => {
-            setScriptsLoaded(true);
-        }).catch(error => {
-            console.error("Failed to load PDF generation scripts:", error);
-        });
+        ]).then(() => setScriptsLoaded(true)).catch(e => console.error("PDF scripts failed to load", e));
         
-        // Load exams from local library
         setAllExams(examLibrary);
-        
-        // Load history from localStorage
         const savedHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
         setScoreHistory(savedHistory);
-        
-        // App is ready to go
         setAppState('dashboard');
     }, []);
     
     useEffect(() => {
         if (!isQuizActive) return;
-        if (timeLeft === 0) {
+        if (timeLeft <= 0) {
             handleSubmitQuiz();
             return;
         }
@@ -7522,18 +7709,15 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        if (theme === 'dark') document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
         localStorage.setItem('quiz-app-theme', theme);
     }, [theme]);
 
     // --- RENDER LOGIC ---
     const renderContent = () => {
         if (appState === 'loading') {
-             return <div className="text-center p-10 bg-gray-50 dark:bg-gray-900 min-h-screen">Loading...</div>;
+             return <div className="flex items-center justify-center h-screen bg-gray-50 dark:bg-gray-900 text-gray-500">Loading...</div>;
         }
 
         const filteredExams = allExams.filter(exam => {
@@ -7547,10 +7731,11 @@ const App = () => {
         switch (appState) {
             case 'dashboard':
                 return (
-                    <div className="relative bg-gray-50 dark:bg-gray-900 flex flex-col min-h-screen">
+                    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
                         <Header 
                             onShowHistory={() => setIsHistoryVisible(true)} 
                             onShowSettings={() => setIsSettingsVisible(true)}
+                            onShowProfile={() => setIsProfileVisible(true)}
                             onGoToDashboard={handleGoToDashboard}
                         />
                         <DashboardPage 
@@ -7561,16 +7746,18 @@ const App = () => {
                             onSelectCategory={setSelectedCategory}
                             searchTerm={searchTerm}
                             onSearchChange={(e) => setSearchTerm(e.target.value)}
+                            scoreHistory={scoreHistory}
                         />
                     </div>
                 );
             case 'quiz':
             case 'review':
                  return (
-                    <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900">
+                    <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden">
                         <Header 
                            onShowHistory={() => setIsHistoryVisible(true)} 
                            onShowSettings={() => setIsSettingsVisible(true)}
+                           onShowProfile={() => setIsProfileVisible(true)}
                            onGoToDashboard={handleGoToDashboard}
                         />
                         <main className="flex-grow overflow-y-auto">
@@ -7622,54 +7809,56 @@ const App = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans">
-            <div className="w-full h-full">
-                {renderContent()}
-                <HistoryPanel 
-                    isVisible={isHistoryVisible} 
-                    onClose={() => setIsHistoryVisible(false)} 
-                    history={scoreHistory}
-                    onReview={handleReviewHistory}
-                    onClear={clearHistory}
-                    onPromptDelete={handlePromptDelete}
-                />
-                <SettingsModal
-                    isVisible={isSettingsVisible}
-                    onClose={() => setIsSettingsVisible(false)}
-                    theme={theme}
-                    onThemeChange={setTheme}
-                />
-                <Modal
-                    isOpen={isExitConfirmVisible}
-                    onClose={() => setIsExitConfirmVisible(false)}
-                    onConfirm={confirmExitQuiz}
-                    title="Exit Quiz?"
-                >
-                    Are you sure you want to exit? Your current progress will be lost.
-                </Modal>
-                <Modal
-                    isOpen={isStartConfirmVisible}
-                    onClose={() => {
-                        setIsStartConfirmVisible(false);
-                        setExamToStart(null);
-                    }}
-                    onConfirm={handleConfirmStartExam}
-                    title="Start Exam?"
-                    confirmButtonColor="green"
-                >
-                    {examToStart && (
-                        <p>Are you sure you want to start the <strong>{examToStart.title}</strong> exam?</p>
-                    )}
-                </Modal>
-                <Modal
-                    isOpen={!!entryToDelete}
-                    onClose={() => setEntryToDelete(null)}
-                    onConfirm={handleConfirmDelete}
-                    title="Delete Score?"
-                >
-                    Are you sure you want to delete this score entry? This action cannot be undone.
-                </Modal>
-            </div>
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-100 selection:bg-indigo-200 dark:selection:bg-indigo-900">
+            {renderContent()}
+            
+            {/* Slide-out Panels & Modals */}
+            <HistoryPanel 
+                isVisible={isHistoryVisible} 
+                onClose={() => setIsHistoryVisible(false)} 
+                history={scoreHistory}
+                onReview={handleReviewHistory}
+                onClear={clearHistory}
+                onPromptDelete={handlePromptDelete}
+            />
+            
+            <ExamConfigModal
+                isOpen={isConfigModalOpen}
+                onClose={() => setIsConfigModalOpen(false)}
+                exam={examToStart}
+                onStart={handleStartConfiguredExam}
+            />
+            
+            <SettingsModal
+                isVisible={isSettingsVisible}
+                onClose={() => setIsSettingsVisible(false)}
+                theme={theme}
+                onThemeChange={setTheme}
+            />
+            
+            <ProfileModal
+                isOpen={isProfileVisible}
+                onClose={() => setIsProfileVisible(false)}
+                history={scoreHistory}
+            />
+            
+            <Modal
+                isOpen={isExitConfirmVisible}
+                onClose={() => setIsExitConfirmVisible(false)}
+                onConfirm={confirmExitQuiz}
+                title="Exit Quiz?"
+            >
+                Are you sure you want to exit? Your current progress will be lost.
+            </Modal>
+            
+            <Modal
+                isOpen={!!entryToDelete}
+                onClose={() => setEntryToDelete(null)}
+                onConfirm={handleConfirmDelete}
+                title="Delete Score?"
+            >
+                Are you sure you want to delete this score entry? This action cannot be undone.
+            </Modal>
         </div>
     );
 };
