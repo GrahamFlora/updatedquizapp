@@ -6771,7 +6771,7 @@ const Header = ({ onShowHistory, onShowSettings, onGoToDashboard, onShowProfile 
     </header>
 );
 
-const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory }) => {
+const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters }) => {
     const categories = ['All', ...new Set(allExams.map(exam => exam.category))];
     
     const totalExamsTaken = scoreHistory ? scoreHistory.length : 0;
@@ -6882,7 +6882,7 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                     </div>
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">No Exams Found</h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-2 max-w-sm mx-auto">We couldn't find any exams matching your search criteria. Try adjusting your filters.</p>
-                    <button onClick={() => {setSearchTerm(''); setSelectedCategory('All');}} className="mt-6 text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Clear Filters</button>
+                    <button onClick={onClearFilters} className="mt-6 text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Clear Filters</button>
                 </div>
             )}
         </div>
@@ -7747,6 +7747,10 @@ const App = () => {
                             searchTerm={searchTerm}
                             onSearchChange={(e) => setSearchTerm(e.target.value)}
                             scoreHistory={scoreHistory}
+                            onClearFilters={() => {
+                                setSearchTerm('');
+                                setSelectedCategory('All');
+                            }}
                         />
                     </div>
                 );
