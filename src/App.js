@@ -6771,11 +6771,39 @@ const Header = ({ onShowHistory, onShowSettings, onGoToDashboard, onShowProfile 
     </header>
 );
 
-const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters }) => {
+const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters, onExamsUploaded }) => {
     const categories = ['All', ...new Set(allExams.map(exam => exam.category))];
     
     const totalExamsTaken = scoreHistory ? scoreHistory.length : 0;
     const avgScore = totalExamsTaken > 0 ? Math.round(scoreHistory.reduce((sum, entry) => sum + entry.score, 0) / totalExamsTaken) : 0;
+
+    const fileInputRef = useRef(null);
+
+    const handleFileUploadClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const onFileChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            try {
+                const data = JSON.parse(evt.target.result);
+                const newExams = Array.isArray(data) ? data : [data];
+                const validExams = newExams.filter(ex => ex.title && ex.questions && Array.isArray(ex.questions));
+                if(validExams.length > 0) {
+                    onExamsUploaded(validExams);
+                } else {
+                    alert("Invalid exam format. Make sure it has 'title' and 'questions' array.");
+                }
+            } catch(err) {
+                alert("Error parsing file. Please ensure it is valid JSON format.");
+            }
+        };
+        reader.readAsText(file);
+        e.target.value = null; 
+    };
 
     return (
         <div className="p-4 md:p-8 flex-grow max-w-7xl mx-auto w-full space-y-8">
@@ -6821,23 +6849,34 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                     ))}
                 </div>
                 
-                <div className="relative w-full md:w-80 lg:w-96 shrink-0">
-                    <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={onSearchChange}
-                        placeholder="Search exams..."
-                        className="w-full p-3 pl-11 text-sm md:text-base text-gray-700 bg-gray-50 dark:bg-gray-900 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-shadow outline-none"
-                    />
-                    <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
+                <div className="flex items-center gap-3 w-full md:w-auto shrink-0">
+                    <input type="file" ref={fileInputRef} accept=".json,.txt" className="hidden" onChange={onFileChange} />
+                    <button 
+                        onClick={handleFileUploadClick} 
+                        className="px-4 py-2.5 md:py-3 bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 rounded-xl text-sm font-bold hover:bg-indigo-100 dark:hover:bg-gray-600 transition-colors shrink-0 flex items-center gap-2 border border-indigo-100 dark:border-gray-600"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        <span className="hidden md:inline">Upload</span>
+                    </button>
+
+                    <div className="relative w-full md:w-64 lg:w-80 shrink-0">
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={onSearchChange}
+                            placeholder="Search exams..."
+                            className="w-full pl-10 pr-4 py-2.5 md:py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    </div>
                 </div>
             </div>
 
-            {/* Exam Grid */}
+            {/* Exams Grid */}
             {filteredExams.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     {filteredExams.map(exam => (
                         <div key={exam.id} className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                             <div className="p-6 flex-grow relative">
@@ -6919,10 +6958,15 @@ const Modal = ({ isOpen, onClose, onConfirm, title, children, showConfirm = true
 const ExamConfigModal = ({ isOpen, onClose, exam, onStart }) => {
     const [numQuestions, setNumQuestions] = useState(10);
     const [order, setOrder] = useState('random');
+    const [rangeStart, setRangeStart] = useState(1);
+    const [rangeEnd, setRangeEnd] = useState(10);
 
     useEffect(() => {
         if (exam) {
-            setNumQuestions(Math.min(exam.questionsPerQuiz || 10, exam.questions.length));
+            const initialNum = Math.min(exam.questionsPerQuiz || 10, exam.questions.length);
+            setNumQuestions(initialNum);
+            setRangeStart(1);
+            setRangeEnd(initialNum);
         }
     }, [exam]);
 
@@ -6931,36 +6975,25 @@ const ExamConfigModal = ({ isOpen, onClose, exam, onStart }) => {
     const maxQs = exam.questions.length;
 
     const handleConfirm = () => {
-        // Enforce bounds
         const finalNum = Math.max(1, Math.min(maxQs, Number(numQuestions)));
-        onStart(finalNum, order);
+        
+        let s = Number(rangeStart) || 1;
+        let e = Number(rangeEnd) || maxQs;
+        
+        // Clamp values to the maximum boundaries
+        s = Math.max(1, Math.min(maxQs, s));
+        e = Math.max(1, Math.min(maxQs, e));
+        
+        // Auto-swap if the user typed them backwards (e.g., from 30 to 20)
+        const finalStart = Math.min(s, e);
+        const finalEnd = Math.max(s, e);
+
+        onStart(finalNum, order, finalStart, finalEnd);
     };
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} showConfirm={true} onConfirm={handleConfirm} confirmText="Start Exam" confirmButtonColor="indigo" title={`Setup: ${exam.title}`}>
             <div className="space-y-5 text-left">
-                <div>
-                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">Number of Questions</label>
-                    <div className="flex items-center gap-3">
-                        <input 
-                            type="range" 
-                            min="1" 
-                            max={maxQs} 
-                            value={numQuestions} 
-                            onChange={(e) => setNumQuestions(e.target.value)}
-                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-indigo-600"
-                        />
-                        <input 
-                            type="number" 
-                            min="1" 
-                            max={maxQs} 
-                            value={numQuestions} 
-                            onChange={(e) => setNumQuestions(e.target.value)}
-                            className="w-16 p-2 text-center text-sm font-semibold border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
-                        />
-                    </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">Maximum available: {maxQs}</p>
-                </div>
                 <div>
                     <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">Question Selection</label>
                     <select 
@@ -6969,9 +7002,65 @@ const ExamConfigModal = ({ isOpen, onClose, exam, onStart }) => {
                         className="w-full p-2.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer"
                     >
                         <option value="random">Randomized</option>
-                        <option value="sequential">Sequential (In Order 1 to N)</option>
+                        <option value="sequential">Sequential (Custom Range)</option>
                     </select>
                 </div>
+                {order === 'random' ? (
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">Number of Questions</label>
+                        <div className="flex items-center gap-3">
+                            <input 
+                                type="range" 
+                                min="1" 
+                                max={maxQs} 
+                                value={numQuestions} 
+                                onChange={(e) => setNumQuestions(e.target.value)}
+                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-indigo-600"
+                            />
+                            <input 
+                                type="number" 
+                                min="1" 
+                                max={maxQs} 
+                                value={numQuestions} 
+                                onChange={(e) => setNumQuestions(e.target.value)}
+                                className="w-16 p-2 text-center text-sm font-semibold border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                            />
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">Maximum available: {maxQs}</p>
+                    </div>
+                ) : (
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">Question Range</label>
+                        <div className="flex items-center gap-3">
+                            <div className="flex flex-col flex-1">
+                                <span className="text-xs text-gray-500 mb-1">From (e.g. 20)</span>
+                                <input 
+                                    type="number" 
+                                    min="1" 
+                                    max={maxQs} 
+                                    value={rangeStart} 
+                                    onChange={(e) => setRangeStart(e.target.value)}
+                                    className="w-full p-2 text-center text-sm font-semibold border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                                />
+                            </div>
+                            <span className="text-gray-500 font-bold mt-5">-</span>
+                            <div className="flex flex-col flex-1">
+                                <span className="text-xs text-gray-500 mb-1">To (e.g. 30)</span>
+                                <input 
+                                    type="number" 
+                                    min="1" 
+                                    max={maxQs} 
+                                    value={rangeEnd} 
+                                    onChange={(e) => setRangeEnd(e.target.value)}
+                                    className="w-full p-2 text-center text-sm font-semibold border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                                />
+                            </div>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                            Selecting {Math.max(0, (Number(rangeEnd) || 0) - (Number(rangeStart) || 0) + 1)} questions (Max: {maxQs})
+                        </p>
+                    </div>
+                )}
                 <div className="bg-indigo-50 dark:bg-indigo-900/30 p-3 rounded-lg border border-indigo-100 dark:border-indigo-800">
                      <p className="text-xs text-indigo-800 dark:text-indigo-200 font-medium text-center">
                          Timer will adjust automatically based on your selection.
@@ -7233,6 +7322,18 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
                         })}
                     </div>
                 )}
+
+                {isReviewVisible && (
+                    <button
+                        onClick={() => document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })}
+                        className="fixed bottom-6 right-6 bg-indigo-600 text-white p-3.5 rounded-full shadow-2xl hover:bg-indigo-700 transition-all z-50 flex items-center justify-center hover:scale-110 border-2 border-white dark:border-gray-800"
+                        title="Back to Top"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 15l7-7 7 7" />
+                        </svg>
+                    </button>
+                )}
             </div>
         </div>
     );
@@ -7416,6 +7517,13 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
         setIsClearModalOpen(false);
     };
 
+    const groupedHistory = history.reduce((groups, entry) => {
+        const title = entry.examTitle || 'Unknown Exam';
+        if (!groups[title]) groups[title] = [];
+        groups[title].push(entry);
+        return groups;
+    }, {});
+
     return (
         <>
             <Modal isOpen={isClearModalOpen} onClose={() => setIsClearModalOpen(false)} onConfirm={handleClearConfirm} title="Clear History">
@@ -7433,31 +7541,38 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
                         </div>
                         <div className="flex-grow overflow-y-auto pr-1">
                             {history.length > 0 ? (
-                                <ul className="space-y-3">
-                                    {history.map((entry) => (
-                                        <li key={entry.id} className={`rounded-xl border flex justify-between items-stretch text-left group relative overflow-hidden ${entry.score >= entry.passingScore ? 'bg-green-50/50 border-green-100 dark:bg-green-900/10 dark:border-green-900/30' : 'bg-red-50/50 border-red-100 dark:bg-red-900/10 dark:border-red-900/30'}`}>
-                                            <button onClick={() => onReview(entry)} className="w-full p-4 text-left transition-colors flex items-center justify-between">
-                                                <div className="flex-grow pr-4">
-                                                    <p className="font-bold text-sm text-gray-800 dark:text-gray-100 truncate">{entry.examTitle}</p>
-                                                    <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mt-1">{Math.round(entry.rawScore)} / {entry.totalQuestions} correct</p>
-                                                    <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">{new Date(entry.date).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}</p>
-                                                </div>
-                                                <div className={`text-xl font-bold ${entry.score >= entry.passingScore ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                                                    {entry.score}
-                                                </div>
-                                            </button>
-                                            <button 
-                                                onClick={() => onPromptDelete(entry.id)}
-                                                className="absolute top-1/2 -translate-y-1/2 right-2 p-1.5 rounded-lg bg-white/80 dark:bg-gray-800/80 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm backdrop-blur-sm"
-                                                aria-label="Delete entry"
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
-                                            </button>
-                                        </li>
+                                <div className="space-y-6">
+                                    {Object.entries(groupedHistory).map(([title, entries]) => (
+                                        <div key={title}>
+                                            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3 px-1">{title}</h3>
+                                            <ul className="space-y-3">
+                                                {entries.map((entry) => (
+                                                    <li key={entry.id} className={`rounded-xl border flex justify-between items-stretch text-left group relative overflow-hidden ${entry.score >= entry.passingScore ? 'bg-green-50/50 border-green-100 dark:bg-green-900/10 dark:border-green-900/30' : 'bg-red-50/50 border-red-100 dark:bg-red-900/10 dark:border-red-900/30'}`}>
+                                                        <button onClick={() => onReview(entry)} className="w-full p-4 text-left transition-colors flex items-center justify-between">
+                                                            <div className="flex-grow pr-4">
+                                                                <p className="font-bold text-sm text-gray-800 dark:text-gray-100 truncate">{entry.examTitle}</p>
+                                                                <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mt-1">{Math.round(entry.rawScore)} / {entry.totalQuestions} correct</p>
+                                                                <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">{new Date(entry.date).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}</p>
+                                                            </div>
+                                                            <div className={`text-xl font-bold ${entry.score >= entry.passingScore ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                                                {entry.score}
+                                                            </div>
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => onPromptDelete(entry.id)}
+                                                            className="absolute top-1/2 -translate-y-1/2 right-2 p-1.5 rounded-lg bg-white/80 dark:bg-gray-800/80 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm backdrop-blur-sm"
+                                                            aria-label="Delete entry"
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            </svg>
+                                                        </button>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                     ))}
-                                </ul>
+                                </div>
                             ) : <div className="text-center text-gray-400 dark:text-gray-500 mt-10 text-sm">No scores recorded yet.</div>}
                         </div>
                         {history.length > 0 && (
@@ -7518,31 +7633,46 @@ const App = () => {
 
 
     // --- HANDLERS ---
+    const handleExamsUploaded = (newExams) => {
+        const preparedExams = newExams.map(ex => ({
+            ...ex,
+            id: ex.id || `uploaded-${Date.now()}-${Math.random()}`,
+            category: ex.category || 'Custom'
+        }));
+        setAllExams(prev => [...prev, ...preparedExams]);
+        alert(`Successfully loaded ${preparedExams.length} exam(s)!`);
+    };
+
     const handlePromptStartExam = (exam) => {
         setExamToStart(exam);
         setIsConfigModalOpen(true);
     };
 
-    const handleStartConfiguredExam = (numQuestionsToTake, orderSelection) => {
+    const handleStartConfiguredExam = (numQuestionsToTake, orderSelection, rangeStart = 1, rangeEnd = 10) => {
         if (!examToStart) return;
 
         let selectedQuestions = [...examToStart.questions];
+        let finalNumQuestionsToTake = numQuestionsToTake;
         
         if (orderSelection === 'random') {
             selectedQuestions = shuffleArray(selectedQuestions);
+            selectedQuestions = selectedQuestions.slice(0, finalNumQuestionsToTake);
+        } else {
+            const startIdx = Math.max(0, rangeStart - 1);
+            const endIdx = Math.min(examToStart.questions.length, rangeEnd);
+            selectedQuestions = selectedQuestions.slice(startIdx, endIdx);
+            finalNumQuestionsToTake = selectedQuestions.length;
         }
-        
-        selectedQuestions = selectedQuestions.slice(0, numQuestionsToTake);
         
         // Calculate proportional time based on number of questions selected vs default questions
         const defaultQs = examToStart.questions.length;
         const totalDurationForMaxQs = examToStart.durationSeconds || (defaultQs * 60); 
-        const calculatedTime = Math.ceil((totalDurationForMaxQs / defaultQs) * numQuestionsToTake);
+        const calculatedTime = Math.ceil((totalDurationForMaxQs / defaultQs) * finalNumQuestionsToTake);
 
         setActiveExam(examToStart);
         setCurrentQuizQuestions(selectedQuestions);
-        setUserAnswers(Array(numQuestionsToTake).fill(null).map(() => []));
-        setFlaggedQuestions(Array(numQuestionsToTake).fill(false));
+        setUserAnswers(Array(finalNumQuestionsToTake).fill(null).map(() => []));
+        setFlaggedQuestions(Array(finalNumQuestionsToTake).fill(false));
         setCurrentQuestionIndex(0);
         setTimeLeft(calculatedTime);
         setIsQuizActive(true);
@@ -7554,47 +7684,53 @@ const App = () => {
     };
     
     const handleSubmitQuiz = useCallback(() => {
-        if (!activeExam) return;
-        setIsQuizActive(false);
+        try {
+            if (!activeExam) return;
+            setIsQuizActive(false);
 
-        let totalPoints = 0;
-        userAnswers.forEach((selectedIndices, questionIndex) => {
-            const question = currentQuizQuestions[questionIndex];
-            const correctOptionIndices = new Set(question.answerOptions.map((option, index) => (option.isCorrect ? index : -1)).filter(index => index !== -1));
-            const userSelectedIndices = new Set(selectedIndices || []);
-            if (correctOptionIndices.size > 0) {
-                 const isCorrect = correctOptionIndices.size === userSelectedIndices.size && [...userSelectedIndices].every(i => correctOptionIndices.has(i));
-                 if (isCorrect) totalPoints += 1;
-            }
-        });
+            let totalPoints = 0;
+            userAnswers.forEach((selectedIndices, questionIndex) => {
+                const question = currentQuizQuestions[questionIndex];
+                if (!question) return;
+                
+                const correctOptionIndices = new Set(question.answerOptions.map((option, index) => (option.isCorrect ? index : -1)).filter(index => index !== -1));
+                const userSelectedIndices = new Set(selectedIndices || []);
+                if (correctOptionIndices.size > 0) {
+                     const isCorrect = correctOptionIndices.size === userSelectedIndices.size && [...userSelectedIndices].every(i => correctOptionIndices.has(i));
+                     if (isCorrect) totalPoints += 1;
+                }
+            });
 
-        const totalQuestions = currentQuizQuestions.length;
-        // Keep the 100-900 scaling logic consistent regardless of question count
-        const finalScaledScore = totalQuestions > 0 ? Math.round(((totalPoints / totalQuestions) * 800) + 100) : 100;
+            const totalQuestions = currentQuizQuestions.length;
+            const finalScaledScore = totalQuestions > 0 ? Math.round(((totalPoints / totalQuestions) * 800) + 100) : 100;
 
-        const scoreEntry = {
-            id: new Date().toISOString(),
-            examId: activeExam.id,
-            examTitle: activeExam.title,
-            score: finalScaledScore,
-            date: new Date().toISOString(),
-            questions: currentQuizQuestions,
-            userAnswers: userAnswers,
-            rawScore: totalPoints,
-            totalQuestions: totalQuestions,
-            exam: activeExam,
-            passingScore: activeExam.passingScore
-        };
-        
-        setCompletedQuizData(scoreEntry);
-        
-        const currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
-        const newHistory = [scoreEntry, ...currentHistory];
-        localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
-        setScoreHistory(newHistory);
+            const scoreEntry = {
+                id: new Date().toISOString(),
+                examId: activeExam.id,
+                examTitle: activeExam.title,
+                score: finalScaledScore,
+                date: new Date().toISOString(),
+                questions: currentQuizQuestions,
+                userAnswers: userAnswers,
+                rawScore: totalPoints,
+                totalQuestions: totalQuestions,
+                exam: activeExam,
+                passingScore: activeExam.passingScore || 700
+            };
+            
+            setCompletedQuizData(scoreEntry);
+            
+            const currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
+            const newHistory = [scoreEntry, ...currentHistory];
+            localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
+            setScoreHistory(newHistory);
 
-        setAppState('review');
-        setShowFinalReview(false);
+            setAppState('review');
+            setShowFinalReview(false);
+        } catch (error) {
+            console.error("Error submitting quiz:", error);
+            alert("There was an error submitting your quiz. Please try again.");
+        }
     }, [activeExam, userAnswers, currentQuizQuestions]);
 
     const handleAnswerOptionClick = (answerIndex) => {
@@ -7751,6 +7887,7 @@ const App = () => {
                                 setSearchTerm('');
                                 setSelectedCategory('All');
                             }}
+                            onExamsUploaded={handleExamsUploaded}
                         />
                     </div>
                 );
@@ -7770,7 +7907,13 @@ const App = () => {
                                 {showFinalReview ? (
                                     <FinalReviewScreen 
                                         flaggedQuestions={flaggedQuestions.map((f, i) => f ? i : -1).filter(i => i !== -1)} 
-                                        unansweredQuestions={userAnswers.map((a, i) => (!a || a.length === 0) ? i : -1).filter(i => i !== -1)} 
+                                        unansweredQuestions={userAnswers.map((a, i) => {
+                                            const q = currentQuizQuestions[i];
+                                            if (!q) return -1;
+                                            const correctCount = q.answerOptions.filter(o => o.isCorrect).length;
+                                            const answeredCount = a ? a.length : 0;
+                                            return answeredCount < correctCount ? i : -1;
+                                        }).filter(i => i !== -1)} 
                                         onGoToQuestion={(qIndex) => { setCurrentQuestionIndex(qIndex); setShowFinalReview(false); }} 
                                         onSubmitFinal={handleSubmitQuiz} 
                                     />
