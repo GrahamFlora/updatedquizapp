@@ -6854,7 +6854,7 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                     <input type="file" ref={fileInputRef} accept=".json,.txt" className="hidden" onChange={onFileChange} />
                     <button 
                         onClick={handleFileUploadClick} 
-                        className="px-4 py-2.5 md:py-3 bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 rounded-xl text-sm font-bold hover:bg-indigo-100 dark:hover:bg-gray-600 transition-colors shrink-0 flex items-center gap-2 border border-indigo-100 dark:border-gray-600 whitespace-nowrap"
+                        className="px-4 py-2.5 md:py-3 bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 rounded-xl text-sm font-bold hover:bg-indigo-100 dark:hover:bg-gray-600 transition-colors shrink-0 flex items-center gap-2 border border-indigo-100 dark:border-gray-600"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -6994,7 +6994,7 @@ const ExamConfigModal = ({ isOpen, onClose, exam, onStart }) => {
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} showConfirm={true} onConfirm={handleConfirm} confirmText="Start Exam" confirmButtonColor="indigo" title={`Setup: ${exam.title}`}>
-            <div className="space-y-5 text-left max-h-[70vh] overflow-y-auto pr-2"
+            <div className="space-y-5 text-left">
                 <div>
                     <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">Question Selection</label>
                     <select 
@@ -7548,7 +7548,7 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
                         </div>
-                        <div className="flex-grow overflow-y-auto pr-2 space-y-4">
+                        <div className="flex-grow overflow-y-auto pr-1">
                             {history.length > 0 ? (
                                 <div className="space-y-6">
                                     {Object.entries(groupedHistory).map(([title, entries]) => (
