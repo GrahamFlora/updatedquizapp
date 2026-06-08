@@ -6640,6 +6640,7 @@ const examLibrary = [
 ];
 
 
+
 // =================================================================================
 // === HELPER FUNCTIONS ============================================================
 // =================================================================================
@@ -7140,10 +7141,14 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion }) => {
     );
 };
 
-
 const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, onBackToHistory, isFromHistory, scriptsLoaded }) => {
     const { score, rawScore, totalQuestions, questions, userAnswers, exam } = scoreData;
-    const { message, color } = getScoreMessage(score, exam.passingScore);
+    
+    // Safely fallback variables to prevent crashes if 'exam' isn't available in localstorage
+    const passingScore = exam ? exam.passingScore : (scoreData.passingScore || 700);
+    const examTitle = exam ? exam.title : scoreData.examTitle;
+    
+    const { message, color } = getScoreMessage(score, passingScore);
     
     const [reviewFilter, setReviewFilter] = useState('all');
     const [explanationVisibility, setExplanationVisibility] = useState({});
@@ -7186,7 +7191,7 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
             }
 
             const date = new Date().toLocaleDateString('en-CA');
-            const safeTitle = exam.title.replace(/[^a-zA-Z0-9]/g, '_');
+            const safeTitle = examTitle.replace(/[^a-zA-Z0-9]/g, '_');
             pdf.save(`${safeTitle}_Review_${date}.pdf`);
             setIsDownloading(false);
         }).catch(() => setIsDownloading(false));
@@ -7218,14 +7223,14 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-1">
                 {isFromHistory ? 'Reviewing Past Quiz' : 'Quiz Completed!'}
             </h2>
-            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 text-center mb-6">{exam.title}</p>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 text-center mb-6">{examTitle}</p>
             
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 md:p-8 mb-6 text-center md:text-left">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="w-full md:w-auto text-center md:text-left">
                         <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Your Score</p>
                         <p className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-purple-600 my-2">{score}</p>
-                        <p className="text-xs text-gray-400 dark:text-gray-500">Passing Score: {exam.passingScore}</p>
+                        <p className="text-xs text-gray-400 dark:text-gray-500">Passing Score: {passingScore}</p>
                     </div>
                     <div className="flex-grow text-center">
                          <p className={`text-xl md:text-2xl font-bold mb-1 ${color}`}>{message}</p>
@@ -7234,9 +7239,15 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
                 </div>
                 
                 <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
-                    <button onClick={() => onRestart(exam)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm">
-                        {isFromHistory ? 'Retake Exam' : 'Try Again'}
-                    </button>
+                    {exam ? (
+                        <button onClick={() => onRestart(exam)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm">
+                            {isFromHistory ? 'Retake Exam' : 'Try Again'}
+                        </button>
+                    ) : (
+                        <button disabled className="bg-gray-400 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm cursor-not-allowed" title="Please re-upload the exam to retake it">
+                            Retake Unavailable
+                        </button>
+                    )}
                     {isFromHistory ? (
                         <button onClick={onBackToHistory} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2.5 px-6 rounded-xl transition text-sm">Back to History</button>
                     ) : (
@@ -7376,8 +7387,6 @@ const QuestionView = ({ currentQuestionData, currentQuestionIndex, totalQuestion
     }, [currentQuestionIndex]);
 
     return (
-        // Key layout change for mobile: Flex column that takes exactly the remaining height minus header (approx 60px).
-        // This ensures the bottom action bar is always visible without scrolling the whole page.
         <div className="flex flex-col h-[calc(100dvh-60px)] md:h-[auto] md:min-h-[600px] w-full max-w-4xl mx-auto md:py-6">
             
             {/* The Main Container Card */}
@@ -7704,24 +7713,32 @@ const App = () => {
             const totalQuestions = currentQuizQuestions.length;
             const finalScaledScore = totalQuestions > 0 ? Math.round(((totalPoints / totalQuestions) * 800) + 100) : 100;
 
-            const scoreEntry = {
+            // This is the slimmed-down object specifically for local storage. 
+            // It completely omits the massive "activeExam" dictionary to prevent the 5MB QuotaExceededError crash.
+            const scoreEntryForStorage = {
                 id: new Date().toISOString(),
                 examId: activeExam.id,
                 examTitle: activeExam.title,
                 score: finalScaledScore,
                 date: new Date().toISOString(),
-                questions: currentQuizQuestions,
+                questions: currentQuizQuestions, // We only save the questions you actually answered
                 userAnswers: userAnswers,
                 rawScore: totalPoints,
                 totalQuestions: totalQuestions,
-                exam: activeExam,
                 passingScore: activeExam.passingScore || 700
             };
             
-            setCompletedQuizData(scoreEntry);
+            // The memory state gets the full exam so you can use the "Retake" button smoothly
+            setCompletedQuizData({ ...scoreEntryForStorage, exam: activeExam });
             
-            const currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
-            const newHistory = [scoreEntry, ...currentHistory];
+            // Save to local storage safely, keeping only the last 50 tests to be extra safe
+            let currentHistory = [];
+            try {
+                currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
+            } catch (e) {
+                currentHistory = []; // Reset if corrupted
+            }
+            const newHistory = [scoreEntryForStorage, ...currentHistory].slice(0, 50); 
             localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
             setScoreHistory(newHistory);
 
@@ -7766,13 +7783,11 @@ const App = () => {
 
     const handleReviewHistory = (entry) => {
         const examForHistory = allExams.find(e => e.id === entry.examId);
-        if (examForHistory) {
-            setReviewingHistoryEntry({ ...entry, exam: examForHistory });
-            setAppState('review');
-            setIsHistoryVisible(false);
-        } else {
-            console.error("Could not find the original exam for this history entry.");
-        }
+        // It's perfectly okay if examForHistory is undefined (e.g. if you refreshed and the uploaded bank is gone)
+        // ScoreScreen is programmed to handle it correctly without crashing now.
+        setReviewingHistoryEntry({ ...entry, exam: examForHistory });
+        setAppState('review');
+        setIsHistoryVisible(false);
     };
 
     const clearHistory = () => {
@@ -7824,8 +7839,14 @@ const App = () => {
         ]).then(() => setScriptsLoaded(true)).catch(e => console.error("PDF scripts failed to load", e));
         
         setAllExams(examLibrary);
-        const savedHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
-        setScoreHistory(savedHistory);
+        
+        try {
+            const savedHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
+            setScoreHistory(savedHistory);
+        } catch (e) {
+            setScoreHistory([]);
+        }
+        
         setAppState('dashboard');
     }, []);
     
