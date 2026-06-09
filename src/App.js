@@ -6640,7 +6640,6 @@ const examLibrary = [
 ];
 
 
-
 // =================================================================================
 // === HELPER FUNCTIONS ============================================================
 // =================================================================================
@@ -6850,16 +6849,17 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                     ))}
                 </div>
                 
-                <div className="flex items-center gap-3 w-full md:w-auto shrink-0">
+                {/* FIX 1: Responsive wrapping for search and upload buttons on mobile */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto shrink-0 mt-2 md:mt-0">
                     <input type="file" ref={fileInputRef} accept=".json,.txt" className="hidden" onChange={onFileChange} />
                     <button 
                         onClick={handleFileUploadClick} 
-                        className="px-4 py-2.5 md:py-3 bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 rounded-xl text-sm font-bold hover:bg-indigo-100 dark:hover:bg-gray-600 transition-colors shrink-0 flex items-center gap-2 border border-indigo-100 dark:border-gray-600"
+                        className="px-4 py-2.5 md:py-3 bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 rounded-xl text-sm font-bold hover:bg-indigo-100 dark:hover:bg-gray-600 transition-colors shrink-0 flex items-center justify-center gap-2 border border-indigo-100 dark:border-gray-600"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                         </svg>
-                        <span className="hidden md:inline">Upload</span>
+                        <span>Upload</span>
                     </button>
 
                     <div className="relative w-full md:w-64 lg:w-80 shrink-0">
@@ -6929,6 +6929,7 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
     );
 };
 
+// FIX 2: Ensure Modal doesn't break out of the screen using max-h-[90vh] and overflow-y-auto on children
 const Modal = ({ isOpen, onClose, onConfirm, title, children, showConfirm = true, confirmText = "Confirm", confirmButtonColor = 'red' }) => {
     if (!isOpen) return null;
 
@@ -6940,10 +6941,13 @@ const Modal = ({ isOpen, onClose, onConfirm, title, children, showConfirm = true
 
     return (
         <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-50 flex justify-center items-center p-4">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto animate-fade-in-up">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{title}</h3>
-                <div className="text-gray-600 dark:text-gray-300 mb-6">{children}</div>
-                <div className="flex justify-end gap-3">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto animate-fade-in-up flex flex-col max-h-[90vh]">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 shrink-0">{title}</h3>
+                
+                {/* overflow-y-auto prevents the content from stretching the modal off the screen */}
+                <div className="text-gray-600 dark:text-gray-300 mb-6 overflow-y-auto pr-2">{children}</div>
+                
+                <div className="flex justify-end gap-3 shrink-0">
                     <button onClick={onClose} className="px-4 py-2 rounded-xl text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition">
                         {showConfirm ? 'Cancel' : 'Close'}
                     </button>
@@ -7518,6 +7522,7 @@ const FinalReviewScreen = ({ flaggedQuestions, unansweredQuestions, onGoToQuesti
     </div>
 );
 
+// FIX 3: Expanded History Panel Width (w-[85vw] max-w-md) to stretch correctly
 const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPromptDelete }) => {
     const [isClearModalOpen, setIsClearModalOpen] = useState(false);
 
@@ -7540,7 +7545,9 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
             </Modal>
             <div className={`fixed inset-0 z-40 transition-all duration-300 ease-in-out ${isVisible ? '' : 'pointer-events-none'}`}>
                 <div className={`absolute inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`} onClick={onClose}></div>
-                <div className={`absolute top-0 right-0 h-full w-full max-w-sm bg-white dark:bg-gray-800 shadow-2xl transform transition-transform duration-300 ease-in-out border-l border-gray-100 dark:border-gray-700 ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}>
+                
+                {/* Panel increased to max-w-md and 85vw to ensure it stretches well on small screens and holds full text on larger ones */}
+                <div className={`absolute top-0 right-0 h-full w-[85vw] max-w-md bg-white dark:bg-gray-800 shadow-2xl transform transition-transform duration-300 ease-in-out border-l border-gray-100 dark:border-gray-700 ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}>
                     <div className="p-5 flex flex-col h-full">
                         <div className="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-4 mb-4">
                             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">Score History</h2>
@@ -7559,7 +7566,8 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
                                                     <li key={entry.id} className={`rounded-xl border flex justify-between items-stretch text-left group relative overflow-hidden ${entry.score >= entry.passingScore ? 'bg-green-50/50 border-green-100 dark:bg-green-900/10 dark:border-green-900/30' : 'bg-red-50/50 border-red-100 dark:bg-red-900/10 dark:border-red-900/30'}`}>
                                                         <button onClick={() => onReview(entry)} className="w-full p-4 text-left transition-colors flex items-center justify-between">
                                                             <div className="flex-grow pr-4">
-                                                                <p className="font-bold text-sm text-gray-800 dark:text-gray-100 truncate">{entry.examTitle}</p>
+                                                                {/* Removed 'truncate' and added 'break-words line-clamp-2' to show full text */}
+                                                                <p className="font-bold text-sm text-gray-800 dark:text-gray-100 break-words line-clamp-2">{entry.examTitle}</p>
                                                                 <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mt-1">{Math.round(entry.rawScore)} / {entry.totalQuestions} correct</p>
                                                                 <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">{new Date(entry.date).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}</p>
                                                             </div>
@@ -7713,8 +7721,6 @@ const App = () => {
             const totalQuestions = currentQuizQuestions.length;
             const finalScaledScore = totalQuestions > 0 ? Math.round(((totalPoints / totalQuestions) * 800) + 100) : 100;
 
-            // This is the slimmed-down object specifically for local storage. 
-            // It completely omits the massive "activeExam" dictionary to prevent the 5MB QuotaExceededError crash.
             const scoreEntryForStorage = {
                 id: new Date().toISOString(),
                 examId: activeExam.id,
@@ -7731,22 +7737,42 @@ const App = () => {
             // The memory state gets the full exam so you can use the "Retake" button smoothly
             setCompletedQuizData({ ...scoreEntryForStorage, exam: activeExam });
             
-            // Save to local storage safely, keeping only the last 50 tests to be extra safe
+            // INDEPENDENT STORAGE LOGIC:
+            // This ensures that even if local storage is 100% full, it won't crash the submit button
             let currentHistory = [];
             try {
                 currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
             } catch (e) {
                 currentHistory = []; // Reset if corrupted
             }
-            const newHistory = [scoreEntryForStorage, ...currentHistory].slice(0, 50); 
-            localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
-            setScoreHistory(newHistory);
+            
+            // Attempt to save (capped at 20 most recent to be much safer on browser limits)
+            let newHistory = [scoreEntryForStorage, ...currentHistory].slice(0, 20); 
+            
+            try {
+                localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
+                setScoreHistory(newHistory);
+            } catch (storageError) {
+                console.warn("Storage quota exceeded. Attempting to shrink history...");
+                try {
+                    // Fallback: If it's still full, aggressively shrink to only the 5 most recent exams
+                    newHistory = [scoreEntryForStorage, ...currentHistory].slice(0, 5);
+                    localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
+                    setScoreHistory(newHistory);
+                } catch (fallbackError) {
+                    console.error("Storage completely full. Keeping score in memory only for this session.");
+                    // At least update the UI so the user can see their current score in the history panel
+                    setScoreHistory([scoreEntryForStorage, ...currentHistory].slice(0, 20)); 
+                }
+            }
 
+            // GUARANTEED TRANSITION: These lines will now ALWAYS run, moving you to the results screen
             setAppState('review');
             setShowFinalReview(false);
+            
         } catch (error) {
-            console.error("Error submitting quiz:", error);
-            alert("There was an error submitting your quiz. Please try again.");
+            console.error("Critical error calculating quiz:", error);
+            alert("There was a critical error calculating your score. Please try again.");
         }
     }, [activeExam, userAnswers, currentQuizQuestions]);
 
@@ -7783,8 +7809,7 @@ const App = () => {
 
     const handleReviewHistory = (entry) => {
         const examForHistory = allExams.find(e => e.id === entry.examId);
-        // It's perfectly okay if examForHistory is undefined (e.g. if you refreshed and the uploaded bank is gone)
-        // ScoreScreen is programmed to handle it correctly without crashing now.
+        // It's perfectly okay if examForHistory is undefined
         setReviewingHistoryEntry({ ...entry, exam: examForHistory });
         setAppState('review');
         setIsHistoryVisible(false);
