@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import Papa from 'papaparse';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, db, googleProvider } from './firebase';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import { collection, doc, getDocs, setDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
 
 // =================================================================================
 // === DATA & CONFIGURATION ========================================================
@@ -16,6 +21,12 @@ const GoogleCloudIcon = () => (
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.5 4.5 0 002.25 15z" />
     </svg>
 );
+
+const sanitizeExam = (exam) => {
+    if (!exam) return exam;
+    const { icon, ...rest } = exam;
+    return JSON.parse(JSON.stringify(rest));
+};
 
 const examLibrary = [
     {
@@ -8044,7 +8055,7 @@ const UserProfileDropdown = ({ onShowHistory, onShowSettings, onShowProfile }) =
     );
 };
 
-const Header = ({ onShowHistory, onShowSettings, onGoToDashboard, onShowProfile }) => (
+const Header = ({ onShowHistory, onShowSettings, onGoToDashboard, onShowProfile, user, onSignIn, onSignOut }) => (
     <header className="flex justify-between items-center px-4 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 shadow-sm h-[60px]">
         <div className="flex items-center gap-2">
              <button onClick={onGoToDashboard} className="flex items-center gap-2 hover:opacity-80 transition">
@@ -8052,20 +8063,156 @@ const Header = ({ onShowHistory, onShowSettings, onGoToDashboard, onShowProfile 
                 <h1 className="text-lg font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">Quiz Platform</h1>
             </button>
         </div>
-        <UserProfileDropdown onShowHistory={onShowHistory} onShowSettings={onShowSettings} onShowProfile={onShowProfile} />
+        <UserProfileDropdown onShowHistory={onShowHistory} onShowSettings={onShowSettings} onShowProfile={onShowProfile} user={user} onSignIn={onSignIn} onSignOut={onSignOut} />
     </header>
 );
 
-const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters, onExamsUploaded }) => {
+const getExamIcon = (exam) => {
+    if (exam.icon && exam.icon.$$typeof) return exam.icon;
+    if (exam.category === 'CompTIA') return <CompTiaIcon />;
+    if (exam.category === 'Google Cloud') return <GoogleCloudIcon />;
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-indigo-500 dark:text-indigo-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+    );
+};
+
+const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters, onExamsUploaded, onEditExam, onDeleteExam }) => {
     const categories = ['All', ...new Set(allExams.map(exam => exam.category))];
+    const [isSearchExpanded, setIsSearchExpanded] = useState(false);
     
     const totalExamsTaken = scoreHistory ? scoreHistory.length : 0;
     const avgScore = totalExamsTaken > 0 ? Math.round(scoreHistory.reduce((sum, entry) => sum + entry.score, 0) / totalExamsTaken) : 0;
 
     const fileInputRef = useRef(null);
+    const searchInputRef = useRef(null);
 
     const handleFileUploadClick = () => {
         fileInputRef.current?.click();
+    };
+
+    const parseTxt = (text) => {
+        const blocks = text.split(/\n\s*\n/);
+        const questions = [];
+        
+        for (const block of blocks) {
+            const lines = block.split('\n').map(l => l.trim()).filter(l => l);
+            if (lines.length < 3) continue;
+            
+            let questionText = lines[0];
+            let options = [];
+            let correctIndex = -1;
+            let explanation = "";
+            
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i];
+                const optionMatch = line.match(/^([a-eA-E0-9])[\.\)]\s*(.*)/);
+                const starredOptionMatch = line.match(/^\*([a-eA-E0-9])[\.\)]\s*(.*)/);
+                
+                if (starredOptionMatch) {
+                    options.push(starredOptionMatch[2]);
+                    correctIndex = options.length - 1;
+                } else if (optionMatch) {
+                    options.push(optionMatch[2]);
+                } else if (line.toLowerCase().startsWith('answer:')) {
+                    const ansStr = line.substring(7).trim();
+                    if (ansStr.match(/^[A-Ea-e]$/)) {
+                        correctIndex = ansStr.toUpperCase().charCodeAt(0) - 65;
+                    } else if (ansStr.match(/^[1-9]$/)) {
+                        correctIndex = parseInt(ansStr) - 1;
+                    } else {
+                        correctIndex = options.findIndex(o => o.toLowerCase() === ansStr.toLowerCase());
+                    }
+                } else if (line.toLowerCase().startsWith('explanation:')) {
+                    explanation = line.substring(12).trim();
+                } else if (options.length === 0 && correctIndex === -1 && !line.toLowerCase().startsWith('answer:')) {
+                    // It's still part of the question text
+                    questionText += '\n' + line;
+                }
+            }
+            
+            if (options.length > 0 && correctIndex >= 0 && correctIndex < options.length) {
+                const answerOptions = options.map((opt, idx) => ({
+                    answerText: opt,
+                    isCorrect: idx === correctIndex
+                }));
+                questions.push({
+                    id: Math.random().toString(36).substr(2, 9),
+                    questionText,
+                    answerOptions,
+                    explanation
+                });
+            }
+        }
+        
+        return questions.length > 0 ? [{
+            title: "Imported TXT Exam",
+            category: "Imported",
+            description: "Exam imported from TXT file.",
+            questions
+        }] : null;
+    };
+
+    const parseCsv = (text) => {
+        const results = Papa.parse(text, { header: true, skipEmptyLines: true });
+        const questions = [];
+        if (!results.data || results.data.length === 0) return null;
+        
+        const headers = results.meta.fields.map(h => h.toLowerCase().trim());
+        const qKey = results.meta.fields.find(h => h.toLowerCase().includes('question')) || results.meta.fields[0];
+        const aKey = results.meta.fields.find(h => h.toLowerCase().includes('answer')) || results.meta.fields[results.meta.fields.length - 1];
+        const optionKeys = results.meta.fields.filter(h => h.toLowerCase().match(/option|choice|^[a-e]$/i));
+        
+        for (const row of results.data) {
+            let qText = row[qKey];
+            let opts = [];
+            
+            if (optionKeys.length > 0) {
+                opts = optionKeys.map(k => row[k]).filter(o => o);
+            } else {
+                // assume middle columns are options
+                const allKeys = Object.keys(row);
+                const start = allKeys.indexOf(qKey) + 1;
+                const end = allKeys.indexOf(aKey);
+                for(let i = start; i < end; i++) {
+                    if (row[allKeys[i]]) opts.push(row[allKeys[i]]);
+                }
+            }
+            
+            let ansRaw = row[aKey];
+            let ansIndex = -1;
+            
+            if (ansRaw) {
+                ansRaw = ansRaw.trim();
+                if (ansRaw.match(/^[A-Ea-e]$/)) {
+                    ansIndex = ansRaw.toUpperCase().charCodeAt(0) - 65;
+                } else if (ansRaw.match(/^[1-9]$/)) {
+                    ansIndex = parseInt(ansRaw) - 1;
+                } else {
+                     ansIndex = opts.findIndex(o => o.trim().toLowerCase() === ansRaw.toLowerCase());
+                }
+            }
+            
+            if (qText && opts.length > 0 && ansIndex >= 0 && ansIndex < opts.length) {
+                const answerOptions = opts.map((opt, idx) => ({
+                    answerText: opt,
+                    isCorrect: idx === ansIndex
+                }));
+                questions.push({
+                     id: Math.random().toString(36).substr(2, 9),
+                     questionText: qText,
+                     answerOptions
+                });
+            }
+        }
+        
+        return questions.length > 0 ? [{
+            title: "Imported CSV Exam",
+            category: "Imported",
+            description: "Exam imported from CSV file.",
+            questions
+        }] : null;
     };
 
     const onFileChange = (e) => {
@@ -8073,17 +8220,83 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (evt) => {
+            const content = evt.target.result;
+            const ext = file.name.split('.').pop().toLowerCase();
+            
+            let validExams = null;
+            
             try {
-                const data = JSON.parse(evt.target.result);
-                const newExams = Array.isArray(data) ? data : [data];
-                const validExams = newExams.filter(ex => ex.title && ex.questions && Array.isArray(ex.questions));
-                if(validExams.length > 0) {
+                if (ext === 'csv') {
+                    validExams = parseCsv(content);
+                } else if (ext === 'txt') {
+                    validExams = parseTxt(content);
+                } else {
+                    const data = JSON.parse(content);
+                    // Check if it's the specific ExamTopics scraped format (array of questions)
+                    if (Array.isArray(data) && data.length > 0 && data[0].question_text && Array.isArray(data[0].answer_options)) {
+                        const parsedQuestions = data.map(q => {
+                            const options = q.answer_options.map(opt => opt.text);
+                            let correctLetters = new Set();
+                            
+                            if (q.community_answer && q.community_answer !== "N/A") {
+                                const matches = q.community_answer.match(/[A-E]/gi);
+                                if (matches) matches.forEach(m => correctLetters.add(m.toUpperCase()));
+                            } else if (q.suggested_answer && q.suggested_answer !== "N/A") {
+                                const matches = q.suggested_answer.match(/[A-E]/gi);
+                                if (matches) matches.forEach(m => correctLetters.add(m.toUpperCase()));
+                            } else if (q.comments && q.comments.length > 0) {
+                                const firstComment = q.comments[0].text.toUpperCase();
+                                const startMatch = firstComment.match(/^([A-E](?:\s*(?:AND|&|,)\s*[A-E])*)/);
+                                if (startMatch) {
+                                    const letters = startMatch[1].match(/[A-E]/g);
+                                    if (letters) letters.forEach(l => correctLetters.add(l));
+                                } else {
+                                    const prefix = firstComment.substring(0, 15);
+                                    const matches = prefix.match(/\b[A-E]\b/g);
+                                    if (matches) matches.forEach(m => correctLetters.add(m));
+                                }
+                            }
+                            
+                            let correctAnswers = Array.from(correctLetters).map(l => l.charCodeAt(0) - 65).filter(idx => idx >= 0 && idx < options.length);
+                            if (correctAnswers.length === 0) correctAnswers = [0]; // fallback to A
+                            
+                            let explanation = "";
+                            if (q.comments && q.comments.length > 0) {
+                                explanation = "Comments:\n" + q.comments.map(c => `- ${c.user}: ${c.text}`).join('\n');
+                            }
+                            
+                            const answerOptions = options.map((opt, idx) => ({
+                                answerText: opt,
+                                isCorrect: correctAnswers.includes(idx)
+                            }));
+                            
+                            return {
+                                id: Math.random().toString(36).substr(2, 9),
+                                questionText: q.question_text,
+                                answerOptions: answerOptions,
+                                explanation: explanation
+                            };
+                        });
+                        
+                        validExams = [{
+                            title: "Imported Scraped Exam",
+                            category: "Imported",
+                            description: "Questions imported from scraped JSON.",
+                            questions: parsedQuestions
+                        }];
+                    } else {
+                        const newExams = Array.isArray(data) ? data : [data];
+                        validExams = newExams.filter(ex => ex.title && ex.questions && Array.isArray(ex.questions));
+                    }
+                }
+                
+                if(validExams && validExams.length > 0) {
                     onExamsUploaded(validExams);
                 } else {
-                    alert("Invalid exam format. Make sure it has 'title' and 'questions' array.");
+                    alert(`Invalid or empty ${ext.toUpperCase()} format. Could not find any valid questions.`);
                 }
             } catch(err) {
-                alert("Error parsing file. Please ensure it is valid JSON format.");
+                alert(`Error parsing file. Please ensure it is a valid ${ext.toUpperCase()} file.`);
             }
         };
         reader.readAsText(file);
@@ -8135,28 +8348,49 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                 </div>
                 
                 {/* FIX 1: Responsive wrapping for search and upload buttons on mobile */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto shrink-0 mt-2 md:mt-0">
-                    <input type="file" ref={fileInputRef} accept=".json,.txt" className="hidden" onChange={onFileChange} />
+                <div className="flex flex-row items-center justify-end gap-2 w-full md:w-auto shrink-0 mt-2 md:mt-0">
+                    <input type="file" ref={fileInputRef} accept=".json,.txt,.csv" className="hidden" onChange={onFileChange} />
+                    
+                    <div className={`relative transition-all duration-300 ease-in-out flex justify-end shrink-0 ${isSearchExpanded || searchTerm ? 'flex-1 sm:w-64 lg:w-80' : 'w-[42px] sm:w-[48px]'}`}>
+                        {!(isSearchExpanded || searchTerm) ? (
+                            <button 
+                                onClick={() => { setIsSearchExpanded(true); setTimeout(() => searchInputRef.current?.focus(), 50); }} 
+                                className="w-[42px] h-[42px] sm:w-[48px] sm:h-[48px] bg-white dark:bg-gray-700 rounded-xl flex items-center justify-center border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                            </button>
+                        ) : (
+                            <div className="relative w-full">
+                                <input
+                                    ref={searchInputRef}
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={onSearchChange}
+                                    onBlur={() => { if (!searchTerm) setIsSearchExpanded(false); }}
+                                    placeholder="Search exams..."
+                                    className="w-full pl-10 pr-10 py-2.5 md:py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm transition-all"
+                                />
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                <button 
+                                    onClick={() => { onSearchChange({target: {value: ''}}); setIsSearchExpanded(false); }} 
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    
                     <button 
                         onClick={handleFileUploadClick} 
-                        className="px-4 py-2.5 md:py-3 bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 rounded-xl text-sm font-bold hover:bg-indigo-100 dark:hover:bg-gray-600 transition-colors shrink-0 flex items-center justify-center gap-2 border border-indigo-100 dark:border-gray-600"
+                        className="px-3 py-2.5 md:px-4 md:py-3 bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 rounded-xl text-sm font-bold hover:bg-indigo-100 dark:hover:bg-gray-600 transition-colors shrink-0 flex items-center justify-center gap-2 border border-indigo-100 dark:border-gray-600 shadow-sm"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                         </svg>
-                        <span>Upload</span>
+                        <span className={`${(isSearchExpanded || searchTerm) ? 'hidden sm:inline' : 'hidden sm:inline md:inline'}`}>Upload</span>
                     </button>
-
-                    <div className="relative w-full md:w-64 lg:w-80 shrink-0">
-                        <input
-                            type="text"
-                            value={searchTerm}
-                            onChange={onSearchChange}
-                            placeholder="Search exams..."
-                            className="w-full pl-10 pr-4 py-2.5 md:py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -8172,7 +8406,7 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                                     </div>
                                 </div>
                                 <div className="mb-5 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-2xl inline-block group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20 transition-colors">
-                                    {exam.icon}
+                                    {getExamIcon(exam)}
                                 </div>
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 leading-tight">{exam.title}</h2>
                                 <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-5">{exam.description}</p>
@@ -8189,10 +8423,16 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                                     </div>
                                 </div>
                             </div>
-                            <div className="p-4 pt-0 mt-auto">
-                                <button onClick={() => onSelectExam(exam)} className="w-full bg-gray-50 dark:bg-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 text-gray-700 dark:text-gray-200 hover:text-white font-bold py-3.5 px-4 rounded-xl transition-colors flex items-center justify-center gap-2 group/btn">
-                                    Configure & Start
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            <div className="p-4 pt-0 mt-auto flex gap-2">
+                                <button onClick={() => onDeleteExam(exam.id)} className="flex-none bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 font-bold py-3.5 px-4 rounded-xl transition-colors flex items-center justify-center group/delbtn" title="Delete Exam">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500 group-hover/delbtn:text-red-700 dark:group-hover/delbtn:text-red-300 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                </button>
+                                <button onClick={() => onEditExam(exam)} className="flex-none bg-gray-50 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-bold py-3.5 px-4 rounded-xl transition-colors flex items-center justify-center group/editbtn" title="Edit Exam">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 group-hover/editbtn:text-gray-700 dark:group-hover/editbtn:text-gray-300 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                                </button>
+                                <button onClick={() => onSelectExam(exam)} className="flex-1 bg-gray-50 dark:bg-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 text-gray-700 dark:text-gray-200 hover:text-white font-bold py-3.5 px-3 sm:px-4 rounded-xl transition-colors flex items-center justify-center gap-1 sm:gap-2 group/btn whitespace-nowrap">
+                                    <span className="truncate">Configure & Start</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                                 </button>
                             </div>
                         </div>
@@ -8892,11 +9132,228 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
 };
 
 
+const ExamEditor = ({ exam, onSave, onCancel }) => {
+    const [title, setTitle] = useState(exam?.title || 'New Exam');
+    const [category, setCategory] = useState(exam?.category || 'Custom');
+    const [description, setDescription] = useState(exam?.description || '');
+    const [questions, setQuestions] = useState(exam?.questions || []);
+    
+    const [searchTerm, setSearchTerm] = useState('');
+    const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+    const searchInputRef = useRef(null);
+
+    const handleQuestionChange = (index, field, value) => {
+        const newQs = [...questions];
+        newQs[index] = { ...newQs[index], [field]: value };
+        setQuestions(newQs);
+    };
+
+    const handleOptionChange = (qIndex, oIndex, value) => {
+        const newQs = [...questions];
+        const newOptions = [...newQs[qIndex].answerOptions];
+        newOptions[oIndex] = { ...newOptions[oIndex], answerText: value };
+        newQs[qIndex].answerOptions = newOptions;
+        setQuestions(newQs);
+    };
+
+    const toggleCorrectOption = (qIndex, oIndex) => {
+        const newQs = [...questions];
+        const newOptions = [...newQs[qIndex].answerOptions];
+        newOptions[oIndex] = { ...newOptions[oIndex], isCorrect: !newOptions[oIndex].isCorrect };
+        newQs[qIndex].answerOptions = newOptions;
+        setQuestions(newQs);
+    };
+
+    const addOption = (qIndex) => {
+        const newQs = [...questions];
+        newQs[qIndex].answerOptions = [...newQs[qIndex].answerOptions, { answerText: '', isCorrect: false }];
+        setQuestions(newQs);
+    };
+
+    const removeOption = (qIndex, oIndex) => {
+        const newQs = [...questions];
+        newQs[qIndex].answerOptions = newQs[qIndex].answerOptions.filter((_, i) => i !== oIndex);
+        setQuestions(newQs);
+    };
+
+    const addQuestion = () => {
+        setQuestions([...questions, {
+            id: Math.random().toString(36).substr(2, 9),
+            questionText: 'New Question',
+            answerOptions: [
+                { answerText: 'Option A', isCorrect: true },
+                { answerText: 'Option B', isCorrect: false }
+            ],
+            explanation: ''
+        }]);
+    };
+
+    const removeQuestion = (qIndex) => {
+        setQuestions(questions.filter((_, i) => i !== qIndex));
+    };
+
+    return (
+        <div className="max-w-7xl w-full mx-auto p-4 md:p-8 animate-fade-in">
+            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 mb-6">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Edit Exam</h2>
+                    <div className="flex gap-2">
+                        <button onClick={onCancel} className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl font-medium transition-colors">Cancel</button>
+                        <button onClick={() => onSave({ ...exam, title, category, description, questions })} className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-colors shadow-md">Save Changes</button>
+                    </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Title</label>
+                        <input type="text" value={title} onChange={e => setTitle(e.target.value)} className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Category</label>
+                        <input type="text" value={category} onChange={e => setCategory(e.target.value)} className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div className="md:col-span-2">
+                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Description</label>
+                        <textarea value={description} onChange={e => setDescription(e.target.value)} className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500" rows="3" />
+                    </div>
+                </div>
+            </div>
+
+            <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Questions ({questions.length})</h3>
+                    <div className="flex gap-2 items-center w-full sm:w-auto justify-end">
+                        <div className={`relative transition-all duration-300 ease-in-out flex justify-end shrink-0 ${isSearchExpanded || searchTerm ? 'flex-1 sm:w-64' : 'w-[36px]'}`}>
+                            {!(isSearchExpanded || searchTerm) ? (
+                                <button 
+                                    onClick={() => { setIsSearchExpanded(true); setTimeout(() => searchInputRef.current?.focus(), 50); }} 
+                                    className="w-[36px] h-[36px] bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm"
+                                    title="Search questions"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                </button>
+                            ) : (
+                                <div className="relative w-full">
+                                    <input
+                                        ref={searchInputRef}
+                                        type="text"
+                                        value={searchTerm}
+                                        onChange={e => setSearchTerm(e.target.value)}
+                                        onBlur={() => { if (!searchTerm) setIsSearchExpanded(false); }}
+                                        placeholder="Search questions..."
+                                        className="w-full pl-8 pr-8 py-1.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm transition-all text-sm"
+                                    />
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                    <button 
+                                        onClick={() => { setSearchTerm(''); setIsSearchExpanded(false); }} 
+                                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                        <button onClick={addQuestion} className="px-3 py-1.5 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300 rounded-lg text-sm font-bold hover:bg-green-100 dark:hover:bg-green-800 transition-colors flex items-center gap-1 border border-green-200 dark:border-green-800 whitespace-nowrap shadow-sm">
+                            <span className="hidden sm:inline">+ Add Question</span>
+                            <span className="sm:hidden">+ Add</span>
+                        </button>
+                    </div>
+                </div>
+                
+                {questions.map((q, qIndex) => {
+                    if (searchTerm) {
+                        const term = searchTerm.toLowerCase();
+                        const matchesText = q.questionText.toLowerCase().includes(term);
+                        const matchesNumber = String(qIndex + 1).includes(term) || `question ${qIndex + 1}`.includes(term);
+                        const matchesOptions = q.answerOptions.some(opt => opt.answerText.toLowerCase().includes(term));
+                        const matchesExplanation = q.explanation && q.explanation.toLowerCase().includes(term);
+                        if (!(matchesText || matchesNumber || matchesOptions || matchesExplanation)) {
+                            return null;
+                        }
+                    }
+                    return (
+                        <div key={q.id || qIndex} className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <div className="flex justify-between mb-3">
+                            <span className="font-bold text-gray-500">Question {qIndex + 1}</span>
+                            <button onClick={() => removeQuestion(qIndex)} className="text-red-500 hover:text-red-700 text-sm font-bold">Delete</button>
+                        </div>
+                        <textarea 
+                            value={q.questionText} 
+                            onChange={e => handleQuestionChange(qIndex, 'questionText', e.target.value)} 
+                            className="w-full px-4 py-2 mb-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            rows="2"
+                        />
+                        
+                        <div className="space-y-2 mb-4">
+                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">Options (Check the correct answers)</label>
+                            {q.answerOptions.map((opt, oIndex) => (
+                                <div key={oIndex} className="flex gap-2 items-center">
+                                    <input 
+                                        type="checkbox" 
+                                        checked={opt.isCorrect} 
+                                        onChange={() => toggleCorrectOption(qIndex, oIndex)}
+                                        className="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                    <input 
+                                        type="text" 
+                                        value={opt.answerText} 
+                                        onChange={e => handleOptionChange(qIndex, oIndex, e.target.value)}
+                                        className="flex-grow px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    />
+                                    <button onClick={() => removeOption(qIndex, oIndex)} className="text-gray-400 hover:text-red-500 p-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
+                                    </button>
+                                </div>
+                            ))}
+                            <button onClick={() => addOption(qIndex)} className="text-sm text-indigo-600 dark:text-indigo-400 font-bold hover:underline">+ Add Option</button>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Explanation (Optional)</label>
+                            <textarea 
+                                value={q.explanation || ''} 
+                                onChange={e => handleQuestionChange(qIndex, 'explanation', e.target.value)}
+                                className="w-full px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                                rows="2"
+                            />
+                        </div>
+                    </div>
+                )})}
+            </div>
+            
+            <div className="mt-8 flex justify-end pb-12">
+                 <button onClick={() => onSave({ ...exam, title, category, description, questions })} className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-colors shadow-lg text-lg">
+                    Save Exam Changes
+                 </button>
+            </div>
+        </div>
+    );
+};
+
 // =================================================================================
 // === MAIN APP COMPONENT ==========================================================
 // =================================================================================
 const App = () => {
+    const [user, loading] = useAuthState(auth);
     const [appState, setAppState] = useState('loading');
+    const [isSyncing, setIsSyncing] = useState(true);
+    
+    const handleSignIn = async () => {
+        try {
+            await signInWithPopup(auth, googleProvider);
+        } catch (error) {
+            console.error("Error signing in", error);
+        }
+    };
+    
+    const handleSignOut = async () => {
+        try {
+            await signOut(auth);
+            setAppState('dashboard');
+        } catch (error) {
+            console.error("Error signing out", error);
+        }
+    };
     const [allExams, setAllExams] = useState([]);
     const [theme, setTheme] = useState('light');
     const [selectedCategory, setSelectedCategory] = useState('All');
@@ -8920,9 +9377,104 @@ const App = () => {
     // Config modal state
     const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
     const [examToStart, setExamToStart] = useState(null);
+    const [examBeingEdited, setExamBeingEdited] = useState(null);
     
     const [entryToDelete, setEntryToDelete] = useState(null);
+    const [examToDelete, setExamToDelete] = useState(null);
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
+
+    // Real-time Firestore synchronization for Exams (PC, Android, Incognito, all devices)
+    useEffect(() => {
+        let isMounted = true;
+        const examsCol = collection(db, 'exams');
+
+        const unsubscribe = onSnapshot(examsCol, async (snapshot) => {
+            if (!isMounted) return;
+            setIsSyncing(false);
+
+            if (snapshot.empty) {
+                // If Firestore is completely empty on initial startup, seed the default library
+                console.log("Seeding default exams to Firestore...");
+                const serializableLibrary = examLibrary.map(sanitizeExam);
+                for (const exam of serializableLibrary) {
+                    try {
+                        await setDoc(doc(db, 'exams', String(exam.id)), exam);
+                    } catch(e) {
+                        console.error("Error seeding exam to Firestore:", exam.id, e);
+                    }
+                }
+                setAllExams(examLibrary);
+                try {
+                    localStorage.setItem('quizAppExams', JSON.stringify(serializableLibrary));
+                } catch(e) {}
+                setAppState(prev => prev === 'loading' ? 'dashboard' : prev);
+            } else {
+                const cloudExams = snapshot.docs.map(docSnap => ({
+                    id: docSnap.id,
+                    ...docSnap.data()
+                }));
+                setAllExams(cloudExams);
+                try {
+                    localStorage.setItem('quizAppExams', JSON.stringify(cloudExams.map(sanitizeExam)));
+                } catch(e) {}
+                setAppState(prev => prev === 'loading' ? 'dashboard' : prev);
+            }
+        }, (error) => {
+            console.error("Firestore onSnapshot error:", error);
+            setIsSyncing(false);
+            // Fallback to local cache
+            try {
+                const savedExams = JSON.parse(localStorage.getItem('quizAppExams'));
+                if (savedExams && savedExams.length > 0) {
+                    setAllExams(savedExams);
+                } else {
+                    setAllExams(examLibrary);
+                }
+            } catch(e) {
+                setAllExams(examLibrary);
+            }
+            setAppState(prev => prev === 'loading' ? 'dashboard' : prev);
+        });
+
+        return () => {
+            isMounted = false;
+            unsubscribe();
+        };
+    }, []);
+
+    // Real-time User History synchronization
+    useEffect(() => {
+        if (loading) return;
+
+        if (user) {
+            const historyCol = collection(db, `users/${user.uid}/history`);
+            const unsubscribe = onSnapshot(historyCol, (snapshot) => {
+                const history = snapshot.docs.map(docSnap => ({
+                    id: docSnap.id,
+                    ...docSnap.data()
+                }));
+                history.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                setScoreHistory(history);
+                try {
+                    localStorage.setItem('quizAppHistory', JSON.stringify(history));
+                } catch(e) {}
+            }, (error) => {
+                console.error("Firestore history snapshot error:", error);
+                try {
+                    const saved = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
+                    setScoreHistory(saved);
+                } catch(e) { setScoreHistory([]); }
+            });
+
+            return () => unsubscribe();
+        } else {
+            // Guest / Incognito local history
+            try {
+                const saved = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
+                setScoreHistory(saved);
+            } catch(e) { setScoreHistory([]); }
+        }
+    }, [user, loading]);
 
     useEffect(() => {
         let newTitle = "Exam App";
@@ -8933,16 +9485,53 @@ const App = () => {
         document.title = newTitle;
     }, [appState, activeExam, completedQuizData, reviewingHistoryEntry]);
 
-
     // --- HANDLERS ---
-    const handleExamsUploaded = (newExams) => {
-        const preparedExams = newExams.map(ex => ({
-            ...ex,
-            id: ex.id || `uploaded-${Date.now()}-${Math.random()}`,
-            category: ex.category || 'Custom'
-        }));
+    const handleEditExamClick = (exam) => {
+        setExamBeingEdited(exam);
+        setAppState('edit');
+    };
+
+    const handleSaveEditedExam = async (updatedExam) => {
+        const sanitized = sanitizeExam(updatedExam);
+        // Instant optimistic update
+        setAllExams(prev => prev.map(ex => ex.id === updatedExam.id ? updatedExam : ex));
+        setExamBeingEdited(null);
+        setAppState('dashboard');
+
+        try {
+            await setDoc(doc(db, 'exams', String(updatedExam.id)), sanitized);
+        } catch(e) {
+            console.error("Error saving updated exam to Firestore:", e);
+        }
+    };
+
+    const handleCancelEdit = () => {
+        setExamBeingEdited(null);
+        setAppState('dashboard');
+    };
+
+    const handleExamsUploaded = async (newExams) => {
+        const preparedExams = newExams.map(ex => {
+            const sanitized = sanitizeExam(ex);
+            return {
+                ...sanitized,
+                id: sanitized.id || `uploaded-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`,
+                category: sanitized.category || 'Custom'
+            };
+        });
+
+        // Optimistic UI update
         setAllExams(prev => [...prev, ...preparedExams]);
-        alert(`Successfully loaded ${preparedExams.length} exam(s)!`);
+        alert(`Successfully loaded ${preparedExams.length} exam(s)! Syncing to cloud...`);
+
+        // Save each to cloud Firestore
+        for (const exam of preparedExams) {
+            try {
+                await setDoc(doc(db, 'exams', String(exam.id)), exam);
+            } catch(e) {
+                console.error("Error saving exam to Firestore:", exam.id, e);
+            }
+        }
     };
 
     const handlePromptStartExam = (exam) => {
@@ -9022,36 +9611,38 @@ const App = () => {
             // The memory state gets the full exam so you can use the "Retake" button smoothly
             setCompletedQuizData({ ...scoreEntryForStorage, exam: activeExam });
             
-            // INDEPENDENT STORAGE LOGIC:
-            // This ensures that even if local storage is 100% full, it won't crash the submit button
+            // Local history update
             let currentHistory = [];
             try {
                 currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
             } catch (e) {
-                currentHistory = []; // Reset if corrupted
+                currentHistory = [];
             }
             
-            // Attempt to save (capped at 20 most recent to be much safer on browser limits)
             let newHistory = [scoreEntryForStorage, ...currentHistory].slice(0, 20); 
-            
             try {
                 localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
                 setScoreHistory(newHistory);
             } catch (storageError) {
-                console.warn("Storage quota exceeded. Attempting to shrink history...");
                 try {
-                    // Fallback: If it's still full, aggressively shrink to only the 5 most recent exams
                     newHistory = [scoreEntryForStorage, ...currentHistory].slice(0, 5);
                     localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
                     setScoreHistory(newHistory);
                 } catch (fallbackError) {
-                    console.error("Storage completely full. Keeping score in memory only for this session.");
-                    // At least update the UI so the user can see their current score in the history panel
                     setScoreHistory([scoreEntryForStorage, ...currentHistory].slice(0, 20)); 
                 }
             }
 
-            // GUARANTEED TRANSITION: These lines will now ALWAYS run, moving you to the results screen
+            // Firebase sync
+            if (user) {
+                try {
+                    setDoc(doc(db, `users/${user.uid}/history`, String(scoreEntryForStorage.id)), JSON.parse(JSON.stringify({
+                        ...scoreEntryForStorage,
+                        timestamp: Date.now()
+                    })));
+                } catch(e) { console.error("Firebase history sync error", e); }
+            }
+
             setAppState('review');
             setShowFinalReview(false);
             
@@ -9059,7 +9650,7 @@ const App = () => {
             console.error("Critical error calculating quiz:", error);
             alert("There was a critical error calculating your score. Please try again.");
         }
-    }, [activeExam, userAnswers, currentQuizQuestions]);
+    }, [activeExam, userAnswers, currentQuizQuestions, user]);
 
     const handleAnswerOptionClick = (answerIndex) => {
         const question = currentQuizQuestions[currentQuestionIndex];
@@ -9094,7 +9685,6 @@ const App = () => {
 
     const handleReviewHistory = (entry) => {
         const examForHistory = allExams.find(e => e.id === entry.examId);
-        // It's perfectly okay if examForHistory is undefined
         setReviewingHistoryEntry({ ...entry, exam: examForHistory });
         setAppState('review');
         setIsHistoryVisible(false);
@@ -9107,14 +9697,57 @@ const App = () => {
 
     const handlePromptDelete = (entryId) => setEntryToDelete(entryId);
 
-    const handleConfirmDelete = () => {
-        const currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
-        const newHistory = currentHistory.filter(entry => entry.id !== entryToDelete);
-        localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
-        setScoreHistory(newHistory);
+    const handleConfirmDelete = async () => {
+        if (!entryToDelete) return;
+        const entryId = entryToDelete;
         setEntryToDelete(null);
+
+        const currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
+        const newHistory = currentHistory.filter(entry => entry.id !== entryId);
+        try {
+            localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
+        } catch(e) {}
+        setScoreHistory(newHistory);
+
+        if (user) {
+            try {
+                await deleteDoc(doc(db, `users/${user.uid}/history`, String(entryId)));
+            } catch(e) {
+                console.error("Error deleting history entry from Firestore:", e);
+            }
+        }
     };
     
+    const handleDeleteExam = (examId) => {
+        setExamToDelete(examId);
+    };
+
+    const handleConfirmDeleteExam = async () => {
+        if (!examToDelete) return;
+        const examId = examToDelete;
+        setExamToDelete(null);
+
+        // Optimistic UI update
+        const newExams = allExams.filter(e => e.id !== examId);
+        setAllExams(newExams);
+        try {
+            localStorage.setItem('quizAppExams', JSON.stringify(newExams.map(sanitizeExam)));
+        } catch(e) {}
+
+        // Delete from cloud Firestore
+        try {
+            await deleteDoc(doc(db, 'exams', String(examId)));
+        } catch(e) {
+            console.error("Error deleting exam from Firestore:", e);
+        }
+        
+        if (user) {
+            try {
+                await deleteDoc(doc(db, `users/${user.uid}/exams`, String(examId)));
+            } catch(e) {}
+        }
+    };
+
     const handleGoToDashboard = () => {
         if (appState === 'quiz') setIsExitConfirmVisible(true);
         else {
@@ -9129,7 +9762,6 @@ const App = () => {
         setAppState('dashboard');
         setIsExitConfirmVisible(false);
     };
-
 
     // --- HOOKS ---
     useEffect(() => {
@@ -9148,18 +9780,8 @@ const App = () => {
             loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js")
         ]).then(() => setScriptsLoaded(true)).catch(e => console.error("PDF scripts failed to load", e));
         
-        setAllExams(examLibrary);
-        
-        try {
-            const savedHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
-            setScoreHistory(savedHistory);
-        } catch (e) {
-            setScoreHistory([]);
-        }
-        
-        setAppState('dashboard');
     }, []);
-    
+
     useEffect(() => {
         if (!isQuizActive) return;
         if (timeLeft <= 0) {
@@ -9204,7 +9826,7 @@ const App = () => {
                             onShowSettings={() => setIsSettingsVisible(true)}
                             onShowProfile={() => setIsProfileVisible(true)}
                             onGoToDashboard={handleGoToDashboard}
-                        />
+                         user={user} onSignIn={handleSignIn} onSignOut={handleSignOut} isSyncing={isSyncing} />
                         <DashboardPage 
                             allExams={allExams}
                             filteredExams={filteredExams} 
@@ -9219,6 +9841,24 @@ const App = () => {
                                 setSelectedCategory('All');
                             }}
                             onExamsUploaded={handleExamsUploaded}
+                            onEditExam={handleEditExamClick}
+                            onDeleteExam={handleDeleteExam}
+                        />
+                    </div>
+                );
+            case 'edit':
+                return (
+                    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 overflow-y-auto">
+                        <Header 
+                            onShowHistory={() => setIsHistoryVisible(true)} 
+                            onShowSettings={() => setIsSettingsVisible(true)}
+                            onShowProfile={() => setIsProfileVisible(true)}
+                            onGoToDashboard={handleGoToDashboard}
+                         user={user} onSignIn={handleSignIn} onSignOut={handleSignOut} isSyncing={isSyncing} />
+                        <ExamEditor 
+                            exam={examBeingEdited} 
+                            onSave={handleSaveEditedExam} 
+                            onCancel={handleCancelEdit} 
                         />
                     </div>
                 );
@@ -9231,7 +9871,7 @@ const App = () => {
                            onShowSettings={() => setIsSettingsVisible(true)}
                            onShowProfile={() => setIsProfileVisible(true)}
                            onGoToDashboard={handleGoToDashboard}
-                        />
+                         user={user} onSignIn={handleSignIn} onSignOut={handleSignOut} isSyncing={isSyncing} />
                         <main className="flex-grow overflow-y-auto">
                            {appState === 'quiz' && (
                                 <>
@@ -9336,6 +9976,15 @@ const App = () => {
                 title="Delete Score?"
             >
                 Are you sure you want to delete this score entry? This action cannot be undone.
+            </Modal>
+            
+            <Modal
+                isOpen={!!examToDelete}
+                onClose={() => setExamToDelete(null)}
+                onConfirm={handleConfirmDeleteExam}
+                title="Delete Exam?"
+            >
+                Are you sure you want to delete this exam? This action cannot be undone.
             </Modal>
         </div>
     );

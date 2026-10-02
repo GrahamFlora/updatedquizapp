@@ -1,0 +1,6 @@
+{
+  "name": "Quiz App",
+  "description": "A comprehensive certification practice exam and quiz application with score tracking, customizable quizzes, and review features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

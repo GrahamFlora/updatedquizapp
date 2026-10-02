@@ -1,0 +1,42 @@
+{
+    "collections": [
+        {
+            "name": "exams",
+            "documentId": "examId",
+            "fields": [
+                { "name": "title", "type": "string" },
+                { "name": "category", "type": "string" },
+                { "name": "description", "type": "string" },
+                { "name": "questions", "type": "array" },
+                { "name": "questionsPerQuiz", "type": "number" },
+                { "name": "durationSeconds", "type": "number" },
+                { "name": "passingScore", "type": "number" },
+                { "name": "createdAt", "type": "timestamp" }
+            ]
+        },
+        {
+            "name": "users",
+            "documentId": "uid",
+            "fields": [
+                { "name": "email", "type": "string" },
+                { "name": "displayName", "type": "string" },
+                { "name": "createdAt", "type": "timestamp" }
+            ],
+            "subcollections": [
+                {
+                    "name": "history",
+                    "documentId": "historyId",
+                    "fields": [
+                        { "name": "examId", "type": "string" },
+                        { "name": "examTitle", "type": "string" },
+                        { "name": "score", "type": "number" },
+                        { "name": "rawScore", "type": "number" },
+                        { "name": "totalQuestions", "type": "number" },
+                        { "name": "date", "type": "string" },
+                        { "name": "timestamp", "type": "timestamp" }
+                    ]
+                }
+            ]
+        }
+    ]
+}
