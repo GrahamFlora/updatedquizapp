@@ -9155,6 +9155,48 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
     const [activeQuestionIndex, setActiveQuestionIndex] = useState(null);
     const [questionToDelete, setQuestionToDelete] = useState(null);
 
+    // Star / Stopped here indicator state (purely toggleable, easily undoable)
+    const [starredQuestions, setStarredQuestions] = useState(() => {
+        try {
+            const saved = localStorage.getItem(`quiz_starred_questions_${exam?.id}`);
+            if (saved) return JSON.parse(saved);
+        } catch(e) {}
+        return {};
+    });
+
+    // Ensure the edit exam page starts at the top
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }, []);
+
+    const toggleStarQuestion = (qIndex, e) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        setStarredQuestions(prev => {
+            const next = { ...prev };
+            if (next[qIndex]) {
+                delete next[qIndex];
+            } else {
+                next[qIndex] = true;
+            }
+            try {
+                localStorage.setItem(`quiz_starred_questions_${exam?.id}`, JSON.stringify(next));
+            } catch(err) {}
+            return next;
+        });
+    };
+
+    const clearAllStars = () => {
+        setStarredQuestions({});
+        try {
+            localStorage.removeItem(`quiz_starred_questions_${exam?.id}`);
+        } catch(err) {}
+    };
+
     const handleQuestionChange = (index, field, value) => {
         const newQs = [...questions];
         newQs[index] = { ...newQs[index], [field]: value };
@@ -9221,6 +9263,18 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
         } else if (activeQuestionIndex > qIndex) {
             setActiveQuestionIndex(activeQuestionIndex - 1);
         }
+        setStarredQuestions(prev => {
+            const next = {};
+            Object.keys(prev).forEach(key => {
+                const idx = Number(key);
+                if (idx < qIndex && prev[idx]) next[idx] = true;
+                else if (idx > qIndex && prev[idx]) next[idx - 1] = true;
+            });
+            try {
+                localStorage.setItem(`quiz_starred_questions_${exam?.id}`, JSON.stringify(next));
+            } catch(e) {}
+            return next;
+        });
     };
 
     const goToQuestion = (qIndex) => {
@@ -9230,12 +9284,12 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
             const el = document.getElementById(`editor-question-${qIndex}`);
             if (el) {
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                el.classList.add('ring-2', 'ring-indigo-500');
+                el.classList.add('ring-2', 'ring-indigo-400');
                 setTimeout(() => {
-                    el.classList.remove('ring-2', 'ring-indigo-500');
-                }, 1800);
+                    el.classList.remove('ring-2', 'ring-indigo-400');
+                }, 1500);
             }
-        }, 60);
+        }, 50);
     };
 
     const toggleQuestionCollapse = (qIndex) => {
@@ -9367,19 +9421,34 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
                                     {questions.map((q, qIndex) => {
                                         const isCurrent = activeQuestionIndex === qIndex;
                                         const isCollapsed = !!collapsedQuestions[qIndex];
+                                        const isStarred = !!starredQuestions[qIndex];
+                                        
+                                        let boxStyle = "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/20";
+                                        
+                                        if (isStarred) {
+                                            boxStyle = "bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200 border-amber-400 dark:border-amber-600 hover:border-amber-500 shadow-sm";
+                                        }
+
+                                        if (isCurrent) {
+                                            boxStyle = isStarred
+                                                ? "bg-amber-500 text-white border-amber-600 ring-2 ring-amber-300 dark:ring-amber-800 shadow-md font-extrabold"
+                                                : "bg-indigo-600 text-white border-indigo-600 ring-2 ring-indigo-300 dark:ring-indigo-800 shadow-md font-extrabold";
+                                        }
+
                                         return (
                                             <button
                                                 key={q.id || qIndex}
                                                 type="button"
                                                 onClick={() => goToQuestion(qIndex)}
-                                                title={`Move to Question ${qIndex + 1}${isCollapsed ? ' (Collapsed)' : ''}`}
-                                                className={`min-w-[36px] h-9 sm:min-w-[38px] sm:h-9 px-1.5 flex-shrink-0 flex items-center justify-center text-xs font-bold rounded-lg border transition-all active:scale-95 ${
-                                                    isCurrent
-                                                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm ring-2 ring-indigo-300 dark:ring-indigo-800'
-                                                        : 'bg-gray-50 dark:bg-gray-700/60 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-600 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/30'
-                                                }`}
+                                                title={`Move to Question ${qIndex + 1}${isStarred ? ' (Starred: click star on card to undo)' : ''}${isCollapsed ? ' (Collapsed)' : ''}`}
+                                                className={`min-w-[36px] h-9 sm:min-w-[38px] sm:h-9 px-1.5 flex-shrink-0 flex items-center justify-center text-xs font-bold rounded-lg border transition-all active:scale-95 relative ${boxStyle}`}
                                             >
-                                                {qIndex + 1}
+                                                <span>{qIndex + 1}</span>
+                                                {isStarred && (
+                                                    <span className={`absolute -top-1 -right-1 font-bold text-[11px] leading-none drop-shadow-sm select-none ${isCurrent ? 'text-white' : 'text-amber-500'}`}>
+                                                        ★
+                                                    </span>
+                                                )}
                                             </button>
                                         );
                                     })}
@@ -9401,20 +9470,28 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
                         }
                     }
                     const isCollapsed = !!collapsedQuestions[qIndex];
+                    const isStarred = !!starredQuestions[qIndex];
+                    const isCurrent = activeQuestionIndex === qIndex;
                     return (
                         <div 
                             key={q.id || qIndex} 
                             id={`editor-question-${qIndex}`}
-                            className="bg-white dark:bg-gray-800 rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-200"
+                            onClick={() => setActiveQuestionIndex(qIndex)}
+                            onFocusCapture={() => setActiveQuestionIndex(qIndex)}
+                            className={`bg-white dark:bg-gray-800 rounded-2xl p-4 sm:p-5 shadow-sm border transition-all duration-200 ${
+                                isCurrent
+                                    ? 'ring-2 ring-indigo-400/50 dark:ring-indigo-500/50 ' + (isStarred ? 'border-amber-400 dark:border-amber-600' : 'border-indigo-400 dark:border-indigo-500')
+                                    : (isStarred ? 'border-amber-300 dark:border-amber-700/80 shadow-amber-50 dark:shadow-none' : 'border-gray-200 dark:border-gray-700')
+                            }`}
                         >
-                            <div className="flex justify-between items-center mb-3 gap-2">
+                            <div className="flex items-center justify-between mb-3 gap-3">
                                 <div 
                                     onClick={() => toggleQuestionCollapse(qIndex)}
-                                    className="flex items-center gap-2 cursor-pointer select-none group flex-1 min-w-0 pr-2"
+                                    className="flex items-center gap-2 cursor-pointer select-none group flex-1 min-w-0 overflow-hidden"
                                 >
                                     <button 
                                         type="button"
-                                        className="text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors p-1 -m-1"
+                                        className="text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors p-1 -m-1 shrink-0"
                                         title={isCollapsed ? "Expand question" : "Collapse question"}
                                     >
                                         <svg 
@@ -9427,11 +9504,34 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                         </svg>
                                     </button>
-                                    <span className="font-bold text-gray-700 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors whitespace-nowrap text-sm sm:text-base">
+
+                                    {/* Star Button (Icon only) */}
+                                    <button
+                                        type="button"
+                                        onClick={(e) => toggleStarQuestion(qIndex, e)}
+                                        className={`p-1 rounded-lg transition-all flex items-center justify-center shrink-0 ${
+                                            isStarred
+                                                ? 'text-amber-500 hover:text-amber-600 bg-amber-50 dark:bg-amber-950/40 ring-1 ring-amber-300 dark:ring-amber-700'
+                                                : 'text-gray-400 hover:text-amber-500 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                        }`}
+                                        title={isStarred ? "★ Starred: Click to undo star" : "☆ Click to star"}
+                                    >
+                                        <svg 
+                                            xmlns="http://www.w3.org/2000/svg" 
+                                            className={`h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-150 ${isStarred ? 'fill-amber-400 stroke-amber-500 scale-110' : 'fill-none stroke-current'}`} 
+                                            viewBox="0 0 24 24" 
+                                            strokeWidth="2"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                        </svg>
+                                    </button>
+
+                                    <span className="font-bold text-gray-700 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors whitespace-nowrap text-sm sm:text-base shrink-0">
                                         Question {qIndex + 1}
                                     </span>
+
                                     {isCollapsed && (
-                                        <span className="text-xs text-gray-500 dark:text-gray-400 truncate italic ml-1 min-w-0">
+                                        <span className="text-xs text-gray-500 dark:text-gray-400 truncate italic ml-1 min-w-0 flex-1">
                                             {q.questionText ? q.questionText : '(Empty question)'}
                                         </span>
                                     )}
@@ -9709,6 +9809,9 @@ const App = () => {
     const handleEditExamClick = (exam) => {
         setExamBeingEdited(exam);
         setAppState('edit');
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
     };
 
     const handleSaveEditedExam = async (updatedExam) => {
