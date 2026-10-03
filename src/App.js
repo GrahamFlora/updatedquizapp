@@ -8080,7 +8080,6 @@ const getExamIcon = (exam) => {
 
 const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters, onExamsUploaded, onEditExam, onDeleteExam }) => {
     const categories = ['All', ...new Set(allExams.map(exam => exam.category))];
-    const [isSearchExpanded, setIsSearchExpanded] = useState(false);
     
     const totalExamsTaken = scoreHistory ? scoreHistory.length : 0;
     const avgScore = totalExamsTaken > 0 ? Math.round(scoreHistory.reduce((sum, entry) => sum + entry.score, 0) / totalExamsTaken) : 0;
@@ -8329,69 +8328,78 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                 <div className="absolute bottom-0 left-10 -mb-10 w-48 h-48 bg-purple-900/30 rounded-full blur-2xl pointer-events-none"></div>
             </div>
 
-            {/* Filters and Search Bar */}
-            <div className="flex flex-col md:flex-row justify-between md:items-start gap-4 bg-white dark:bg-gray-800 p-3 md:p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <div className="flex flex-wrap gap-2 flex-grow">
-                    {categories.map(category => (
+            {/* Search Bar & Upload Button (Separated Top Bar) */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="relative flex-1">
+                    <input
+                        ref={searchInputRef}
+                        type="text"
+                        value={searchTerm}
+                        onChange={onSearchChange}
+                        placeholder="Search exams by title or description..."
+                        className="w-full pl-10 pr-9 py-2.5 sm:py-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm transition"
+                    />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    {searchTerm && (
+                        <button 
+                            type="button"
+                            onClick={() => onSearchChange({ target: { value: '' } })} 
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1 rounded-full transition"
+                            title="Clear search"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    )}
+                </div>
+
+                <input type="file" ref={fileInputRef} accept=".json,.txt,.csv" className="hidden" onChange={onFileChange} />
+                <button 
+                    type="button"
+                    onClick={handleFileUploadClick} 
+                    className="flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white rounded-2xl text-sm font-bold shadow-md transition-all shrink-0"
+                    title="Upload Exam (JSON, CSV, TXT)"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                    </svg>
+                    <span className="hidden sm:inline">Upload Exam</span>
+                    <span className="sm:hidden">Upload</span>
+                </button>
+            </div>
+
+            {/* Separated Exam Category Tabs (Horizontally Scrollable & Mobile-Friendly) */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1.5 pt-0.5 scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {categories.map(category => {
+                    const isSelected = selectedCategory === category;
+                    const count = category === 'All' 
+                        ? allExams.length 
+                        : allExams.filter(e => e.category === category).length;
+                    return (
                         <button
                             key={category}
+                            type="button"
                             onClick={() => onSelectCategory(category)}
-                            className={`whitespace-nowrap px-4 py-2 md:px-5 md:py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                                selectedCategory === category
-                                    ? 'bg-indigo-600 text-white shadow-md transform scale-105'
-                                    : 'bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600'
+                            className={`whitespace-nowrap px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 shrink-0 active:scale-95 ${
+                                isSelected
+                                    ? 'bg-indigo-600 text-white shadow-md'
+                                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
                             }`}
                         >
-                            {category}
+                            <span>{category}</span>
+                            <span className={`text-[11px] px-1.5 py-0.5 rounded-full font-semibold ${
+                                isSelected 
+                                ? 'bg-white/20 text-white' 
+                                : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
+                            }`}>
+                                {count}
+                            </span>
                         </button>
-                    ))}
-                </div>
-                
-                {/* FIX 1: Responsive wrapping for search and upload buttons on mobile */}
-                <div className="flex flex-row items-center justify-end gap-2 w-full md:w-auto shrink-0 mt-2 md:mt-0">
-                    <input type="file" ref={fileInputRef} accept=".json,.txt,.csv" className="hidden" onChange={onFileChange} />
-                    
-                    <div className={`relative transition-all duration-300 ease-in-out flex justify-end shrink-0 ${isSearchExpanded || searchTerm ? 'flex-1 sm:w-64 lg:w-80' : 'w-[42px] sm:w-[48px]'}`}>
-                        {!(isSearchExpanded || searchTerm) ? (
-                            <button 
-                                onClick={() => { setIsSearchExpanded(true); setTimeout(() => searchInputRef.current?.focus(), 50); }} 
-                                className="w-[42px] h-[42px] sm:w-[48px] sm:h-[48px] bg-white dark:bg-gray-700 rounded-xl flex items-center justify-center border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                            </button>
-                        ) : (
-                            <div className="relative w-full">
-                                <input
-                                    ref={searchInputRef}
-                                    type="text"
-                                    value={searchTerm}
-                                    onChange={onSearchChange}
-                                    onBlur={() => { if (!searchTerm) setIsSearchExpanded(false); }}
-                                    placeholder="Search exams..."
-                                    className="w-full pl-10 pr-10 py-2.5 md:py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm transition-all"
-                                />
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                                <button 
-                                    onClick={() => { onSearchChange({target: {value: ''}}); setIsSearchExpanded(false); }} 
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                    
-                    <button 
-                        onClick={handleFileUploadClick} 
-                        className="px-3 py-2.5 md:px-4 md:py-3 bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 rounded-xl text-sm font-bold hover:bg-indigo-100 dark:hover:bg-gray-600 transition-colors shrink-0 flex items-center justify-center gap-2 border border-indigo-100 dark:border-gray-600 shadow-sm"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                        </svg>
-                        <span className={`${(isSearchExpanded || searchTerm) ? 'hidden sm:inline' : 'hidden sm:inline md:inline'}`}>Upload</span>
-                    </button>
-                    
-                </div>
+                    );
+                })}
             </div>
 
             {/* Exams Grid */}
@@ -9541,8 +9549,8 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
 // =================================================================================
 const App = () => {
     const [user, loading] = useAuthState(auth);
-    const [appState, setAppState] = useState('loading');
-    const [isSyncing, setIsSyncing] = useState(true);
+    const [appState, setAppState] = useState('dashboard');
+    const [isSyncing, setIsSyncing] = useState(false);
     
     const handleSignIn = async () => {
         try {
@@ -9560,7 +9568,13 @@ const App = () => {
             console.error("Error signing out", error);
         }
     };
-    const [allExams, setAllExams] = useState([]);
+    const [allExams, setAllExams] = useState(() => {
+        try {
+            const saved = JSON.parse(localStorage.getItem('quizAppExams'));
+            if (saved && saved.length > 0) return saved;
+        } catch(e) {}
+        return examLibrary;
+    });
     const [theme, setTheme] = useState('light');
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
@@ -10011,10 +10025,6 @@ const App = () => {
 
     // --- RENDER LOGIC ---
     const renderContent = () => {
-        if (appState === 'loading') {
-             return <div className="flex items-center justify-center h-screen bg-gray-50 dark:bg-gray-900 text-gray-500">Loading...</div>;
-        }
-
         const filteredExams = allExams.filter(exam => {
             const categoryMatch = selectedCategory === 'All' || exam.category === selectedCategory;
             const searchTermMatch = searchTerm === '' || 
