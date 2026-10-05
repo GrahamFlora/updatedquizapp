@@ -7977,7 +7977,188 @@ const Logo = () => (
     </svg>
 );
 
-const ProfileModal = ({ isOpen, onClose, history }) => {
+const LoginPage = ({ user, onSignIn, onSignOut, onBackToDashboard, isModal = false }) => {
+    const [isSigningIn, setIsSigningIn] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(null);
+
+    const handleGoogleLogin = async () => {
+        setIsSigningIn(true);
+        setErrorMsg(null);
+        try {
+            await onSignIn();
+        } catch (err) {
+            console.error("Login error:", err);
+            if (err?.code === 'auth/popup-closed-by-user') {
+                setErrorMsg("Sign-in cancelled. Please click the button below to try again.");
+            } else if (err?.code === 'auth/popup-blocked') {
+                setErrorMsg("Sign-in popup was blocked by your browser. Please allow popups for this site and try again.");
+            } else {
+                setErrorMsg(err?.message || "Failed to sign in. Please try again.");
+            }
+        } finally {
+            setIsSigningIn(false);
+        }
+    };
+
+    const content = (
+        <div className={`w-full max-w-lg bg-white dark:bg-gray-800 ${isModal ? 'p-1 sm:p-2' : 'p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700'} relative overflow-hidden`}>
+            {!isModal && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-indigo-500/10 dark:bg-indigo-500/20 blur-3xl pointer-events-none rounded-full"></div>
+            )}
+
+            <div className="text-center mb-6 relative">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+                    </svg>
+                </div>
+                <span className="inline-block px-3 py-1 text-[11px] font-bold tracking-wider uppercase text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 rounded-full border border-indigo-200 dark:border-indigo-800/60 mb-2">
+                    Cross-Device Cloud Sync
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight">
+                    {user ? "Your Synced Account" : "Sign In & Sync"}
+                </h2>
+                <p className="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                    {user 
+                        ? "Your data is automatically synced between your mobile phone, Google Chrome, and PC."
+                        : "Sign in with your Google account so that your quiz scores, progress, and custom exams are always saved and accessible on both mobile and PC!"}
+                </p>
+            </div>
+
+            {errorMsg && (
+                <div className="mb-5 p-3.5 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-xs sm:text-sm flex items-start gap-2.5">
+                    <svg className="w-5 h-5 shrink-0 text-red-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div>
+                        <p className="font-semibold">Sign In Notice</p>
+                        <p className="mt-0.5">{errorMsg}</p>
+                    </div>
+                </div>
+            )}
+
+            {user ? (
+                <div className="space-y-4">
+                    <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 flex items-center gap-3.5">
+                        {user.photoURL ? (
+                            <img src={user.photoURL} alt="Avatar" className="w-12 h-12 rounded-full object-cover ring-2 ring-indigo-500/50" />
+                        ) : (
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-600 text-white font-bold text-lg flex items-center justify-center shadow-sm">
+                                {(user.displayName?.[0] || user.email?.[0] || 'U').toUpperCase()}
+                            </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                            <p className="font-bold text-gray-900 dark:text-gray-100 text-sm truncate">
+                                {user.displayName || 'Learner'}
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                                {user.email}
+                            </p>
+                            <div className="flex items-center gap-1.5 mt-1 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span>Active • Synced across Mobile & PC</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={onBackToDashboard}
+                        className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-md transition active:scale-95 text-sm flex items-center justify-center gap-2"
+                    >
+                        <span>Continue to Dashboard</span>
+                        <span>→</span>
+                    </button>
+
+                    <button
+                        onClick={onSignOut}
+                        className="w-full py-2.5 px-4 bg-gray-100 hover:bg-red-50 text-gray-700 hover:text-red-600 dark:bg-gray-700 dark:hover:bg-red-900/30 dark:text-gray-200 dark:hover:text-red-300 font-semibold rounded-2xl transition text-sm flex items-center justify-center gap-2"
+                    >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        <span>Sign Out</span>
+                    </button>
+                </div>
+            ) : (
+                <div className="space-y-4">
+                    <button
+                        type="button"
+                        onClick={handleGoogleLogin}
+                        disabled={isSigningIn}
+                        className="w-full py-3.5 px-4 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-100 font-bold rounded-2xl border-2 border-gray-200 dark:border-gray-600 shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-3 text-sm active:scale-95 disabled:opacity-75 disabled:pointer-events-none"
+                    >
+                        {isSigningIn ? (
+                            <div className="flex items-center gap-2">
+                                <svg className="animate-spin h-5 w-5 text-indigo-600 dark:text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <span>Connecting with Google...</span>
+                            </div>
+                        ) : (
+                            <>
+                                <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                                </svg>
+                                <span>Continue with Google</span>
+                            </>
+                        )}
+                    </button>
+
+                    <div className="pt-1">
+                        <button
+                            type="button"
+                            onClick={onBackToDashboard}
+                            className="w-full py-2 text-center text-xs font-semibold text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition"
+                        >
+                            Continue as Guest (Local Only) →
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Device sync breakdown feature cards */}
+            <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700 grid grid-cols-1 gap-2.5 text-left">
+                <div className="flex items-start gap-3 p-3 rounded-2xl bg-gray-50 dark:bg-gray-700/30 border border-gray-100 dark:border-gray-700">
+                    <span className="text-xl">📱</span>
+                    <div>
+                        <p className="text-xs font-bold text-gray-900 dark:text-gray-100">Mobile Phone & Tablet Ready</p>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">Take quizzes or edit questions directly from your phone browser.</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-2xl bg-gray-50 dark:bg-gray-700/30 border border-gray-100 dark:border-gray-700">
+                    <span className="text-xl">💻</span>
+                    <div>
+                        <p className="text-xs font-bold text-gray-900 dark:text-gray-100">Visible on PC & Desktop</p>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">Log in on PC Chrome, and all your phone quiz scores and exam progress appear instantly.</p>
+                    </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-2xl bg-gray-50 dark:bg-gray-700/30 border border-gray-100 dark:border-gray-700">
+                    <span className="text-xl">☁️</span>
+                    <div>
+                        <p className="text-xs font-bold text-gray-900 dark:text-gray-100">Real-Time Cloud Backup</p>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">Never lose your history, starred stopping points, or custom uploaded exams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    if (isModal) {
+        return content;
+    }
+
+    return (
+        <div className="flex-1 flex flex-col justify-center items-center px-4 py-8 sm:py-16 bg-gradient-to-b from-gray-50 to-indigo-50/20 dark:from-gray-900 dark:to-gray-900">
+            {content}
+        </div>
+    );
+};
+
+const ProfileModal = ({ isOpen, onClose, history, user, onOpenLogin }) => {
     if (!isOpen) return null;
 
     const totalExams = history.length;
@@ -7986,14 +8167,44 @@ const ProfileModal = ({ isOpen, onClose, history }) => {
     const passedExams = history.filter(entry => entry.score >= entry.passingScore).length;
     const passRate = totalExams > 0 ? Math.round((passedExams / totalExams) * 100) : 0;
 
+    const userInitial = user ? (user.displayName?.[0] || user.email?.[0] || 'U').toUpperCase() : 'G';
+
     return (
         <Modal isOpen={isOpen} onClose={onClose} showConfirm={false} title="My Profile">
             <div className="flex flex-col items-center mb-6">
-                <div className="h-24 w-24 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-4xl font-extrabold shadow-lg mb-4 ring-4 ring-indigo-50 dark:ring-gray-800">
-                    U
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">User Profile</h3>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">Quiz Enthusiast</p>
+                {user && user.photoURL ? (
+                    <img src={user.photoURL} alt="Avatar" className="h-24 w-24 rounded-full object-cover shadow-lg mb-4 ring-4 ring-indigo-100 dark:ring-gray-800" />
+                ) : (
+                    <div className="h-24 w-24 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-4xl font-extrabold shadow-lg mb-4 ring-4 ring-indigo-50 dark:ring-gray-800">
+                        {userInitial}
+                    </div>
+                )}
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                    {user ? (user.displayName || 'Learner') : 'Guest User'}
+                </h3>
+                {user ? (
+                    <div className="flex flex-col items-center gap-1 mt-1">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 px-2.5 py-0.5 rounded-full mt-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Cloud Synced (PC & Phone)
+                        </span>
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center gap-2 mt-1">
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
+                            Guest Mode (Local Only)
+                        </p>
+                        {onOpenLogin && (
+                            <button
+                                onClick={() => { onClose(); onOpenLogin(); }}
+                                className="px-3.5 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl text-xs font-bold shadow-sm transition active:scale-95"
+                            >
+                                Sign In to Sync across Phone & PC →
+                            </button>
+                        )}
+                    </div>
+                )}
             </div>
 
             <div className="grid grid-cols-2 gap-4 mb-2">
@@ -8018,7 +8229,7 @@ const ProfileModal = ({ isOpen, onClose, history }) => {
     );
 };
 
-const UserProfileDropdown = ({ onShowHistory, onShowSettings, onShowProfile }) => {
+const UserProfileDropdown = ({ onShowHistory, onShowSettings, onShowProfile, user, onOpenLogin, onSignOut }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -8032,22 +8243,92 @@ const UserProfileDropdown = ({ onShowHistory, onShowSettings, onShowProfile }) =
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    const userInitial = user ? (user.displayName?.[0] || user.email?.[0] || 'U').toUpperCase() : null;
+
     return (
         <div className="relative" ref={dropdownRef}>
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition">
-                <svg className="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
+            <button 
+                onClick={() => setIsOpen(!isOpen)} 
+                className="flex items-center gap-2 p-1 sm:px-2 sm:py-1 rounded-full sm:rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition"
+                title={user ? `Signed in as ${user.email}` : "Account & Menu"}
+            >
+                {user ? (
+                    user.photoURL ? (
+                        <img src={user.photoURL} alt="Avatar" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover ring-2 ring-indigo-500/40" />
+                    ) : (
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center shadow-sm">
+                            {userInitial}
+                        </div>
+                    )
+                ) : (
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-gray-600 dark:text-gray-300">
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                )}
+                {user && (
+                    <span className="hidden md:inline-block text-xs font-semibold text-gray-700 dark:text-gray-200 max-w-[120px] truncate">
+                        {user.displayName || user.email.split('@')[0]}
+                    </span>
+                )}
             </button>
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-2xl z-50 border border-gray-100 dark:border-gray-700 overflow-hidden">
-                    <div className="py-1">
-                        <div className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-                            <p className="truncate"><span className="font-semibold">Welcome,</span> User</p>
+                <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl z-50 border border-gray-100 dark:border-gray-700 overflow-hidden animate-fade-in">
+                    <div className="py-2">
+                        {user ? (
+                            <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800/80">
+                                <p className="font-bold text-gray-900 dark:text-gray-100 truncate text-sm">{user.displayName || 'Learner'}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">{user.email}</p>
+                                <div className="flex items-center gap-1.5 mt-2 text-[11px] text-emerald-700 dark:text-emerald-300 font-bold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 px-2 py-0.5 rounded-full w-fit">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span>Synced (Phone & PC)</span>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800/80">
+                                <p className="font-bold text-gray-900 dark:text-gray-100 text-sm">Guest Mode</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Data is stored locally on this device only.</p>
+                                <button
+                                    onClick={() => { onOpenLogin(); setIsOpen(false); }}
+                                    className="mt-2.5 w-full py-1.5 px-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center justify-center gap-1.5"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+                                    </svg>
+                                    <span>Sign In to Sync</span>
+                                </button>
+                            </div>
+                        )}
+                        <div className="py-1">
+                            <button onClick={() => { onOpenLogin(); setIsOpen(false); }} className="w-full text-left px-4 py-2.5 text-sm font-medium text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition flex items-center gap-2.5">
+                                <svg className="h-4 w-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+                                <span>{user ? 'Account & Cloud Sync' : 'Login / Sync Devices'}</span>
+                            </button>
+                            <button onClick={() => { onShowProfile(); setIsOpen(false); }} className="w-full text-left px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700 transition flex items-center gap-2.5">
+                                <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                                <span>My Profile & Stats</span>
+                            </button>
+                            <button onClick={() => { onShowHistory(); setIsOpen(false); }} className="w-full text-left px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700 transition flex items-center gap-2.5">
+                                <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <span>Quiz History</span>
+                            </button>
+                            <button onClick={() => { onShowSettings(); setIsOpen(false); }} className="w-full text-left px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700 transition flex items-center gap-2.5">
+                                <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                <span>Settings</span>
+                            </button>
                         </div>
-                        <button onClick={() => { onShowProfile(); setIsOpen(false); }} className="w-full text-left block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">My Profile</button>
-                        <button onClick={() => { onShowSettings(); setIsOpen(false); }} className="w-full text-left block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">Settings</button>
-                        <button onClick={() => { onShowHistory(); setIsOpen(false); }} className="w-full text-left block px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">View History</button>
+                        {user && (
+                            <div className="pt-1 mt-1 border-t border-gray-100 dark:border-gray-700">
+                                <button 
+                                    onClick={() => { onSignOut(); setIsOpen(false); }} 
+                                    className="w-full text-left px-4 py-2.5 text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition flex items-center gap-2.5"
+                                >
+                                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                                    <span>Sign Out</span>
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
@@ -8055,15 +8336,46 @@ const UserProfileDropdown = ({ onShowHistory, onShowSettings, onShowProfile }) =
     );
 };
 
-const Header = ({ onShowHistory, onShowSettings, onGoToDashboard, onShowProfile, user, onSignIn, onSignOut }) => (
-    <header className="flex justify-between items-center px-4 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 shadow-sm h-[60px]">
+const Header = ({ onShowHistory, onShowSettings, onGoToDashboard, onShowProfile, user, onOpenLogin, onSignOut }) => (
+    <header className="flex justify-between items-center px-3 sm:px-4 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 shadow-sm h-[60px]">
         <div className="flex items-center gap-2">
-             <button onClick={onGoToDashboard} className="flex items-center gap-2 hover:opacity-80 transition">
+            <button onClick={onGoToDashboard} className="flex items-center gap-2 hover:opacity-80 transition">
                 <Logo />
                 <h1 className="text-lg font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 hidden sm:block">Quiz Platform</h1>
             </button>
         </div>
-        <UserProfileDropdown onShowHistory={onShowHistory} onShowSettings={onShowSettings} onShowProfile={onShowProfile} user={user} onSignIn={onSignIn} onSignOut={onSignOut} />
+        <div className="flex items-center gap-2 sm:gap-3">
+            {!user ? (
+                <button
+                    onClick={onOpenLogin}
+                    className="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl text-xs sm:text-sm font-bold shadow-sm transition active:scale-95"
+                    title="Sign in to save and sync data across PC, Phone, and Chrome"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+                    </svg>
+                    <span>Sign In</span>
+                    <span className="hidden xs:inline sm:inline">to Sync</span>
+                </button>
+            ) : (
+                <button
+                    onClick={onOpenLogin}
+                    className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/60 border border-emerald-200 dark:border-emerald-800/60 rounded-xl text-[11px] font-bold text-emerald-700 dark:text-emerald-300 transition active:scale-95"
+                    title="Data synced between Phone & PC. Click to view account sync status."
+                >
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Synced (PC & Phone)</span>
+                </button>
+            )}
+            <UserProfileDropdown 
+                onShowHistory={onShowHistory} 
+                onShowSettings={onShowSettings} 
+                onShowProfile={onShowProfile} 
+                user={user} 
+                onOpenLogin={onOpenLogin} 
+                onSignOut={onSignOut} 
+            />
+        </div>
     </header>
 );
 
@@ -8078,7 +8390,7 @@ const getExamIcon = (exam) => {
     );
 };
 
-const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters, onExamsUploaded, onEditExam, onDeleteExam }) => {
+const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters, onExamsUploaded, onEditExam, onDeleteExam, user, onOpenLogin }) => {
     const categories = ['All', ...new Set(allExams.map(exam => exam.category))];
     
     const totalExamsTaken = scoreHistory ? scoreHistory.length : 0;
@@ -8106,8 +8418,8 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
             
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i];
-                const optionMatch = line.match(/^([a-eA-E0-9])[\.\)]\s*(.*)/);
-                const starredOptionMatch = line.match(/^\*([a-eA-E0-9])[\.\)]\s*(.*)/);
+                const optionMatch = line.match(/^([a-eA-E0-9])[.)]\s*(.*)/);
+                const starredOptionMatch = line.match(/^\*([a-eA-E0-9])[.)]\s*(.*)/);
                 
                 if (starredOptionMatch) {
                     options.push(starredOptionMatch[2]);
@@ -8158,7 +8470,6 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
         const questions = [];
         if (!results.data || results.data.length === 0) return null;
         
-        const headers = results.meta.fields.map(h => h.toLowerCase().trim());
         const qKey = results.meta.fields.find(h => h.toLowerCase().includes('question')) || results.meta.fields[0];
         const aKey = results.meta.fields.find(h => h.toLowerCase().includes('answer')) || results.meta.fields[results.meta.fields.length - 1];
         const optionKeys = results.meta.fields.filter(h => h.toLowerCase().match(/option|choice|^[a-e]$/i));
@@ -8327,6 +8638,47 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                 <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
                 <div className="absolute bottom-0 left-10 -mb-10 w-48 h-48 bg-purple-900/30 rounded-full blur-2xl pointer-events-none"></div>
             </div>
+
+            {/* Multi-Device Cloud Sync Notice */}
+            {!user ? (
+                <div className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-blue-500/10 dark:from-indigo-950/40 dark:via-purple-950/40 dark:to-blue-950/40 border border-indigo-200 dark:border-indigo-800/60 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p className="text-xs sm:text-sm font-bold text-gray-900 dark:text-gray-100">
+                                Save data across Mobile, Chrome & PC
+                            </p>
+                            <p className="text-[11px] sm:text-xs text-gray-600 dark:text-gray-400">
+                                Sign in so your quiz scores, test history, and exam bookmarks are visible on both your phone and PC.
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        onClick={onOpenLogin}
+                        className="w-full sm:w-auto px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-sm transition active:scale-95 flex items-center justify-center gap-1.5 shrink-0"
+                    >
+                        <span>Sign In to Sync</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            ) : (
+                <div className="bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3 text-xs">
+                    <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-medium">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Signed in as <strong>{user.displayName || user.email}</strong> • Cloud Sync Active (Phone & PC)</span>
+                    </div>
+                    <button 
+                        onClick={onOpenLogin} 
+                        className="text-indigo-600 dark:text-indigo-400 underline font-semibold hover:opacity-80 shrink-0"
+                    >
+                        Sync Details
+                    </button>
+                </div>
+            )}
 
             {/* Search Bar & Upload Button (Separated Top Bar) */}
             <div className="flex items-center gap-2.5 sm:gap-3">
@@ -9140,7 +9492,7 @@ const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPrompt
 };
 
 
-const ExamEditor = ({ exam, onSave, onCancel }) => {
+const ExamEditor = ({ exam, onSave, onCancel, user }) => {
     const [title, setTitle] = useState(exam?.title || 'New Exam');
     const [category, setCategory] = useState(exam?.category || 'Custom');
     const [description, setDescription] = useState(exam?.description || '');
@@ -9155,7 +9507,7 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
     const [activeQuestionIndex, setActiveQuestionIndex] = useState(null);
     const [questionToDelete, setQuestionToDelete] = useState(null);
 
-    // Star / Stopped here indicator state (purely toggleable, easily undoable)
+    // Star / Stopped here indicator state (persisted locally and synced with cloud)
     const [starredQuestions, setStarredQuestions] = useState(() => {
         try {
             const saved = localStorage.getItem(`quiz_starred_questions_${exam?.id}`);
@@ -9163,6 +9515,26 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
         } catch(e) {}
         return {};
     });
+
+    // Sync starred questions from Firestore if logged in (for phone & PC sync)
+    useEffect(() => {
+        if (!user || !exam?.id) return;
+        const starDocRef = doc(db, `users/${user.uid}/starred_questions`, String(exam.id));
+        const unsubscribe = onSnapshot(starDocRef, (snap) => {
+            if (snap.exists()) {
+                const data = snap.data();
+                if (data && data.stars) {
+                    setStarredQuestions(data.stars);
+                    try {
+                        localStorage.setItem(`quiz_starred_questions_${exam.id}`, JSON.stringify(data.stars));
+                    } catch(e) {}
+                }
+            }
+        }, (err) => {
+            console.error("Firestore starred_questions sync error:", err);
+        });
+        return () => unsubscribe();
+    }, [user, exam?.id]);
 
     // Ensure the edit exam page starts at the top
     useEffect(() => {
@@ -9186,6 +9558,18 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
             try {
                 localStorage.setItem(`quiz_starred_questions_${exam?.id}`, JSON.stringify(next));
             } catch(err) {}
+
+            // Save to Cloud Firestore so it is visible across devices (Mobile & PC)
+            if (user && exam?.id) {
+                try {
+                    setDoc(doc(db, `users/${user.uid}/starred_questions`, String(exam.id)), {
+                        stars: next,
+                        updatedAt: Date.now()
+                    }, { merge: true });
+                } catch(cloudErr) {
+                    console.error("Error saving starred question to Firestore:", cloudErr);
+                }
+            }
             return next;
         });
     };
@@ -9195,6 +9579,13 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
         try {
             localStorage.removeItem(`quiz_starred_questions_${exam?.id}`);
         } catch(err) {}
+        if (user && exam?.id) {
+            try {
+                deleteDoc(doc(db, `users/${user.uid}/starred_questions`, String(exam.id)));
+            } catch(cloudErr) {
+                console.error("Error deleting starred questions in Firestore:", cloudErr);
+            }
+        }
     };
 
     const handleQuestionChange = (index, field, value) => {
@@ -9412,6 +9803,19 @@ const ExamEditor = ({ exam, onSave, onCancel }) => {
                                 >
                                     Collapse All
                                 </button>
+                                {Object.keys(starredQuestions).some(k => starredQuestions[k]) && (
+                                    <>
+                                        <span className="text-gray-300 dark:text-gray-600">|</span>
+                                        <button
+                                            type="button"
+                                            onClick={clearAllStars}
+                                            className="font-medium text-amber-600 dark:text-amber-400 hover:text-amber-700 px-2 py-1 rounded hover:bg-amber-50 dark:hover:bg-amber-950/40 transition"
+                                            title="Clear all starred stopping points"
+                                        >
+                                            Clear Stars
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         </div>
 
@@ -9651,12 +10055,23 @@ const App = () => {
     const [user, loading] = useAuthState(auth);
     const [appState, setAppState] = useState('dashboard');
     const [isSyncing, setIsSyncing] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     
+    const handleOpenLogin = () => {
+        setAppState('login');
+    };
+
     const handleSignIn = async () => {
         try {
-            await signInWithPopup(auth, googleProvider);
+            const res = await signInWithPopup(auth, googleProvider);
+            if (res && res.user) {
+                setAppState('dashboard');
+                setIsLoginModalOpen(false);
+            }
+            return res;
         } catch (error) {
             console.error("Error signing in", error);
+            throw error;
         }
     };
     
@@ -9664,6 +10079,7 @@ const App = () => {
         try {
             await signOut(auth);
             setAppState('dashboard');
+            setIsLoginModalOpen(false);
         } catch (error) {
             console.error("Error signing out", error);
         }
@@ -9796,9 +10212,35 @@ const App = () => {
         }
     }, [user, loading]);
 
+    // Automatically migrate local guest quiz history to Cloud Firestore when user signs in
+    useEffect(() => {
+        if (!user) return;
+        try {
+            const guestHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
+            if (guestHistory.length > 0) {
+                guestHistory.forEach(async (entry) => {
+                    if (entry && entry.id) {
+                        try {
+                            const entryTime = entry.timestamp || (entry.date ? new Date(entry.date).getTime() : Date.now());
+                            await setDoc(doc(db, `users/${user.uid}/history`, String(entry.id)), {
+                                ...entry,
+                                timestamp: entryTime
+                            }, { merge: true });
+                        } catch(e) {
+                            console.error("Error migrating guest score to cloud:", e);
+                        }
+                    }
+                });
+            }
+        } catch(e) {
+            console.error("Error reading guest history for migration:", e);
+        }
+    }, [user]);
+
     useEffect(() => {
         let newTitle = "Exam App";
         if (appState === 'dashboard') newTitle = "Dashboard - Exam App";
+        else if (appState === 'login') newTitle = "Sign In & Sync - Exam App";
         else if (appState === 'quiz' && activeExam) newTitle = `${activeExam.title} - Quiz`;
         else if (appState === 'review' && completedQuizData) newTitle = `Results for ${completedQuizData.examTitle}`;
         else if (appState === 'review' && reviewingHistoryEntry) newTitle = `Reviewing ${reviewingHistoryEntry.examTitle}`;
@@ -10013,9 +10455,20 @@ const App = () => {
         setIsHistoryVisible(false);
     };
 
-    const clearHistory = () => {
+    const clearHistory = async () => {
         localStorage.removeItem('quizAppHistory');
         setScoreHistory([]);
+        if (user) {
+            try {
+                const historyCol = collection(db, `users/${user.uid}/history`);
+                const snap = await getDocs(historyCol);
+                for (const docSnap of snap.docs) {
+                    await deleteDoc(doc(db, `users/${user.uid}/history`, docSnap.id));
+                }
+            } catch(e) {
+                console.error("Error clearing cloud history in Firestore:", e);
+            }
+        }
     };
 
     const handlePromptDelete = (entryId) => setEntryToDelete(entryId);
@@ -10137,6 +10590,28 @@ const App = () => {
         });
 
         switch (appState) {
+            case 'login':
+                return (
+                    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
+                        <Header 
+                            onShowHistory={() => setIsHistoryVisible(true)} 
+                            onShowSettings={() => setIsSettingsVisible(true)}
+                            onShowProfile={() => setIsProfileVisible(true)}
+                            onGoToDashboard={handleGoToDashboard}
+                            onOpenLogin={handleOpenLogin}
+                            user={user} 
+                            onSignIn={handleSignIn} 
+                            onSignOut={handleSignOut} 
+                            isSyncing={isSyncing} 
+                        />
+                        <LoginPage 
+                            user={user}
+                            onSignIn={handleSignIn}
+                            onSignOut={handleSignOut}
+                            onBackToDashboard={handleGoToDashboard}
+                        />
+                    </div>
+                );
             case 'dashboard':
                 return (
                     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -10145,7 +10620,12 @@ const App = () => {
                             onShowSettings={() => setIsSettingsVisible(true)}
                             onShowProfile={() => setIsProfileVisible(true)}
                             onGoToDashboard={handleGoToDashboard}
-                         user={user} onSignIn={handleSignIn} onSignOut={handleSignOut} isSyncing={isSyncing} />
+                            onOpenLogin={handleOpenLogin}
+                            user={user} 
+                            onSignIn={handleSignIn} 
+                            onSignOut={handleSignOut} 
+                            isSyncing={isSyncing} 
+                        />
                         <DashboardPage 
                             allExams={allExams}
                             filteredExams={filteredExams} 
@@ -10162,6 +10642,8 @@ const App = () => {
                             onExamsUploaded={handleExamsUploaded}
                             onEditExam={handleEditExamClick}
                             onDeleteExam={handleDeleteExam}
+                            user={user}
+                            onOpenLogin={handleOpenLogin}
                         />
                     </div>
                 );
@@ -10173,11 +10655,17 @@ const App = () => {
                             onShowSettings={() => setIsSettingsVisible(true)}
                             onShowProfile={() => setIsProfileVisible(true)}
                             onGoToDashboard={handleGoToDashboard}
-                         user={user} onSignIn={handleSignIn} onSignOut={handleSignOut} isSyncing={isSyncing} />
+                            onOpenLogin={handleOpenLogin}
+                            user={user} 
+                            onSignIn={handleSignIn} 
+                            onSignOut={handleSignOut} 
+                            isSyncing={isSyncing} 
+                        />
                         <ExamEditor 
                             exam={examBeingEdited} 
                             onSave={handleSaveEditedExam} 
                             onCancel={handleCancelEdit} 
+                            user={user}
                         />
                     </div>
                 );
@@ -10190,7 +10678,12 @@ const App = () => {
                            onShowSettings={() => setIsSettingsVisible(true)}
                            onShowProfile={() => setIsProfileVisible(true)}
                            onGoToDashboard={handleGoToDashboard}
-                         user={user} onSignIn={handleSignIn} onSignOut={handleSignOut} isSyncing={isSyncing} />
+                           onOpenLogin={handleOpenLogin}
+                           user={user} 
+                           onSignIn={handleSignIn} 
+                           onSignOut={handleSignOut} 
+                           isSyncing={isSyncing} 
+                        />
                         <main className="flex-grow overflow-y-auto">
                            {appState === 'quiz' && (
                                 <>
@@ -10277,7 +10770,24 @@ const App = () => {
                 isOpen={isProfileVisible}
                 onClose={() => setIsProfileVisible(false)}
                 history={scoreHistory}
+                user={user}
+                onOpenLogin={handleOpenLogin}
             />
+
+            <Modal
+                isOpen={isLoginModalOpen}
+                onClose={() => setIsLoginModalOpen(false)}
+                showConfirm={false}
+                title="Account & Multi-Device Sync"
+            >
+                <LoginPage
+                    user={user}
+                    onSignIn={handleSignIn}
+                    onSignOut={handleSignOut}
+                    onBackToDashboard={() => setIsLoginModalOpen(false)}
+                    isModal={true}
+                />
+            </Modal>
             
             <Modal
                 isOpen={isExitConfirmVisible}

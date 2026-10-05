@@ -35,6 +35,14 @@
                         { "name": "date", "type": "string" },
                         { "name": "timestamp", "type": "timestamp" }
                     ]
+                },
+                {
+                    "name": "starred_questions",
+                    "documentId": "examId",
+                    "fields": [
+                        { "name": "stars", "type": "object" },
+                        { "name": "updatedAt", "type": "timestamp" }
+                    ]
                 }
             ]
         }
