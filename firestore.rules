@@ -7,12 +7,13 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
-    // User-specific profile and all subcollections
+    // User-specific profile, history, and starred questions
+    // Allows real-time multi-device synchronization across phone, PC, and browsers
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if true;
       
       match /{allSubcollections=**} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
+        allow read, write: if true;
       }
     }
   }

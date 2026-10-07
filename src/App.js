@@ -8390,7 +8390,7 @@ const getExamIcon = (exam) => {
     );
 };
 
-const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters, onExamsUploaded, onEditExam, onDeleteExam, user, onOpenLogin }) => {
+const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory, onSelectCategory, searchTerm, onSearchChange, scoreHistory, onClearFilters, onExamsUploaded, onEditExam, onDeleteExam, user, onOpenLogin, onReviewExam }) => {
     const categories = ['All', ...new Set(allExams.map(exam => exam.category))];
     
     const totalExamsTaken = scoreHistory ? scoreHistory.length : 0;
@@ -8783,14 +8783,19 @@ const DashboardPage = ({ allExams, filteredExams, onSelectExam, selectedCategory
                                     </div>
                                 </div>
                             </div>
-                            <div className="p-4 pt-0 mt-auto flex gap-2">
-                                <button onClick={() => onDeleteExam(exam.id)} className="flex-none bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 font-bold py-3.5 px-4 rounded-xl transition-colors flex items-center justify-center group/delbtn" title="Delete Exam">
+                            <div className="p-4 pt-0 mt-auto flex items-center gap-1.5 sm:gap-2">
+                                <button onClick={() => onDeleteExam(exam.id)} className="flex-none bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 font-bold py-3.5 px-3.5 sm:px-4 rounded-xl transition-colors flex items-center justify-center group/delbtn" title="Delete Exam">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500 group-hover/delbtn:text-red-700 dark:group-hover/delbtn:text-red-300 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                 </button>
-                                <button onClick={() => onEditExam(exam)} className="flex-none bg-gray-50 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-bold py-3.5 px-4 rounded-xl transition-colors flex items-center justify-center group/editbtn" title="Edit Exam">
+                                <button onClick={() => onEditExam(exam)} className="flex-none bg-gray-50 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-bold py-3.5 px-3.5 sm:px-4 rounded-xl transition-colors flex items-center justify-center group/editbtn" title="Edit Exam">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 group-hover/editbtn:text-gray-700 dark:group-hover/editbtn:text-gray-300 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                 </button>
-                                <button onClick={() => onSelectExam(exam)} className="flex-1 bg-gray-50 dark:bg-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 text-gray-700 dark:text-gray-200 hover:text-white font-bold py-3.5 px-3 sm:px-4 rounded-xl transition-colors flex items-center justify-center gap-1 sm:gap-2 group/btn whitespace-nowrap">
+                                <button onClick={() => onReviewExam(exam)} className="flex-none bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-bold py-3.5 px-3.5 sm:px-4 rounded-xl transition-colors flex items-center justify-center group/reviewbtn" title="Review Mode (Study with Correct Answers)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500 group-hover/reviewbtn:text-blue-700 dark:group-hover/reviewbtn:text-blue-300 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                </button>
+                                <button onClick={() => onSelectExam(exam)} className="flex-1 bg-gray-50 dark:bg-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 text-gray-700 dark:text-gray-200 hover:text-white font-bold py-3.5 px-3 sm:px-4 rounded-xl transition-colors flex items-center justify-center gap-1 sm:gap-2 group/btn whitespace-nowrap min-w-0">
                                     <span className="truncate">Configure & Start</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                                 </button>
@@ -8994,35 +8999,61 @@ const SettingsModal = ({ isVisible, onClose, theme, onThemeChange }) => {
     );
 };
 
-const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion }) => {
+const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion, filter = 'all' }) => {
     const isCorrect = (question, userAnswerIndices) => {
+        if (!userAnswerIndices || userAnswerIndices.length === 0) return false;
         const correctIndices = new Set(question.answerOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
         const userIndices = new Set(userAnswerIndices || []);
         if (correctIndices.size !== userIndices.size) return false;
         return [...userIndices].every(i => correctIndices.has(i));
     };
 
+    const questionsWithMeta = questions.map((q, i) => {
+        const userAnswer = userAnswers[i];
+        const answeredCorrectly = isCorrect(q, userAnswer);
+        const wasAnswered = userAnswer && userAnswer.length > 0;
+        return {
+            q,
+            index: i,
+            userAnswer,
+            answeredCorrectly,
+            wasAnswered
+        };
+    });
+
+    const displayItems = filter === 'incorrect'
+        ? questionsWithMeta.filter(item => !item.answeredCorrectly)
+        : questionsWithMeta;
+
+    if (filter === 'incorrect' && displayItems.length === 0) {
+        return (
+            <div className="py-3 px-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-sm text-green-700 dark:text-green-300 font-medium flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 dark:text-green-400 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>Awesome work! You got all questions correct — no incorrect questions to display.</span>
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-wrap gap-2 pb-2">
-            {questions.map((q, i) => {
-                const userAnswer = userAnswers[i];
-                const answeredCorrectly = isCorrect(q, userAnswer);
-                const wasAnswered = userAnswer && userAnswer.length > 0;
-
+            {displayItems.map(({ index, answeredCorrectly, wasAnswered }) => {
                 let buttonClass = 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'; // Unanswered
                 if (wasAnswered && answeredCorrectly) {
                     buttonClass = 'bg-green-500 text-white border border-green-600'; // Correct
-                } else if (wasAnswered && !answeredCorrectly) {
+                } else if (!answeredCorrectly) {
                     buttonClass = 'bg-red-500 text-white border border-red-600'; // Incorrect
                 }
 
                 return (
                     <button
-                        key={i}
-                        onClick={() => onGoToQuestion(i)}
-                        className={`h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0 flex items-center justify-center text-xs sm:text-sm font-bold rounded-lg transition-colors shadow-sm hover:opacity-80 ${buttonClass}`}
+                        key={index}
+                        onClick={() => onGoToQuestion(index)}
+                        className={`h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0 flex items-center justify-center text-xs sm:text-sm font-bold rounded-lg transition-transform active:scale-95 shadow-sm hover:opacity-90 ${buttonClass}`}
+                        title={`Question ${index + 1} (${answeredCorrectly ? 'Correct' : 'Incorrect'})`}
                     >
-                        {i + 1}
+                        {index + 1}
                     </button>
                 );
             })}
@@ -9032,6 +9063,7 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion }) => {
 
 const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, onBackToHistory, isFromHistory, scriptsLoaded }) => {
     const { score, rawScore, totalQuestions, questions, userAnswers, exam } = scoreData;
+    const isReviewMode = !!scoreData.isReviewMode;
     
     // Safely fallback variables to prevent crashes if 'exam' isn't available in localstorage
     const passingScore = exam ? exam.passingScore : (scoreData.passingScore || 700);
@@ -9041,9 +9073,18 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
     
     const [reviewFilter, setReviewFilter] = useState('all');
     const [explanationVisibility, setExplanationVisibility] = useState({});
-    const [isReviewVisible, setIsReviewVisible] = useState(false);
+    const [isReviewVisible, setIsReviewVisible] = useState(isReviewMode || false);
     const [filteredQuestions, setFilteredQuestions] = useState([]);
     const [isDownloading, setIsDownloading] = useState(false);
+
+    // Calculate incorrect count
+    const incorrectIndices = questions.map((question, index) => {
+        const correctIndices = new Set(question.answerOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
+        const userIndices = new Set(userAnswers[index] || []);
+        if (correctIndices.size !== userIndices.size) return index;
+        return ![...userIndices].every(i => correctIndices.has(i)) ? index : -1;
+    }).filter(i => i !== -1);
+    const incorrectCount = incorrectIndices.length;
 
     const handleDownloadPdf = () => {
         const reviewContent = document.getElementById('review-content');
@@ -9100,7 +9141,7 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
     }, [reviewFilter, questions, userAnswers]);
 
     const handleFilterClick = (filter) => {
-        if (isReviewVisible && reviewFilter === filter) setIsReviewVisible(false);
+        if (isReviewVisible && reviewFilter === filter && !isReviewMode) setIsReviewVisible(false);
         else { setReviewFilter(filter); setIsReviewVisible(true); }
     };
 
@@ -9110,27 +9151,50 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
     return (
         <div className="p-4 md:p-8 max-w-4xl mx-auto w-full">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-1">
-                {isFromHistory ? 'Reviewing Past Quiz' : 'Quiz Completed!'}
+                {isReviewMode ? 'Exam Review & Study Mode' : (isFromHistory ? 'Reviewing Past Quiz' : 'Quiz Completed!')}
             </h2>
-            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 text-center mb-6">{examTitle}</p>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 text-center mb-6">
+                {isReviewMode ? `Complete Answer Key & Explanations: ${examTitle}` : examTitle}
+            </p>
             
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 md:p-8 mb-6 text-center md:text-left">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="w-full md:w-auto text-center md:text-left">
-                        <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Your Score</p>
-                        <p className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-purple-600 my-2">{score}</p>
-                        <p className="text-xs text-gray-400 dark:text-gray-500">Passing Score: {passingScore}</p>
+                {isReviewMode ? (
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="w-full md:w-auto text-center md:text-left">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                                Study / Answer Key Mode
+                            </span>
+                            <p className="text-3xl md:text-4xl font-black text-gray-800 dark:text-gray-100 my-1">{totalQuestions} Questions</p>
+                            <p className="text-xs text-gray-400 dark:text-gray-500">Passing Requirement: {passingScore} / 1000</p>
+                        </div>
+                        <div className="flex-grow text-center md:text-right">
+                             <p className="text-xl md:text-2xl font-bold mb-1 text-blue-600 dark:text-blue-400">All Correct Answers & Explanations</p>
+                             <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 bg-blue-50/60 dark:bg-blue-950/30 inline-block px-4 py-2 rounded-lg border border-blue-100 dark:border-blue-900/50">
+                                Study with verified answers and comprehensive explanations at your own pace.
+                             </p>
+                        </div>
                     </div>
-                    <div className="flex-grow text-center">
-                         <p className={`text-xl md:text-2xl font-bold mb-1 ${color}`}>{message}</p>
-                         <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 inline-block px-4 py-2 rounded-lg">You answered <strong>{rawScore}</strong> out of <strong>{totalQuestions}</strong> correctly.</p>
+                ) : (
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="w-full md:w-auto text-center md:text-left">
+                            <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Your Score</p>
+                            <p className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-purple-600 my-2">{score}</p>
+                            <p className="text-xs text-gray-400 dark:text-gray-500">Passing Score: {passingScore}</p>
+                        </div>
+                        <div className="flex-grow text-center">
+                             <p className={`text-xl md:text-2xl font-bold mb-1 ${color}`}>{message}</p>
+                             <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 inline-block px-4 py-2 rounded-lg">You answered <strong>{rawScore}</strong> out of <strong>{totalQuestions}</strong> correctly.</p>
+                        </div>
                     </div>
-                </div>
+                )}
                 
                 <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
                     {exam ? (
                         <button onClick={() => onRestart(exam)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm">
-                            {isFromHistory ? 'Retake Exam' : 'Try Again'}
+                            {isReviewMode ? 'Take Quiz Now' : (isFromHistory ? 'Retake Exam' : 'Try Again')}
                         </button>
                     ) : (
                         <button disabled className="bg-gray-400 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm cursor-not-allowed" title="Please re-upload the exam to retake it">
@@ -9147,16 +9211,33 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
         
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
                 <div className="p-4 md:p-6 bg-gray-50 dark:bg-gray-800/80 border-b border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100">Review Answers</h3>
+                    <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100">
+                        {isReviewMode ? 'Study Questions & Answer Key' : 'Review Answers'}
+                    </h3>
                     <div className="flex items-center gap-2 bg-gray-200 dark:bg-gray-700 p-1 rounded-xl">
-                        <button onClick={() => handleFilterClick('all')} className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition ${reviewFilter === 'all' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}>All</button>
-                        <button onClick={() => handleFilterClick('incorrect')} className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition ${reviewFilter === 'incorrect' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}>Incorrect</button>
+                        <button 
+                            onClick={() => handleFilterClick('all')} 
+                            className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-sm font-semibold transition flex items-center gap-1.5 ${reviewFilter === 'all' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}
+                        >
+                            <span>All</span>
+                            <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold">{questions.length}</span>
+                        </button>
+                        <button 
+                            onClick={() => handleFilterClick('incorrect')} 
+                            className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-sm font-semibold transition flex items-center gap-1.5 ${reviewFilter === 'incorrect' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}
+                        >
+                            <span>Incorrect Only</span>
+                            <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${incorrectCount > 0 ? 'bg-red-100 text-red-700 dark:bg-red-900/60 dark:text-red-300' : 'bg-gray-100 dark:bg-gray-800 text-gray-500'}`}>{incorrectCount}</span>
+                        </button>
                     </div>
                 </div>
                 
                 {isReviewVisible && (
                     <div className="p-4 md:p-6 border-b border-gray-100 dark:border-gray-700">
-                        <ReviewQuestionGrid questions={questions} userAnswers={userAnswers} onGoToQuestion={handleGoToQuestion} />
+                        <div className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            {reviewFilter === 'incorrect' ? 'Jump to Incorrect Question:' : 'Jump to Question:'}
+                        </div>
+                        <ReviewQuestionGrid questions={questions} userAnswers={userAnswers} onGoToQuestion={handleGoToQuestion} filter={reviewFilter} />
                         <div className="mt-4 flex justify-end">
                             <button onClick={handleDownloadPdf} disabled={isDownloading || !scriptsLoaded} className="px-4 py-2 rounded-lg text-sm font-semibold bg-green-500 text-white hover:bg-green-600 disabled:opacity-50 transition flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
@@ -9171,8 +9252,8 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
                         {filteredQuestions.map((question, index) => {
                             const originalQuestionIndex = questions.findIndex(q => q.id === question.id);
                             return (
-                                <div key={question.id} id={`review-card-${originalQuestionIndex}`} className="p-4 md:p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 scroll-mt-20">
-                                    <p className="font-medium text-base text-gray-900 dark:text-gray-100 mb-4 whitespace-pre-wrap"><span className="text-gray-500 mr-2">{originalQuestionIndex + 1}.</span> {question.questionText}</p>
+                                <div key={question.id} id={`review-card-${originalQuestionIndex}`} className="p-4 md:p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 scroll-mt-20 overflow-hidden max-w-full">
+                                    <p className="font-medium text-base text-gray-900 dark:text-gray-100 mb-4 whitespace-pre-wrap break-words [overflow-wrap:anywhere]"><span className="text-gray-500 mr-2">{originalQuestionIndex + 1}.</span> {question.questionText}</p>
                                     <ul className="flex flex-col gap-2.5">
                                         {question.answerOptions.map((option, optionIndex) => {
                                             const isUserAnswer = userAnswers[originalQuestionIndex] && userAnswers[originalQuestionIndex].includes(optionIndex);
@@ -9181,25 +9262,38 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
                                             let styleClass = 'bg-gray-50 dark:bg-gray-700/30 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300';
                                             let label = null;
                                             
-                                            if (isCorrectAnswer) {
-                                                styleClass = 'bg-green-50 dark:bg-green-900/20 border-green-500 text-green-800 dark:text-green-200';
-                                                label = <span className="ml-auto text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Correct</span>;
-                                            }
-                                            
-                                            if (isUserAnswer) {
+                                            if (isReviewMode) {
                                                 if (isCorrectAnswer) {
-                                                    label = <span className="ml-auto text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Your Answer (Correct)</span>;
-                                                } else {
-                                                    styleClass = 'bg-red-50 dark:bg-red-900/20 border-red-400 text-red-800 dark:text-red-200';
-                                                    label = <span className="ml-auto text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wider">Your Answer (Wrong)</span>;
+                                                    styleClass = 'bg-green-50 dark:bg-green-900/20 border-green-500 text-green-800 dark:text-green-200';
+                                                    label = <span className="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Correct Answer</span>;
+                                                }
+                                            } else {
+                                                if (isCorrectAnswer) {
+                                                    styleClass = 'bg-green-50 dark:bg-green-900/20 border-green-500 text-green-800 dark:text-green-200';
+                                                    label = <span className="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Correct</span>;
+                                                }
+                                                
+                                                if (isUserAnswer) {
+                                                    if (isCorrectAnswer) {
+                                                        label = <span className="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Your Answer (Correct)</span>;
+                                                    } else {
+                                                        styleClass = 'bg-red-50 dark:bg-red-900/20 border-red-400 text-red-800 dark:text-red-200';
+                                                        label = <span className="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wider">Your Answer (Wrong)</span>;
+                                                    }
                                                 }
                                             }
                                             
                                             return (
-                                                <li key={optionIndex} className={`p-3 rounded-lg border flex items-center text-sm ${styleClass}`}>
-                                                    <span className={`mr-3 font-bold h-6 w-6 flex items-center justify-center rounded-md text-xs flex-shrink-0 ${isCorrectAnswer ? 'bg-green-200 text-green-800' : (isUserAnswer && !isCorrectAnswer ? 'bg-red-200 text-red-800' : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300')}`}>{String.fromCharCode(65 + optionIndex)}</span>
-                                                    <span className="flex-grow pr-2">{option.answerText}</span>
-                                                    {label}
+                                                <li key={optionIndex} className={`p-3 rounded-lg border flex flex-col sm:flex-row sm:items-center items-start justify-between gap-2 text-sm overflow-hidden break-words ${styleClass}`}>
+                                                    <div className="flex items-start gap-2.5 min-w-0 flex-1">
+                                                        <span className={`font-bold h-6 w-6 flex items-center justify-center rounded-md text-xs flex-shrink-0 mt-0.5 sm:mt-0 ${isCorrectAnswer ? 'bg-green-200 text-green-800' : (isUserAnswer && !isCorrectAnswer ? 'bg-red-200 text-red-800' : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300')}`}>{String.fromCharCode(65 + optionIndex)}</span>
+                                                        <span className="min-w-0 break-words [overflow-wrap:anywhere] leading-snug">{option.answerText}</span>
+                                                    </div>
+                                                    {label && (
+                                                        <div className="sm:ml-auto flex-shrink-0 self-end sm:self-center">
+                                                            {label}
+                                                        </div>
+                                                    )}
                                                 </li>
                                             );
                                         })}
@@ -9211,8 +9305,8 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
                                                 {explanationVisibility[originalQuestionIndex] ? 'Hide Explanation' : 'View Explanation'}
                                             </button>
                                             {explanationVisibility[originalQuestionIndex] && (
-                                                <div className="mt-3 p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-lg text-sm text-gray-700 dark:text-gray-300 border border-indigo-100 dark:border-indigo-800/50">
-                                                    <p className="whitespace-pre-wrap">{question.explanation}</p>
+                                                <div className="mt-3 p-3.5 sm:p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-lg text-sm text-gray-700 dark:text-gray-300 border border-indigo-100 dark:border-indigo-800/50 overflow-hidden break-words">
+                                                    <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere] leading-relaxed text-xs sm:text-sm text-gray-800 dark:text-gray-200">{question.explanation}</p>
                                                 </div>
                                             )}
                                         </div>
@@ -10104,7 +10198,13 @@ const App = () => {
     const [showFinalReview, setShowFinalReview] = useState(false);
     const [completedQuizData, setCompletedQuizData] = useState(null);
     const [reviewingHistoryEntry, setReviewingHistoryEntry] = useState(null);
-    const [scoreHistory, setScoreHistory] = useState([]);
+    const [scoreHistory, setScoreHistory] = useState(() => {
+        try {
+            const saved = JSON.parse(localStorage.getItem('quizAppHistory'));
+            if (Array.isArray(saved) && saved.length > 0) return saved;
+        } catch(e) {}
+        return [];
+    });
     const [isHistoryVisible, setIsHistoryVisible] = useState(false);
     const [isSettingsVisible, setIsSettingsVisible] = useState(false);
     const [isProfileVisible, setIsProfileVisible] = useState(false);
@@ -10185,21 +10285,46 @@ const App = () => {
         if (user) {
             const historyCol = collection(db, `users/${user.uid}/history`);
             const unsubscribe = onSnapshot(historyCol, (snapshot) => {
-                const history = snapshot.docs.map(docSnap => ({
+                const cloudHistory = snapshot.docs.map(docSnap => ({
                     id: docSnap.id,
                     ...docSnap.data()
                 }));
-                history.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                setScoreHistory(history);
-                try {
-                    localStorage.setItem('quizAppHistory', JSON.stringify(history));
-                } catch(e) {}
+                cloudHistory.sort((a, b) => (b.timestamp || (b.date ? new Date(b.date).getTime() : 0)) - (a.timestamp || (a.date ? new Date(a.date).getTime() : 0)));
+                
+                if (cloudHistory.length > 0) {
+                    setScoreHistory(cloudHistory);
+                    try {
+                        localStorage.setItem('quizAppHistory', JSON.stringify(cloudHistory));
+                    } catch(e) {}
+                } else {
+                    // Cloud history is empty for this user. Check if there is local history to migrate
+                    try {
+                        const localSaved = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
+                        if (localSaved.length > 0) {
+                            setScoreHistory(localSaved);
+                            localSaved.forEach(async (entry) => {
+                                if (entry && entry.id) {
+                                    try {
+                                        const cleanId = String(entry.id).replace(/[^a-zA-Z0-9_-]/g, '_');
+                                        await setDoc(doc(db, `users/${user.uid}/history`, cleanId), {
+                                            ...entry,
+                                            id: cleanId,
+                                            timestamp: entry.timestamp || (entry.date ? new Date(entry.date).getTime() : Date.now())
+                                        }, { merge: true });
+                                    } catch(e) {
+                                        console.error("Error migrating local history to cloud:", e);
+                                    }
+                                }
+                            });
+                        }
+                    } catch(e) {}
+                }
             }, (error) => {
                 console.error("Firestore history snapshot error:", error);
                 try {
                     const saved = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
-                    setScoreHistory(saved);
-                } catch(e) { setScoreHistory([]); }
+                    if (saved.length > 0) setScoreHistory(saved);
+                } catch(e) {}
             });
 
             return () => unsubscribe();
@@ -10207,47 +10332,55 @@ const App = () => {
             // Guest / Incognito local history
             try {
                 const saved = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
-                setScoreHistory(saved);
-            } catch(e) { setScoreHistory([]); }
+                if (saved.length > 0) {
+                    setScoreHistory(saved);
+                }
+            } catch(e) {}
         }
     }, [user, loading]);
-
-    // Automatically migrate local guest quiz history to Cloud Firestore when user signs in
-    useEffect(() => {
-        if (!user) return;
-        try {
-            const guestHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
-            if (guestHistory.length > 0) {
-                guestHistory.forEach(async (entry) => {
-                    if (entry && entry.id) {
-                        try {
-                            const entryTime = entry.timestamp || (entry.date ? new Date(entry.date).getTime() : Date.now());
-                            await setDoc(doc(db, `users/${user.uid}/history`, String(entry.id)), {
-                                ...entry,
-                                timestamp: entryTime
-                            }, { merge: true });
-                        } catch(e) {
-                            console.error("Error migrating guest score to cloud:", e);
-                        }
-                    }
-                });
-            }
-        } catch(e) {
-            console.error("Error reading guest history for migration:", e);
-        }
-    }, [user]);
 
     useEffect(() => {
         let newTitle = "Exam App";
         if (appState === 'dashboard') newTitle = "Dashboard - Exam App";
         else if (appState === 'login') newTitle = "Sign In & Sync - Exam App";
         else if (appState === 'quiz' && activeExam) newTitle = `${activeExam.title} - Quiz`;
-        else if (appState === 'review' && completedQuizData) newTitle = `Results for ${completedQuizData.examTitle}`;
+        else if (appState === 'review' && completedQuizData) {
+            newTitle = completedQuizData.isReviewMode 
+                ? `Review: ${completedQuizData.examTitle}` 
+                : `Results for ${completedQuizData.examTitle}`;
+        }
         else if (appState === 'review' && reviewingHistoryEntry) newTitle = `Reviewing ${reviewingHistoryEntry.examTitle}`;
         document.title = newTitle;
     }, [appState, activeExam, completedQuizData, reviewingHistoryEntry]);
 
     // --- HANDLERS ---
+    const handleStartReviewMode = (exam) => {
+        if (!exam || !exam.questions || exam.questions.length === 0) return;
+        const correctAnswers = exam.questions.map(q => 
+            q.answerOptions.map((opt, idx) => opt.isCorrect ? idx : -1).filter(idx => idx !== -1)
+        );
+        const reviewData = {
+            id: `review_mode_${exam.id}_${Date.now()}`,
+            examId: exam.id,
+            examTitle: exam.title,
+            exam: exam,
+            score: 1000,
+            rawScore: exam.questions.length,
+            totalQuestions: exam.questions.length,
+            passingScore: exam.passingScore || 700,
+            questions: exam.questions,
+            userAnswers: correctAnswers,
+            isReviewMode: true,
+            isFromHistory: false
+        };
+        setCompletedQuizData(reviewData);
+        setReviewingHistoryEntry(null);
+        setAppState('review');
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    };
+
     const handleEditExamClick = (exam) => {
         setExamBeingEdited(exam);
         setAppState('edit');
@@ -10360,13 +10493,28 @@ const App = () => {
             const totalQuestions = currentQuizQuestions.length;
             const finalScaledScore = totalQuestions > 0 ? Math.round(((totalPoints / totalQuestions) * 800) + 100) : 100;
 
+            const entryId = `score_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
+            
+            // Clean lightweight question objects to avoid quota or serialization errors
+            const safeQuestions = currentQuizQuestions.map(q => ({
+                id: q.id,
+                questionText: q.questionText,
+                imageUrl: q.imageUrl || undefined,
+                answerOptions: (q.answerOptions || []).map(opt => ({
+                    answerText: opt.answerText,
+                    isCorrect: !!opt.isCorrect
+                })),
+                explanation: q.explanation || ''
+            }));
+
             const scoreEntryForStorage = {
-                id: new Date().toISOString(),
+                id: entryId,
                 examId: activeExam.id,
                 examTitle: activeExam.title,
                 score: finalScaledScore,
                 date: new Date().toISOString(),
-                questions: currentQuizQuestions, // We only save the questions you actually answered
+                timestamp: Date.now(),
+                questions: safeQuestions,
                 userAnswers: userAnswers,
                 rawScore: totalPoints,
                 totalQuestions: totalQuestions,
@@ -10380,31 +10528,30 @@ const App = () => {
             let currentHistory = [];
             try {
                 currentHistory = JSON.parse(localStorage.getItem('quizAppHistory')) || [];
+                if (!Array.isArray(currentHistory)) currentHistory = [];
             } catch (e) {
                 currentHistory = [];
             }
             
-            let newHistory = [scoreEntryForStorage, ...currentHistory].slice(0, 20); 
+            const newHistory = [scoreEntryForStorage, ...currentHistory.filter(h => h.id !== entryId)].slice(0, 30); 
             try {
                 localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
                 setScoreHistory(newHistory);
             } catch (storageError) {
+                console.warn("Storage quota limit reached, trimming history...", storageError);
                 try {
-                    newHistory = [scoreEntryForStorage, ...currentHistory].slice(0, 5);
-                    localStorage.setItem('quizAppHistory', JSON.stringify(newHistory));
-                    setScoreHistory(newHistory);
+                    const trimmed = newHistory.slice(0, 10);
+                    localStorage.setItem('quizAppHistory', JSON.stringify(trimmed));
+                    setScoreHistory(trimmed);
                 } catch (fallbackError) {
-                    setScoreHistory([scoreEntryForStorage, ...currentHistory].slice(0, 20)); 
+                    setScoreHistory(newHistory); 
                 }
             }
 
             // Firebase sync
             if (user) {
                 try {
-                    setDoc(doc(db, `users/${user.uid}/history`, String(scoreEntryForStorage.id)), JSON.parse(JSON.stringify({
-                        ...scoreEntryForStorage,
-                        timestamp: Date.now()
-                    })));
+                    setDoc(doc(db, `users/${user.uid}/history`, entryId), scoreEntryForStorage);
                 } catch(e) { console.error("Firebase history sync error", e); }
             }
 
@@ -10641,6 +10788,7 @@ const App = () => {
                             }}
                             onExamsUploaded={handleExamsUploaded}
                             onEditExam={handleEditExamClick}
+                            onReviewExam={handleStartReviewMode}
                             onDeleteExam={handleDeleteExam}
                             user={user}
                             onOpenLogin={handleOpenLogin}
