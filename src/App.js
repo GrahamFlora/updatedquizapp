@@ -9364,99 +9364,205 @@ const QuestionGrid = ({ totalQuestions, userAnswers, flaggedQuestions, currentQu
 const QuestionView = ({ currentQuestionData, currentQuestionIndex, totalQuestions, userAnswers, onAnswer, onFlag, onNext, onPrev, flaggedQuestions, timeLeft, onGoToQuestion }) => {
     const mainContentRef = useRef(null);
     const [isGridExpanded, setIsGridExpanded] = useState(false);
+    const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
     
     useEffect(() => {
         if (mainContentRef.current) mainContentRef.current.scrollTop = 0;
     }, [currentQuestionIndex]);
 
+    const answeredCount = userAnswers.filter(ans => ans && ans.length > 0).length;
+    const flaggedCount = flaggedQuestions.filter(Boolean).length;
+
     return (
-        <div className="flex flex-col h-[calc(100dvh-60px)] md:h-[auto] md:min-h-[600px] w-full max-w-4xl mx-auto md:py-6">
+        <div className="flex flex-col h-full w-full max-w-[1700px] mx-auto p-0 md:p-3 lg:p-4 xl:p-5 flex-grow overflow-hidden">
             
             {/* The Main Container Card */}
-            <div className="flex flex-col flex-grow bg-white dark:bg-gray-800 md:rounded-2xl md:shadow-lg border-x-0 md:border border-gray-200 dark:border-gray-700 overflow-hidden relative">
+            <div className="flex flex-col flex-grow bg-white dark:bg-gray-800 md:rounded-2xl md:shadow-lg border-x-0 md:border border-gray-200 dark:border-gray-700 overflow-hidden relative h-full min-h-0">
                 
                 {/* Header Strip */}
-                <div className="flex justify-between items-center p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
-                    <div className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        Question <span className="text-gray-900 dark:text-gray-100">{currentQuestionIndex + 1}</span> of {totalQuestions}
+                <div className="flex justify-between items-center p-3 sm:p-4 md:px-6 border-b border-gray-100 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800/80 shrink-0">
+                    <div className="flex items-center gap-3 md:gap-4">
+                        <div className="text-sm md:text-base font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Question <span className="text-indigo-600 dark:text-indigo-400 font-black text-base md:text-lg">{currentQuestionIndex + 1}</span> of {totalQuestions}
+                        </div>
+                        <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                            <span>{answeredCount} of {totalQuestions} Answered</span>
+                        </div>
                     </div>
-                    <div className={`text-sm font-bold px-3 py-1 rounded-full flex items-center gap-1.5 ${timeLeft < 60 ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 animate-pulse' : 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300'}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        {formatTime(timeLeft)}
+                    
+                    <div className="flex items-center gap-2 sm:gap-3">
+                        <button
+                            onClick={() => setIsDesktopSidebarOpen(!isDesktopSidebarOpen)}
+                            className="hidden lg:flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 transition shadow-sm"
+                            title={isDesktopSidebarOpen ? "Hide Question Navigator" : "Show Question Navigator"}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                            <span>{isDesktopSidebarOpen ? 'Hide Navigator' : 'Show Navigator'}</span>
+                        </button>
+
+                        <div className={`text-xs sm:text-sm font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm ${timeLeft < 60 ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 animate-pulse' : 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300'}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span>{formatTime(timeLeft)}</span>
+                        </div>
                     </div>
                 </div>
+
+                {/* Progress bar */}
+                <div className="w-full bg-gray-100 dark:bg-gray-700/50 h-1 shrink-0">
+                    <div 
+                        className="bg-indigo-600 h-1 transition-all duration-300 rounded-r" 
+                        style={{ width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%` }} 
+                    />
+                </div>
                 
-                {/* Scrollable Content Area */}
-                <div className="flex-grow overflow-y-auto p-4 sm:p-6" ref={mainContentRef}>
-                    <div className="text-base sm:text-lg font-medium text-gray-800 dark:text-gray-100 mb-5 leading-relaxed whitespace-pre-wrap">
-                        {currentQuestionData.questionText}
-                    </div>
-                    
-                    {currentQuestionData.imageUrl && (
-                        <div className="my-4 flex justify-center">
-                            <img 
-                                src={currentQuestionData.imageUrl} 
-                                alt="Question context" 
-                                className="rounded-xl border border-gray-200 dark:border-gray-700 max-h-48 object-contain"
-                                onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Image+Not+Found'; }}
-                            />
+                {/* Middle Flexible Body Area */}
+                <div className="flex flex-grow min-h-0 overflow-hidden">
+                    {/* Main Question Content (Scrollable if question or options exceed available height) */}
+                    <div className="flex-grow overflow-y-auto p-4 sm:p-6 lg:p-8 min-w-0" ref={mainContentRef}>
+                        <div className="text-base sm:text-lg lg:text-xl font-medium text-gray-800 dark:text-gray-100 mb-6 leading-relaxed whitespace-pre-wrap break-words">
+                            {currentQuestionData.questionText}
                         </div>
-                    )}
-                    
-                    <div className="flex flex-col gap-2.5 sm:gap-3 mb-6">
-                        {currentQuestionData.answerOptions.map((answerOption, index) => {
-                            const isSelected = userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].includes(index);
-                            let buttonClass = 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-600';
-                            if (isSelected) buttonClass = 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-200 border-indigo-400 dark:border-indigo-600 ring-1 ring-indigo-400 dark:ring-indigo-600';
-                            
-                            return (
-                                <button key={index} onClick={() => onAnswer(index)} className={`w-full py-3 px-4 rounded-xl border transition-all duration-150 focus:outline-none text-left flex items-center min-h-[56px] ${buttonClass}`}>
-                                    <span className={`mr-3 font-bold h-6 w-6 flex items-center justify-center rounded-md text-xs flex-shrink-0 transition-colors ${isSelected ? 'bg-indigo-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'}`}>
-                                        {String.fromCharCode(65 + index)}
-                                    </span>
-                                    <span className="text-sm sm:text-base leading-snug">{answerOption.answerText}</span>
-                                </button>
-                            );
-                        })}
+                        
+                        {currentQuestionData.imageUrl && (
+                            <div className="my-4 flex justify-center">
+                                <img 
+                                    src={currentQuestionData.imageUrl} 
+                                    alt="Question context" 
+                                    className="rounded-xl border border-gray-200 dark:border-gray-700 max-h-56 object-contain"
+                                    onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/600x200/e2e8f0/4a5568?text=Image+Not+Found'; }}
+                                />
+                            </div>
+                        )}
+                        
+                        <div className="flex flex-col gap-2.5 sm:gap-3 mb-6">
+                            {currentQuestionData.answerOptions.map((answerOption, index) => {
+                                const isSelected = userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].includes(index);
+                                let buttonClass = 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-600';
+                                if (isSelected) buttonClass = 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-200 border-indigo-400 dark:border-indigo-600 ring-1 ring-indigo-400 dark:ring-indigo-600 shadow-sm';
+                                
+                                return (
+                                    <button 
+                                        key={index} 
+                                        onClick={() => onAnswer(index)} 
+                                        className={`w-full py-3.5 px-4 sm:px-5 rounded-xl border transition-all duration-150 focus:outline-none text-left flex items-start sm:items-center min-h-[56px] group ${buttonClass}`}
+                                    >
+                                        <span className={`mr-3.5 font-bold h-7 w-7 flex items-center justify-center rounded-lg text-xs sm:text-sm flex-shrink-0 transition-colors mt-0.5 sm:mt-0 ${isSelected ? 'bg-indigo-600 text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 group-hover:bg-gray-200 dark:group-hover:bg-gray-600'}`}>
+                                            {String.fromCharCode(65 + index)}
+                                        </span>
+                                        <span className="text-sm sm:text-base leading-relaxed text-gray-800 dark:text-gray-100 flex-grow min-w-0 break-words">{answerOption.answerText}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {/* Mobile Navigation Grid (hidden on desktop when sidebar is shown) */}
+                        <div className={`mt-8 pt-4 border-t border-gray-100 dark:border-gray-700 ${isDesktopSidebarOpen ? 'lg:hidden' : 'block'}`}>
+                             <div className="flex justify-between items-center mb-3">
+                                 <h4 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Question Map</h4>
+                                 <button className="text-indigo-600 dark:text-indigo-400 text-xs font-semibold" onClick={() => setIsGridExpanded(!isGridExpanded)}>
+                                     {isGridExpanded ? 'Hide Map' : 'Show Map'}
+                                 </button>
+                             </div>
+                             <div className={`${isGridExpanded ? 'block' : 'hidden'}`}>
+                                <QuestionGrid
+                                    totalQuestions={totalQuestions}
+                                    userAnswers={userAnswers}
+                                    flaggedQuestions={flaggedQuestions}
+                                    currentQuestionIndex={currentQuestionIndex}
+                                    onGoToQuestion={onGoToQuestion}
+                                />
+                             </div>
+                        </div>
                     </div>
 
-                    {/* Expandable Navigation Grid for mobile, or always visible on larger screens */}
-                    <div className="mt-8 pt-4 border-t border-gray-100 dark:border-gray-700">
-                         <div className="flex justify-between items-center mb-3">
-                             <h4 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Question Map</h4>
-                             <button className="md:hidden text-indigo-600 dark:text-indigo-400 text-xs font-semibold" onClick={() => setIsGridExpanded(!isGridExpanded)}>
-                                 {isGridExpanded ? 'Hide' : 'Show All'}
-                             </button>
-                         </div>
-                         <div className={`${isGridExpanded ? 'block' : 'hidden md:block'}`}>
-                            <QuestionGrid
-                                totalQuestions={totalQuestions}
-                                userAnswers={userAnswers}
-                                flaggedQuestions={flaggedQuestions}
-                                currentQuestionIndex={currentQuestionIndex}
-                                onGoToQuestion={onGoToQuestion}
-                            />
-                         </div>
-                    </div>
+                    {/* Desktop Question Navigator Sidebar */}
+                    {isDesktopSidebarOpen && (
+                        <aside className="hidden lg:flex flex-col w-72 xl:w-80 border-l border-gray-200 dark:border-gray-700 bg-gray-50/60 dark:bg-gray-800/40 p-4 shrink-0 overflow-y-auto">
+                            <div className="flex justify-between items-center mb-3 pb-2 border-b border-gray-200 dark:border-gray-700">
+                                <h4 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Question Navigator</h4>
+                                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-0.5 rounded">
+                                    {answeredCount}/{totalQuestions}
+                                </span>
+                            </div>
+                            <div className="flex-grow overflow-y-auto">
+                                <QuestionGrid
+                                    totalQuestions={totalQuestions}
+                                    userAnswers={userAnswers}
+                                    flaggedQuestions={flaggedQuestions}
+                                    currentQuestionIndex={currentQuestionIndex}
+                                    onGoToQuestion={onGoToQuestion}
+                                />
+                            </div>
+                            <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 space-y-1.5 shrink-0">
+                                <div className="flex items-center gap-2">
+                                    <span className="h-3 w-3 rounded bg-indigo-600 shrink-0"></span>
+                                    <span>Current Question</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="h-3 w-3 rounded bg-indigo-100 dark:bg-indigo-900/50 border border-indigo-300 dark:border-indigo-700 shrink-0"></span>
+                                    <span>Answered ({answeredCount})</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="h-3 w-3 rounded bg-yellow-400 shrink-0"></span>
+                                    <span>Flagged ({flaggedCount})</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="h-3 w-3 rounded bg-gray-200 dark:bg-gray-700 shrink-0"></span>
+                                    <span>Unanswered ({totalQuestions - answeredCount})</span>
+                                </div>
+                            </div>
+                        </aside>
+                    )}
                 </div>
                 
                 {/* Fixed Bottom Action Bar */}
-                <div className="p-3 sm:p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex justify-between items-center shrink-0">
-                    <button onClick={onFlag} className={`flex items-center justify-center gap-1.5 py-2 px-4 sm:py-2.5 sm:px-5 text-sm font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 dark:focus:ring-offset-gray-800 ${flaggedQuestions[currentQuestionIndex] ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <div className="p-3 sm:p-4 md:px-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex justify-between items-center shrink-0 z-10 shadow-sm">
+                    <button 
+                        onClick={onFlag} 
+                        className={`flex items-center justify-center gap-2 py-2.5 px-4 sm:px-5 text-sm md:text-base font-semibold rounded-xl transition-all focus:outline-none ${flaggedQuestions[currentQuestionIndex] ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-900/40 dark:text-yellow-300 ring-1 ring-yellow-400' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}
+                        title={flaggedQuestions[currentQuestionIndex] ? "Question is flagged for review" : "Flag question to review later"}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ${flaggedQuestions[currentQuestionIndex] ? 'text-yellow-600 dark:text-yellow-400 fill-current' : 'text-gray-500 dark:text-gray-400'}`} viewBox="0 0 20 20" fill="currentColor">
                            <path fillRule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clipRule="evenodd" />
                         </svg>
-                        <span className="hidden sm:inline">{flaggedQuestions[currentQuestionIndex] ? 'Unflag' : 'Flag'}</span>
+                        <span>{flaggedQuestions[currentQuestionIndex] ? 'Flagged' : 'Flag'}</span>
                     </button>
+                    
+                    <div className="hidden md:flex items-center gap-4 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                        <span className="flex items-center gap-1.5">
+                            <span className="h-2 w-2 rounded-full bg-indigo-500"></span>
+                            Answered: {answeredCount} of {totalQuestions}
+                        </span>
+                        {flaggedCount > 0 && (
+                            <span className="flex items-center gap-1.5 text-yellow-600 dark:text-yellow-400">
+                                <span className="h-2 w-2 rounded-full bg-yellow-400"></span>
+                                Flagged: {flaggedCount}
+                            </span>
+                        )}
+                    </div>
                     
                     <div className="flex gap-2 sm:gap-3">
                         {currentQuestionIndex > 0 && (
-                            <button onClick={onPrev} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-4 sm:py-2.5 sm:px-6 text-sm rounded-lg transition">
-                                Back
+                            <button 
+                                onClick={onPrev} 
+                                className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2.5 px-4 sm:px-6 text-sm md:text-base rounded-xl transition flex items-center gap-1.5 shadow-sm"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                                </svg>
+                                <span>Back</span>
                             </button>
                         )}
-                        <button onClick={onNext} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-5 sm:py-2.5 sm:px-8 text-sm rounded-lg transition shadow-sm">
-                            {currentQuestionIndex === totalQuestions - 1 ? 'Finish' : 'Next'}
+                        <button 
+                            onClick={onNext} 
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 sm:px-8 text-sm md:text-base rounded-xl transition shadow-md flex items-center gap-2 hover:shadow-indigo-500/25 active:scale-95"
+                        >
+                            <span>{currentQuestionIndex === totalQuestions - 1 ? 'Finish Exam' : 'Next Question'}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -10832,22 +10938,24 @@ const App = () => {
                            onSignOut={handleSignOut} 
                            isSyncing={isSyncing} 
                         />
-                        <main className="flex-grow overflow-y-auto">
+                        <main className={`flex-grow ${appState === 'quiz' ? 'overflow-hidden flex flex-col min-h-0' : 'overflow-y-auto'}`}>
                            {appState === 'quiz' && (
                                 <>
                                 {showFinalReview ? (
-                                    <FinalReviewScreen 
-                                        flaggedQuestions={flaggedQuestions.map((f, i) => f ? i : -1).filter(i => i !== -1)} 
-                                        unansweredQuestions={userAnswers.map((a, i) => {
-                                            const q = currentQuizQuestions[i];
-                                            if (!q) return -1;
-                                            const correctCount = q.answerOptions.filter(o => o.isCorrect).length;
-                                            const answeredCount = a ? a.length : 0;
-                                            return answeredCount < correctCount ? i : -1;
-                                        }).filter(i => i !== -1)} 
-                                        onGoToQuestion={(qIndex) => { setCurrentQuestionIndex(qIndex); setShowFinalReview(false); }} 
-                                        onSubmitFinal={handleSubmitQuiz} 
-                                    />
+                                    <div className="flex-grow overflow-y-auto p-4">
+                                        <FinalReviewScreen 
+                                            flaggedQuestions={flaggedQuestions.map((f, i) => f ? i : -1).filter(i => i !== -1)} 
+                                            unansweredQuestions={userAnswers.map((a, i) => {
+                                                const q = currentQuizQuestions[i];
+                                                if (!q) return -1;
+                                                const correctCount = q.answerOptions.filter(o => o.isCorrect).length;
+                                                const answeredCount = a ? a.length : 0;
+                                                return answeredCount < correctCount ? i : -1;
+                                            }).filter(i => i !== -1)} 
+                                            onGoToQuestion={(qIndex) => { setCurrentQuestionIndex(qIndex); setShowFinalReview(false); }} 
+                                            onSubmitFinal={handleSubmitQuiz} 
+                                        />
+                                    </div>
                                 ) : (
                                     currentQuizQuestions.length > 0 && <QuestionView 
                                         currentQuestionData={currentQuizQuestions[currentQuestionIndex]} 
