@@ -9070,11 +9070,30 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
     const resolvedExam = exam || (allExams && allExams.find(e => e.id === scoreData.examId || e.title === examTitle)) || null;
     const passingScore = resolvedExam ? resolvedExam.passingScore : (scoreData.passingScore || 700);
     
+    // Detect if this was an incorrect-only retake session
+    const isIncorrectRetake = !!(
+        scoreData.isIncorrectRetake ||
+        (exam && exam.isIncorrectRetake) ||
+        (examTitle && (examTitle.includes('(Incorrect Questions)') || examTitle.includes('(Incorrect Only)')))
+    );
+
+    // Resolve original full exam with all questions
+    const parentFullExam = (
+        scoreData.parentExam ||
+        (exam && exam.parentExam) ||
+        (exam && exam.parentExamId && allExams.find(e => e.id === exam.parentExamId)) ||
+        (scoreData.parentExamId && allExams.find(e => e.id === scoreData.parentExamId)) ||
+        allExams.find(e => examTitle && e.title.trim() === examTitle.replace(/\s*\((Incorrect Questions|Incorrect Only)\)/gi, '').trim()) ||
+        allExams.find(e => exam && e.id === exam.id?.replace(/_incorrect.*$/, '')) ||
+        null
+    );
+
     const { message, color } = getScoreMessage(score, passingScore);
     
     const [reviewFilter, setReviewFilter] = useState('all');
     const [explanationVisibility, setExplanationVisibility] = useState({});
-    const [isReviewVisible, setIsReviewVisible] = useState(isReviewMode || false);
+    // Default review section to visible on both review mode and quiz completed page
+    const [isReviewVisible, setIsReviewVisible] = useState(true);
     const [filteredQuestions, setFilteredQuestions] = useState([]);
     const [isDownloading, setIsDownloading] = useState(false);
 
@@ -9086,6 +9105,35 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
         return ![...userIndices].every(i => correctIndices.has(i)) ? index : -1;
     }).filter(i => i !== -1);
     const incorrectCount = incorrectIndices.length;
+
+    // Resolve which exam to restart when clicking "Try Again":
+    // When the user has retaken incorrect questions and perfected them (0 incorrect),
+    // pressing "Try Again" restarts the FULL exam with ALL questions.
+    let examToRestart = resolvedExam;
+    let retakeButtonLabel = isReviewMode 
+        ? 'Take Quiz Now' 
+        : (isFromHistory ? 'Retake Exam' : 'Try Again');
+
+    if (isIncorrectRetake) {
+        if (incorrectCount === 0) {
+            // User got all incorrect questions right! Now retake the full exam with all questions
+            examToRestart = parentFullExam || resolvedExam;
+            retakeButtonLabel = 'Try Again (All Questions)';
+        } else if (parentFullExam) {
+            examToRestart = parentFullExam;
+            retakeButtonLabel = 'Retake Full Exam (All Questions)';
+        }
+    }
+
+    const handleExpandAll = () => {
+        const expanded = {};
+        questions.forEach((_, idx) => { expanded[idx] = true; });
+        setExplanationVisibility(expanded);
+    };
+
+    const handleCollapseAll = () => {
+        setExplanationVisibility({});
+    };
 
     const handleDownloadPdf = () => {
         const reviewContent = document.getElementById('review-content');
@@ -9142,15 +9190,15 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
     }, [reviewFilter, questions, userAnswers]);
 
     const handleFilterClick = (filter) => {
-        if (isReviewVisible && reviewFilter === filter && !isReviewMode) setIsReviewVisible(false);
-        else { setReviewFilter(filter); setIsReviewVisible(true); }
+        setReviewFilter(filter);
+        setIsReviewVisible(true);
     };
 
     const toggleExplanation = (index) => setExplanationVisibility(prev => ({ ...prev, [index]: !prev[index] }));
     const handleGoToQuestion = (index) => document.getElementById(`review-card-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     return (
-        <div className="p-4 md:p-8 max-w-4xl mx-auto w-full">
+        <div className="p-4 md:p-8 max-w-4xl mx-auto w-full pb-24 md:pb-28">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-1">
                 {isReviewMode ? 'Exam Review & Study Mode' : (isFromHistory ? 'Reviewing Past Quiz' : 'Quiz Completed!')}
             </h2>
@@ -9188,11 +9236,30 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                         <div className="flex-grow text-center">
                              <p className={`text-xl md:text-2xl font-bold mb-1 ${color}`}>{message}</p>
                              <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 inline-block px-4 py-2 rounded-lg">You answered <strong>{rawScore}</strong> out of <strong>{totalQuestions}</strong> correctly.</p>
+                             {isIncorrectRetake && incorrectCount === 0 && (
+                                <div className="mt-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 inline-block px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
+                                    🌟 Perfect score on incorrect questions! Ready for the full exam.
+                                </div>
+                             )}
                         </div>
                     </div>
                 )}
                 
-                <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700 flex-wrap">
+                <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700 flex-wrap items-center">
+                    {/* Review Answers button */}
+                    <button 
+                        onClick={() => {
+                            setIsReviewVisible(true);
+                            document.getElementById('review-section')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 font-semibold py-2.5 px-5 rounded-xl transition text-sm flex items-center justify-center gap-2 border border-indigo-200 dark:border-indigo-800"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                        <span>{isReviewMode ? 'View Study Cards' : 'Review Answers'}</span>
+                    </button>
+
                     {incorrectCount > 0 && !isReviewMode && onRetakeIncorrect && (
                         <button 
                             onClick={() => onRetakeIncorrect(scoreData)} 
@@ -9205,15 +9272,17 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                             <span>Try Again ({incorrectCount} Incorrect Only)</span>
                         </button>
                     )}
-                    {resolvedExam ? (
-                        <button onClick={() => onRestart(resolvedExam)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm">
-                            {isReviewMode ? 'Take Quiz Now' : (isFromHistory ? 'Retake Exam' : 'Try Again')}
+
+                    {examToRestart ? (
+                        <button onClick={() => onRestart(examToRestart)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm shadow-sm flex items-center gap-1.5 justify-center">
+                            <span>{retakeButtonLabel}</span>
                         </button>
                     ) : (
                         <button disabled className="bg-gray-400 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm cursor-not-allowed" title="Please re-upload the exam to retake it">
                             Retake Unavailable
                         </button>
                     )}
+
                     {isFromHistory ? (
                         <button onClick={onBackToHistory} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2.5 px-6 rounded-xl transition text-sm">Back to History</button>
                     ) : (
@@ -9222,26 +9291,32 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                 </div>
             </div>
         
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+            <div id="review-section" className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden scroll-mt-6">
                 <div className="p-4 md:p-6 bg-gray-50 dark:bg-gray-800/80 border-b border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100">
-                        {isReviewMode ? 'Study Questions & Answer Key' : 'Review Answers'}
+                        {isReviewMode ? 'Study Questions & Answer Key' : 'Review Answers & Explanations'}
                     </h3>
-                    <div className="flex items-center gap-2 bg-gray-200 dark:bg-gray-700 p-1 rounded-xl">
-                        <button 
-                            onClick={() => handleFilterClick('all')} 
-                            className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-sm font-semibold transition flex items-center gap-1.5 ${reviewFilter === 'all' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}
-                        >
-                            <span>All</span>
-                            <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold">{questions.length}</span>
-                        </button>
-                        <button 
-                            onClick={() => handleFilterClick('incorrect')} 
-                            className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-sm font-semibold transition flex items-center gap-1.5 ${reviewFilter === 'incorrect' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}
-                        >
-                            <span>Incorrect Only</span>
-                            <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${incorrectCount > 0 ? 'bg-red-100 text-red-700 dark:bg-red-900/60 dark:text-red-300' : 'bg-gray-100 dark:bg-gray-800 text-gray-500'}`}>{incorrectCount}</span>
-                        </button>
+                    <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-end">
+                        <div className="flex items-center gap-1 bg-gray-200 dark:bg-gray-700 p-1 rounded-xl">
+                            <button 
+                                onClick={() => handleFilterClick('all')} 
+                                className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 ${reviewFilter === 'all' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}
+                            >
+                                <span>All</span>
+                                <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold">{questions.length}</span>
+                            </button>
+                            <button 
+                                onClick={() => handleFilterClick('incorrect')} 
+                                className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 ${reviewFilter === 'incorrect' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}
+                            >
+                                <span>Incorrect Only</span>
+                                <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${incorrectCount > 0 ? 'bg-red-100 text-red-700 dark:bg-red-900/60 dark:text-red-300' : 'bg-gray-100 dark:bg-gray-800 text-gray-500'}`}>{incorrectCount}</span>
+                            </button>
+                        </div>
+                        <div className="hidden md:flex items-center gap-1">
+                            <button onClick={handleExpandAll} className="text-xs font-semibold px-2.5 py-1.5 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition">Expand All</button>
+                            <button onClick={handleCollapseAll} className="text-xs font-semibold px-2.5 py-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Collapse All</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -9331,15 +9406,59 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                 )}
 
                 {isReviewVisible && (
-                    <button
-                        onClick={() => document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="fixed bottom-6 right-6 bg-indigo-600 text-white p-3.5 rounded-full shadow-2xl hover:bg-indigo-700 transition-all z-50 flex items-center justify-center hover:scale-110 border-2 border-white dark:border-gray-800"
-                        title="Back to Top"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 15l7-7 7 7" />
-                        </svg>
-                    </button>
+                    <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 flex items-center gap-2 sm:gap-3 max-w-[95vw] ring-1 ring-black/5">
+                        {examToRestart ? (
+                            <button 
+                                onClick={() => onRestart(examToRestart)} 
+                                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-3.5 sm:px-5 rounded-xl transition text-xs sm:text-sm flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap"
+                                title={isReviewMode ? "Take this quiz now" : (isIncorrectRetake && incorrectCount === 0 ? "Retake the full exam with all questions" : "Restart quiz")}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>{isReviewMode ? 'Take Quiz Now' : (isIncorrectRetake && incorrectCount === 0 ? 'Retake Full Exam' : 'Try Again')}</span>
+                            </button>
+                        ) : null}
+
+                        {incorrectCount > 0 && !isReviewMode && onRetakeIncorrect && (
+                            <button 
+                                onClick={() => onRetakeIncorrect(scoreData)} 
+                                className="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-2.5 sm:px-4 rounded-xl transition text-xs sm:text-sm flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap"
+                                title={`Retry only the ${incorrectCount} questions you missed`}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                <span className="hidden sm:inline">Try Again ({incorrectCount} Incorrect)</span>
+                                <span className="sm:hidden">Retry ({incorrectCount})</span>
+                            </button>
+                        )}
+
+                        {isFromHistory ? (
+                            <button onClick={onBackToHistory} className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-3 sm:px-4 rounded-xl transition text-xs sm:text-sm whitespace-nowrap">
+                                History
+                            </button>
+                        ) : (
+                            <button onClick={onBackToDashboard} className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-3 sm:px-4 rounded-xl transition text-xs sm:text-sm whitespace-nowrap">
+                                Dashboard
+                            </button>
+                        )}
+
+                        <button
+                            onClick={() => {
+                                const mainEl = document.querySelector('main');
+                                if (mainEl) mainEl.scrollTo({ top: 0, behavior: 'smooth' });
+                                else window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                            className="p-2 text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 bg-gray-100 dark:bg-gray-700 hover:bg-indigo-50 dark:hover:bg-gray-600 rounded-xl transition flex items-center justify-center shrink-0"
+                            title="Scroll to Top"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
+                            </svg>
+                        </button>
+                    </div>
                 )}
             </div>
         </div>
@@ -10608,10 +10727,18 @@ const App = () => {
             return;
         }
 
+        // Determine original full exam that has all questions
+        const originalFullExam = scoreData.parentExam || (scoreData.exam && scoreData.exam.parentExam) || (scoreData.exam && !scoreData.exam.isIncorrectRetake ? scoreData.exam : null) || allExams.find(e => 
+            (scoreData.exam && scoreData.exam.parentExamId && e.id === scoreData.exam.parentExamId) ||
+            (scoreData.parentExamId && e.id === scoreData.parentExamId) ||
+            (scoreData.examId && e.id === scoreData.examId && !e.title?.includes('(Incorrect')) ||
+            (scoreData.examTitle && e.title?.trim() === scoreData.examTitle.replace(/\s*\((Incorrect Questions|Incorrect Only)\)/gi, '').trim())
+        ) || (scoreData.exam || null);
+
         // Determine base exam info
-        const baseExam = scoreData.exam || allExams.find(e => e.id === (scoreData.exam && scoreData.exam.id) || e.title === scoreData.examTitle) || {
+        const baseExam = scoreData.exam || originalFullExam || {
             id: `exam_${Date.now()}`,
-            title: scoreData.examTitle || 'Quiz',
+            title: scoreData.examTitle ? scoreData.examTitle.replace(/\s*\((Incorrect Questions|Incorrect Only)\)/gi, '').trim() : 'Quiz',
             category: 'Review',
             passingScore: scoreData.passingScore || 700,
             durationSeconds: incorrectQuestions.length * 90
@@ -10622,6 +10749,9 @@ const App = () => {
             id: baseExam.id ? `${baseExam.id}_incorrect_${Date.now()}` : `incorrect_${Date.now()}`,
             title: baseExam.title ? (baseExam.title.includes('(Incorrect Questions)') ? baseExam.title : `${baseExam.title} (Incorrect Questions)`) : 'Incorrect Questions Retake',
             questions: incorrectQuestions,
+            isIncorrectRetake: true,
+            parentExam: originalFullExam || baseExam,
+            parentExamId: (originalFullExam && originalFullExam.id) || baseExam.id,
             passingScore: baseExam.passingScore || 700,
             durationSeconds: incorrectQuestions.length * 90
         };
@@ -10690,11 +10820,19 @@ const App = () => {
                 userAnswers: userAnswers,
                 rawScore: totalPoints,
                 totalQuestions: totalQuestions,
-                passingScore: activeExam.passingScore || 700
+                passingScore: activeExam.passingScore || 700,
+                parentExamId: activeExam.parentExamId || undefined,
+                isIncorrectRetake: activeExam.isIncorrectRetake ? true : undefined
             };
             
-            // The memory state gets the full exam so you can use the "Retake" button smoothly
-            setCompletedQuizData({ ...scoreEntryForStorage, exam: activeExam });
+            // The memory state gets the full exam and parentExam reference so you can retake the full exam smoothly
+            setCompletedQuizData({ 
+                ...scoreEntryForStorage, 
+                exam: activeExam,
+                parentExam: activeExam.parentExam || null,
+                parentExamId: activeExam.parentExamId || null,
+                isIncorrectRetake: !!activeExam.isIncorrectRetake
+            });
             
             // Local history update
             let currentHistory = [];
