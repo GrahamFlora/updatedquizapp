@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import Papa from 'papaparse';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db, googleProvider } from './firebase';
@@ -8999,30 +8999,34 @@ const SettingsModal = ({ isVisible, onClose, theme, onThemeChange }) => {
     );
 };
 
-const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion, filter = 'all' }) => {
-    const isCorrect = (question, userAnswerIndices) => {
-        if (!userAnswerIndices || userAnswerIndices.length === 0) return false;
-        const correctIndices = new Set(question.answerOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
-        const userIndices = new Set(userAnswerIndices || []);
-        if (correctIndices.size !== userIndices.size) return false;
-        return [...userIndices].every(i => correctIndices.has(i));
-    };
-
+const ReviewQuestionGrid = ({ questions, userAnswers, getQuestionResult, onGoToQuestion, filter = 'all' }) => {
     const questionsWithMeta = questions.map((q, i) => {
-        const userAnswer = userAnswers[i];
-        const answeredCorrectly = isCorrect(q, userAnswer);
+        if (getQuestionResult) {
+            const res = getQuestionResult(q);
+            return {
+                q,
+                index: i,
+                wasAnswered: res.wasAnsweredInSession,
+                answeredCorrectly: res.isCorrect,
+                isIncorrect: res.isIncorrect
+            };
+        }
+        const userAnswer = userAnswers ? userAnswers[i] : null;
+        const correctIndices = new Set((q.answerOptions || []).map((opt, idx) => opt.isCorrect ? idx : -1).filter(idx => idx !== -1));
+        const userIndices = new Set(userAnswer || []);
+        const answeredCorrectly = (correctIndices.size === userIndices.size) && [...userIndices].every(idx => correctIndices.has(idx));
         const wasAnswered = userAnswer && userAnswer.length > 0;
         return {
             q,
             index: i,
-            userAnswer,
+            wasAnswered,
             answeredCorrectly,
-            wasAnswered
+            isIncorrect: wasAnswered && !answeredCorrectly
         };
     });
 
     const displayItems = filter === 'incorrect'
-        ? questionsWithMeta.filter(item => !item.answeredCorrectly)
+        ? questionsWithMeta.filter(item => item.isIncorrect)
         : questionsWithMeta;
 
     if (filter === 'incorrect' && displayItems.length === 0) {
@@ -9038,12 +9042,15 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion, filter = '
 
     return (
         <div className="flex flex-wrap gap-2 pb-2">
-            {displayItems.map(({ index, answeredCorrectly, wasAnswered }) => {
-                let buttonClass = 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'; // Unanswered
+            {displayItems.map(({ index, wasAnswered, answeredCorrectly, isIncorrect }) => {
+                let buttonClass = 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-600'; // Unattempted in session
+                let titleDesc = 'Unattempted';
                 if (wasAnswered && answeredCorrectly) {
                     buttonClass = 'bg-green-500 text-white border border-green-600'; // Correct
-                } else if (!answeredCorrectly) {
+                    titleDesc = 'Correct';
+                } else if (isIncorrect) {
                     buttonClass = 'bg-red-500 text-white border border-red-600'; // Incorrect
+                    titleDesc = 'Incorrect';
                 }
 
                 return (
@@ -9051,7 +9058,7 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion, filter = '
                         key={index}
                         onClick={() => onGoToQuestion(index)}
                         className={`h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0 flex items-center justify-center text-xs sm:text-sm font-bold rounded-lg transition-transform active:scale-95 shadow-sm hover:opacity-90 ${buttonClass}`}
-                        title={`Question ${index + 1} (${answeredCorrectly ? 'Correct' : 'Incorrect'})`}
+                        title={`Question ${index + 1} (${titleDesc})`}
                     >
                         {index + 1}
                     </button>
@@ -9061,7 +9068,7 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion, filter = '
     );
 };
 
-const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboard, onShowHistory, onBackToHistory, isFromHistory, scriptsLoaded, allExams = [] }) => {
+const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMode, onBackToDashboard, onShowHistory, onBackToHistory, isFromHistory, scriptsLoaded, allExams = [] }) => {
     const { score, rawScore, totalQuestions, questions, userAnswers, exam } = scoreData;
     const isReviewMode = !!scoreData.isReviewMode;
     
@@ -9088,6 +9095,62 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
         null
     );
 
+    const fullExamWithAllQuestions = (
+        (parentFullExam && parentFullExam.questions && parentFullExam.questions.length > 0 ? parentFullExam : null) ||
+        (exam && !exam.isIncorrectRetake && exam.questions && exam.questions.length >= questions.length ? exam : null) ||
+        (resolvedExam && resolvedExam.questions && resolvedExam.questions.length >= questions.length ? resolvedExam : null) ||
+        parentFullExam ||
+        resolvedExam
+    );
+
+    // All questions of the full exam to show in the review section (shows all questions, not just answered ones)
+    const allDisplayQuestions = (fullExamWithAllQuestions && fullExamWithAllQuestions.questions && fullExamWithAllQuestions.questions.length > 0)
+        ? fullExamWithAllQuestions.questions
+        : questions;
+
+    // Exam object containing all questions for Study/Review Mode
+    const examForReviewMode = (fullExamWithAllQuestions && fullExamWithAllQuestions.questions?.length > 0)
+        ? fullExamWithAllQuestions
+        : (resolvedExam ? { ...resolvedExam, questions: allDisplayQuestions } : {
+            id: scoreData.examId || 'exam_review',
+            title: examTitle || 'Exam',
+            questions: allDisplayQuestions,
+            passingScore: passingScore
+        });
+
+    // Map user answers from this specific quiz session for fast lookup
+    const answeredMap = useMemo(() => {
+        const map = new Map();
+        questions.forEach((q, index) => {
+            const data = {
+                userAnswer: userAnswers[index] || [],
+                quizIndex: index
+            };
+            if (q.id) map.set(String(q.id), data);
+            if (q.questionText) map.set(q.questionText.trim(), data);
+        });
+        return map;
+    }, [questions, userAnswers]);
+
+    const getQuestionResult = useCallback((q) => {
+        const sessionData = answeredMap.get(String(q.id)) || (q.questionText ? answeredMap.get(q.questionText.trim()) : null);
+        if (!sessionData) {
+            return { wasAnsweredInSession: false, isCorrect: false, isIncorrect: false, userSelectedIndices: [] };
+        }
+        const userSelectedIndices = sessionData.userAnswer || [];
+        const correctOptionIndices = new Set(
+            (q.answerOptions || []).map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1)
+        );
+        const userIndicesSet = new Set(userSelectedIndices);
+        const isCorrect = (correctOptionIndices.size === userIndicesSet.size) && [...userIndicesSet].every(i => correctOptionIndices.has(i));
+        return {
+            wasAnsweredInSession: true,
+            isCorrect,
+            isIncorrect: !isCorrect,
+            userSelectedIndices
+        };
+    }, [answeredMap]);
+
     const { message, color } = getScoreMessage(score, passingScore);
     
     const [reviewFilter, setReviewFilter] = useState('all');
@@ -9097,14 +9160,13 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
     const [filteredQuestions, setFilteredQuestions] = useState([]);
     const [isDownloading, setIsDownloading] = useState(false);
 
-    // Calculate incorrect count
-    const incorrectIndices = questions.map((question, index) => {
-        const correctIndices = new Set(question.answerOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
-        const userIndices = new Set(userAnswers[index] || []);
-        if (correctIndices.size !== userIndices.size) return index;
-        return ![...userIndices].every(i => correctIndices.has(i)) ? index : -1;
-    }).filter(i => i !== -1);
-    const incorrectCount = incorrectIndices.length;
+    // Calculate count of questions answered incorrectly in this session
+    const incorrectCount = useMemo(() => {
+        return questions.filter(q => {
+            const res = getQuestionResult(q);
+            return res.wasAnsweredInSession && res.isIncorrect;
+        }).length;
+    }, [questions, getQuestionResult]);
 
     // Resolve which exam to restart when clicking "Try Again":
     // When the user has retaken incorrect questions and perfected them (0 incorrect),
@@ -9124,16 +9186,6 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
             retakeButtonLabel = 'Retake Full Exam (All Questions)';
         }
     }
-
-    const handleExpandAll = () => {
-        const expanded = {};
-        questions.forEach((_, idx) => { expanded[idx] = true; });
-        setExplanationVisibility(expanded);
-    };
-
-    const handleCollapseAll = () => {
-        setExplanationVisibility({});
-    };
 
     const handleDownloadPdf = () => {
         const reviewContent = document.getElementById('review-content');
@@ -9177,17 +9229,12 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
     };
 
     useEffect(() => {
-        let questionsToDisplay = [...questions];
         if (reviewFilter === 'incorrect') {
-            questionsToDisplay = questionsToDisplay.filter((question, index) => {
-                const correctIndices = new Set(question.answerOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
-                const userIndices = new Set(userAnswers[index] || []);
-                if (correctIndices.size !== userIndices.size) return true;
-                return ![...userIndices].every(i => correctIndices.has(i));
-            });
+            setFilteredQuestions(allDisplayQuestions.filter(q => getQuestionResult(q).isIncorrect));
+        } else {
+            setFilteredQuestions(allDisplayQuestions);
         }
-        setFilteredQuestions(questionsToDisplay);
-    }, [reviewFilter, questions, userAnswers]);
+    }, [reviewFilter, allDisplayQuestions, getQuestionResult]);
 
     const handleFilterClick = (filter) => {
         setReviewFilter(filter);
@@ -9236,11 +9283,6 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                         <div className="flex-grow text-center">
                              <p className={`text-xl md:text-2xl font-bold mb-1 ${color}`}>{message}</p>
                              <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 inline-block px-4 py-2 rounded-lg">You answered <strong>{rawScore}</strong> out of <strong>{totalQuestions}</strong> correctly.</p>
-                             {isIncorrectRetake && incorrectCount === 0 && (
-                                <div className="mt-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 inline-block px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
-                                    🌟 Perfect score on incorrect questions! Ready for the full exam.
-                                </div>
-                             )}
                         </div>
                     </div>
                 )}
@@ -9283,6 +9325,19 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                         </button>
                     )}
 
+                    {!isReviewMode && onStartReviewMode && examForReviewMode && (
+                        <button 
+                            onClick={() => onStartReviewMode(examForReviewMode)} 
+                            className="bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-semibold py-2.5 px-5 rounded-xl transition text-sm flex items-center justify-center gap-2 border border-blue-200 dark:border-blue-800 shadow-sm"
+                            title="Open Review & Study Mode with all questions and verified answer key"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                            <span>Review Mode (All Questions)</span>
+                        </button>
+                    )}
+
                     {isFromHistory ? (
                         <button onClick={onBackToHistory} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2.5 px-6 rounded-xl transition text-sm">Back to History</button>
                     ) : (
@@ -9303,7 +9358,7 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                                 className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 ${reviewFilter === 'all' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}
                             >
                                 <span>All</span>
-                                <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold">{questions.length}</span>
+                                <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold">{allDisplayQuestions.length}</span>
                             </button>
                             <button 
                                 onClick={() => handleFilterClick('incorrect')} 
@@ -9313,10 +9368,6 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                                 <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${incorrectCount > 0 ? 'bg-red-100 text-red-700 dark:bg-red-900/60 dark:text-red-300' : 'bg-gray-100 dark:bg-gray-800 text-gray-500'}`}>{incorrectCount}</span>
                             </button>
                         </div>
-                        <div className="hidden md:flex items-center gap-1">
-                            <button onClick={handleExpandAll} className="text-xs font-semibold px-2.5 py-1.5 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition">Expand All</button>
-                            <button onClick={handleCollapseAll} className="text-xs font-semibold px-2.5 py-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Collapse All</button>
-                        </div>
                     </div>
                 </div>
                 
@@ -9325,7 +9376,7 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                         <div className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             {reviewFilter === 'incorrect' ? 'Jump to Incorrect Question:' : 'Jump to Question:'}
                         </div>
-                        <ReviewQuestionGrid questions={questions} userAnswers={userAnswers} onGoToQuestion={handleGoToQuestion} filter={reviewFilter} />
+                        <ReviewQuestionGrid questions={allDisplayQuestions} getQuestionResult={getQuestionResult} onGoToQuestion={handleGoToQuestion} filter={reviewFilter} />
                         <div className="mt-4 flex justify-end">
                             <button onClick={handleDownloadPdf} disabled={isDownloading || !scriptsLoaded} className="px-4 py-2 rounded-lg text-sm font-semibold bg-green-500 text-white hover:bg-green-600 disabled:opacity-50 transition flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
@@ -9338,13 +9389,50 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                 {isReviewVisible && (
                     <div id="review-content" className="p-4 md:p-6 space-y-6">
                         {filteredQuestions.map((question, index) => {
-                            const originalQuestionIndex = questions.findIndex(q => q.id === question.id);
+                            const originalQuestionIndex = allDisplayQuestions.findIndex(q => 
+                                (q.id && question.id && q.id === question.id) || 
+                                (q.questionText && question.questionText && q.questionText.trim() === question.questionText.trim())
+                            );
+                            const cardIdIndex = originalQuestionIndex !== -1 ? originalQuestionIndex : index;
+                            const displayNum = cardIdIndex + 1;
+                            const { wasAnsweredInSession, isCorrect, userSelectedIndices } = getQuestionResult(question);
+
                             return (
-                                <div key={question.id} id={`review-card-${originalQuestionIndex}`} className="p-4 md:p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 scroll-mt-20 overflow-hidden max-w-full">
-                                    <p className="font-medium text-base text-gray-900 dark:text-gray-100 mb-4 whitespace-pre-wrap break-words [overflow-wrap:anywhere]"><span className="text-gray-500 mr-2">{originalQuestionIndex + 1}.</span> {question.questionText}</p>
+                                <div key={question.id || `review-card-${cardIdIndex}`} id={`review-card-${cardIdIndex}`} className="p-4 md:p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 scroll-mt-20 overflow-hidden max-w-full">
+                                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4 mb-4">
+                                        <p className="font-medium text-base text-gray-900 dark:text-gray-100 whitespace-pre-wrap break-words [overflow-wrap:anywhere] flex-1">
+                                            <span className="text-gray-500 font-bold mr-2">{displayNum}.</span> {question.questionText}
+                                        </p>
+                                        {!isReviewMode && (
+                                            <div className="shrink-0 self-start">
+                                                {wasAnsweredInSession ? (
+                                                    isCorrect ? (
+                                                        <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 px-2.5 py-1 rounded-full">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                            </svg>
+                                                            Correct
+                                                        </span>
+                                                    ) : (
+                                                        <span className="inline-flex items-center gap-1 text-xs font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 px-2.5 py-1 rounded-full">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                                            </svg>
+                                                            Wrong
+                                                        </span>
+                                                    )
+                                                ) : (
+                                                    <span className="inline-flex items-center text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700/60 px-2.5 py-1 rounded-full border border-gray-200 dark:border-gray-600">
+                                                        Not in this session
+                                                    </span>
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+
                                     <ul className="flex flex-col gap-2.5">
-                                        {question.answerOptions.map((option, optionIndex) => {
-                                            const isUserAnswer = userAnswers[originalQuestionIndex] && userAnswers[originalQuestionIndex].includes(optionIndex);
+                                        {(question.answerOptions || []).map((option, optionIndex) => {
+                                            const isUserAnswer = wasAnsweredInSession && userSelectedIndices && userSelectedIndices.includes(optionIndex);
                                             const isCorrectAnswer = option.isCorrect;
                                             
                                             let styleClass = 'bg-gray-50 dark:bg-gray-700/30 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300';
@@ -9358,7 +9446,7 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                                             } else {
                                                 if (isCorrectAnswer) {
                                                     styleClass = 'bg-green-50 dark:bg-green-900/20 border-green-500 text-green-800 dark:text-green-200';
-                                                    label = <span className="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">Correct</span>;
+                                                    label = <span className="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-wider">{wasAnsweredInSession && !isUserAnswer ? 'Correct Answer' : 'Correct'}</span>;
                                                 }
                                                 
                                                 if (isUserAnswer) {
@@ -9388,11 +9476,11 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                                     </ul>
                                     {question.explanation && (
                                         <div className="mt-5 text-left">
-                                            <button onClick={() => toggleExplanation(originalQuestionIndex)} className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 uppercase tracking-wide transition">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${explanationVisibility[originalQuestionIndex] ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
-                                                {explanationVisibility[originalQuestionIndex] ? 'Hide Explanation' : 'View Explanation'}
+                                            <button onClick={() => toggleExplanation(cardIdIndex)} className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 uppercase tracking-wide transition">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${explanationVisibility[cardIdIndex] ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
+                                                {explanationVisibility[cardIdIndex] ? 'Hide Explanation' : 'View Explanation'}
                                             </button>
-                                            {explanationVisibility[originalQuestionIndex] && (
+                                            {explanationVisibility[cardIdIndex] && (
                                                 <div className="mt-3 p-3.5 sm:p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-lg text-sm text-gray-700 dark:text-gray-300 border border-indigo-100 dark:border-indigo-800/50 overflow-hidden break-words">
                                                     <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere] leading-relaxed text-xs sm:text-sm text-gray-800 dark:text-gray-200">{question.explanation}</p>
                                                 </div>
@@ -9432,6 +9520,20 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboar
                                 </svg>
                                 <span className="hidden sm:inline">Try Again ({incorrectCount} Incorrect)</span>
                                 <span className="sm:hidden">Retry ({incorrectCount})</span>
+                            </button>
+                        )}
+
+                        {!isReviewMode && onStartReviewMode && examForReviewMode && (
+                            <button 
+                                onClick={() => onStartReviewMode(examForReviewMode)} 
+                                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-2.5 sm:px-4 rounded-xl transition text-xs sm:text-sm flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap"
+                                title="Open Review & Study Mode with all questions and verified answer key"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                                <span className="hidden sm:inline">Review Mode (All Questions)</span>
+                                <span className="sm:hidden">Review Mode</span>
                             </button>
                         )}
 
@@ -11183,6 +11285,7 @@ const App = () => {
                                         scoreData={reviewingHistoryEntry || completedQuizData} 
                                         onRestart={handlePromptStartExam} 
                                         onRetakeIncorrect={handleRetakeIncorrectQuestions}
+                                        onStartReviewMode={handleStartReviewMode}
                                         onBackToDashboard={() => { setReviewingHistoryEntry(null); setAppState('dashboard'); }} 
                                         onShowHistory={() => setIsHistoryVisible(true)}
                                         isFromHistory={!!reviewingHistoryEntry}
