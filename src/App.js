@@ -8337,7 +8337,7 @@ const UserProfileDropdown = ({ onShowHistory, onShowSettings, onShowProfile, use
 };
 
 const Header = ({ onShowHistory, onShowSettings, onGoToDashboard, onShowProfile, user, onOpenLogin, onSignOut }) => (
-    <header className="flex justify-between items-center px-3 sm:px-4 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 shadow-sm h-[60px]">
+    <header className="flex justify-between items-center px-3 sm:px-4 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 shadow-sm h-[60px] shrink-0">
         <div className="flex items-center gap-2">
             <button onClick={onGoToDashboard} className="flex items-center gap-2 hover:opacity-80 transition">
                 <Logo />
@@ -9061,13 +9061,14 @@ const ReviewQuestionGrid = ({ questions, userAnswers, onGoToQuestion, filter = '
     );
 };
 
-const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, onBackToHistory, isFromHistory, scriptsLoaded }) => {
+const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onBackToDashboard, onShowHistory, onBackToHistory, isFromHistory, scriptsLoaded, allExams = [] }) => {
     const { score, rawScore, totalQuestions, questions, userAnswers, exam } = scoreData;
     const isReviewMode = !!scoreData.isReviewMode;
     
     // Safely fallback variables to prevent crashes if 'exam' isn't available in localstorage
-    const passingScore = exam ? exam.passingScore : (scoreData.passingScore || 700);
     const examTitle = exam ? exam.title : scoreData.examTitle;
+    const resolvedExam = exam || (allExams && allExams.find(e => e.id === scoreData.examId || e.title === examTitle)) || null;
+    const passingScore = resolvedExam ? resolvedExam.passingScore : (scoreData.passingScore || 700);
     
     const { message, color } = getScoreMessage(score, passingScore);
     
@@ -9191,9 +9192,21 @@ const ScoreScreen = ({ scoreData, onRestart, onBackToDashboard, onShowHistory, o
                     </div>
                 )}
                 
-                <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
-                    {exam ? (
-                        <button onClick={() => onRestart(exam)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm">
+                <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700 flex-wrap">
+                    {incorrectCount > 0 && !isReviewMode && onRetakeIncorrect && (
+                        <button 
+                            onClick={() => onRetakeIncorrect(scoreData)} 
+                            className="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 px-5 rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-sm"
+                            title={`Retry only the ${incorrectCount} questions you missed on this quiz`}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            <span>Try Again ({incorrectCount} Incorrect Only)</span>
+                        </button>
+                    )}
+                    {resolvedExam ? (
+                        <button onClick={() => onRestart(resolvedExam)} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-6 rounded-xl transition text-sm">
                             {isReviewMode ? 'Take Quiz Now' : (isFromHistory ? 'Retake Exam' : 'Try Again')}
                         </button>
                     ) : (
@@ -9374,10 +9387,10 @@ const QuestionView = ({ currentQuestionData, currentQuestionIndex, totalQuestion
     const flaggedCount = flaggedQuestions.filter(Boolean).length;
 
     return (
-        <div className="flex flex-col h-full w-full max-w-[1700px] mx-auto p-0 md:p-3 lg:p-4 xl:p-5 flex-grow overflow-hidden">
+        <div className="flex flex-col h-full w-full flex-grow overflow-hidden p-0 sm:p-2 md:p-3">
             
-            {/* The Main Container Card */}
-            <div className="flex flex-col flex-grow bg-white dark:bg-gray-800 md:rounded-2xl md:shadow-lg border-x-0 md:border border-gray-200 dark:border-gray-700 overflow-hidden relative h-full min-h-0">
+            {/* The Main Container Card - fits screen width left-to-right, responsive for desktop and mobile */}
+            <div className="flex flex-col flex-1 w-full bg-white dark:bg-gray-800 rounded-none sm:rounded-xl md:rounded-2xl shadow-sm sm:border border-gray-200 dark:border-gray-700 overflow-hidden relative h-full min-h-0">
                 
                 {/* Header Strip */}
                 <div className="flex justify-between items-center p-3 sm:p-4 md:px-6 border-b border-gray-100 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800/80 shrink-0">
@@ -10577,6 +10590,59 @@ const App = () => {
         setAppState('quiz');
         setIsConfigModalOpen(false);
     };
+
+    const handleRetakeIncorrectQuestions = (scoreData) => {
+        if (!scoreData || !scoreData.questions || !scoreData.userAnswers) return;
+
+        // Find all questions answered incorrectly on this specific quiz
+        const incorrectQuestions = scoreData.questions.filter((question, index) => {
+            if (!question || !question.answerOptions) return false;
+            const correctIndices = new Set(question.answerOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
+            const userIndices = new Set(scoreData.userAnswers[index] || []);
+            if (correctIndices.size !== userIndices.size) return true;
+            return ![...userIndices].every(i => correctIndices.has(i));
+        });
+
+        if (incorrectQuestions.length === 0) {
+            alert("No incorrect questions to retry on this quiz!");
+            return;
+        }
+
+        // Determine base exam info
+        const baseExam = scoreData.exam || allExams.find(e => e.id === (scoreData.exam && scoreData.exam.id) || e.title === scoreData.examTitle) || {
+            id: `exam_${Date.now()}`,
+            title: scoreData.examTitle || 'Quiz',
+            category: 'Review',
+            passingScore: scoreData.passingScore || 700,
+            durationSeconds: incorrectQuestions.length * 90
+        };
+
+        const retakeExam = {
+            ...baseExam,
+            id: baseExam.id ? `${baseExam.id}_incorrect_${Date.now()}` : `incorrect_${Date.now()}`,
+            title: baseExam.title ? (baseExam.title.includes('(Incorrect Questions)') ? baseExam.title : `${baseExam.title} (Incorrect Questions)`) : 'Incorrect Questions Retake',
+            questions: incorrectQuestions,
+            passingScore: baseExam.passingScore || 700,
+            durationSeconds: incorrectQuestions.length * 90
+        };
+
+        const calculatedTime = Math.ceil(incorrectQuestions.length * 90);
+
+        setActiveExam(retakeExam);
+        setCurrentQuizQuestions(incorrectQuestions);
+        setUserAnswers(Array(incorrectQuestions.length).fill(null).map(() => []));
+        setFlaggedQuestions(Array(incorrectQuestions.length).fill(false));
+        setCurrentQuestionIndex(0);
+        setTimeLeft(calculatedTime);
+        setIsQuizActive(true);
+        setShowFinalReview(false);
+        setCompletedQuizData(null);
+        setReviewingHistoryEntry(null);
+        setAppState('quiz');
+        if (typeof window !== 'undefined') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
     
     const handleSubmitQuiz = useCallback(() => {
         try {
@@ -10978,11 +11044,13 @@ const App = () => {
                                     <ScoreScreen 
                                         scoreData={reviewingHistoryEntry || completedQuizData} 
                                         onRestart={handlePromptStartExam} 
+                                        onRetakeIncorrect={handleRetakeIncorrectQuestions}
                                         onBackToDashboard={() => { setReviewingHistoryEntry(null); setAppState('dashboard'); }} 
                                         onShowHistory={() => setIsHistoryVisible(true)}
                                         isFromHistory={!!reviewingHistoryEntry}
                                         onBackToHistory={() => { setReviewingHistoryEntry(null); setIsHistoryVisible(true); }}
                                         scriptsLoaded={scriptsLoaded}
+                                        allExams={allExams}
                                     />
                                 ) : <div>Loading review...</div>
                            )}
