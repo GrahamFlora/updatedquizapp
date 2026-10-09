@@ -9001,11 +9001,15 @@ const SettingsModal = ({ isVisible, onClose, theme, onThemeChange }) => {
 
 const ReviewQuestionGrid = ({ questions, userAnswers, getQuestionResult, onGoToQuestion, filter = 'all' }) => {
     const questionsWithMeta = questions.map((q, i) => {
+        const displayNum = q._displayNum || (i + 1);
+        const targetId = q._cardKey || `review-card-${displayNum}`;
         if (getQuestionResult) {
             const res = getQuestionResult(q);
             return {
                 q,
                 index: i,
+                displayNum,
+                targetId,
                 wasAnswered: res.wasAnsweredInSession,
                 answeredCorrectly: res.isCorrect,
                 isIncorrect: res.isIncorrect
@@ -9019,6 +9023,8 @@ const ReviewQuestionGrid = ({ questions, userAnswers, getQuestionResult, onGoToQ
         return {
             q,
             index: i,
+            displayNum,
+            targetId,
             wasAnswered,
             answeredCorrectly,
             isIncorrect: wasAnswered && !answeredCorrectly
@@ -9042,7 +9048,7 @@ const ReviewQuestionGrid = ({ questions, userAnswers, getQuestionResult, onGoToQ
 
     return (
         <div className="flex flex-wrap gap-2 pb-2">
-            {displayItems.map(({ index, wasAnswered, answeredCorrectly, isIncorrect }) => {
+            {displayItems.map(({ displayNum, targetId, wasAnswered, answeredCorrectly, isIncorrect }, i) => {
                 let buttonClass = 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-600'; // Unattempted in session
                 let titleDesc = 'Unattempted';
                 if (wasAnswered && answeredCorrectly) {
@@ -9055,12 +9061,12 @@ const ReviewQuestionGrid = ({ questions, userAnswers, getQuestionResult, onGoToQ
 
                 return (
                     <button
-                        key={index}
-                        onClick={() => onGoToQuestion(index)}
+                        key={targetId || displayNum || i}
+                        onClick={() => onGoToQuestion(targetId)}
                         className={`h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0 flex items-center justify-center text-xs sm:text-sm font-bold rounded-lg transition-transform active:scale-95 shadow-sm hover:opacity-90 ${buttonClass}`}
-                        title={`Question ${index + 1} (${titleDesc})`}
+                        title={`Question ${displayNum} (${titleDesc})`}
                     >
-                        {index + 1}
+                        {displayNum}
                     </button>
                 );
             })}
@@ -9103,10 +9109,39 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
         resolvedExam
     );
 
-    // All questions of the full exam to show in the review section (shows all questions, not just answered ones)
+    // All questions of the full exam (used for Study/Review Mode)
     const allDisplayQuestions = (fullExamWithAllQuestions && fullExamWithAllQuestions.questions && fullExamWithAllQuestions.questions.length > 0)
         ? fullExamWithAllQuestions.questions
         : questions;
+
+    // In Review Mode (all questions study cards), show allDisplayQuestions.
+    // In Quiz Completed page, only show the boxes of questions taken in this quiz session (e.g., questions 171 to 180 only),
+    // while accurately preserving their original question numbers from the exam.
+    const reviewDisplayQuestions = useMemo(() => {
+        const sourceQuestions = isReviewMode ? allDisplayQuestions : questions;
+        return sourceQuestions.map((q, quizIndex) => {
+            let originalIndex = -1;
+            if (allDisplayQuestions && allDisplayQuestions.length > 0) {
+                originalIndex = allDisplayQuestions.findIndex(allQ => allQ === q);
+                if (originalIndex === -1 && q.id) {
+                    originalIndex = allDisplayQuestions.findIndex(allQ => allQ && String(allQ.id) === String(q.id));
+                }
+                if (originalIndex === -1 && q.questionText) {
+                    const text = q.questionText.trim();
+                    originalIndex = allDisplayQuestions.findIndex(allQ => allQ && allQ.questionText && allQ.questionText.trim() === text);
+                }
+            }
+            const displayNum = originalIndex !== -1 ? (originalIndex + 1) : (quizIndex + 1);
+            const cardKey = q.id ? `review-card-${q.id}` : `review-card-num-${displayNum}`;
+            return {
+                ...q,
+                _quizIndex: quizIndex,
+                _originalIndex: originalIndex,
+                _displayNum: displayNum,
+                _cardKey: cardKey
+            };
+        });
+    }, [isReviewMode, allDisplayQuestions, questions]);
 
     // Exam object containing all questions for Study/Review Mode
     const examForReviewMode = (fullExamWithAllQuestions && fullExamWithAllQuestions.questions?.length > 0)
@@ -9230,19 +9265,19 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
 
     useEffect(() => {
         if (reviewFilter === 'incorrect') {
-            setFilteredQuestions(allDisplayQuestions.filter(q => getQuestionResult(q).isIncorrect));
+            setFilteredQuestions(reviewDisplayQuestions.filter(q => getQuestionResult(q).isIncorrect));
         } else {
-            setFilteredQuestions(allDisplayQuestions);
+            setFilteredQuestions(reviewDisplayQuestions);
         }
-    }, [reviewFilter, allDisplayQuestions, getQuestionResult]);
+    }, [reviewFilter, reviewDisplayQuestions, getQuestionResult]);
 
     const handleFilterClick = (filter) => {
         setReviewFilter(filter);
         setIsReviewVisible(true);
     };
 
-    const toggleExplanation = (index) => setExplanationVisibility(prev => ({ ...prev, [index]: !prev[index] }));
-    const handleGoToQuestion = (index) => document.getElementById(`review-card-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const toggleExplanation = (cardKey) => setExplanationVisibility(prev => ({ ...prev, [cardKey]: !prev[cardKey] }));
+    const handleGoToQuestion = (targetId) => document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     return (
         <div className="p-4 md:p-8 max-w-4xl mx-auto w-full pb-24 md:pb-28">
@@ -9288,20 +9323,6 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
                 )}
                 
                 <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-3 mt-6 pt-6 border-t border-gray-100 dark:border-gray-700 flex-wrap items-center">
-                    {/* Review Answers button */}
-                    <button 
-                        onClick={() => {
-                            setIsReviewVisible(true);
-                            document.getElementById('review-section')?.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        className="bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 font-semibold py-2.5 px-5 rounded-xl transition text-sm flex items-center justify-center gap-2 border border-indigo-200 dark:border-indigo-800"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                        </svg>
-                        <span>{isReviewMode ? 'View Study Cards' : 'Review Answers'}</span>
-                    </button>
-
                     {incorrectCount > 0 && !isReviewMode && onRetakeIncorrect && (
                         <button 
                             onClick={() => onRetakeIncorrect(scoreData)} 
@@ -9358,7 +9379,7 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
                                 className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 ${reviewFilter === 'all' && isReviewVisible ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'}`}
                             >
                                 <span>All</span>
-                                <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold">{allDisplayQuestions.length}</span>
+                                <span className="text-xs px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-bold">{reviewDisplayQuestions.length}</span>
                             </button>
                             <button 
                                 onClick={() => handleFilterClick('incorrect')} 
@@ -9376,7 +9397,7 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
                         <div className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             {reviewFilter === 'incorrect' ? 'Jump to Incorrect Question:' : 'Jump to Question:'}
                         </div>
-                        <ReviewQuestionGrid questions={allDisplayQuestions} getQuestionResult={getQuestionResult} onGoToQuestion={handleGoToQuestion} filter={reviewFilter} />
+                        <ReviewQuestionGrid questions={reviewDisplayQuestions} getQuestionResult={getQuestionResult} onGoToQuestion={handleGoToQuestion} filter={reviewFilter} />
                         <div className="mt-4 flex justify-end">
                             <button onClick={handleDownloadPdf} disabled={isDownloading || !scriptsLoaded} className="px-4 py-2 rounded-lg text-sm font-semibold bg-green-500 text-white hover:bg-green-600 disabled:opacity-50 transition flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
@@ -9389,16 +9410,12 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
                 {isReviewVisible && (
                     <div id="review-content" className="p-4 md:p-6 space-y-6">
                         {filteredQuestions.map((question, index) => {
-                            const originalQuestionIndex = allDisplayQuestions.findIndex(q => 
-                                (q.id && question.id && q.id === question.id) || 
-                                (q.questionText && question.questionText && q.questionText.trim() === question.questionText.trim())
-                            );
-                            const cardIdIndex = originalQuestionIndex !== -1 ? originalQuestionIndex : index;
-                            const displayNum = cardIdIndex + 1;
+                            const displayNum = question._displayNum || (index + 1);
+                            const cardKey = question._cardKey || `review-card-${displayNum}`;
                             const { wasAnsweredInSession, isCorrect, userSelectedIndices } = getQuestionResult(question);
 
                             return (
-                                <div key={question.id || `review-card-${cardIdIndex}`} id={`review-card-${cardIdIndex}`} className="p-4 md:p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 scroll-mt-20 overflow-hidden max-w-full">
+                                <div key={cardKey} id={cardKey} className="p-4 md:p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 scroll-mt-20 overflow-hidden max-w-full">
                                     <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4 mb-4">
                                         <p className="font-medium text-base text-gray-900 dark:text-gray-100 whitespace-pre-wrap break-words [overflow-wrap:anywhere] flex-1">
                                             <span className="text-gray-500 font-bold mr-2">{displayNum}.</span> {question.questionText}
@@ -9476,11 +9493,11 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
                                     </ul>
                                     {question.explanation && (
                                         <div className="mt-5 text-left">
-                                            <button onClick={() => toggleExplanation(cardIdIndex)} className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 uppercase tracking-wide transition">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${explanationVisibility[cardIdIndex] ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
-                                                {explanationVisibility[cardIdIndex] ? 'Hide Explanation' : 'View Explanation'}
+                                            <button onClick={() => toggleExplanation(cardKey)} className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 uppercase tracking-wide transition">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${explanationVisibility[cardKey] ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
+                                                {explanationVisibility[cardKey] ? 'Hide Explanation' : 'View Explanation'}
                                             </button>
-                                            {explanationVisibility[cardIdIndex] && (
+                                            {explanationVisibility[cardKey] && (
                                                 <div className="mt-3 p-3.5 sm:p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-lg text-sm text-gray-700 dark:text-gray-300 border border-indigo-100 dark:border-indigo-800/50 overflow-hidden break-words">
                                                     <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere] leading-relaxed text-xs sm:text-sm text-gray-800 dark:text-gray-200">{question.explanation}</p>
                                                 </div>
