@@ -9511,11 +9511,11 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
                 )}
 
                 {isReviewVisible && (
-                    <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 flex items-center gap-2 sm:gap-3 max-w-[95vw] ring-1 ring-black/5">
+                    <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 flex items-center gap-2 sm:gap-3 max-w-[calc(100vw-1.5rem)] sm:max-w-[92vw] overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ring-1 ring-black/5">
                         {examToRestart ? (
                             <button 
                                 onClick={() => onRestart(examToRestart)} 
-                                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-3.5 sm:px-5 rounded-xl transition text-xs sm:text-sm flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap"
+                                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-3.5 sm:px-5 rounded-xl transition text-xs sm:text-sm flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap shrink-0"
                                 title={isReviewMode ? "Take this quiz now" : (isIncorrectRetake && incorrectCount === 0 ? "Retake the full exam with all questions" : "Restart quiz")}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -9529,7 +9529,7 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
                         {incorrectCount > 0 && !isReviewMode && onRetakeIncorrect && (
                             <button 
                                 onClick={() => onRetakeIncorrect(scoreData)} 
-                                className="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-2.5 sm:px-4 rounded-xl transition text-xs sm:text-sm flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap"
+                                className="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-2.5 sm:px-4 rounded-xl transition text-xs sm:text-sm flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap shrink-0"
                                 title={`Retry only the ${incorrectCount} questions you missed`}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -9543,7 +9543,7 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
                         {!isReviewMode && onStartReviewMode && examForReviewMode && (
                             <button 
                                 onClick={() => onStartReviewMode(examForReviewMode)} 
-                                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-2.5 sm:px-4 rounded-xl transition text-xs sm:text-sm flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap"
+                                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-2.5 sm:px-4 rounded-xl transition text-xs sm:text-sm flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap shrink-0"
                                 title="Open Review & Study Mode with all questions and verified answer key"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -9555,11 +9555,11 @@ const ScoreScreen = ({ scoreData, onRestart, onRetakeIncorrect, onStartReviewMod
                         )}
 
                         {isFromHistory ? (
-                            <button onClick={onBackToHistory} className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-3 sm:px-4 rounded-xl transition text-xs sm:text-sm whitespace-nowrap">
+                            <button onClick={onBackToHistory} className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-3 sm:px-4 rounded-xl transition text-xs sm:text-sm whitespace-nowrap shrink-0">
                                 History
                             </button>
                         ) : (
-                            <button onClick={onBackToDashboard} className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-3 sm:px-4 rounded-xl transition text-xs sm:text-sm whitespace-nowrap">
+                            <button onClick={onBackToDashboard} className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-3 sm:px-4 rounded-xl transition text-xs sm:text-sm whitespace-nowrap shrink-0">
                                 Dashboard
                             </button>
                         )}
@@ -9768,11 +9768,11 @@ const QuestionView = ({ currentQuestionData, currentQuestionIndex, totalQuestion
                     )}
                 </div>
                 
-                {/* Fixed Bottom Action Bar */}
-                <div className="p-3 sm:p-4 md:px-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex justify-between items-center shrink-0 z-10 shadow-sm">
+                {/* Fixed Sticky Bottom Action Bar */}
+                <div className="p-3 sm:p-4 md:px-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex justify-between items-center shrink-0 z-20 shadow-sm sticky bottom-0">
                     <button 
                         onClick={onFlag} 
-                        className={`flex items-center justify-center gap-2 py-2.5 px-4 sm:px-5 text-sm md:text-base font-semibold rounded-xl transition-all focus:outline-none ${flaggedQuestions[currentQuestionIndex] ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-900/40 dark:text-yellow-300 ring-1 ring-yellow-400' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}
+                        className={`flex items-center justify-center gap-2 py-2.5 px-4 sm:px-5 text-sm md:text-base font-semibold rounded-xl transition-all focus:outline-none shrink-0 ${flaggedQuestions[currentQuestionIndex] ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-900/40 dark:text-yellow-300 ring-1 ring-yellow-400' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}
                         title={flaggedQuestions[currentQuestionIndex] ? "Question is flagged for review" : "Flag question to review later"}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ${flaggedQuestions[currentQuestionIndex] ? 'text-yellow-600 dark:text-yellow-400 fill-current' : 'text-gray-500 dark:text-gray-400'}`} viewBox="0 0 20 20" fill="currentColor">
@@ -9794,11 +9794,11 @@ const QuestionView = ({ currentQuestionData, currentQuestionIndex, totalQuestion
                         )}
                     </div>
                     
-                    <div className="flex gap-2 sm:gap-3">
+                    <div className="flex gap-2 sm:gap-3 shrink-0">
                         {currentQuestionIndex > 0 && (
                             <button 
                                 onClick={onPrev} 
-                                className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2.5 px-4 sm:px-6 text-sm md:text-base rounded-xl transition flex items-center gap-1.5 shadow-sm"
+                                className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2.5 px-4 sm:px-6 text-sm md:text-base rounded-xl transition flex items-center gap-1.5 shadow-sm active:scale-95 shrink-0"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
@@ -9808,11 +9808,15 @@ const QuestionView = ({ currentQuestionData, currentQuestionIndex, totalQuestion
                         )}
                         <button 
                             onClick={onNext} 
-                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 sm:px-8 text-sm md:text-base rounded-xl transition shadow-md flex items-center gap-2 hover:shadow-indigo-500/25 active:scale-95"
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-5 sm:px-8 text-sm md:text-base rounded-xl transition shadow-md flex items-center gap-2 hover:shadow-indigo-500/25 active:scale-95 shrink-0"
                         >
-                            <span>{currentQuestionIndex === totalQuestions - 1 ? 'Finish Exam' : 'Next Question'}</span>
+                            <span>
+                                {currentQuestionIndex === totalQuestions - 1 
+                                    ? (totalQuestions === 1 ? 'Finish & Submit' : 'Finish Exam') 
+                                    : 'Next Question'}
+                            </span>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={currentQuestionIndex === totalQuestions - 1 ? "M5 13l4 4L19 7" : "M9 5l7 7-7 7"} />
                             </svg>
                         </button>
                     </div>
@@ -9823,40 +9827,158 @@ const QuestionView = ({ currentQuestionData, currentQuestionIndex, totalQuestion
     );
 };
 
-const FinalReviewScreen = ({ flaggedQuestions, unansweredQuestions, onGoToQuestion, onSubmitFinal }) => (
-    <div className="p-4 md:p-8 max-w-2xl mx-auto flex flex-col items-center justify-center min-h-[60vh]">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 md:p-10 w-full text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">Final Review</h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-8 text-sm">Please check your answers before submitting.</p>
-            
-            <div className="mb-8 text-left">
-                <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Flagged Questions</h3>
-                {flaggedQuestions.length > 0 ? (
-                    <div className="flex flex-wrap gap-2">
-                        {flaggedQuestions.map(qIndex => (
-                            <button key={`flagged-${qIndex}`} onClick={() => onGoToQuestion(qIndex)} className="h-10 w-10 flex items-center justify-center text-sm font-bold rounded-lg text-yellow-900 bg-yellow-400 hover:bg-yellow-500 transition-colors shadow-sm">{qIndex + 1}</button>
-                        ))}
+const FinalReviewScreen = ({ 
+    totalQuestions = 0, 
+    userAnswers = [], 
+    flaggedQuestions = [], 
+    unansweredQuestions = [], 
+    onGoToQuestion, 
+    onBackToQuestions, 
+    onSubmitFinal 
+}) => {
+    const answeredCount = userAnswers.filter(ans => ans && ans.length > 0).length;
+    const flaggedSet = new Set(flaggedQuestions);
+    const unansweredSet = new Set(unansweredQuestions);
+
+    return (
+        <div className="p-4 md:p-8 max-w-3xl mx-auto flex flex-col items-center justify-center min-h-[60vh]">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 md:p-10 w-full text-center">
+                <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">Final Review</h2>
+                <p className="text-gray-500 dark:text-gray-400 mb-6 text-sm">Please verify your answers before submitting. Click any question below to recheck or change your answer.</p>
+                
+                {/* Status summary banner */}
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 p-3.5 mb-8 bg-gray-50 dark:bg-gray-700/40 rounded-xl border border-gray-100 dark:border-gray-700 text-center">
+                    <div className="flex flex-col items-center">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Answered</span>
+                        <span className="text-base sm:text-lg font-bold text-indigo-600 dark:text-indigo-400">{answeredCount} of {totalQuestions}</span>
                     </div>
-                ) : <p className="text-gray-500 dark:text-gray-400 text-sm italic bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">No questions flagged for review.</p>}
-            </div>
-            
-            <div className="mb-10 text-left">
-                <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Unanswered Questions</h3>
-                {unansweredQuestions.length > 0 ? (
-                    <div className="flex flex-wrap gap-2">
-                        {unansweredQuestions.map(qIndex => (
-                            <button key={`unanswered-${qIndex}`} onClick={() => onGoToQuestion(qIndex)} className="h-10 w-10 flex items-center justify-center text-sm font-bold rounded-lg text-white bg-gray-400 hover:bg-gray-500 transition-colors shadow-sm">{qIndex + 1}</button>
-                        ))}
+                    <div className="flex flex-col items-center border-x border-gray-200 dark:border-gray-600 px-2">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Flagged</span>
+                        <span className="text-base sm:text-lg font-bold text-yellow-600 dark:text-yellow-400">{flaggedQuestions.length}</span>
                     </div>
-                ) : <p className="text-gray-500 dark:text-gray-400 text-sm italic bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">Great job! All questions have been answered.</p>}
+                    <div className="flex flex-col items-center">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Unanswered</span>
+                        <span className={`text-base sm:text-lg font-bold ${unansweredQuestions.length > 0 ? 'text-red-500 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                            {unansweredQuestions.length}
+                        </span>
+                    </div>
+                </div>
+
+                {/* All Questions Interactive Grid */}
+                <div className="mb-8 text-left">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                        <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                            All Questions ({totalQuestions}) <span className="text-xs font-normal normal-case text-gray-500 dark:text-gray-400">— Click to recheck any question</span>
+                        </h3>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 p-3 bg-gray-50/60 dark:bg-gray-700/20 rounded-xl border border-gray-100 dark:border-gray-700/60 max-h-56 overflow-y-auto">
+                        {Array.from({ length: totalQuestions }, (_, qIndex) => {
+                            const isFlagged = flaggedSet.has(qIndex);
+                            const isUnanswered = unansweredSet.has(qIndex);
+
+                            let btnClass = 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-900/40 dark:text-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/60';
+                            let statusText = 'Answered';
+                            
+                            if (isFlagged) {
+                                btnClass = 'bg-yellow-400 text-yellow-950 border-yellow-500 hover:bg-yellow-500 shadow-sm';
+                                statusText = 'Flagged';
+                            } else if (isUnanswered) {
+                                btnClass = 'bg-gray-200 text-gray-700 border-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 hover:bg-gray-300';
+                                statusText = 'Unanswered';
+                            }
+
+                            return (
+                                <button
+                                    key={`grid-q-${qIndex}`}
+                                    onClick={() => onGoToQuestion(qIndex)}
+                                    className={`h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center text-xs sm:text-sm font-bold rounded-lg border transition-all active:scale-95 ${btnClass}`}
+                                    title={`Question ${qIndex + 1} (${statusText}) - Click to review/edit`}
+                                >
+                                    {qIndex + 1}
+                                </button>
+                            );
+                        })}
+                    </div>
+                    
+                    {/* Legend */}
+                    <div className="flex flex-wrap items-center gap-4 mt-2.5 px-1 text-xs text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center gap-1.5">
+                            <span className="h-2.5 w-2.5 rounded bg-indigo-500 shrink-0"></span>
+                            <span>Answered</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <span className="h-2.5 w-2.5 rounded bg-yellow-400 shrink-0"></span>
+                            <span>Flagged</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <span className="h-2.5 w-2.5 rounded bg-gray-300 dark:bg-gray-600 shrink-0"></span>
+                            <span>Unanswered</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Targeted Sections if any are flagged or unanswered */}
+                {(flaggedQuestions.length > 0 || unansweredQuestions.length > 0) && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-left">
+                        {flaggedQuestions.length > 0 && (
+                            <div className="p-3.5 bg-yellow-50/60 dark:bg-yellow-900/10 rounded-xl border border-yellow-200/60 dark:border-yellow-800/40">
+                                <h4 className="text-xs font-bold text-yellow-800 dark:text-yellow-300 uppercase tracking-wider mb-2">Flagged for Review ({flaggedQuestions.length})</h4>
+                                <div className="flex flex-wrap gap-1.5">
+                                    {flaggedQuestions.map(qIndex => (
+                                        <button key={`flagged-${qIndex}`} onClick={() => onGoToQuestion(qIndex)} className="h-8 w-8 flex items-center justify-center text-xs font-bold rounded-md text-yellow-950 bg-yellow-400 hover:bg-yellow-500 transition shadow-sm">
+                                            {qIndex + 1}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                        {unansweredQuestions.length > 0 && (
+                            <div className="p-3.5 bg-red-50/60 dark:bg-red-900/10 rounded-xl border border-red-200/60 dark:border-red-800/40">
+                                <h4 className="text-xs font-bold text-red-800 dark:text-red-300 uppercase tracking-wider mb-2">Unanswered ({unansweredQuestions.length})</h4>
+                                <div className="flex flex-wrap gap-1.5">
+                                    {unansweredQuestions.map(qIndex => (
+                                        <button key={`unanswered-${qIndex}`} onClick={() => onGoToQuestion(qIndex)} className="h-8 w-8 flex items-center justify-center text-xs font-bold rounded-md text-white bg-red-500 hover:bg-red-600 transition shadow-sm">
+                                            {qIndex + 1}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+                
+                {/* Actions: Back to Questions and Submit Final Answers */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <button 
+                        onClick={onBackToQuestions} 
+                        className="w-full sm:w-auto bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 font-bold py-3 px-6 rounded-xl shadow-sm transition flex items-center justify-center gap-2 active:scale-95"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                        </svg>
+                        <span>Back to Questions</span>
+                    </button>
+                    
+                    <button 
+                        onClick={onSubmitFinal} 
+                        className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-xl shadow-md transition duration-200 transform active:scale-95 flex items-center justify-center gap-2"
+                    >
+                        <span>Submit Final Answers</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            
-            <button onClick={onSubmitFinal} className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 px-10 rounded-xl shadow-md transition duration-200 transform active:scale-95">
-                Submit Final Answers
-            </button>
         </div>
-    </div>
-);
+    );
+};
 
 // FIX 3: Expanded History Panel Width (w-[85vw] max-w-md) to stretch correctly
 const HistoryPanel = ({ isVisible, onClose, history, onReview, onClear, onPromptDelete }) => {
@@ -11249,7 +11371,7 @@ const App = () => {
             case 'quiz':
             case 'review':
                  return (
-                    <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden">
+                    <div className="flex flex-col h-[100dvh] max-h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden relative">
                         <Header 
                            onShowHistory={() => setIsHistoryVisible(true)} 
                            onShowSettings={() => setIsSettingsVisible(true)}
@@ -11267,6 +11389,8 @@ const App = () => {
                                 {showFinalReview ? (
                                     <div className="flex-grow overflow-y-auto p-4">
                                         <FinalReviewScreen 
+                                            totalQuestions={currentQuizQuestions.length}
+                                            userAnswers={userAnswers}
                                             flaggedQuestions={flaggedQuestions.map((f, i) => f ? i : -1).filter(i => i !== -1)} 
                                             unansweredQuestions={userAnswers.map((a, i) => {
                                                 const q = currentQuizQuestions[i];
@@ -11276,19 +11400,20 @@ const App = () => {
                                                 return answeredCount < correctCount ? i : -1;
                                             }).filter(i => i !== -1)} 
                                             onGoToQuestion={(qIndex) => { setCurrentQuestionIndex(qIndex); setShowFinalReview(false); }} 
+                                            onBackToQuestions={() => setShowFinalReview(false)}
                                             onSubmitFinal={handleSubmitQuiz} 
                                         />
                                     </div>
                                 ) : (
                                     currentQuizQuestions.length > 0 && <QuestionView 
-                                        currentQuestionData={currentQuizQuestions[currentQuestionIndex]} 
-                                        currentQuestionIndex={currentQuestionIndex} 
+                                        currentQuestionData={currentQuizQuestions[currentQuestionIndex] || currentQuizQuestions[0]} 
+                                        currentQuestionIndex={currentQuestionIndex < currentQuizQuestions.length ? currentQuestionIndex : 0} 
                                         totalQuestions={currentQuizQuestions.length} 
                                         userAnswers={userAnswers} 
                                         onAnswer={handleAnswerOptionClick} 
                                         onFlag={handleToggleFlag} 
                                         onNext={handleNextOrSubmit} 
-                                        onPrev={() => setCurrentQuestionIndex(i => i - 1)} 
+                                        onPrev={() => setCurrentQuestionIndex(i => Math.max(0, i - 1))} 
                                         flaggedQuestions={flaggedQuestions} 
                                         timeLeft={timeLeft} 
                                         onGoToQuestion={setCurrentQuestionIndex}
